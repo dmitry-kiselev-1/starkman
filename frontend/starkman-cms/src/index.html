@@ -1,29 +1,23 @@
-<!--
-
-  Responsive sidenav!!!
-
-  https://material.angular.io/components/sidenav/examples
--->
-
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>StarkmanCms</title>
+  <title>Starkman CMS</title>
   <base href="/">
-
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
-  <app-root></app-root>
-<!--
-  <div style="color: lightgray">
-    <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
-    <span class="sr-only">Loading...</span>
-  </div>
 
-  <i class="material-icons md-48 md-dark md-inactive">face</i>
--->
+  <app-root>
+    <div class="flex-container flex-container-application-loading">
+      <div class="flex-block">
+        <div class="loading-indicator">
+          <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+        </div>
+      </div>
+    </div>
+  </app-root>
+
 </body>
 </html>

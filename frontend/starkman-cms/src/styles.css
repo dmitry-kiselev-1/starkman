@@ -1,7 +1,7 @@
 /*
-https://www.npmjs.com/package/angular-font-awesome
-https://google.github.io/material-design-icons/
-http://fontawesome.io/examples/
+https://material.io/icons
+https://google.github.io/material-design-icons
+http://fontawesome.io/examples
 */
 
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
@@ -34,11 +34,7 @@ purple-green.css
 
 .material-icons.orange600 { color: #FB8C00; }
 
-/*
-ТЕСТ!!!
-*/
-
-.example-container {
+.app-component-container {
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -48,24 +44,48 @@ purple-green.css
   right: 0;
 }
 
-.example-is-mobile .example-toolbar {
+.starkman-is-mobile .starkman-toolbar {
   position: fixed;
   /* Make sure the toolbar will stay on top of the content as it scrolls past. */
   z-index: 2;
 }
 
-h1.example-app-name {
+h1.starkman-app-name {
   margin-left: 8px;
 }
 
-.example-sidenav-container {
+.starkman-sidenav-container {
   /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
      causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
   flex: 1;
 }
 
-.example-is-mobile .example-sidenav-container {
+.starkman-is-mobile .starkman-sidenav-container {
   /* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the
      `<body>` to be our scrolling element for mobile layouts. */
   flex: 1 0 auto;
+}
+
+.flex-container-application-loading{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+
+.loading-indicator {
+  color: lightgray;
+}
+
+html, body, app-component-container, starkman-sidenav-container, .my-content {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+mat-sidenav {
+  width: 30%;
+  /*width: 300px;*/
 }

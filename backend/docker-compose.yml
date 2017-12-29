@@ -1,0 +1,49 @@
+version: '3'
+
+services:
+
+  sql:
+    container_name: starkman-postgres
+    image: postgres
+    #build:
+    #  context: .
+    #  dockerfile: Starkman.Backend.Storage/Postgres/Dockerfile
+    ports:
+      - "5432:5432"
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: password
+    networks:
+     - starkman-backend
+
+  redis:
+    container_name: starkman-redis
+    image: redis
+    ports:
+      - "6379:6379"
+    restart: always
+    #build:
+    #  context: .
+    #  dockerfile: Starkman.Backend.Storage/Redis/Dockerfile
+    networks:
+      - starkman-backend
+    depends_on: 
+      - sql
+
+  webapi:
+    container_name: starkman-api
+    image: webapi
+    ports:
+      - "8080:80"
+    restart: always
+    build:
+      context: .
+      dockerfile: Starkman.Backend.WebApi/Dockerfile
+    networks:
+     - starkman-backend
+    depends_on: 
+      - sql
+      - redis
+      
+networks:
+  starkman-backend:

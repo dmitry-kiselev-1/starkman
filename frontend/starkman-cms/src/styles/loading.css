@@ -9,7 +9,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #fafafa;
 }
 
 .lds-spin {
@@ -20,7 +19,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #373736;
+  background: #808080;
   -webkit-animation: lds-spin 1s linear infinite;
   animation: lds-spin 1s linear infinite;
 }

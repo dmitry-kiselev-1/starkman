@@ -6,7 +6,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppMaterialModule} from './app-material.module';
 import {AppPrimengModule} from './app-primeng.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpModule} from '@angular/http';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -18,6 +18,7 @@ import {HttpModule} from '@angular/http';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
     AppPrimengModule,
     AppMaterialModule
   ],

@@ -1,3 +1,12 @@
+/*
+https://habrahabr.ru/post/336280/ описание HttpClientModule
+
+https://material.angular.io/components/categories
+
+https://material.io/icons
+http://fontawesome.io/examples
+*/
+
 # StarkmanCms
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.3.

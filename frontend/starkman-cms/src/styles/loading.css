@@ -1,0 +1,14 @@
+/* Индикатор загрузки приложения */
+
+.flex-container-application-loading{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fafafa;
+}
+
+.loading-indicator {
+  color: lightgray;
+}

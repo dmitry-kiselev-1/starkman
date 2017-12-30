@@ -12,7 +12,7 @@ export class AppComponent {
 
   sidenavWidth = 56;
 
-  fillerNav = Array(50).fill(0).map((_, i) => `Nav Item ${i + 1}`);
+  fillerNav = Array(5).fill(0).map((_, i) => `Nav Item ${i + 1}`);
   fillerContent = Array(50).fill(0).map(() =>
     `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco

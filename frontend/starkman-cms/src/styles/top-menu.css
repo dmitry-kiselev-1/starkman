@@ -1,0 +1,16 @@
+/* Стилизация верхнего меню */
+
+.mat-toolbar.mat-primary
+{
+  background: #808080;
+}
+
+h1.starkman-app-name {
+  margin-left: 8px;
+}
+
+.starkman-is-mobile .starkman-toolbar {
+  position: fixed;
+  /* Make sure the toolbar will stay on top of the content as it scrolls past. */
+  z-index: 2;
+}

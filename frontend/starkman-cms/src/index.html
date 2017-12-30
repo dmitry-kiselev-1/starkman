@@ -6,14 +6,29 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
 
-  <app-root>
-    <div class="flex-container flex-container-application-loading">
+<mat-progress-spinner
+  [color]="'primary'"
+  [mode]="'Indeterminate'"
+  [value]="50">
+</mat-progress-spinner>
+
+<app-root>
+    <div class="flex-container loading-container">
       <div class="flex-block">
         <div class="loading-indicator">
-          <i class="fa fa-spinner fa-pulse fa-4x fa-fw"></i>
+<!--
+          <mat-progress-spinner
+            [color]="'primary'"
+            [mode]="'Indeterminate'"
+            [value]="50">
+          </mat-progress-spinner>
+-->
+          <!--<i class="fa fa-spinner fa-pulse fa-4x fa-fw"></i>-->
         </div>
       </div>
     </div>

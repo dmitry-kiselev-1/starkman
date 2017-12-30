@@ -1,38 +1,26 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Starkman CMS</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
 
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-</head>
-<body>
+  <head>
+    <meta charset="utf-8">
+    <title>Starkman CMS</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+  </head>
 
-<mat-progress-spinner
-  [color]="'primary'"
-  [mode]="'Indeterminate'"
-  [value]="50">
-</mat-progress-spinner>
-
-<app-root>
-    <div class="flex-container loading-container">
-      <div class="flex-block">
-        <div class="loading-indicator">
-<!--
-          <mat-progress-spinner
-            [color]="'primary'"
-            [mode]="'Indeterminate'"
-            [value]="50">
-          </mat-progress-spinner>
--->
-          <!--<i class="fa fa-spinner fa-pulse fa-4x fa-fw"></i>-->
+  <body>
+    <app-root>
+      <div class="flex-container loading-container">
+        <div class="flex-block">
+            <div class="lds-css">
+              <div class="lds-spin">
+                <div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div>
+              </div>
+            </div>
         </div>
       </div>
-    </div>
-  </app-root>
+    </app-root>
+  </body>
 
-</body>
 </html>

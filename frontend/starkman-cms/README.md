@@ -5,6 +5,8 @@ https://material.angular.io/components/categories
 
 https://material.io/icons
 http://fontawesome.io/examples
+
+https://loading.io/spinner/custom/92630
 */
 
 # StarkmanCms

@@ -12,4 +12,9 @@
     <ProjectReference Include="..\Starkman.Backend.Storage\Starkman.Backend.Storage.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Entities\Price\" />
+    <Folder Include="Entities\Order\" />
+  </ItemGroup>
+
 </Project>

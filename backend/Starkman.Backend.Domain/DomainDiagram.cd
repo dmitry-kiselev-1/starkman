@@ -1,2 +1,46 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram /> 
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="Starkman.Backend.Domain.Entities.StorageEntity">
+    <Position X="3.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\StorageEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Starkman.Backend.Domain.Entities.Seo.SeoEntity">
+    <Position X="3" Y="2.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>QAAABAAAAAAgAEAAAAAAAAAAACAAAAAACAAAAABAAAA=</HashCode>
+      <FileName>Entities\Seo\SeoEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Starkman.Backend.Domain.Entities.Seo.Category">
+    <Position X="0.5" Y="5.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAAAAAAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Seo\Category.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Starkman.Backend.Domain.Seo.Photo">
+    <Position X="6.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Seo\Photo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Starkman.Backend.Domain.Seo.Product">
+    <Position X="3.5" Y="5.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgEAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Seo\Product.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Starkman.Backend.Domain.Services.IStorageService&lt;T&gt;">
+    <Position X="7" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAgAAAEACAAAIAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\IStorageService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

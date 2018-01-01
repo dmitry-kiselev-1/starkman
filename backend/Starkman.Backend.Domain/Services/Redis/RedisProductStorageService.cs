@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Starkman.Backend.Domain.Entities.Seo;
 using Newtonsoft.Json;
-using StackExchange.Redis;
 using Storage.Redis;
 
 
@@ -11,7 +10,7 @@ namespace Starkman.Backend.Domain.Services.Redis
 {
     public class RedisProductStorageService : IStorageService<Category>
     {
-        private const string EntityName = "Category";
+        private const string EntityName = "Product";
 
         public async Task<IEnumerable<Category>> ListAsync()
         {

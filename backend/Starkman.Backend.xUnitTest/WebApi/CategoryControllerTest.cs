@@ -1,10 +1,9 @@
-using System;
 using Starkman.Backend.WebApi.Controllers;
 using Xunit;
 
-namespace xUnitTest.Postgres
+namespace Starkman.Backend.xUnitTest.WebApi
 {
-    public class ValuesControllerTest
+    public class CategoryControllerTest
     {
         [Fact]
         public async void GetEntityAsyncPostgrisTest()

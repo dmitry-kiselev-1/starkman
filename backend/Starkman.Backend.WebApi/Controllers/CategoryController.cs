@@ -14,9 +14,8 @@ namespace Starkman.Backend.WebApi.Controllers
         [HttpGet]
         public async Task<IEnumerable<Category>> GetAsync()
         {
-            IStorageService<Category> service = new RedisProductStorageService();
-            var entityList = await service.ListAsync();
-            return entityList;
+            IStorageService<Category> service = new RedisCategoryStorageService();
+            return await service.ListAsync();
         }
 
         // GET api/admin/5

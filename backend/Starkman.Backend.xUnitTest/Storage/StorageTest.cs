@@ -34,8 +34,9 @@ namespace Starkman.Backend.xUnitTest.Storage
 
             foreach (var category in categoryList)
             {
-                await RedisContext.RedisConnection.GetDatabase(0)
-                    .HashIncrementAsync(category.Url, JsonConvert.SerializeObject(category));
+                await RedisContext.RedisConnection.GetDatabase(0).HashSetAsync(EntityName, category.Url,
+                    JsonConvert.SerializeObject(category, Formatting.None,
+                        new JsonSerializerSettings() {NullValueHandling = NullValueHandling.Ignore}));
             }
 
             var keyExists = await RedisContext.RedisConnection.GetDatabase(0).KeyExistsAsync(EntityName);

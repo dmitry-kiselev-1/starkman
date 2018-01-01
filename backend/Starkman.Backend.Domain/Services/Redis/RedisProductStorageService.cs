@@ -1,22 +1,26 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Starkman.Backend.Domain.Entities.Seo;
+using Newtonsoft.Json;
+using StackExchange.Redis;
 using Storage.Redis;
+
 
 namespace Starkman.Backend.Domain.Services.Redis
 {
     public class RedisProductStorageService : IStorageService<Category>
     {
+        private const string EntityName = "Category";
+
         public async Task<IEnumerable<Category>> ListAsync()
         {
-            var entityList = await RedisContext.RedisConnection.GetDatabase(0).HashGetAllAsync("Category");
+            var redisHash = await RedisContext.RedisConnection.GetDatabase(0).HashValuesAsync(EntityName);
 
-            //entityList[0].Name
-            //entityList[0].Value
-
-            //ToDo: преобразовать через json-сериализатор в IEnumerable<Category>
-
-            throw new System.NotImplementedException();
+            return
+                redisHash.Any()
+                ? redisHash.Select(c => JsonConvert.DeserializeObject<Category>(c))
+                : null;
         }
 
         public async Task<Category> FindAsync(string key)

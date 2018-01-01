@@ -1,21 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Domain;
 using Microsoft.AspNetCore.Mvc;
-using Storage.Postgres;
+using Starkman.Backend.Domain.Entities.Seo;
+using Starkman.Backend.Domain.Services;
+using Starkman.Backend.Domain.Services.Redis;
 
-namespace WebApi.Controllers
+namespace Starkman.Backend.WebApi.Controllers
 {
     [Route("api/[controller]")]
     public class CategoryController : Controller
     {
         // GET api/admin
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IEnumerable<Category>> GetAsync()
         {
-            return new string[] {"value1", "value2"};
+            IStorageService<Category> service = new RedisProductStorageService();
+            var entityList = await service.ListAsync();
+            return entityList;
         }
 
         // GET api/admin/5

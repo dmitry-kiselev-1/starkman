@@ -35,12 +35,5 @@
       <FileName>Entities\Seo\Product.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Interface Name="Starkman.Backend.Domain.Services.IStorageService">
-    <Position X="6.5" Y="0.5" Width="2.75" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAgAAAAACAAAIAAAAAAAAAACAAA=</HashCode>
-      <FileName>Services\IStorageService.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

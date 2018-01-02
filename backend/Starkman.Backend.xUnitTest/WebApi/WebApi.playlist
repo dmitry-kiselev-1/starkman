@@ -1,0 +1,1 @@
+<Playlist Version="1.0"><Add Test="Starkman.Backend.xUnitTest.WebApi.CategoryControllerTest.GetEntityListTest" /><Add Test="Starkman.Backend.xUnitTest.WebApi.CategoryControllerTest.GetEntityTest" /><Add Test="Starkman.Backend.xUnitTest.WebApi.CategoryControllerTest.PostTest" /><Add Test="Starkman.Backend.xUnitTest.WebApi.CategoryControllerTest.DeleteTest" /></Playlist>

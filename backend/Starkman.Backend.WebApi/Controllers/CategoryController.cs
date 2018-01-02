@@ -10,6 +10,16 @@ namespace Starkman.Backend.WebApi.Controllers
     [Route("api/[controller]")]
     public class CategoryController : Controller
     {
+        private readonly IStorageService<Category> _storageService;
+
+        /// <summary>
+        /// Dependency injection from Startup.cs -> void ConfigureServices
+        /// </summary>
+        public CategoryController(IStorageService<Category> storageService)
+        {
+            this._storageService = storageService;
+        }
+
         // GET api/сategory
         [HttpGet]
         public async Task<IEnumerable<Category>> Get()

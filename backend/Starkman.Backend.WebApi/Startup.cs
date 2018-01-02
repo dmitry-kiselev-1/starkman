@@ -9,6 +9,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Starkman.Backend.Domain.Entities.Seo;
+using Starkman.Backend.Domain.Services;
+using Starkman.Backend.Domain.Services.Redis;
 
 namespace WebApi
 {
@@ -24,6 +27,8 @@ namespace WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Add(ServiceDescriptor.Transient<IStorageService<Category>, RedisCategoryStorageService>());
+
             services.AddMvc();
         }
 

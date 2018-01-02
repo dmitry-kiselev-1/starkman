@@ -24,24 +24,21 @@ namespace Starkman.Backend.WebApi.Controllers
         [HttpGet]
         public async Task<IEnumerable<Category>> Get()
         {
-            IStorageService<Category> service = new RedisCategoryStorageService();
-            return await service.ListAsync();
+            return await this._storageService.ListAsync();
         }
 
         // GET api/сategory/5
         [HttpGet("{id}")]
         public async Task<Category> Get(string id)
         {
-            IStorageService<Category> service = new RedisCategoryStorageService();
-            return await service.FindAsync(id);
+            return await this._storageService.FindAsync(id);
         }
 
         // POST api/сategory
         [HttpPost]
         public async Task<bool> Post([FromBody] Category entity)
         {
-            IStorageService<Category> service = new RedisCategoryStorageService();
-            return await service.SetAsync(entity);
+            return await this._storageService.SetAsync(entity);
         }
 
 
@@ -49,8 +46,7 @@ namespace Starkman.Backend.WebApi.Controllers
         [HttpDelete("{id}")]
         public async Task<bool> Delete(string id)
         {
-            IStorageService<Category> service = new RedisCategoryStorageService();
-            return await service.RemoveAsync(id);
+            return await this._storageService.RemoveAsync(id);
         }
 
     }

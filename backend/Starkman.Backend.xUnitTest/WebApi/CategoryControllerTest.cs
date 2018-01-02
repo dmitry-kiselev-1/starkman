@@ -1,4 +1,7 @@
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Moq;
 using Starkman.Backend.Domain.Entities.Seo;
 using Starkman.Backend.Domain.Services;
 using Starkman.Backend.Domain.Services.Redis;
@@ -21,6 +24,18 @@ namespace Starkman.Backend.xUnitTest.WebApi
         [Fact]
         public async void GetEntityListTest()
         {
+            // Mock instead service:
+            /*
+                var mock = new Mock<IStorageService<Category>>();
+                mock.Setup(storageService => storageService.ListAsync())
+                    .Returns(Task.Run<IEnumerable<Category>>(() => new List<Category>()
+                    {
+                        new Category() {Url = "mock_test_category_1", Title = "mock Тестовая категория 1", SortOrder = 1},
+                        new Category() {Url = "mock_test_category_2", Title = "mock Тестовая категория 2", SortOrder = 2}
+                    }));
+                CategoryController controller = new CategoryController(mock.Object);
+            */
+
             CategoryController controller = new CategoryController(this._storageService);
             var result = await controller.Get();
             Assert.True((result != null) && (result.Count() > 1));

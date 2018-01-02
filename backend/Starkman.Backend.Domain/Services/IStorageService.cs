@@ -11,12 +11,24 @@ namespace Starkman.Backend.Domain.Services
     /// <typeparam name="T"></typeparam>
     public interface IStorageService<T> where T : StorageEntity
     {
+        /// <summary>
+        /// Возвращает полную коллекцию сущностей T
+        /// </summary>
         Task<IEnumerable<T>> ListAsync();
 
+        /// <summary>
+        /// Возвращает сущность T по ключу
+        /// </summary>
         Task<T> FindAsync(string key);
 
-        void AddAsync(T entity);
+        /// <summary>
+        /// Перезаписывает (добавляет при отсутствии) сущность T
+        /// </summary>
+        Task<bool> SetAsync(T entity);
 
-        void RemoveAsync(string key);
+        /// <summary>
+        /// Удаляет сущность T
+        /// </summary>
+        Task<bool> RemoveAsync(string key);
     }
 }

@@ -36,9 +36,9 @@
     </TypeIdentifier>
   </Class>
   <Interface Name="Starkman.Backend.Domain.Services.IStorageService&lt;T&gt;">
-    <Position X="7" Y="0.5" Width="2.75" />
+    <Position X="6.5" Y="0.5" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAgAAAEACAAAIAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAgAAAAACAAAIAAAAAAAAAACAAA=</HashCode>
       <FileName>Services\IStorageService.cs</FileName>
     </TypeIdentifier>
   </Interface>

@@ -10,63 +10,38 @@ namespace Starkman.Backend.WebApi.Controllers
     [Route("api/[controller]")]
     public class CategoryController : Controller
     {
-        // GET api/admin
+        // GET api/сategory
         [HttpGet]
-        public async Task<IEnumerable<Category>> GetAsync()
+        public async Task<IEnumerable<Category>> Get()
         {
             IStorageService<Category> service = new RedisCategoryStorageService();
             return await service.ListAsync();
         }
 
-        // GET api/admin/5
+        // GET api/сategory/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<Category> Get(string id)
         {
-            return "value";
+            IStorageService<Category> service = new RedisCategoryStorageService();
+            return await service.FindAsync(id);
         }
 
-        // POST api/admin
+        // POST api/сategory
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async void Post([FromBody] Category entity)
         {
+            IStorageService<Category> service = new RedisCategoryStorageService();
+            await service.SetAsync(entity);
         }
 
-        // PUT api/admin/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
 
-        // DELETE api/admin/5
+        // DELETE api/сategory/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async void Delete(string id)
         {
+            IStorageService<Category> service = new RedisCategoryStorageService();
+            await service.RemoveAsync(id);
         }
 
-        /*
-        public async Task<IEnumerable<Apartment>> GetApartments()
-        {
-            using (PostgresContext db = new PostgresContext())
-            {
-                // создаем два объекта User
-                Building building1 = new Building() {Address = "Адрес1", Id = db.Building.Count() + 1};
-                Building building2 = new Building() { Address = "Адрес2", Id = db.Building.Count() + 2 };
-
-                // добавляем их в бд
-                await db.Building.AddAsync(building1);
-                await db.Building.AddAsync(building2);
-
-                await db.SaveChangesAsync();
-            }
-
-            return await Task.Run(() =>
-            {
-                using (PostgresContext db = new PostgresContext())
-                {
-                    return db.Apartment.ToList();
-                }
-            });
-        }
-        */
     }
 }

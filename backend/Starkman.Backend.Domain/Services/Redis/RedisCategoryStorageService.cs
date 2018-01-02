@@ -3,17 +3,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using Starkman.Backend.Domain.Entities.Seo;
 using Newtonsoft.Json;
-using Storage.Redis;
+using StackExchange.Redis;
+using Starkman.Backend.Storage.Redis;
 
 namespace Starkman.Backend.Domain.Services.Redis
 {
     public class RedisCategoryStorageService: IStorageService<Category>
     {
-        private const string EntityName = "Category";
+        private string _entityName = "Category";
+        private int _databaseId = 0;
 
         public async Task<IEnumerable<Category>> ListAsync()
         {
-            var redisHash = await RedisContext.RedisConnection.GetDatabase(0).HashValuesAsync(EntityName);
+            var redisHash = await RedisContext.RedisConnection.GetDatabase(_databaseId).HashValuesAsync(_entityName);
 
             return
                 redisHash.Any()
@@ -23,17 +25,24 @@ namespace Starkman.Backend.Domain.Services.Redis
 
         public async Task<Category> FindAsync(string key)
         {
-            throw new System.NotImplementedException();
+            var redisValue = await RedisContext.RedisConnection.GetDatabase(_databaseId).HashGetAsync(_entityName, key);
+
+            return 
+                redisValue.HasValue
+                    ? JsonConvert.DeserializeObject<Category>(redisValue)
+                    : null;
         }
 
-        public void AddAsync(Category entity)
+        public async Task<bool> SetAsync(Category entity)
         {
-            throw new System.NotImplementedException();
+            return await RedisContext.RedisConnection.GetDatabase(_databaseId).HashSetAsync(_entityName, entity.Url,
+                JsonConvert.SerializeObject(entity, Formatting.None,
+                    new JsonSerializerSettings() {NullValueHandling = NullValueHandling.Ignore}));
         }
 
-        public void RemoveAsync(string key)
+        public async Task<bool> RemoveAsync(string key)
         {
-            throw new System.NotImplementedException();
+            return await RedisContext.RedisConnection.GetDatabase(_databaseId).HashDeleteAsync(_entityName, key);
         }
     }
 }

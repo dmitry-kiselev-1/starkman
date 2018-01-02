@@ -28,19 +28,19 @@ namespace Starkman.Backend.WebApi.Controllers
 
         // POST api/сategory
         [HttpPost]
-        public async void Post([FromBody] Category entity)
+        public async Task<bool> Post([FromBody] Category entity)
         {
             IStorageService<Category> service = new RedisCategoryStorageService();
-            await service.SetAsync(entity);
+            return await service.SetAsync(entity);
         }
 
 
         // DELETE api/сategory/5
         [HttpDelete("{id}")]
-        public async void Delete(string id)
+        public async Task<bool> Delete(string id)
         {
             IStorageService<Category> service = new RedisCategoryStorageService();
-            await service.RemoveAsync(id);
+            return await service.RemoveAsync(id);
         }
 
     }

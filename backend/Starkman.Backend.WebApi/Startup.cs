@@ -14,6 +14,7 @@ using Newtonsoft.Json.Serialization;
 using Starkman.Backend.Domain.Entities.Seo;
 using Starkman.Backend.Domain.Services;
 using Starkman.Backend.Domain.Services.Redis;
+using Starkman.Backend.WebApi.Middleware;
 
 namespace WebApi
 {
@@ -29,7 +30,7 @@ namespace WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddResponseCompression();
+            services.AddResponseCompression(options => { options.EnableForHttps = true; });
 
             services.AddMvc()
                 .AddJsonOptions(options =>
@@ -45,6 +46,10 @@ namespace WebApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseStaticFiles();
+
+            //app.UseMiddleware<TokenMiddleware>();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

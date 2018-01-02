@@ -6,10 +6,10 @@ namespace Starkman.Backend.xUnitTest.WebApi
     public class CategoryControllerTest
     {
         [Fact]
-        public async void GetEntityAsyncPostgrisTest()
+        public async void GetTest()
         {
             CategoryController controller = new CategoryController();
-            var result = await controller.GetAsync();
+            var result = await controller.Get();
             Assert.True(result != null);
         }
     }

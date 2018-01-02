@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Starkman.Backend.Domain.Entities.Seo;
 using Newtonsoft.Json;
 using StackExchange.Redis;
+using Starkman.Backend.Domain.Seo;
 using Starkman.Backend.Storage.Redis;
 
 namespace Starkman.Backend.Domain.Services.Redis

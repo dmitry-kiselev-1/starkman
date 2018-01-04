@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using Starkman.Backend.Domain.Entities.Seo;
 
-namespace Starkman.Backend.Domain.Seo
+namespace Starkman.Backend.Domain.Entities.Page
 {
-    public class Product: SeoEntity
+    public class Product: Page
     {
         public int Sku { get; set; }
         public IList<Photo> PhotoList { get; set; }

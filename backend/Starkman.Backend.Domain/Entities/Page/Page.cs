@@ -1,10 +1,10 @@
-﻿namespace Starkman.Backend.Domain.Entities.Seo
+﻿namespace Starkman.Backend.Domain.Entities.Page
 {
     /// <inheritdoc />
     /// <summary> 
     /// Индексируемая html-страница в аспекте Seo
     /// </summary>
-    public abstract class SeoEntity: StorageEntity
+    public abstract class Page: StorageEntity
     {
         public string Url { get; set; }
         public string UrlParent { get; set; }

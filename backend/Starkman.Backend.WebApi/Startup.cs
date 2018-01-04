@@ -11,7 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Serialization;
-using Starkman.Backend.Domain.Entities.Seo;
+using Starkman.Backend.Domain.Entities.Page;
 using Starkman.Backend.Domain.Services;
 using Starkman.Backend.Domain.Services.Redis;
 using Starkman.Backend.WebApi.Middleware;

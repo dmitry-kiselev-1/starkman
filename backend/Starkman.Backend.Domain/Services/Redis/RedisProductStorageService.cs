@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Starkman.Backend.Domain.Entities.Seo;
 using Newtonsoft.Json;
 using StackExchange.Redis;
-using Starkman.Backend.Domain.Seo;
+using Starkman.Backend.Domain.Entities.Page;
 using Starkman.Backend.Storage.Redis;
 
 namespace Starkman.Backend.Domain.Services.Redis

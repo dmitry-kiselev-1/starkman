@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using Starkman.Backend.Domain.Entities.Seo;
+using Starkman.Backend.Domain.Entities.Page;
 using Starkman.Backend.Storage.Redis;
 
 namespace Starkman.Backend.xUnitTest.WebApi

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 using StackExchange.Redis;
-using Starkman.Backend.Domain.Entities.Seo;
+using Starkman.Backend.Domain.Entities.Page;
 using Starkman.Backend.Storage.Redis;
 using Starkman.Backend.WebApi.Controllers;
 using Xunit;

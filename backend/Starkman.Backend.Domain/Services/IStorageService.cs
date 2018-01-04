@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Starkman.Backend.Domain.Entities;
-using Starkman.Backend.Domain.Entities.Seo;
 
 namespace Starkman.Backend.Domain.Services
 {

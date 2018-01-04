@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Starkman.Backend.Domain.Entities.Seo;
+using Starkman.Backend.Domain.Entities.Page;
 using Starkman.Backend.Domain.Services;
 using Starkman.Backend.Domain.Services.Redis;
 

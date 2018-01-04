@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Starkman.Backend.Domain.Entities.Seo;
-using Storage.Postgres;
 
 namespace Starkman.Backend.Domain.Seo
 {

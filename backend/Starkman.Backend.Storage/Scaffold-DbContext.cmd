@@ -1,2 +1,0 @@
-﻿rem https://docs.microsoft.com/en-us/ef/core/miscellaneous/cli/powershell
-Scaffold-DbContext -Connection "Host=localhost;Port=5432;Database=postgres;Username=postgres;Password=password" -Provider Npgsql.EntityFrameworkCore.PostgreSQL -OutputDir Postgres -Context PostgresContext -Force

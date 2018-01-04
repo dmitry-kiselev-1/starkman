@@ -8,9 +8,9 @@ services:
     ports:
       - "6379:6379"
     restart: always
-    build:
-      context: Starkman.Backend.Storage/Redis
-      dockerfile: Dockerfile
+    #build:
+    #  context: .
+    #  dockerfile: Starkman.Backend.Storage/Redis/Dockerfile
     networks:
       - starkman-backend
 

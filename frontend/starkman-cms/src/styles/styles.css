@@ -26,12 +26,12 @@ purple-green.css
 }
 
 html, body, app-component-container, starkman-sidenav-container, .my-content {
+  display: flex;
+  flex-direction: column;
+
   margin: 0;
   width: 100%;
   height: 100%;
-}
-
-body {
   font-family: Roboto, Arial, sans-serif;
   margin: 0;
 }

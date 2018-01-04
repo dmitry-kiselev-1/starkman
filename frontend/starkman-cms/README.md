@@ -1,3 +1,7 @@
+
+ng generate service services\category
+ng generate component components\category  --module app
+
 /*
 https://habrahabr.ru/post/336280/ описание HttpClientModule
 

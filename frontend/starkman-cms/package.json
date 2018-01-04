@@ -8,7 +8,7 @@
     "npm prune": "npm prune",
     "ng build": "ng build",
     "ng serve  --port 4200": "ng serve -port 4200",
-    "ng build --env=prod --aot": "ng build --prod --aot",
+    "ng build --env=prod --aot": "ng build --env=prod -prod --aot",
     "ng test": "ng test",
     "ng lint": "ng lint",
     "ng e2e": "ng e2e",
@@ -28,6 +28,7 @@
     "@angular/platform-browser": "^5.0.0",
     "@angular/platform-browser-dynamic": "^5.0.0",
     "@angular/router": "^5.0.0",
+    "@angular/flex-layout": "^2.0.0-beta.12",
     "core-js": "^2.4.1",
     "hammerjs": "^2.0.8",
     "lodash": "^4.17.4",
@@ -36,7 +37,8 @@
     "stylelint": "^8.4.0",
     "zone.js": "^0.8.14",
     "web-animations-js": "^2.3.1",
-    "angular-in-memory-web-api": "^0.5.2"
+    "angular-in-memory-web-api": "^0.5.2",
+    "moment": "^2.20.1"
   },
   "devDependencies": {
     "@angular/cli": "1.6.3",

@@ -1,27 +1,29 @@
 ﻿export class StorageEntity {
-    public Key: string;
+    public key: string;
 }
 
 export class Page extends StorageEntity {
-    public Url: string;
-    public UrlParent: string;
-    public Title: string;
-    public Description: string;
-    public MetaKeywords: string;
-    public MetaDescription: string;
-    public SortOrder: number;
+    public url: string;
+    public urlParent: string;
+    public title: string;
+    public description: string;
+    public metaKeywords: string;
+    public metaDescription: string;
+    public sortOrder: number;
 }
 
 export class Category extends Page {
-    public Photo: Photo;
-    public ProductList: Product[];
+    public photo: Photo;
+    public productList: Product[];
 }
 
 export class Photo extends Page {
-    public Data: number[];
+    public data: number[];
 }
 
 export class Product extends Page {
-    public Sku: number;
-    public PhotoList: Photo[];
+    public sku: number;
+    public photoList: Photo[];
 }
+
+

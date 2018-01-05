@@ -1,8 +1,26 @@
-<p>
-  Товарные категории
 
-  <mat-list>
-    <a mat-list-item routerLink="." *ngFor="let entity of entityList">{{entity.Title}}</a>
-  </mat-list>
+<mat-expansion-panel expanded="true">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Товарные категории
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <p>
+    <mat-nav-list>
+      <a *ngFor="let entity of entityList" mat-list-item routerLink="{{entity.Url}}">{{entity.Title}}</a>
+    </mat-nav-list>
+  </p>
+</mat-expansion-panel>
 
-</p>
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Заказы
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <p>
+    <mat-list>
+
+    </mat-list>
+  </p>
+</mat-expansion-panel>

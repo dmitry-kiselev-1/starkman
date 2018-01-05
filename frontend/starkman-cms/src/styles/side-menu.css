@@ -19,3 +19,8 @@
   background-color: #fafafa;
   height: 99%;
 }
+
+.mat-expansion-panel
+{
+  background: transparent;
+}

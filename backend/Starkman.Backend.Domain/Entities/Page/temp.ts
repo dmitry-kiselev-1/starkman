@@ -14,7 +14,7 @@ export class Page extends StorageEntity {
 
 export class Category extends Page {
     public Photo: Photo;
-    public ProductList: IList<Product>;
+    public ProductList: Product[];
 }
 
 export class Photo extends Page {
@@ -23,5 +23,5 @@ export class Photo extends Page {
 
 export class Product extends Page {
     public Sku: number;
-    public PhotoList: Array<Photo>;
+    public PhotoList: Photo[];
 }

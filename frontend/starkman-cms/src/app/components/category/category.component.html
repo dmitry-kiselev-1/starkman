@@ -1,4 +1,8 @@
 <p>
-  Category list...
-  <!--<a mat-list-item routerLink="." *ngFor="let nav of fillerNav">{{nav}}</a>-->
+  Товарные категории
+
+  <mat-list>
+    <a mat-list-item routerLink="." *ngFor="let entity of entityList">{{entity.title}}</a>
+  </mat-list>
+
 </p>

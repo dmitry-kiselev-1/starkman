@@ -1,12 +1,13 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
-import { MediaMatcher } from '@angular/cdk/layout';
+import {ChangeDetectorRef, Component} from '@angular/core';
+import {MediaMatcher} from '@angular/cdk/layout';
+import {BaseComponent} from './components/base.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent extends BaseComponent {
   title = 'Starkman CMS';
   mobileQuery: MediaQueryList;
 
@@ -23,6 +24,7 @@ export class AppComponent {
   private _mobileQueryListener: () => void;
 
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+    super();
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);

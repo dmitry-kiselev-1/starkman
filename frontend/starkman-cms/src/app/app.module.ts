@@ -8,7 +8,9 @@ import {AppMaterialModule} from './app-material.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {FlexLayoutModule} from '@angular/flex-layout';
-import { CategoryComponent } from './components/category/category.component';
+import {CategoryComponent} from './components/category/category.component';
+import {CategoryService} from './services/category.service';
+import {HttpModule} from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -21,11 +23,12 @@ import { CategoryComponent } from './components/category/category.component';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpModule,
     HttpClientModule,
     AppMaterialModule,
     FlexLayoutModule
   ],
-  providers: [],
+  providers: [CategoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

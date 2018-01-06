@@ -8,7 +8,7 @@
 }
 */
 .mat-fab.mat-primary, .mat-mini-fab.mat-primary, .mat-raised-button.mat-primary {
-  background-color: #3f51b5;
+  background-color: green; /*#3f51b5;*/
 }
 
 .mat-fab.mat-accent, .mat-mini-fab.mat-accent, .mat-raised-button.mat-accent {
@@ -28,3 +28,12 @@
   background-color: #3f51b5;
 }
 */
+
+/* отражение по горизонтали */
+.flipH { transform: scale(1, -1) }
+
+/* отражение по вертикали */
+.flipV { transform: scale(-1, 1) }
+
+/* оодновременное отражение по горизонтали и вертикали */
+.flipHV { transform: scale(-1, -1) }

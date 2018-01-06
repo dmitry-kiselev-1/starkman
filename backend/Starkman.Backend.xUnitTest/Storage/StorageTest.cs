@@ -18,7 +18,7 @@ namespace Starkman.Backend.xUnitTest.Storage
         {
             var categoryList = new List<Category>()
             {
-                new Category() { Url = "bryuki_casual", Title = "Брюки Casua", SortOrder = 1 },
+                new Category() { Url = "bryuki_casual", Title = "Брюки Casual", SortOrder = 1 },
                 new Category() { Url = "bryuki_klassika", Title = "Брюки классика", SortOrder = 2 },
                 new Category() { Url = "bryuki_zauzhennye", Title = "Брюки зауженные", SortOrder = 3 },
                 new Category() { Url = "bryuki_detskie", Title = "Брюки детские", SortOrder = 4 },

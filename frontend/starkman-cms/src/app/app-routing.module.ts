@@ -7,7 +7,7 @@ const routes: Routes = [
   /*{ path: '**', component: AppComponent, data: {title: 'Knight Frank'} },*/
   {
     path: 'category', children: [
-      { path: ':category_url', component: CategoryEditComponent, data: {title: 'Редактор категории'} },
+      { path: ':category_url', component: CategoryEditComponent, data: {title: 'Карточка товарной категории'} },
     ]
   }
 ];

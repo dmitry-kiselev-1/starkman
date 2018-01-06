@@ -19,7 +19,7 @@ namespace Starkman.Backend.Domain.Services.Redis
 
             return
                 redisHash.Any()
-                    ? redisHash.Select(c => JsonConvert.DeserializeObject<Category>(c))
+                    ? redisHash.Select(c => JsonConvert.DeserializeObject<Category>(c)).OrderBy(c => c.SortOrder)
                     : null;
         }
 

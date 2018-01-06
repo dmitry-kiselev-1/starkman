@@ -2,3 +2,13 @@
   margin-left: 20px;
   margin-right: 20px;
 }
+
+.edit-form-container {
+  display: flex;
+  flex-direction: column;
+}
+/*
+.edit-form-container > * {
+  width: 100%;
+}
+*/

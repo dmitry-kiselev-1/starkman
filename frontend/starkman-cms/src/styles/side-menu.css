@@ -10,7 +10,6 @@
 
 .mat-sidenav {
   width: 30%;
-  /*width: 300px;*/
 }
 
 /* Стилизация бокового меню */
@@ -23,4 +22,20 @@
 .mat-expansion-panel
 {
   background: transparent;
+}
+/*
+a
+{
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+*/
+
+.mat-list .mat-list-item, .mat-nav-list .mat-list-item, .mat-selection-list .mat-list-item {
+  /*font-size: 1em;*/ /*16px*/
+}
+
+.mat-card-title
+{
+  font-size: 20px;
 }

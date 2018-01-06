@@ -17,8 +17,7 @@ export class CategoryListComponent extends BaseComponent implements OnInit {
   public entityList: Category[] = [];
 
   ngOnInit() {
-
-    this.categoryService.list()
+    this.categoryService.getList()
       .then(items => {
         this.entityList = items as Category[];
       })

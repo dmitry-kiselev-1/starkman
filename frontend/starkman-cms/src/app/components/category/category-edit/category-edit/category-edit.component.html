@@ -1,5 +1,42 @@
 <p>
   <mat-card>
-    <mat-card-title>{{category_url}}</mat-card-title>
+    <mat-card-header>
+      <mat-card-title>{{this.title}}</mat-card-title>
+      <mat-card-subtitle>{{this.entity.Title}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+
+      <div class="edit-form-container">
+
+        <mat-form-field>
+          <input [disabled]="true" matInput placeholder="Url"/>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Title">
+        </mat-form-field>
+
+        <mat-form-field>
+          <textarea matInput placeholder="Description"></textarea>
+        </mat-form-field>
+
+        <mat-form-field>
+          <textarea matInput placeholder="MetaKeywords"></textarea>
+        </mat-form-field>
+
+        <mat-form-field>
+          <textarea matInput placeholder="MetaDescription"></textarea>
+        </mat-form-field>
+
+        <mat-form-field style="width: 25%">
+          <input matInput [type]="'number'" placeholder="SortOrder"/>
+        </mat-form-field>
+
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button>Сохранить</button>
+      <button mat-button>Удалить</button>
+    </mat-card-actions>
   </mat-card>
 </p>

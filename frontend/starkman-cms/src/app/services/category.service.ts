@@ -12,13 +12,25 @@ export class CategoryService extends BaseService {
     this.apiRoutePrefix = '/api/category/';
   }
 
-  public list(): Promise<Category[]> {
+  public getList(): Promise<Category[]> {
     return this.http.get(
       this.apiDomain + this.apiRoutePrefix,
       this.requestOptions)
       .toPromise()
       .then(response => {
           return response.json() as Category[];
+        }
+      )
+      .catch(this.handleError);
+  }
+
+  public get(id: string): Promise<Category> {
+    return this.http.get(
+      this.apiDomain + this.apiRoutePrefix + id,
+      this.requestOptions)
+      .toPromise()
+      .then(response => {
+          return response.json() as Category;
         }
       )
       .catch(this.handleError);

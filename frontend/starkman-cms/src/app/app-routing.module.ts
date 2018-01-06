@@ -8,6 +8,7 @@ const routes: Routes = [
   {
     path: 'category', children: [
       { path: ':category_url', component: CategoryEditComponent, data: {title: 'Карточка товарной категории'} },
+      { path: 'new', component: CategoryEditComponent, data: {title: 'Карточка товарной категории - новая', isNew: true} }
     ]
   }
 ];

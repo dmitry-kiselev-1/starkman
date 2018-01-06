@@ -1,3 +1,4 @@
+<form #categoryForm="ngForm">
 <p>
   <mat-card>
     <mat-card-header>
@@ -9,27 +10,29 @@
       <div class="edit-form-container">
 
         <mat-form-field>
-          <input [disabled]="true" matInput placeholder="Url"/>
+          <input [(ngModel)]="this.entity.Url" name="Url" [disabled]="true" matInput placeholder="Url" required/>
         </mat-form-field>
 
         <mat-form-field>
-          <input matInput placeholder="Title">
+          <input [(ngModel)]="this.entity.Title" name="Title" matInput placeholder="Title (название категории на русском)" required>
         </mat-form-field>
 
         <mat-form-field>
-          <textarea matInput placeholder="Description"></textarea>
+          <textarea [(ngModel)]="this.entity.Description" name="Description" matInput placeholder="Description (описание категории на русском)"></textarea>
         </mat-form-field>
 
         <mat-form-field>
-          <textarea matInput placeholder="MetaKeywords"></textarea>
+          <textarea [(ngModel)]="this.entity.MetaKeywords" name="MetaKeywords" matInput placeholder="Meta Keywords (ключевые слова для Title)"></textarea>
         </mat-form-field>
 
         <mat-form-field>
-          <textarea matInput placeholder="MetaDescription"></textarea>
+          <textarea [(ngModel)]="this.entity.MetaDescription" name="MetaDescription" matInput placeholder="Meta Description (ключевые слова из Description)"></textarea>
         </mat-form-field>
 
-        <mat-form-field style="width: 25%">
-          <input matInput [type]="'number'" placeholder="SortOrder"/>
+        <mat-form-field style="width: 50%">
+          <span matTooltipPosition="right" matTooltip="Число 1 означает, что в общем списке категория будет на первом месте, число 2 - на втором, и так далее">
+            <input [(ngModel)]="this.entity.SortOrder" name="SortOrder" matInput [type]="'number'" placeholder="Сортировка (порядковый номер в общем списке)"/>
+          </span>
         </mat-form-field>
 
       </div>
@@ -37,11 +40,11 @@
     <mat-card-actions>
 
     <div class="button-row">
-      <button mat-button color="primary">Сохранить</button>
-      <button mat-button>Отменить</button>
-      <button mat-button color="warn">Удалить</button>
+      <button (click)="save()" mat-button color="primary">Сохранить</button>
+      <button (click)="getEntity(entity.Url)" mat-button>Отменить</button>
+      <button type="reset" (click)="add()" mat-button>Добавить</button>
+      <button (click)="delete()" mat-button color="warn">Удалить</button>
     </div>
-
       <!--
       <div class="button-row">
         <button mat-raised-button color="primary">Сохранить</button>
@@ -53,3 +56,4 @@
     </mat-card-actions>
   </mat-card>
 </p>
+</form>

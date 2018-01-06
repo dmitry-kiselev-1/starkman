@@ -36,4 +36,22 @@ export class CategoryService extends BaseService {
       .catch(this.handleError);
   }
 
+  public delete(id: string): Promise<boolean> {
+    return this.http.delete(
+      this.apiDomain + this.apiRoutePrefix + id,
+      this.requestOptions)
+      .toPromise()
+      .then(response => response)
+      .catch(this.handleError);
+  }
+
+  public post(period: Category): Promise<boolean> {
+    return this.http.post(
+      this.apiDomain + this.apiRoutePrefix,
+      period,
+      this.requestOptions)
+      .toPromise()
+      .then(response => response)
+      .catch(this.handleError);
+  }
 }

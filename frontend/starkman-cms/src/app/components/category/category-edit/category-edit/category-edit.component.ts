@@ -17,6 +17,7 @@ export class CategoryEditComponent extends BaseComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
+    private router: Router,
     private categoryService: CategoryService) {
     super();
   }
@@ -26,21 +27,47 @@ export class CategoryEditComponent extends BaseComponent implements OnInit {
 
     this.activatedRoute.params.subscribe(params => {
       this.category_url = params['category_url'];
-      this.getEntity()
+      this.getEntity(this.category_url)
     });
   }
 
-  getEntity()
+  getEntity(url: string)
   {
-    if (!this.category_url) return;
+    if (!url) return;
 
-    this.categoryService.get(this.category_url)
+    this.categoryService.get(url)
       .then(item => {
-        this.entity = item as Category;
+        this.entity = (item as Category) || new Category();
       })
       .catch(error => {
         this.handleError(error);
       });
-
   }
+
+  save()
+  {
+    this.categoryService.post(this.entity)
+      .then(item => {
+        this.getEntity(this.entity.Url);
+      })
+      .catch(error => {
+        this.handleError(error);
+      });
+  }
+
+  delete()
+  {
+    this.categoryService.delete(this.entity.Url)
+      .then(item => {
+      })
+      .catch(error => {
+        this.handleError(error);
+      });
+  }
+
+  add()
+  {
+    this.router.navigateByUrl("/category/new");
+  }
+
 }

@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
-import {Category} from '../../../../models/page/category.model';
-import {CategoryService} from '../../../../services/category.service';
-import {BaseComponent} from '../../../base.component';
+import {Category} from '../../../models/page/category.model';
+import {CategoryService} from '../../../services/category.service';
+import {BaseComponent} from '../../base.component';
 
 @Component({
   selector: 'app-category-edit',
@@ -12,7 +12,6 @@ import {BaseComponent} from '../../../base.component';
 export class CategoryEditComponent extends BaseComponent implements OnInit {
 
   public category_url: string;
-  public title: string;
   public entity: Category = new Category();
 
   constructor(
@@ -23,7 +22,7 @@ export class CategoryEditComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.title = this.activatedRoute.snapshot.data['title'];
+    this.componentTitle = this.activatedRoute.snapshot.data['title'];
 
     this.activatedRoute.params.subscribe(params => {
       this.category_url = params['category_url'];

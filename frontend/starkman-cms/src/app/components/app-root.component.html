@@ -1,16 +1,17 @@
 
 <div class="app-component-container" [class.starkman-is-mobile]="mobileQuery.matches">
 
-  <mat-toolbar color="primary" class="starkman-toolbar">
+  <mat-toolbar color="primary">
     <button mat-icon-button (click)="snav.toggle()">
-        <mat-icon>menu</mat-icon>
-        <!--<mat-icon>more_vert</mat-icon>-->
+      <mat-icon>menu</mat-icon>
+      <!--<mat-icon>more_vert</mat-icon>-->
     </button>
-    <h1 class="starkman-app-name">{{title}}</h1>
+    <h1 class="starkman-app-name">{{appTitle}}</h1>
   </mat-toolbar>
 
-  <mat-sidenav-container class="starkman-sidenav-container"
-                         [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+  <mat-progress-bar *ngIf="appLoading" [color]="'primary'" [mode]="'query'"></mat-progress-bar>
+
+  <mat-sidenav-container style="bottom: -14px;" class="starkman-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
 
     <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56" [opened]="true">
         <mat-nav-list>
@@ -19,42 +20,8 @@
     </mat-sidenav>
 
     <mat-sidenav-content>
-        <mat-progress-bar *ngIf="this.isLoading"
-          [color]="'primary'"
-          [mode]="'query'">
-        </mat-progress-bar>
-
         <router-outlet></router-outlet>
-
     </mat-sidenav-content>
 
   </mat-sidenav-container>
 </div>
-
-<!--
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="40" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2></h2>
-<p-splitButton class="ui-button-info" label="Save" icon="fa-check"
-  [model]= "[{label: 'Update', icon: 'fa-refresh'},{label: 'Delete', icon: 'fa-close'}]"></p-splitButton>
-
-<button pButton type="button" (click)="count()" label="Success" class="ui-button-success"></button>
-
-<p-accordion>
-  <p-accordionTab header="Header 1">
-    Content 1
-  </p-accordionTab>
-  <p-accordionTab header="Header 2">
-    Content 2
-  </p-accordionTab>
-  <p-accordionTab header="Header 3">
-    Content 3
-  </p-accordionTab>
-</p-accordion>
-
-<router-outlet></router-outlet>
--->

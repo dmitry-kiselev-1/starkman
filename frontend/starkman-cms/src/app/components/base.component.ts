@@ -1,19 +1,14 @@
-﻿import {AppModule} from '../app.module';
-import {Input} from '@angular/core';
+﻿export abstract class BaseComponent {
 
-export abstract class BaseComponent {
+  protected componentTitle: string;
 
-    @Input() isLoading = false;
+  constructor() {}
 
-    protected title = 'Starkman CMS';
+  protected handleError(error) {
+    console.error(error);
+  }
 
-    constructor() {}
-
-    protected handleError(error) {
-      console.error(error);
-    }
-
-    protected  showError(summary: string, detail?: string): void {}
-    protected  confirm(message: string, action: Function) {}
+  protected  showError(summary: string, detail?: string): void {}
+  protected  confirm(message: string, action: Function) {}
 }
 

@@ -7,11 +7,12 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppMaterialModule} from './app-material.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
+import {HttpModule} from '@angular/http';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {CategoryListComponent} from './components/category/category-list/category-list.component';
 import {CategoryService} from './services/category.service';
-import {HttpModule} from '@angular/http';
-import { CategoryEditComponent } from './components/category/category-edit/category-edit/category-edit.component';
+import {CategoryEditComponent} from './components/category/category-edit/category-edit.component';
+import {NotificationService} from './services/notification.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import { CategoryEditComponent } from './components/category/category-edit/categ
     AppMaterialModule,
     FlexLayoutModule
   ],
-  providers: [CategoryService],
+  providers: [NotificationService, CategoryService],
   bootstrap: [AppRootComponent]
 })
 export class AppModule {}

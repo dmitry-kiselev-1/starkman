@@ -8,6 +8,11 @@
       <a *ngFor="let entity of entityList" mat-list-item routerLink="category/{{entity.Url}}">{{entity.Title}}</a>
     </mat-list>
   </p>
+  <span matTooltipPosition="right" matTooltip="Обновить">
+    <button (click)="reload()" mat-mini-fab color="primary">
+      <mat-icon aria-label="Обновить">autorenew</mat-icon>
+    </button>
+  </span>
 </mat-expansion-panel>
 
 <mat-expansion-panel>

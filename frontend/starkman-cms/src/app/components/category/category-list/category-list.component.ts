@@ -21,7 +21,6 @@ export class CategoryListComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     this.reload();
-
     this.notificationService.categoryChange.subscribe(() => { this.reload() });
   }
 

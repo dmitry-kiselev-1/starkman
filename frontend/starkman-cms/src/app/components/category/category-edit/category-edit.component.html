@@ -40,10 +40,37 @@
     <mat-card-actions>
 
     <div class="button-row">
+
+      <span matTooltip="Сохранить">
+        <button (click)="save()" mat-mini-fab color="primary">
+          <mat-icon aria-label="Сохранить">save</mat-icon>
+        </button>
+      </span>
+
+      <span matTooltip="Отменить">
+        <button (click)="reload(this.entity?.Url)" mat-mini-fab color="accent">
+          <mat-icon aria-label="Отменить">refresh</mat-icon>
+        </button>
+      </span>
+
+      <span matTooltip="Добавить">
+        <button type="reset" (click)="add()" mat-mini-fab color="accent">
+          <mat-icon aria-label="Добавить">add</mat-icon>
+        </button>
+      </span>
+
+      <span matTooltip="Удалить">
+        <button type="reset" (click)="delete()" mat-mini-fab color="warn" >
+          <mat-icon aria-label="Удалить">delete</mat-icon>
+        </button>
+      </span>
+
+      <!--
       <button (click)="save()" mat-button color="primary">Сохранить</button>
-      <button (click)="getEntity(entity.Url)" mat-button>Отменить</button>
+      <button (click)="reload(entity.Url)" mat-button>Отменить</button>
       <button type="reset" (click)="add()" mat-button>Добавить</button>
       <button (click)="delete()" mat-button color="warn">Удалить</button>
+      -->
     </div>
       <!--
       <div class="button-row">

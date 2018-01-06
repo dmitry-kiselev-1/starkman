@@ -28,12 +28,13 @@ export class CategoryEditComponent extends BaseComponent implements OnInit {
 
     this.activatedRoute.params.subscribe(params => {
       this.category_url = params['category_url'];
-      this.getEntity(this.category_url)
+
+      this.reload(this.category_url)
     });
   }
 
-  getEntity(url: string)
-  {
+  reload(url: string) {
+
     if (!url) return;
 
     this.notificationService.appLoadingSet(true);
@@ -53,7 +54,7 @@ export class CategoryEditComponent extends BaseComponent implements OnInit {
     this.notificationService.appLoadingSet(true);
     this.categoryService.post(this.entity)
       .then(item => {
-        this.getEntity(this.entity.Url);
+        this.reload(this.entity.Url);
         this.notificationService.categoryChange.emit();
         this.notificationService.appLoadingSet(false);
       })

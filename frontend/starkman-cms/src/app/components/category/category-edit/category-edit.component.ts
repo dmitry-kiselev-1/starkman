@@ -85,4 +85,9 @@ export class CategoryEditComponent extends BaseComponent implements OnInit {
     this.notificationService.appLoadingSet(false);
   }
 
+  onTitleInputEnter(value: string)
+  {
+    this.entity.Url = value;
+  }
+
 }

@@ -14,7 +14,11 @@
         </mat-form-field>
 
         <mat-form-field>
-          <input [(ngModel)]="this.entity.Title" name="Title" matInput placeholder="Title (название категории на русском)" required>
+          <input
+            #titleInput
+            (keyup.enter)="onTitleInputEnter(titleInput.value)"
+            (blur)="onTitleInputEnter(titleInput.value)"
+            [(ngModel)]="this.entity.Title" name="Title" matInput placeholder="Title (название категории на русском)" required>
         </mat-form-field>
 
         <mat-form-field>

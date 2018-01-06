@@ -7,7 +7,7 @@
   </mat-expansion-panel-header>
   <p>
     <mat-nav-list>
-      <a *ngFor="let entity of entityList" mat-list-item routerLink="{{entity.Url}}">{{entity.Title}}</a>
+      <a *ngFor="let entity of entityList" mat-list-item routerLink="category/{{entity.Url}}">{{entity.Title}}</a>
     </mat-nav-list>
   </p>
 </mat-expansion-panel>

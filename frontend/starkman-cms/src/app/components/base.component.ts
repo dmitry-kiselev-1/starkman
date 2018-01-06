@@ -1,6 +1,11 @@
-﻿export abstract class BaseComponent {
+﻿import {AppModule} from '../app.module';
+import {Input} from '@angular/core';
 
-    public title = '';
+export abstract class BaseComponent {
+
+    @Input() isLoading = false;
+
+    protected title = 'Starkman CMS';
 
     constructor() {}
 

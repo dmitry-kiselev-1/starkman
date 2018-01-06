@@ -8,14 +8,16 @@ import {AppMaterialModule} from './app-material.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {FlexLayoutModule} from '@angular/flex-layout';
-import {CategoryComponent} from './components/category/category.component';
+import {CategoryListComponent} from './components/category/category-list/category-list.component';
 import {CategoryService} from './services/category.service';
 import {HttpModule} from '@angular/http';
+import { CategoryEditComponent } from './components/category/category-edit/category-edit/category-edit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CategoryComponent
+    CategoryListComponent,
+    CategoryEditComponent
   ],
   imports: [
     BrowserModule,
@@ -31,4 +33,6 @@ import {HttpModule} from '@angular/http';
   providers: [CategoryService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  public static isLoading = false;
+}

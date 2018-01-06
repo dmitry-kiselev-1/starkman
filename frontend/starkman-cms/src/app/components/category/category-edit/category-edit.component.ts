@@ -87,7 +87,7 @@ export class CategoryEditComponent extends BaseComponent implements OnInit {
 
   onTitleInputEnter(value: string)
   {
-    this.entity.Url = value;
+    this.entity.Url = this.toUrl(value);
   }
 
 }

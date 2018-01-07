@@ -11,7 +11,7 @@ import {HttpModule} from '@angular/http';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {CategoryListComponent} from './components/category/category-list/category-list.component';
 import {CategoryService} from './services/category.service';
-import {CategoryEditComponent} from './components/category/category-edit/category-edit.component';
+import {CategoryFormComponent} from './components/category/category-form/category-form.component';
 import {NotificationService} from './services/notification.service';
 import {FroalaEditorModule, FroalaViewModule} from 'angular-froala-wysiwyg';
 
@@ -19,7 +19,7 @@ import {FroalaEditorModule, FroalaViewModule} from 'angular-froala-wysiwyg';
   declarations: [
     AppRootComponent,
     CategoryListComponent,
-    CategoryEditComponent
+    CategoryFormComponent
   ],
   imports: [
     BrowserModule,

@@ -2,7 +2,7 @@ import {EventEmitter, Injectable} from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import {BaseService} from './base-service';
-import {CategoryEditComponent} from '../components/category/category-edit/category-edit.component';
+import {CategoryFormComponent} from '../components/category/category-form/category-form.component';
 
 @Injectable()
 export class NotificationService {

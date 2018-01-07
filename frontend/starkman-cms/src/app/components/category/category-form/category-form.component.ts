@@ -10,10 +10,10 @@ declare var $ :any;
 
 @Component({
   selector: 'app-category-edit',
-  templateUrl: './category-edit.component.html',
-  styleUrls: ['./category-edit.component.css']
+  templateUrl: './category-form.component.html',
+  styleUrls: ['./category-form.component.css']
 })
-export class CategoryEditComponent extends BaseComponent implements OnInit {
+export class CategoryFormComponent extends BaseComponent implements OnInit {
 
   public query_url: string;
   public entity: Category = new Category();

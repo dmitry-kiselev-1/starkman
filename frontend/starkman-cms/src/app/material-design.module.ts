@@ -74,4 +74,5 @@ import {CdkTableModule} from '@angular/cdk/table';
     MatToolbarModule,
     MatTooltipModule,
   ]
-})export class AppMaterialModule {}
+})export class MaterialDesignModule {}
+

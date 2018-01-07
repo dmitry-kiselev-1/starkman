@@ -4,7 +4,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgModule} from '@angular/core';
 import {AppRootComponent} from './components/app-root.component';
 import {AppRoutingModule} from './app-routing.module';
-import {AppMaterialModule} from './app-material.module';
+import {MaterialDesignModule} from './material-design.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {HttpModule} from '@angular/http';
@@ -13,6 +13,7 @@ import {CategoryListComponent} from './components/category/category-list/categor
 import {CategoryService} from './services/category.service';
 import {CategoryEditComponent} from './components/category/category-edit/category-edit.component';
 import {NotificationService} from './services/notification.service';
+import {FroalaModule} from './froala.module';
 
 @NgModule({
   declarations: [
@@ -28,8 +29,9 @@ import {NotificationService} from './services/notification.service';
     ReactiveFormsModule,
     HttpModule,
     HttpClientModule,
-    AppMaterialModule,
-    FlexLayoutModule
+    MaterialDesignModule,
+    FlexLayoutModule,
+    FroalaModule
   ],
   providers: [NotificationService, CategoryService],
   bootstrap: [AppRootComponent]

@@ -37,7 +37,9 @@
     "zone.js": "^0.8.14",
     "web-animations-js": "^2.3.1",
     "angular-in-memory-web-api": "^0.5.2",
-    "moment": "^2.20.1"
+    "moment": "^2.20.1",
+    "angular-froala-wysiwyg": "^2.7.3",
+    "font-awesome": "^4.7.0"
   },
   "devDependencies": {
     "@angular/cli": "1.6.3",

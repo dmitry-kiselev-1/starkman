@@ -1,65 +1,74 @@
-<form #categoryForm="ngForm">
-<p>
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>{{this.componentTitle}}</mat-card-title>
-      <mat-card-subtitle>{{this.entity.Url}}</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
+<mat-accordion>
 
-      <div class="edit-form-container">
+  <mat-expansion-panel [expanded]="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{this.componentTitle}}
+      </mat-panel-title>
+      <mat-panel-description></mat-panel-description>
+    </mat-expansion-panel-header>
 
-        <!--
-        <mat-form-field>
-          <input [(ngModel)]="this.entity.Url" name="Url" [disabled]="true" matInput placeholder="Url" required/>
-        </mat-form-field>
-        -->
+    <form #categoryForm="ngForm">
+      <p>
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>{{this.entity.Url}}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
 
-        <mat-form-field>
-          <input autocomplete="off"
-            #titleInput
-            (keyup.enter)="onTitleInputEnter(titleInput.value)"
-            (blur)="onTitleInputEnter(titleInput.value)"
-            [(ngModel)]="this.entity.Title" name="Title" matInput placeholder="Title (название категории на русском)" required>
-        </mat-form-field>
+            <div class="edit-form-container">
 
-        <!-- https://github.com/froala/angular-froala-wysiwyg/blob/master/README.md#installation-instructions -->
-        <div style="margin-top: 1em; margin-bottom: 1.5em;">
-        <div style="margin-top: 0; margin-bottom: 0.5em;">Description (описание категории на русском)</div>
-        <textarea
-          [froalaEditor]="froalaOptions"
-          [(froalaModel)]="this.entity.Description" name="Description"
-          placeholder="Description (описание категории на русском)"></textarea>
-        <!-- <div [froalaView]="this.entity.Description"></div> -->
-        </div>
+              <!--
+              <mat-form-field>
+                <input [(ngModel)]="this.entity.Url" name="Url" [disabled]="true" matInput placeholder="Url" required/>
+              </mat-form-field>
+              -->
 
-        <!--
-        <mat-form-field>
-          <textarea style="height: 250px;" [(ngModel)]="this.entity.Description" name="Description" matInput placeholder="Description (описание категории на русском)"></textarea>
-        </mat-form-field>
-        -->
+              <mat-form-field>
+                <input autocomplete="off"
+                       #titleInput
+                       (keyup.enter)="onTitleInputEnter(titleInput.value)"
+                       (blur)="onTitleInputEnter(titleInput.value)"
+                       [(ngModel)]="this.entity.Title" name="Title" matInput placeholder="Title (название категории на русском)" required>
+              </mat-form-field>
 
-        <mat-form-field>
-          <textarea style="height: 100px;" [(ngModel)]="this.entity.MetaKeywords" name="MetaKeywords" matInput placeholder="Meta Keywords (ключевые слова для Title)"></textarea>
-        </mat-form-field>
+              <!-- https://github.com/froala/angular-froala-wysiwyg/blob/master/README.md#installation-instructions -->
+              <div style="margin-top: 1em; margin-bottom: 1.5em;">
+                <div style="margin-top: 0; margin-bottom: 0.5em;">Description (описание категории на русском)</div>
+                <textarea
+                  [froalaEditor]="froalaOptions"
+                  [(froalaModel)]="this.entity.Description" name="Description"
+                  placeholder="Description (описание категории на русском)"></textarea>
+                <!-- <div [froalaView]="this.entity.Description"></div> -->
+              </div>
 
-        <mat-form-field>
-          <textarea style="height: 100px;" [(ngModel)]="this.entity.MetaDescription" name="MetaDescription" matInput placeholder="Meta Description (ключевые слова из Description)"></textarea>
-        </mat-form-field>
+              <!--
+              <mat-form-field>
+                <textarea style="height: 250px;" [(ngModel)]="this.entity.Description" name="Description" matInput placeholder="Description (описание категории на русском)"></textarea>
+              </mat-form-field>
+              -->
 
-        <mat-checkbox style="padding-bottom: 1.5em;" [(ngModel)]="this.entity.IsVisible" name="IsVisible" color="primary">Показывать на сайте</mat-checkbox>
+              <mat-form-field>
+                <textarea style="height: 100px;" [(ngModel)]="this.entity.MetaKeywords" name="MetaKeywords" matInput placeholder="Meta Keywords (ключевые слова для Title)"></textarea>
+              </mat-form-field>
 
-        <mat-form-field style="width: 50%">
+              <mat-form-field>
+                <textarea style="height: 100px;" [(ngModel)]="this.entity.MetaDescription" name="MetaDescription" matInput placeholder="Meta Description (ключевые слова из Description)"></textarea>
+              </mat-form-field>
+
+              <mat-checkbox style="padding-bottom: 1.5em;" [(ngModel)]="this.entity.IsVisible" name="IsVisible" color="primary">Показывать на сайте</mat-checkbox>
+
+              <mat-form-field style="width: 50%">
           <span matTooltipPosition="right" matTooltip="Число 1 означает, что в общем списке категория будет на первом месте, число 2 - на втором, и так далее">
             <input autocomplete="off" [(ngModel)]="this.entity.SortOrder" name="SortOrder" matInput [type]="'number'" placeholder="Сортировка (порядковый номер в общем списке)"/>
           </span>
-        </mat-form-field>
+              </mat-form-field>
 
-      </div>
-    </mat-card-content>
-    <mat-card-actions>
+            </div>
+          </mat-card-content>
+          <mat-card-actions>
 
-    <div class="button-row">
+            <div class="button-row">
 
       <span matTooltip="Сохранить">
         <button (click)="save()" mat-mini-fab color="primary">
@@ -67,40 +76,57 @@
         </button>
       </span>
 
-      <span matTooltip="Отменить">
+              <span matTooltip="Отменить">
         <button (click)="reload(this.entity?.Url)" mat-mini-fab color="accent">
           <mat-icon class="flipV" aria-label="Отменить">refresh</mat-icon>
         </button>
       </span>
 
-      <span matTooltip="Добавить">
+              <span matTooltip="Добавить">
         <button type="reset" (click)="add()" mat-mini-fab color="accent">
           <mat-icon aria-label="Добавить">add</mat-icon>
         </button>
       </span>
 
-      <span matTooltip="Удалить">
+              <span matTooltip="Удалить">
         <button type="reset" (click)="delete(this.entity?.Url)" mat-mini-fab color="warn" >
           <mat-icon aria-label="Удалить">delete</mat-icon>
         </button>
       </span>
 
-      <!--
-      <button (click)="save()" mat-button color="primary">Сохранить</button>
-      <button (click)="reload(entity.Url)" mat-button>Отменить</button>
-      <button type="reset" (click)="add()" mat-button>Добавить</button>
-      <button (click)="delete()" mat-button color="warn">Удалить</button>
-      -->
-    </div>
-      <!--
-      <div class="button-row">
-        <button mat-raised-button color="primary">Сохранить</button>
-        <button mat-raised-button>Отменить</button>
-        <button mat-raised-button color="warn">Удалить</button>
-      </div>
-      -->
+              <!--
+              <button (click)="save()" mat-button color="primary">Сохранить</button>
+              <button (click)="reload(entity.Url)" mat-button>Отменить</button>
+              <button type="reset" (click)="add()" mat-button>Добавить</button>
+              <button (click)="delete()" mat-button color="warn">Удалить</button>
+              -->
+            </div>
+            <!--
+            <div class="button-row">
+              <button mat-raised-button color="primary">Сохранить</button>
+              <button mat-raised-button>Отменить</button>
+              <button mat-raised-button color="warn">Удалить</button>
+            </div>
+            -->
 
-    </mat-card-actions>
-  </mat-card>
-</p>
-</form>
+          </mat-card-actions>
+        </mat-card>
+      </p>
+    </form>
+
+  </mat-expansion-panel>
+
+  <mat-expansion-panel [expanded]="false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        mat-panel-title
+      </mat-panel-title>
+      <mat-panel-description>
+        mat-panel-description
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+  </mat-expansion-panel>
+
+</mat-accordion>
+

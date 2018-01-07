@@ -16,6 +16,9 @@ export class CategoryEditComponent extends BaseComponent implements OnInit {
   public query_url: string;
   public entity: Category = new Category();
 
+  submitted = false;
+  onSubmit() { this.submitted = true; }
+
   public froalaOptions: any = {
     placeholder: "Description (описание категории на русском)",
     height: 300,

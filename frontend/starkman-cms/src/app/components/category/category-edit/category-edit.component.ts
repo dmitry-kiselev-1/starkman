@@ -6,6 +6,8 @@ import {BaseComponent} from '../../base.component';
 import {NotificationService} from '../../../services/notification.service';
 import {MatDialog, MatSnackBar} from '@angular/material';
 
+declare var $ :any;
+
 @Component({
   selector: 'app-category-edit',
   templateUrl: './category-edit.component.html',
@@ -16,15 +18,8 @@ export class CategoryEditComponent extends BaseComponent implements OnInit {
   public query_url: string;
   public entity: Category = new Category();
 
-  submitted = false;
-  onSubmit() { this.submitted = true; }
-
-  public froalaOptions: any = {
-    placeholder: "Description (описание категории на русском)",
-    height: 300,
-    toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', 'fontFamily', 'fontSize', '|', 'color', 'emoticons', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'insertHR', '-', 'insertLink', 'insertTable', 'undo', 'redo', 'clearFormatting', 'selectAll', 'html']
-    /*toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'fontFamily', 'fontSize', '|', 'color', 'emoticons', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', 'insertHR', '-', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', 'undo', 'redo', 'clearFormatting', 'selectAll', 'html']*/
-  }
+  //submitted = false;
+  //onSubmit() { this.submitted = true; }
 
   constructor(
     private notificationService: NotificationService,
@@ -44,6 +39,8 @@ export class CategoryEditComponent extends BaseComponent implements OnInit {
 
       this.reload(this.query_url)
     });
+
+    this.froalaInit();
   }
 
   reload(url: string)
@@ -137,6 +134,31 @@ export class CategoryEditComponent extends BaseComponent implements OnInit {
     });
   }
 
+  // Froala Init and fix:
+
+  public froalaOptions: any = {
+    placeholder: "Description (описание категории на русском)",
+    height: 300,
+    toolbarButtons: ['save', 'bold', 'italic', 'underline', 'fontFamily', 'fontSize', '|', 'color', 'emoticons', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'insertHR', '-', 'insertLink', 'insertTable', 'undo', 'redo', 'clearFormatting', 'selectAll', 'html']
+    /*toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'fontFamily', 'fontSize', '|', 'color', 'emoticons', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', 'insertHR', '-', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', 'undo', 'redo', 'clearFormatting', 'selectAll', 'html']*/
+  }
+
+  public froalaInit() {
+    $.FroalaEditor.DefineIcon('save', {NAME: 'check'});
+    $.FroalaEditor.RegisterCommand('save', {
+      title: 'Сохранить',
+      focus: false,
+      undo: false,
+      refreshAfterCallback: false,
+      callback: () => {
+        /* $('#htmlEditor').froalaEditor('html.set', 'My custom paragraph.'); */
+        let htmlEditorContent = $('#htmlEditor').froalaEditor('html.get');
+        this.entity.Description = htmlEditorContent;
+        this.froalaEditorContent = htmlEditorContent;
+      }
+    });
+  }
+
   descriptionSelectedTabIndex: number;
   froalaEditorContent: string;
 
@@ -147,4 +169,5 @@ export class CategoryEditComponent extends BaseComponent implements OnInit {
       this.froalaEditorContent = this.entity.Description;
     }
   }
+
 }

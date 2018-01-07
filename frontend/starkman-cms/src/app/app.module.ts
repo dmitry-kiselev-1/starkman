@@ -13,7 +13,7 @@ import {CategoryListComponent} from './components/category/category-list/categor
 import {CategoryService} from './services/category.service';
 import {CategoryEditComponent} from './components/category/category-edit/category-edit.component';
 import {NotificationService} from './services/notification.service';
-import {FroalaModule} from './froala.module';
+import {FroalaEditorModule, FroalaViewModule} from 'angular-froala-wysiwyg';
 
 @NgModule({
   declarations: [
@@ -31,7 +31,7 @@ import {FroalaModule} from './froala.module';
     HttpClientModule,
     MaterialDesignModule,
     FlexLayoutModule,
-    FroalaModule
+    FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()
   ],
   providers: [NotificationService, CategoryService],
   bootstrap: [AppRootComponent]

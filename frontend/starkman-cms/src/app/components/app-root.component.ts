@@ -19,13 +19,15 @@ export class AppRootComponent implements OnInit {
   constructor(private notificationService: NotificationService,
               changeDetectorRef: ChangeDetectorRef,
               media: MediaMatcher) {
+
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
+
+    this.notificationService.appLoadingChange
+      .subscribe((state) => { this.appLoading = state });
   }
 
   ngOnInit(): void {
-    this.notificationService.appLoadingChange
-      .subscribe((state) => { this.appLoading = state });
   }
 }

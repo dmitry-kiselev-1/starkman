@@ -23,9 +23,15 @@
             [(ngModel)]="this.entity.Title" name="Title" matInput placeholder="Title (название категории на русском)" required>
         </mat-form-field>
 
+        <!-- https://github.com/froala/angular-froala-wysiwyg/blob/master/README.md#installation-instructions -->
+        <textarea [froalaEditor]="froalaOptions" [(froalaModel)]="this.entity.Description" name="Description"></textarea>
+        <!-- <div [froalaView]="this.entity.Description"></div> -->
+
+        <!--
         <mat-form-field>
           <textarea style="height: 250px;" [(ngModel)]="this.entity.Description" name="Description" matInput placeholder="Description (описание категории на русском)"></textarea>
         </mat-form-field>
+        -->
 
         <mat-form-field>
           <textarea style="height: 100px;" [(ngModel)]="this.entity.MetaKeywords" name="MetaKeywords" matInput placeholder="Meta Keywords (ключевые слова для Title)"></textarea>
@@ -92,5 +98,3 @@
   </mat-card>
 </p>
 </form>
-
-<div [froalaEditor]>Hello, Froala!</div>

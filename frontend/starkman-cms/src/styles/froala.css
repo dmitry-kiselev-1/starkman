@@ -1,0 +1,28 @@
+
+.fr-toolbar {
+  color: #222;
+  background: #fff;
+  position: relative;
+  z-index: 4;
+  font-family: Arial,Helvetica,sans-serif;
+  box-sizing: border-box;
+  user-select: none;
+  -o-user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  padding: 0 2px;
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  background-clip: padding-box;
+  box-shadow: 0 1px 3px rgba(0,0,0,.12), 0 1px 1px 1px rgba(0,0,0,.16);
+  text-align: left;
+  border: 0;
+  /*border-top: 5px solid #222;*/
+  text-rendering: optimizelegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.2;
+}

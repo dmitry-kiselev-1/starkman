@@ -24,8 +24,14 @@
         </mat-form-field>
 
         <!-- https://github.com/froala/angular-froala-wysiwyg/blob/master/README.md#installation-instructions -->
-        <textarea [froalaEditor]="froalaOptions" [(froalaModel)]="this.entity.Description" name="Description"></textarea>
+        <div style="margin-top: 1em; margin-bottom: 1.5em;">
+        <div style="margin-top: 0; margin-bottom: 0.5em;">Description (описание категории на русском)</div>
+        <textarea
+          [froalaEditor]="froalaOptions"
+          [(froalaModel)]="this.entity.Description" name="Description"
+          placeholder="Description (описание категории на русском)"></textarea>
         <!-- <div [froalaView]="this.entity.Description"></div> -->
+        </div>
 
         <!--
         <mat-form-field>

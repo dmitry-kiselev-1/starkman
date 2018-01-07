@@ -16,6 +16,7 @@ purple-green.css
 @import "button.css";
 @import "progress-bar.css";
 @import "checkbox.css";
+@import "froala.css";
 
 .app-component-container {
   display: flex;

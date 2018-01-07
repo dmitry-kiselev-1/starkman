@@ -1,7 +1,7 @@
 import {ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
 import {MediaMatcher} from '@angular/cdk/layout';
-import {BaseComponent} from './base.component';
-import {NotificationService} from '../services/notification.service';
+import {BaseComponent} from '../base.component';
+import {NotificationService} from '../../services/notification.service';
 
 @Component({
   selector: 'app-root',

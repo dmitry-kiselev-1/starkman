@@ -1,4 +1,7 @@
 
+ng generate component components\layout\sidenav\sidenav --module app
+
+ng generate component components\order\order-list\order-list --module app
 ng generate service services\category
 ng generate component components\category  --module app
 ng generate module services

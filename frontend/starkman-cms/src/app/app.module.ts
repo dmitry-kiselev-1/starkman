@@ -2,7 +2,7 @@ import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgModule} from '@angular/core';
-import {AppRootComponent} from './components/app-root.component';
+import {AppRootComponent} from './components/layout/app-root.component';
 import {AppRoutingModule} from './app-routing.module';
 import {MaterialDesignModule} from './material-design.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -14,12 +14,16 @@ import {CategoryService} from './services/category.service';
 import {CategoryFormComponent} from './components/category/category-form/category-form.component';
 import {NotificationService} from './services/notification.service';
 import {FroalaEditorModule, FroalaViewModule} from 'angular-froala-wysiwyg';
+import {OrderListComponent} from './components/order/order-list/order-list/order-list.component';
+import {SidenavComponent} from './components/layout/sidenav/sidenav/sidenav.component';
 
 @NgModule({
   declarations: [
     AppRootComponent,
     CategoryListComponent,
-    CategoryFormComponent
+    CategoryFormComponent,
+    OrderListComponent,
+    SidenavComponent
   ],
   imports: [
     BrowserModule,

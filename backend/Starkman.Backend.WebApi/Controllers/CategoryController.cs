@@ -33,7 +33,7 @@ namespace Starkman.Backend.WebApi.Controllers
         {
             return await this._storageService.FindAsync(id);
         }
-
+        
         // POST api/сategory
         [HttpPost]
         public async Task<bool> Post([FromBody] Category entity)

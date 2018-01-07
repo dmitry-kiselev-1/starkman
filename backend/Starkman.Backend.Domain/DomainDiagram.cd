@@ -1,35 +1,35 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
   <Class Name="Starkman.Backend.Domain.Entities.StorageEntity">
-    <Position X="3.25" Y="0.5" Width="1.5" />
+    <Position X="3" Y="0.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAEAQAAAAAAAAAAAAAAAAAAAAAAQAAAAA=</HashCode>
       <FileName>Entities\StorageEntity.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Starkman.Backend.Domain.Entities.Page.Category">
-    <Position X="0.75" Y="5.5" Width="2.25" />
+    <Position X="0.75" Y="6" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAACAAAAAAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Entities\Page\Category.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Starkman.Backend.Domain.Entities.Page.Photo">
-    <Position X="6.5" Y="5.5" Width="1.5" />
+    <Position X="6.5" Y="6" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
       <FileName>Entities\Page\Photo.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Starkman.Backend.Domain.Entities.Page.Product">
-    <Position X="3.75" Y="5.5" Width="2" />
+    <Position X="3.75" Y="6" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgEAAAAAAAAAA=</HashCode>
       <FileName>Entities\Page\Product.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Starkman.Backend.Domain.Entities.Page.Page">
-    <Position X="3" Y="2.25" Width="2" />
+    <Position X="3" Y="2.75" Width="2" />
     <TypeIdentifier>
       <HashCode>QAAABAAAAAAgAEAAAAAAAAAAACAAAAAACAAAAABAAAA=</HashCode>
       <FileName>Entities\Page\Page.cs</FileName>

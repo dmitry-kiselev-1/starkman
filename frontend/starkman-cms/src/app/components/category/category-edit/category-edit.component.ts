@@ -4,6 +4,7 @@ import {Category} from '../../../models/page/category.model';
 import {CategoryService} from '../../../services/category.service';
 import {BaseComponent} from '../../base.component';
 import {NotificationService} from '../../../services/notification.service';
+import {MatDialog, MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-category-edit',
@@ -12,35 +13,37 @@ import {NotificationService} from '../../../services/notification.service';
 })
 export class CategoryEditComponent extends BaseComponent implements OnInit {
 
-  public category_url: string;
+  public query_url: string;
   public entity: Category = new Category();
 
   constructor(
     private notificationService: NotificationService,
+    private snackBar: MatSnackBar,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private categoryService: CategoryService) {
     super();
   }
 
-  ngOnInit() {
+  ngOnInit()
+  {
     this.componentTitle = this.activatedRoute.snapshot.data['title'];
 
     this.activatedRoute.params.subscribe(params => {
-      this.category_url = params['category_url'];
+      this.query_url = params['category_url'];
 
-      this.reload(this.category_url)
+      this.reload(this.query_url)
     });
   }
 
-  reload(url: string) {
-
+  reload(url: string)
+  {
     if (!url) return;
 
     this.notificationService.appLoadingSet(true);
     this.categoryService.get(url)
       .then(item => {
-        this.entity = (item as Category) || new Category();
+        this.entity = (item || new Category());
         this.notificationService.appLoadingSet(false);
       })
       .catch(error => {
@@ -51,7 +54,16 @@ export class CategoryEditComponent extends BaseComponent implements OnInit {
 
   save()
   {
+    if (!this.entity.Url) return;
+
     this.notificationService.appLoadingSet(true);
+
+    // если изменился Url, удаляем старую сущность и обновляем ссылки:
+    if (this.query_url != this.entity.Url) {
+      this.changeUrl(this.query_url, this.entity.Url);
+    }
+
+    // сохраняем новую сущность:
     this.categoryService.post(this.entity)
       .then(item => {
         this.reload(this.entity.Url);
@@ -64,18 +76,30 @@ export class CategoryEditComponent extends BaseComponent implements OnInit {
       });
   }
 
-  delete()
+  changeUrl(oldUrl: string, newUrl: string)
   {
-    this.notificationService.appLoadingSet(true);
-    this.categoryService.delete(this.entity.Url)
-      .then(item => {
-        this.notificationService.categoryChange.emit();
-        this.notificationService.appLoadingSet(false);
-      })
-      .catch(error => {
-        this.handleError(error);
-        this.notificationService.appLoadingSet(false);
-      });
+    this.delete(oldUrl, false);
+    // ToDo: переместить все товары из категории oldUrl в категорию newUrl
+  }
+
+  delete(url: string, confirmation: boolean = true)
+  {
+    if (confirmation && confirm(`Удалить категорию "${this.entity.Title}"?`)) {
+
+      this.notificationService.appLoadingSet(true);
+
+      // this.openSnackBar(`Категорию ${this.entity.Title} нельзя удалить, т.к. она содержит товары`, "");
+
+      this.categoryService.delete(url)
+        .then(item => {
+          this.notificationService.categoryChange.emit();
+          this.notificationService.appLoadingSet(false);
+        })
+        .catch(error => {
+          this.handleError(error);
+          this.notificationService.appLoadingSet(false);
+        });
+    }
   }
 
   add()
@@ -90,4 +114,9 @@ export class CategoryEditComponent extends BaseComponent implements OnInit {
     this.entity.Url = this.toUrl(value);
   }
 
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 5000,
+    });
+  }
 }

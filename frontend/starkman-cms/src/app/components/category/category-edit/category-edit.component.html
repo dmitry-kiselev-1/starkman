@@ -64,7 +64,7 @@
       </span>
 
       <span matTooltip="Удалить">
-        <button type="reset" (click)="delete()" mat-mini-fab color="warn" >
+        <button type="reset" (click)="delete(this.entity?.Url)" mat-mini-fab color="warn" >
           <mat-icon aria-label="Удалить">delete</mat-icon>
         </button>
       </span>

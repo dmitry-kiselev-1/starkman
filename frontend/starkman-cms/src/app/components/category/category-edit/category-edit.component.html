@@ -18,18 +18,18 @@
                    (keyup.enter)="onTitleInputEnter(titleInput.value)"
                    (blur)="onTitleInputEnter(titleInput.value)"
                    [(ngModel)]="this.entity.Title" name="Title" #titleInput="ngModel" matInput
-                   placeholder="Title (название категории на русском)" required minlength="1">
+                   placeholder="Title (название категории)" required minlength="1">
           </mat-form-field>
 
           <!-- https://github.com/froala/angular-froala-wysiwyg/blob/master/README.md#installation-instructions -->
           <div style="margin-top: 1em; margin-bottom: 1.5em;">
-            <div style="margin-top: 0; margin-bottom: 0.5em; color: grey; font-size: 0.75em;">Description (описание категории на русском)</div>
+            <div style="margin-top: 0; margin-bottom: 0.5em; color: grey; font-size: 0.75em;">Description (описание категории)</div>
             <mat-tab-group
                 [(selectedIndex)]="descriptionSelectedTabIndex"
                 (selectedTabChange)="descriptionSelectedTabChange($event)" [dynamicHeight]="true">
               <mat-tab label="Текст">
                 <div>
-                    <textarea style="height: 250px;" [(ngModel)]="this.entity.Description" name="Description" #Description="ngModel" matInput placeholder="Description (описание категории на русском)"></textarea>
+                    <textarea style="height: 250px;" [(ngModel)]="this.entity.Description" name="Description" #Description="ngModel" matInput placeholder="Description (описание категории)"></textarea>
                 </div>
               </mat-tab>
               <mat-tab label="Просмотр HTML">
@@ -51,7 +51,7 @@
           </div>
           <!--
           <mat-form-field>
-            <textarea style="height: 250px;" [(ngModel)]="this.entity.Description" name="Description" matInput placeholder="Description (описание категории на русском)"></textarea>
+            <textarea style="height: 250px;" [(ngModel)]="this.entity.Description" name="Description" matInput placeholder="Description (описание категории)"></textarea>
           </mat-form-field>
           -->
           <mat-form-field>

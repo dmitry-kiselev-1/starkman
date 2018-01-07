@@ -24,12 +24,30 @@
           <!-- https://github.com/froala/angular-froala-wysiwyg/blob/master/README.md#installation-instructions -->
           <div style="margin-top: 1em; margin-bottom: 1.5em;">
             <div style="margin-top: 0; margin-bottom: 0.5em;">Description (описание категории на русском)</div>
-            <textarea
-              #Description
-              [froalaEditor]="froalaOptions"
-              [(froalaModel)]="this.entity.Description" name="Description"
-              placeholder="Description (описание категории на русском)"></textarea>
-            <!-- <div [froalaView]="this.entity.Description"></div> -->
+            <mat-tab-group
+                [(selectedIndex)]="descriptionSelectedTabIndex"
+                (selectedTabChange)="descriptionSelectedTabChange($event)" [dynamicHeight]="true">
+              <mat-tab label="Текст">
+                <div>
+                    <textarea style="height: 250px;" [(ngModel)]="this.entity.Description" name="Description" #Description="ngModel" matInput></textarea>
+                </div>
+              </mat-tab>
+              <mat-tab label="Просмотр HTML">
+                <div [froalaView]="this.entity.Description"></div>
+              </mat-tab>
+              <mat-tab label="Редактор HTML">
+                <div>
+                  <textarea #htmlEditor [froalaEditor]="froalaOptions" [(froalaModel)]="froalaEditorContent"></textarea>
+                  <!--
+                  <textarea
+                    #Description
+                    [froalaEditor]="froalaOptions"
+                    [(froalaModel)]="this.entity.Description" name="Description">
+                  </textarea>
+                  -->
+                </div>
+              </mat-tab>
+            </mat-tab-group>
           </div>
           <!--
           <mat-form-field>
@@ -63,8 +81,6 @@
 
       <div class="button-row">
 
-        <!-- <button type="submit" class="btn btn-success">Submit</button> -->
-
         <span matTooltip="Сохранить">
           <button (click)="save()" mat-mini-fab color="primary">
             <mat-icon aria-label="Сохранить">done</mat-icon>
@@ -78,7 +94,7 @@
         </span>
 
             <span matTooltip="Добавить">
-          <button type="reset" (click)="add()" mat-mini-fab color="accent">
+          <button (click)="add()" mat-mini-fab color="accent">
             <mat-icon aria-label="Добавить">add</mat-icon>
           </button>
         </span>

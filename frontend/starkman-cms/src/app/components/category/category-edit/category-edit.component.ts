@@ -54,6 +54,7 @@ export class CategoryEditComponent extends BaseComponent implements OnInit {
     this.categoryService.get(url)
       .then(item => {
         this.entity = (item || new Category());
+        this.descriptionSelectedTabIndex = 0;
         this.notificationService.appLoadingSet(false);
       })
       .catch(error => {
@@ -134,5 +135,16 @@ export class CategoryEditComponent extends BaseComponent implements OnInit {
     this.snackBar.open(message, action, {
       duration: 5000,
     });
+  }
+
+  descriptionSelectedTabIndex: number;
+  froalaEditorContent: string;
+
+  descriptionSelectedTabChange(tab)
+  {
+    if (tab.index == 2)
+    {
+      this.froalaEditorContent = this.entity.Description;
+    }
   }
 }

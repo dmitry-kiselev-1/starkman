@@ -23,13 +23,13 @@
 
           <!-- https://github.com/froala/angular-froala-wysiwyg/blob/master/README.md#installation-instructions -->
           <div style="margin-top: 1em; margin-bottom: 1.5em;">
-            <div style="margin-top: 0; margin-bottom: 0.5em;">Description (описание категории на русском)</div>
+            <div style="margin-top: 0; margin-bottom: 0.5em; color: grey; font-size: 0.75em;">Description (описание категории на русском)</div>
             <mat-tab-group
                 [(selectedIndex)]="descriptionSelectedTabIndex"
                 (selectedTabChange)="descriptionSelectedTabChange($event)" [dynamicHeight]="true">
               <mat-tab label="Текст">
                 <div>
-                    <textarea style="height: 250px;" [(ngModel)]="this.entity.Description" name="Description" #Description="ngModel" matInput></textarea>
+                    <textarea style="height: 250px;" [(ngModel)]="this.entity.Description" name="Description" #Description="ngModel" matInput placeholder="Description (описание категории на русском)"></textarea>
                 </div>
               </mat-tab>
               <mat-tab label="Просмотр HTML">

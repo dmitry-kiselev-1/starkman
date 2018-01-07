@@ -18,16 +18,16 @@ namespace Starkman.Backend.xUnitTest.Storage
         {
             var categoryList = new List<Category>()
             {
-                new Category() { Url = "bryuki_casual", Title = "Брюки Casual", SortOrder = 1 },
-                new Category() { Url = "bryuki_klassika", Title = "Брюки классика", SortOrder = 2 },
-                new Category() { Url = "bryuki_zauzhennye", Title = "Брюки зауженные", SortOrder = 3 },
-                new Category() { Url = "bryuki_detskie", Title = "Брюки детские", SortOrder = 4 },
+                new Category() { Url = "bryuki_casual", Title = "Брюки Casual", IsVisible = true, SortOrder = 1 },
+                new Category() { Url = "bryuki_klassika", Title = "Брюки классика", IsVisible = true, SortOrder = 2 },
+                new Category() { Url = "bryuki_zauzhennye", Title = "Брюки зауженные", IsVisible = true, SortOrder = 3 },
+                new Category() { Url = "bryuki_detskie", Title = "Брюки детские", IsVisible = true, SortOrder = 4 },
 
-                new Category() { Url = "kostyumy_pritalennye", Title = "Костюмы приталенные", SortOrder = 5 },
-                new Category() { Url = "kostyumy_detskie", Title = "Костюмы для мальчиков", SortOrder = 6 },
+                new Category() { Url = "kostyumy_pritalennye", Title = "Костюмы приталенные", IsVisible = true, SortOrder = 5 },
+                new Category() { Url = "kostyumy_detskie", Title = "Костюмы для мальчиков", IsVisible = true, SortOrder = 6 },
 
-                new Category() { Url = "pidzhaki_klassika", Title = "Пиджаки классика", SortOrder = 7 },
-                new Category() { Url = "pidzhaki_pritalennye", Title = "Пиджаки приталенные", SortOrder = 8 }
+                new Category() { Url = "pidzhaki_klassika", Title = "Пиджаки классика", IsVisible = true, SortOrder = 7 },
+                new Category() { Url = "pidzhaki_pritalennye", Title = "Пиджаки приталенные", IsVisible = true, SortOrder = 8 }
             };
 
             foreach (var category in categoryList)

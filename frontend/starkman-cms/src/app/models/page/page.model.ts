@@ -8,4 +8,5 @@ export abstract class Page extends StorageEntity {
   public MetaKeywords: string;
   public MetaDescription: string;
   public SortOrder: number;
+  public IsVisible: boolean;
 }

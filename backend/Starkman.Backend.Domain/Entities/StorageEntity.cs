@@ -11,11 +11,6 @@
         public string Key { get; set; }
 
         /// <summary>
-        /// Признак отображения сущности
-        /// </summary>
-        public bool IsVisible { get; set; }
-
-        /// <summary>
         /// Признак удаления сущности
         /// </summary>
         public bool IsDeleted { get; set; }

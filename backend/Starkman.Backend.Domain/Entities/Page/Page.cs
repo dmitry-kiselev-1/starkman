@@ -13,5 +13,10 @@
         public string MetaKeywords { get; set; }
         public string MetaDescription { get; set; }
         public short? SortOrder { get; set; }
+
+        /// <summary>
+        /// Признак отображения сущности
+        /// </summary>
+        public bool IsVisible { get; set; }
     }
 }

@@ -13,8 +13,9 @@ purple-green.css
 @import "top-menu.css";
 @import "content.css";
 @import "material-icons.css";
-@import "buttons.css";
-@import "profress-bar.css";
+@import "button.css";
+@import "progress-bar.css";
+@import "checkbox.css";
 
 .app-component-container {
   display: flex;

@@ -3,7 +3,7 @@
   <Class Name="Starkman.Backend.Domain.Entities.StorageEntity">
     <Position X="3" Y="0.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAEAQAAAAAAAAAAAAAAAAAAAAAAQAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAQAAAAA=</HashCode>
       <FileName>Entities\StorageEntity.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -29,9 +29,9 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Starkman.Backend.Domain.Entities.Page.Page">
-    <Position X="3" Y="2.75" Width="2" />
+    <Position X="3" Y="2.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>QAAABAAAAAAgAEAAAAAAAAAAACAAAAAACAAAAABAAAA=</HashCode>
+      <HashCode>QAAABAAAAAAgEEAAAAAAAAAAACAAAAAACAAAAABAAAA=</HashCode>
       <FileName>Entities\Page\Page.cs</FileName>
     </TypeIdentifier>
   </Class>

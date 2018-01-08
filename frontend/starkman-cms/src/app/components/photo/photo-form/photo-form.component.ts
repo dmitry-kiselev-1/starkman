@@ -67,6 +67,8 @@ export class PhotoFormComponent extends BaseComponent implements OnInit {
     */
   }
 
+  // https://www.thepolyglotdeveloper.com/2016/02/upload-files-to-node-js-using-angular-2/
+  // http://embed.plnkr.co/mMVsbT/
   // https://developer.mozilla.org/en-US/docs/Web/API/File/Using_files_from_web_applications
   uploadFile(files)
   {
@@ -95,6 +97,35 @@ export class PhotoFormComponent extends BaseComponent implements OnInit {
 
       reader.readAsDataURL(file);
     }
+
+    /*
+    function FileUpload(img, file) {
+      var reader = new FileReader();
+      this.ctrl = createThrobber(img);
+      var xhr = new XMLHttpRequest();
+      this.xhr = xhr;
+
+      var self = this;
+      this.xhr.upload.addEventListener("progress", function(e) {
+            if (e.lengthComputable) {
+              var percentage = Math.round((e.loaded * 100) / e.total);
+              self.ctrl.update(percentage);
+            }
+          }, false);
+
+      xhr.upload.addEventListener("load", function(e){
+              self.ctrl.update(100);
+              var canvas = self.ctrl.ctx.canvas;
+              canvas.parentNode.removeChild(canvas);
+          }, false);
+      xhr.open("POST", "http://demos.hacks.mozilla.org/paul/demos/resources/webservices/devnull.php");
+      xhr.overrideMimeType('text/plain; charset=x-user-defined-binary');
+      reader.onload = function(evt) {
+        xhr.send(evt.target.result);
+      };
+      reader.readAsBinaryString(file);
+    }
+    */
 
     /*
     if (!this.entity.Url) return;

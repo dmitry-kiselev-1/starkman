@@ -22,18 +22,18 @@
                      (keyup.enter)="onTitleInputEnter(titleInput.value)"
                      (blur)="onTitleInputEnter(titleInput.value)"
                      [(ngModel)]="this.entity.Title" name="Title" #titleInput="ngModel" matInput
-                     placeholder="Title (название категории)" required minlength="1">
+                     placeholder="Title (название)" required minlength="1">
             </mat-form-field>
 
             <!-- https://github.com/froala/angular-froala-wysiwyg/blob/master/README.md#installation-instructions -->
             <div style="margin-top: 1em; margin-bottom: 1.5em;">
-              <div style="margin-top: 0; margin-bottom: 0.5em; color: grey; font-size: 0.75em;">Description (описание категории)</div>
+              <div style="margin-top: 0; margin-bottom: 0.5em; color: grey; font-size: 0.75em;">Description (описание)</div>
               <mat-tab-group
                 [(selectedIndex)]="descriptionSelectedTabIndex"
                 (selectedTabChange)="descriptionSelectedTabChange($event)" [dynamicHeight]="true">
                 <mat-tab label="Текст">
                   <div>
-                    <textarea style="height: 250px;" [(ngModel)]="this.entity.Description" name="Description" #Description="ngModel" matInput placeholder="Description (описание категории)"></textarea>
+                    <textarea style="height: 250px;" [(ngModel)]="this.entity.Description" name="Description" #Description="ngModel" matInput placeholder="Description (описание)"></textarea>
                   </div>
                 </mat-tab>
                 <mat-tab label="Просмотр HTML">
@@ -55,7 +55,7 @@
             </div>
             <!--
             <mat-form-field>
-              <textarea style="height: 250px;" [(ngModel)]="this.entity.Description" name="Description" matInput placeholder="Description (описание категории)"></textarea>
+              <textarea style="height: 250px;" [(ngModel)]="this.entity.Description" name="Description" matInput placeholder="Description (описание)"></textarea>
             </mat-form-field>
             -->
             <mat-form-field>
@@ -74,7 +74,7 @@
 
             <mat-form-field style="width: 50%">
           <span matTooltipPosition="right"
-                matTooltip="Число 1 означает, что в общем списке категория будет на первом месте, число 2 - на втором, и так далее">
+                matTooltip="Число 1 означает, что в общем списке элемент будет на первом месте, число 2 - на втором, и так далее">
             <input autocomplete="off" [(ngModel)]="this.entity.SortOrder" name="SortOrder" #SortOrder="ngModel" matInput [type]="'number'"
                    placeholder="Сортировка (порядковый номер в общем списке)"/>
           </span>

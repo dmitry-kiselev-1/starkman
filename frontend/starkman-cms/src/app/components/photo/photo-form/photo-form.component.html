@@ -13,11 +13,11 @@
         <mat-form-field>
           <input autocomplete="off"
                  [(ngModel)]="this.page.Title" name="Title" [disabled]="true" #titleInput="ngModel" matInput
-                 placeholder="Title (название категории)" required minlength="1">
+                 placeholder="Title (название)" required minlength="1">
         </mat-form-field>
 
         <mat-form-field>
-          <textarea style="height: 250px;" [(ngModel)]="this.entity.Description" name="Description" matInput placeholder="Description (описание категории)"></textarea>
+          <textarea style="height: 250px;" [(ngModel)]="this.entity.Description" name="Description" matInput placeholder="Description (описание)"></textarea>
         </mat-form-field>
 
         <mat-form-field>
@@ -36,7 +36,7 @@
 
         <mat-form-field style="width: 50%">
           <span matTooltipPosition="right"
-                matTooltip="Число 1 означает, что в общем списке фотография будет на первом месте, число 2 - на втором, и так далее">
+                matTooltip="Число 1 означает, что в общем списке элемент будет на первом месте, число 2 - на втором, и так далее">
             <input autocomplete="off" [(ngModel)]="this.entity.SortOrder" name="SortOrder" #SortOrder="ngModel" matInput [type]="'number'"
                    placeholder="Сортировка (порядковый номер в общем списке)"/>
           </span>

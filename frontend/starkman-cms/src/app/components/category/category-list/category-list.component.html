@@ -4,8 +4,8 @@
     <mat-panel-title>Список товарных категорий</mat-panel-title>
   </mat-expansion-panel-header>
   <p>
-    <mat-nav-list>
-      <mat-list-item *ngFor="let entity of entityList">
+    <mat-nav-list> <!-- dense -->
+      <mat-list-item  *ngFor="let entity of entityList">
         <a routerLink="category/{{entity.Url}}">{{entity.Title}}</a>
       </mat-list-item>
     </mat-nav-list>

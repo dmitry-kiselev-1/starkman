@@ -16,20 +16,6 @@
                  placeholder="Title (название)" required minlength="1">
         </mat-form-field>
 
-        <mat-form-field>
-          <textarea style="height: 250px;" [(ngModel)]="this.entity.Description" name="Description" matInput placeholder="Description (описание)"></textarea>
-        </mat-form-field>
-
-        <mat-form-field>
-            <textarea style="height: 100px;" [(ngModel)]="this.entity.MetaKeywords" name="MetaKeywords" #MetaKeywords="ngModel" matInput
-                      placeholder="Meta Keywords (ключевые слова для Title)"></textarea>
-        </mat-form-field>
-
-        <mat-form-field>
-            <textarea style="height: 100px;" [(ngModel)]="this.entity.MetaDescription" name="MetaDescription" #MetaDescription="ngModel" matInput
-                      placeholder="Meta Description (ключевые слова из Description)"></textarea>
-        </mat-form-field>
-
         <mat-checkbox style="padding-bottom: 1.5em;" [(ngModel)]="this.entity.IsVisible" #IsVisible="ngModel" name="IsVisible"
                       color="primary">Показывать на сайте
         </mat-checkbox>

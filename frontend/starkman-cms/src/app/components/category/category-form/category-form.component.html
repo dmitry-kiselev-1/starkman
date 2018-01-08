@@ -86,7 +86,7 @@
           <div class="button-row">
 
         <span matTooltip="Сохранить">
-          <button (click)="save()" mat-mini-fab color="primary">
+          <button (click)="save()" mat-mini-fab color="primary" [disabled]="!categoryForm.form.valid">
             <mat-icon aria-label="Сохранить">done</mat-icon>
           </button>
         </span>

@@ -1,11 +1,18 @@
 
-<mat-expansion-panel expanded="true">
+<mat-expansion-panel expanded="false">
   <mat-expansion-panel-header>
     <mat-panel-title>Список товарных категорий</mat-panel-title>
   </mat-expansion-panel-header>
   <p>
-    <mat-list>
+    <mat-nav-list>
+      <mat-list-item *ngFor="let entity of entityList">
+        <a routerLink="category/{{entity.Url}}">{{entity.Title}}</a>
+      </mat-list-item>
+    </mat-nav-list>
+    <!--
+    <mat-nav-list>
       <a *ngFor="let entity of entityList" mat-list-item routerLink="category/{{entity.Url}}">{{entity.Title}}</a>
-    </mat-list>
+    </mat-nav-list>
+    -->
   </p>
 </mat-expansion-panel>

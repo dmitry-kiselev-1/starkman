@@ -20,7 +20,7 @@ namespace Starkman.Backend.Storage.Redis
 
             var configuration = builder.Build();
 
-            string connectionString = configuration["ConnectionStrings:StorageServiceConnectionString"];
+            string connectionString = configuration["ConnectionStrings:RedisStorageServiceConnectionString"];
 
             RedisConnection = ConnectionMultiplexer.Connect(connectionString);
         }

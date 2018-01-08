@@ -13,6 +13,8 @@ namespace Starkman.Backend.Domain.Services.Redis
         private string _entityName = "Category";
         private int _databaseId = 0;
 
+        public IDictionary<string, string> InitData { get; set; }
+
         public async Task<IEnumerable<Category>> ListAsync()
         {
             var redisHash = await RedisContext.RedisConnection.GetDatabase(_databaseId).HashValuesAsync(_entityName);

@@ -29,5 +29,11 @@ namespace Starkman.Backend.Domain.Services
         /// Удаляет сущность T
         /// </summary>
         Task<bool> RemoveAsync(string key);
+
+        /// <summary>
+        /// Инициализационные данные, если они необходимы сервису
+        /// </summary>
+        /// <returns></returns>
+        IDictionary<string, string> InitData { get; set; }
     }
 }

@@ -13,6 +13,8 @@ namespace Starkman.Backend.Domain.Services.Redis
         private string _entityName = "Product";
         private int _databaseId = 1;
 
+        public IDictionary<string, string> InitData { get; set; }
+
         private const string EntityName = "Product";
         public async Task<IEnumerable<Product>> ListAsync()
         {

@@ -97,6 +97,7 @@ export class PhotoFormComponent extends BaseComponent implements OnInit {
       )
       (img);
 
+      //reader.readAsBinaryString(file);
       reader.readAsDataURL(file);
     }
 

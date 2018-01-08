@@ -15,6 +15,7 @@ import {Page} from '../../../models/page/page.model';
 export class PhotoFormComponent extends BaseComponent implements OnInit {
 
   @Input() page: Page;
+  @Input() isSinglePhoto: boolean;
   public entity: Photo = new Photo();
 
   constructor(
@@ -47,8 +48,9 @@ export class PhotoFormComponent extends BaseComponent implements OnInit {
       });
   }
 
-  save()
+  download()
   {
+    /*
     if (!this.entity.Url) return;
 
     this.notificationService.appLoadingSet(true);
@@ -62,27 +64,47 @@ export class PhotoFormComponent extends BaseComponent implements OnInit {
         this.handleError(error);
         this.notificationService.appLoadingSet(false);
       });
+    */
   }
 
-  delete(url: string, needConfirmation: boolean = true)
+  upload()
   {
+    /*
+    if (!this.entity.Url) return;
+
+    this.notificationService.appLoadingSet(true);
+
+    this.photoService.post(this.entity)
+      .then(item => {
+        this.reload(this.entity.Url);
+        this.notificationService.appLoadingSet(false);
+      })
+      .catch(error => {
+        this.handleError(error);
+        this.notificationService.appLoadingSet(false);
+      });
+    */
+  }
+
+  delete(url: string, needConfirmation: boolean = true) {
     if (needConfirmation
-        ? confirm(`Удалить фото "${this.entity.Title}"?`)
-        : true ) {
-      this.notificationService.appLoadingSet(true);
+        ? confirm(`Удалить фото "${this.page.Title}"?`)
+        : true) {
+    /*
+        this.notificationService.appLoadingSet(true);
 
-      // this.openSnackBar(`Категорию ${this.entity.Title} нельзя удалить, т.к. она содержит товары`, "");
+        // this.openSnackBar(`Категорию ${this.entity.Title} нельзя удалить, т.к. она содержит товары`, "");
 
-      this.photoService.delete(url)
-        .then(item => {
-          this.notificationService.appLoadingSet(false);
-        })
-        .catch(error => {
-          this.handleError(error);
-          this.notificationService.appLoadingSet(false);
-        });
+        this.photoService.delete(url)
+          .then(item => {
+            this.notificationService.appLoadingSet(false);
+          })
+          .catch(error => {
+            this.handleError(error);
+            this.notificationService.appLoadingSet(false);
+          });
+    */
     }
-
   }
 
   openSnackBar(message: string, action: string) {

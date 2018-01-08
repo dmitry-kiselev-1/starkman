@@ -72,11 +72,11 @@
                           color="primary">Показывать на сайте
             </mat-checkbox>
 
-            <mat-form-field style="width: 50%">
+            <mat-form-field style="width: 25%">
           <span matTooltipPosition="right"
                 matTooltip="Число 1 означает, что в общем списке элемент будет на первом месте, число 2 - на втором, и так далее">
             <input autocomplete="off" [(ngModel)]="this.entity.SortOrder" name="SortOrder" #SortOrder="ngModel" matInput [type]="'number'"
-                   placeholder="Сортировка (порядковый номер в общем списке)"/>
+                   placeholder="Порядковый номер"/>
           </span>
             </mat-form-field>
           </div>
@@ -119,7 +119,7 @@
 
   <mat-tab label="Фото">
 
-    <app-photo-form [page]="this.entity"></app-photo-form>
+    <app-photo-form [page]="this.entity" [isSinglePhoto]="true"></app-photo-form>
 
   </mat-tab>
 </mat-tab-group>

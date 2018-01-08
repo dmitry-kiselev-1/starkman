@@ -4,45 +4,56 @@
 
     <mat-card-content>
 
-      <div class="edit-form-container">
+        <mat-grid-list cols="4" rowHeight="4:1">
 
-        <mat-form-field>
-          <input [(ngModel)]="this.page.Url" name="Url" [disabled]="true" matInput placeholder="Url" required minlength="1"/>
-        </mat-form-field>
+          <mat-grid-tile>
+            <mat-form-field>
+              <input autocomplete="off"
+                     [(ngModel)]="this.page.Title" name="Title" [disabled]="true" #titleInput="ngModel" matInput
+                     placeholder="Title (название)" required minlength="1">
+            </mat-form-field>
+          </mat-grid-tile>
 
-        <mat-form-field>
-          <input autocomplete="off"
-                 [(ngModel)]="this.page.Title" name="Title" [disabled]="true" #titleInput="ngModel" matInput
-                 placeholder="Title (название)" required minlength="1">
-        </mat-form-field>
+          <mat-grid-tile>
+            <mat-form-field>
+              <input [(ngModel)]="this.page.Url" name="Url" [disabled]="true" matInput placeholder="Url" required minlength="1"/>
+            </mat-form-field>
+          </mat-grid-tile>
 
-        <mat-checkbox style="padding-bottom: 1.5em;" [(ngModel)]="this.entity.IsVisible" #IsVisible="ngModel" name="IsVisible"
-                      color="primary">Показывать на сайте
-        </mat-checkbox>
+          <mat-grid-tile>
+            <mat-form-field *ngIf="!this.isSinglePhoto">
+              <input matInput placeholder="Порядковый номер" [type]="'number'" autocomplete="off"
+                     [(ngModel)]="this.entity.SortOrder" name="SortOrder" #SortOrder="ngModel"/>
+            </mat-form-field>
+          </mat-grid-tile>
 
-        <mat-form-field style="width: 50%">
-          <span matTooltipPosition="right"
-                matTooltip="Число 1 означает, что в общем списке элемент будет на первом месте, число 2 - на втором, и так далее">
-            <input autocomplete="off" [(ngModel)]="this.entity.SortOrder" name="SortOrder" #SortOrder="ngModel" matInput [type]="'number'"
-                   placeholder="Сортировка (порядковый номер в общем списке)"/>
-          </span>
-        </mat-form-field>
-      </div>
+          <mat-grid-tile>
+            <mat-checkbox *ngIf="!this.isSinglePhoto" [(ngModel)]="this.entity.IsVisible" #IsVisible="ngModel" name="IsVisible"
+                          color="primary">Показывать на сайте
+            </mat-checkbox>
+          </mat-grid-tile>
+
+        </mat-grid-list>
+
+        <img mat-card-image src="http://material.angular.io/assets/img/examples/shiba2.jpg"
+             alt="Photo of a Shiba Inu">
+
     </mat-card-content>
 
     <mat-card-actions>
       <div class="button-row">
-        <span matTooltip="Сохранить">
-          <button (click)="save()" mat-mini-fab color="primary">
-            <mat-icon aria-label="Сохранить">done</mat-icon>
+
+        <span matTooltip="Загрузить фото на сайт">
+          <button (click)="upload()" mat-mini-fab color="primary">
+            <mat-icon aria-label="Сохранить">add_a_photo</mat-icon>
           </button>
         </span>
-        <span matTooltip="Отменить">
-          <button (click)="reload(this.page?.Url)" mat-mini-fab color="accent">
-            <mat-icon class="flipV" aria-label="Отменить">refresh</mat-icon>
+        <span matTooltip="Скачать фото с сайта">
+          <button (click)="download(this.page?.Url)" mat-mini-fab color="accent">
+            <mat-icon class="flipV" aria-label="Отменить">file_download</mat-icon>
           </button>
         </span>
-        <span matTooltip="Удалить">
+        <span matTooltip="Удалить фото с сайта">
           <button (click)="delete(this.page?.Url)" mat-mini-fab color="warn">
             <mat-icon aria-label="Удалить">delete</mat-icon>
           </button>

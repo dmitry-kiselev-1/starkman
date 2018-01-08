@@ -16,8 +16,9 @@ import {NotificationService} from './services/notification.service';
 import {FroalaEditorModule, FroalaViewModule} from 'angular-froala-wysiwyg';
 import {OrderListComponent} from './components/order/order-list/order-list/order-list.component';
 import {SidenavComponent} from './components/layout/sidenav/sidenav/sidenav.component';
-import { PhotoListComponent } from './components/photo/photo-list/photo-list/photo-list.component';
-import { PhotoFormComponent } from './components/photo/photo-form/photo-form/photo-form.component';
+import { PhotoListComponent } from './components/photo/photo-list/photo-list.component';
+import { PhotoFormComponent } from './components/photo/photo-form/photo-form.component';
+import {PhotoService} from './services/photo.service';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,7 @@ import { PhotoFormComponent } from './components/photo/photo-form/photo-form/pho
     FlexLayoutModule,
     FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()
   ],
-  providers: [NotificationService, CategoryService],
+  providers: [NotificationService, CategoryService, PhotoService],
   bootstrap: [AppRootComponent]
 })
 export class AppModule {}

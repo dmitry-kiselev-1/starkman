@@ -1,0 +1,68 @@
+
+<form #photoForm="ngForm">
+  <mat-card>
+
+    <mat-card-content>
+
+      <div class="edit-form-container">
+
+        <mat-form-field>
+          <input [(ngModel)]="this.page.Url" name="Url" [disabled]="true" matInput placeholder="Url" required minlength="1"/>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input autocomplete="off"
+                 [(ngModel)]="this.page.Title" name="Title" [disabled]="true" #titleInput="ngModel" matInput
+                 placeholder="Title (название категории)" required minlength="1">
+        </mat-form-field>
+
+        <mat-form-field>
+          <textarea style="height: 250px;" [(ngModel)]="this.entity.Description" name="Description" matInput placeholder="Description (описание категории)"></textarea>
+        </mat-form-field>
+
+        <mat-form-field>
+            <textarea style="height: 100px;" [(ngModel)]="this.entity.MetaKeywords" name="MetaKeywords" #MetaKeywords="ngModel" matInput
+                      placeholder="Meta Keywords (ключевые слова для Title)"></textarea>
+        </mat-form-field>
+
+        <mat-form-field>
+            <textarea style="height: 100px;" [(ngModel)]="this.entity.MetaDescription" name="MetaDescription" #MetaDescription="ngModel" matInput
+                      placeholder="Meta Description (ключевые слова из Description)"></textarea>
+        </mat-form-field>
+
+        <mat-checkbox style="padding-bottom: 1.5em;" [(ngModel)]="this.entity.IsVisible" #IsVisible="ngModel" name="IsVisible"
+                      color="primary">Показывать на сайте
+        </mat-checkbox>
+
+        <mat-form-field style="width: 50%">
+          <span matTooltipPosition="right"
+                matTooltip="Число 1 означает, что в общем списке фотография будет на первом месте, число 2 - на втором, и так далее">
+            <input autocomplete="off" [(ngModel)]="this.entity.SortOrder" name="SortOrder" #SortOrder="ngModel" matInput [type]="'number'"
+                   placeholder="Сортировка (порядковый номер в общем списке)"/>
+          </span>
+        </mat-form-field>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <div class="button-row">
+        <span matTooltip="Сохранить">
+          <button (click)="save()" mat-mini-fab color="primary">
+            <mat-icon aria-label="Сохранить">done</mat-icon>
+          </button>
+        </span>
+        <span matTooltip="Отменить">
+          <button (click)="reload(this.page?.Url)" mat-mini-fab color="accent">
+            <mat-icon class="flipV" aria-label="Отменить">refresh</mat-icon>
+          </button>
+        </span>
+        <span matTooltip="Удалить">
+          <button (click)="delete(this.page?.Url)" mat-mini-fab color="warn">
+            <mat-icon aria-label="Удалить">delete</mat-icon>
+          </button>
+        </span>
+      </div>
+    </mat-card-actions>
+
+  </mat-card>
+</form>

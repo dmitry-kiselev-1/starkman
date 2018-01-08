@@ -16,6 +16,8 @@ import {NotificationService} from './services/notification.service';
 import {FroalaEditorModule, FroalaViewModule} from 'angular-froala-wysiwyg';
 import {OrderListComponent} from './components/order/order-list/order-list/order-list.component';
 import {SidenavComponent} from './components/layout/sidenav/sidenav/sidenav.component';
+import { PhotoListComponent } from './components/photo/photo-list/photo-list/photo-list.component';
+import { PhotoFormComponent } from './components/photo/photo-form/photo-form/photo-form.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import {SidenavComponent} from './components/layout/sidenav/sidenav/sidenav.comp
     CategoryListComponent,
     CategoryFormComponent,
     OrderListComponent,
-    SidenavComponent
+    SidenavComponent,
+    PhotoListComponent,
+    PhotoFormComponent
   ],
   imports: [
     BrowserModule,

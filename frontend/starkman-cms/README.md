@@ -1,11 +1,13 @@
 
+ng generate component components\photo\photo-form\photo-form --module app
+
+ng generate component components\photo\photo-list\photo-list --module app
+ng generate component components\order\order-list\order-list --module app
+
 ng generate component components\layout\sidenav\sidenav --module app
 
-ng generate component components\order\order-list\order-list --module app
 ng generate service services\category
 ng generate component components\category  --module app
-ng generate module services
-ng generate module services
 
 /*
 https://habrahabr.ru/post/336280/ описание HttpClientModule

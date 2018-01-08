@@ -7,6 +7,8 @@ import {NotificationService} from '../../../services/notification.service';
 import {MatDialog, MatSnackBar} from '@angular/material';
 import {Page} from '../../../models/page/page.model';
 
+declare var $ :any;
+
 @Component({
   selector: 'app-photo-form',
   templateUrl: './photo-form.component.html',

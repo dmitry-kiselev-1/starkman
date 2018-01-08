@@ -1,5 +1,5 @@
 
-<form #photoForm="ngForm">
+<form #photoForm="ngForm" id="photoForm" enctype="multipart/form-data" method="post" action="http://localhost:8082/api/photo/{{this.Url}}">
   <mat-card>
 
     <mat-card-content>
@@ -42,14 +42,13 @@
 
     <mat-card-actions>
       <div class="button-row">
-
         <span matTooltip="Загрузить фото на сайт">
-          <button (click)="upload()" mat-mini-fab color="primary">
+          <button (click)="photoFile.click()" mat-mini-fab color="primary">  <!--uploadFile()-->
             <mat-icon aria-label="Сохранить">add_a_photo</mat-icon>
           </button>
         </span>
         <span matTooltip="Скачать фото с сайта">
-          <button (click)="download(this.page?.Url)" mat-mini-fab color="accent">
+          <button (click)="downloadFile(this.page?.Url)" mat-mini-fab color="accent">
             <mat-icon class="flipV" aria-label="Отменить">file_download</mat-icon>
           </button>
         </span>
@@ -62,4 +61,12 @@
     </mat-card-actions>
 
   </mat-card>
+
+  <input type="file" form="photoForm"
+         accept="image/jpeg,image/png"
+         style="opacity: 0"
+         #photoFile name="photoFile" id="photoFile" multiple required
+        (change)="uploadFile(photoFile.files)" />
+
+  <div id="preview"></div>
 </form>

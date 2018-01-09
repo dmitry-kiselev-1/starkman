@@ -33,10 +33,13 @@ export class PhotoService extends BaseService {
       .catch(this.handleError);
   }
 
-  public post(period: Photo): Promise<boolean> {
+  public post(photo: Photo): Promise<boolean> {
+
+    //this.requestOptions.headers.append("enctype", "multipart/form-data");
+
     return this.http.post(
       this.apiDomain + this.apiRoutePrefix,
-      period,
+      photo,
       this.requestOptions)
       .toPromise()
       .then(response => response)

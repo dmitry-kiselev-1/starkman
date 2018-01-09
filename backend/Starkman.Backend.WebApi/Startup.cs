@@ -14,6 +14,7 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Serialization;
 using Starkman.Backend.Domain.Entities.Page;
 using Starkman.Backend.Domain.Services;
+using Starkman.Backend.Domain.Services.Files;
 using Starkman.Backend.Domain.Services.Redis;
 using Starkman.Backend.WebApi.Middleware;
 
@@ -43,6 +44,7 @@ namespace WebApi
 
             // Dependency Injection:
             services.Add(ServiceDescriptor.Transient<IStorageService<Category>, RedisCategoryStorageService>());
+            services.Add(ServiceDescriptor.Transient<IStorageService<Photo>, FilePhotoStorageService>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

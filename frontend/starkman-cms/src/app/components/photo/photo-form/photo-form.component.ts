@@ -19,10 +19,10 @@ export class PhotoFormComponent extends BaseComponent implements OnInit {
 
   constructor(
     private notificationService: NotificationService,
+    private photoService: PhotoService,
     private snackBar: MatSnackBar,
     private activatedRoute: ActivatedRoute,
-    private router: Router,
-    private photoService: PhotoService) {
+    private router: Router,) {
     super();
   }
 
@@ -71,12 +71,25 @@ export class PhotoFormComponent extends BaseComponent implements OnInit {
     var reader = new FileReader();
     reader.onloadend = (() => {
       this.entity.Base64String = reader.result;
+      //this.entity.BinaryString = reader.result;
       //console.log(reader.result);
+
+      // сохраняем новую сущность:
+      this.photoService.post(this.entity)
+        .then(item => {
+          this.notificationService.appLoadingSet(false);
+          //this.reload(this.entity.Url);
+        })
+        .catch(error => {
+          this.handleError(error);
+          this.notificationService.appLoadingSet(false);
+        });
+
       this.notificationService.appLoadingSet(false);
     });
 
-    //reader.readAsDataURL(file);
-    reader.readAsBinaryString(file);
+    reader.readAsDataURL(file);
+    //reader.readAsBinaryString(file);
   }
 
 }

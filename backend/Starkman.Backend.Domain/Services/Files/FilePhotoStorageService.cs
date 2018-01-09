@@ -25,9 +25,10 @@ namespace Starkman.Backend.Domain.Services.Files
 
         public async Task<bool> SetAsync(Photo entity)
         {
-            var filesDirectoryPath = FilesContext.FilesDirectoryPath;
+            //var filesDirectoryPath = FilesContext.FilesDirectoryPath;
+
             this.InitData.TryGetValue("WebRootPath", out var webRootPath);
-            var fullPath = System.IO.Path.Combine(webRootPath, filesDirectoryPath, entity.Url);
+            var fullPath = System.IO.Path.Combine(webRootPath, @"assets\img", entity.Url + "." + entity.Type);
 
             if (String.IsNullOrWhiteSpace(fullPath))
             {
@@ -35,8 +36,8 @@ namespace Starkman.Backend.Domain.Services.Files
             }
             else
             {
-                var fileContent = Convert.FromBase64CharArray(entity.BinaryString.ToCharArray(), 0, entity.BinaryString.Length) ?? new Byte[0];
-                //var fileContent = Convert.FromBase64String(entity.Base64String) ?? new Byte[0];
+                //var fileContent = Convert.FromBase64CharArray(entity.BinaryString.ToCharArray(), 0, entity.BinaryString.Length) ?? new Byte[0];
+                var fileContent = Convert.FromBase64String(entity.Base64String.Split(',')[1]) ?? new Byte[0];
 
                 await System.IO.File.WriteAllBytesAsync(fullPath, fileContent, CancellationToken.None);
                 return true;

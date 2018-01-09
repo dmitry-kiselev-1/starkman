@@ -2,42 +2,40 @@
 
 <mat-card>
 
+  <mat-card-title>
+    {{this.entity.Title}}
+  </mat-card-title>
+
+  <mat-card-subtitle>
+    {{this.entity.Url}}
+  </mat-card-subtitle>
+
     <mat-card-content>
+
+        <img mat-card-image width="100px"
+             src="{{(this.entity && this.entity.Photo) ? (this.photoPath + this.entity.Photo.Url + '.' + this.entity.Photo.Type) : '' }}"
+             alt="{{this.entity?.Title}}">
 
         <mat-grid-list cols="4" rowHeight="3:1">
 
-          <mat-grid-tile>
-            <mat-form-field>
-              <input autocomplete="off"
-                     [(ngModel)]="this.entity.Title" name="Title" [disabled]="true" #titleInput="ngModel" matInput
-                     placeholder="Title (название)" required minlength="1">
-            </mat-form-field>
-          </mat-grid-tile>
+          <mat-grid-tile>{{(this.entity.Size / 1024) | number}} {{this.entity.Size ? "Kb" : ""}}</mat-grid-tile>
+          <mat-grid-tile>{{this.entity.SourceName}}</mat-grid-tile>
 
           <mat-grid-tile>
             <mat-form-field>
-              <input [(ngModel)]="this.entity.Url" name="Url" [disabled]="true" matInput placeholder="Url" required minlength="1"/>
-            </mat-form-field>
-          </mat-grid-tile>
-
-          <mat-grid-tile>
-            <mat-form-field *ngIf="!this.isSinglePhoto">
-              <input matInput placeholder="Порядковый номер" [type]="'number'" autocomplete="off"
+              <input *ngIf="this.isSinglePhoto" matInput placeholder="Порядковый номер" [type]="'number'" autocomplete="off"
                      [(ngModel)]="this.entity.SortOrder" name="SortOrder" #SortOrder="ngModel"/>
             </mat-form-field>
           </mat-grid-tile>
 
           <mat-grid-tile>
-            <mat-checkbox *ngIf="!this.isSinglePhoto" [(ngModel)]="this.entity.IsVisible" #IsVisible="ngModel" name="IsVisible"
+            <mat-checkbox *ngIf="this.isSinglePhoto" [(ngModel)]="this.entity.IsVisible" #IsVisible="ngModel" name="IsVisible"
                           color="primary">Показывать на сайте
             </mat-checkbox>
           </mat-grid-tile>
 
         </mat-grid-list>
 
-        <img mat-card-image width="100px"
-             src="{{(this.entity && this.entity.Photo) ? (this.photoPath + this.entity.Photo.Url + '.' + this.entity.Photo.Type) : '' }}"
-             alt="{{this.entity?.Title}}">
     </mat-card-content>
 
     <mat-card-actions>
@@ -59,14 +57,6 @@
         </span>
       </div>
     </mat-card-actions>
-
-    <mat-card-footer>
-      <mat-grid-list cols="2" rowHeight="10:1">
-        <mat-grid-tile>{{this.entity.SourceName}}</mat-grid-tile>
-        <mat-grid-tile>{{(this.entity.Size / 1024) | number}} {{this.entity.Size ? "Kb" : ""}}</mat-grid-tile>
-      </mat-grid-list>
-    </mat-card-footer>
-
   </mat-card>
 
 <input type="file"

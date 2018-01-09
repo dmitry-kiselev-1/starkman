@@ -35,7 +35,7 @@ namespace Starkman.Backend.Domain.Services.Files
             }
             else
             {
-                await System.IO.File.WriteAllBytesAsync(fullPath, entity.Data ?? new Byte[0], CancellationToken.None);
+                await System.IO.File.WriteAllBytesAsync(fullPath, Convert.FromBase64String(entity.Base64String) ?? new Byte[0], CancellationToken.None);
                 return true;
             }
         }

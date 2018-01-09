@@ -75,8 +75,8 @@ export class PhotoFormComponent extends BaseComponent implements OnInit {
       this.notificationService.appLoadingSet(false);
     });
 
-    reader.readAsDataURL(file);
-    //reader.readAsBinaryString(file);
+    //reader.readAsDataURL(file);
+    reader.readAsBinaryString(file);
   }
 
 }

@@ -5,6 +5,7 @@ import {CategoryService} from '../../../services/category.service';
 import {BaseComponent} from '../../base.component';
 import {NotificationService} from '../../../services/notification.service';
 import {MatDialog, MatSnackBar} from '@angular/material';
+import {Photo} from '../../../models/page/photo.model';
 
 declare var $ :any;
 
@@ -51,6 +52,10 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
     this.categoryService.get(url)
       .then(item => {
         this.entity = (item || new Category());
+
+        // ToDo: вызов сервиса фото:
+        this.entity.Photo = { Url: this.entity.Url, Type: "jpeg" } as Photo;
+
         this.descriptionSelectedTabIndex = 0;
         this.notificationService.appLoadingSet(false);
       })

@@ -7,8 +7,6 @@ import {NotificationService} from '../../../services/notification.service';
 import {MatDialog, MatSnackBar} from '@angular/material';
 import {Page} from '../../../models/page/page.model';
 
-declare var $ :any;
-
 @Component({
   selector: 'app-photo-form',
   templateUrl: './photo-form.component.html',
@@ -16,9 +14,8 @@ declare var $ :any;
 })
 export class PhotoFormComponent extends BaseComponent implements OnInit {
 
-  @Input() page: Page;
+  @Input() entity: Photo;
   @Input() isSinglePhoto: boolean;
-  public entity: Photo = new Photo();
 
   constructor(
     private notificationService: NotificationService,
@@ -31,13 +28,16 @@ export class PhotoFormComponent extends BaseComponent implements OnInit {
 
   ngOnInit()
   {
-    //this.reload(this.page.Url)
+    this.reload(this.entity.Url)
   }
 
   reload(url: string)
   {
     if (!url) return;
 
+    this.entity = { Url: "bryuki_zauzhennye", Type: "jpeg" } as Photo;
+    return;
+    /*
     this.notificationService.appLoadingSet(true);
     this.photoService.get(url)
       .then(item => {
@@ -48,130 +48,35 @@ export class PhotoFormComponent extends BaseComponent implements OnInit {
         this.handleError(error);
         this.notificationService.appLoadingSet(false);
       });
-  }
-
-  downloadFile()
-  {
-    /*
-    if (!this.entity.Url) return;
-
-    this.notificationService.appLoadingSet(true);
-
-    this.photoService.post(this.entity)
-      .then(item => {
-        this.reload(this.entity.Url);
-        this.notificationService.appLoadingSet(false);
-      })
-      .catch(error => {
-        this.handleError(error);
-        this.notificationService.appLoadingSet(false);
-      });
-    */
+      */
   }
 
   // https://www.thepolyglotdeveloper.com/2016/02/upload-files-to-node-js-using-angular-2/
-  // http://embed.plnkr.co/mMVsbT/
-  // https://developer.mozilla.org/en-US/docs/Web/API/File/Using_files_from_web_applications
-  uploadFile(files)
+  // https://developer.mozilla.org/ru/docs/Web/API/FileReader/readAsBinaryString
+  previewPhoto(files: File[])
   {
-    for (var i = 0; i < files.length; i++) {
-      var file = files[i];
-
-      if (!file.type.startsWith('image/')){ continue }
-
-      var img = document.createElement("img");
-      img.classList.add("obj");
-      img.src = file;
-      $("#preview").append(img);
-
-      var reader = new FileReader();
-      reader.onload =
-      (
-        function(aImg)
-        {
-          return function(e)
-          {
-            aImg.src = e.target.result;
-          };
-        }
-      )
-      (img);
-
-      //reader.readAsBinaryString(file);
-      reader.readAsDataURL(file);
-    }
-
-    /*
-    function FileUpload(img, file) {
-      var reader = new FileReader();
-      this.ctrl = createThrobber(img);
-      var xhr = new XMLHttpRequest();
-      this.xhr = xhr;
-
-      var self = this;
-      this.xhr.upload.addEventListener("progress", function(e) {
-            if (e.lengthComputable) {
-              var percentage = Math.round((e.loaded * 100) / e.total);
-              self.ctrl.update(percentage);
-            }
-          }, false);
-
-      xhr.upload.addEventListener("load", function(e){
-              self.ctrl.update(100);
-              var canvas = self.ctrl.ctx.canvas;
-              canvas.parentNode.removeChild(canvas);
-          }, false);
-      xhr.open("POST", "http://demos.hacks.mozilla.org/paul/demos/resources/webservices/devnull.php");
-      xhr.overrideMimeType('text/plain; charset=x-user-defined-binary');
-      reader.onload = function(evt) {
-        xhr.send(evt.target.result);
-      };
-      reader.readAsBinaryString(file);
-    }
-    */
-
-    /*
-    if (!this.entity.Url) return;
+    if (!files || !files[0]) return;
 
     this.notificationService.appLoadingSet(true);
 
-    this.photoService.post(this.entity)
-      .then(item => {
-        this.reload(this.entity.Url);
-        this.notificationService.appLoadingSet(false);
-      })
-      .catch(error => {
-        this.handleError(error);
-        this.notificationService.appLoadingSet(false);
-      });
-    */
-  }
+    let file: File = files[0];
+    let fileSourceName: string = file.name;
+    let fileSize: number = file.size;
+    let fileType: string = file.type.split('/')[1];
 
-  delete(url: string, needConfirmation: boolean = true) {
-    if (needConfirmation
-        ? confirm(`Удалить фото "${this.page.Title}"?`)
-        : true) {
-    /*
-        this.notificationService.appLoadingSet(true);
+    this.entity.SourceName = fileSourceName;
+    this.entity.Type = fileType;
+    this.entity.Size = fileSize;
 
-        // this.openSnackBar(`Категорию ${this.entity.Title} нельзя удалить, т.к. она содержит товары`, "");
-
-        this.photoService.delete(url)
-          .then(item => {
-            this.notificationService.appLoadingSet(false);
-          })
-          .catch(error => {
-            this.handleError(error);
-            this.notificationService.appLoadingSet(false);
-          });
-    */
-    }
-  }
-
-  openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action, {
-      duration: 5000,
+    var reader = new FileReader();
+    reader.onloadend = (() => {
+      this.entity.Base64String = reader.result;
+      //console.log(reader.result);
+      this.notificationService.appLoadingSet(false);
     });
+
+    reader.readAsDataURL(file);
+    //reader.readAsBinaryString(file);
   }
 
 }

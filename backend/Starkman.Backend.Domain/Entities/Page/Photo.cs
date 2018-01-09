@@ -6,6 +6,10 @@
     /// </summary>
     public class Photo: Page
     {
-        public byte[] Data { get; set; }
+        public string SourceName;
+        public string Type;
+        public int Size;
+        public string BinaryString { get; set; }
+        public string Base64String { get; set; }
     }
 }

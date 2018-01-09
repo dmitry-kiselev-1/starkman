@@ -1,22 +1,22 @@
+<!--<form #photoForm="ngForm" id="photoForm" enctype="multipart/form-data" method="post" action="http://localhost:8082/api/photo/{{this.Url}}">-->
 
-<form #photoForm="ngForm" id="photoForm" enctype="multipart/form-data" method="post" action="http://localhost:8082/api/photo/{{this.Url}}">
-  <mat-card>
+<mat-card>
 
     <mat-card-content>
 
-        <mat-grid-list cols="4" rowHeight="4:1">
+        <mat-grid-list cols="4" rowHeight="3:1">
 
           <mat-grid-tile>
             <mat-form-field>
               <input autocomplete="off"
-                     [(ngModel)]="this.page.Title" name="Title" [disabled]="true" #titleInput="ngModel" matInput
+                     [(ngModel)]="this.entity.Title" name="Title" [disabled]="true" #titleInput="ngModel" matInput
                      placeholder="Title (название)" required minlength="1">
             </mat-form-field>
           </mat-grid-tile>
 
           <mat-grid-tile>
             <mat-form-field>
-              <input [(ngModel)]="this.page.Url" name="Url" [disabled]="true" matInput placeholder="Url" required minlength="1"/>
+              <input [(ngModel)]="this.entity.Url" name="Url" [disabled]="true" matInput placeholder="Url" required minlength="1"/>
             </mat-form-field>
           </mat-grid-tile>
 
@@ -35,9 +35,9 @@
 
         </mat-grid-list>
 
-        <img mat-card-image src="http://material.angular.io/assets/img/examples/shiba2.jpg"
-             alt="Photo of a Shiba Inu">
-
+        <img mat-card-image width="100px"
+             src="{{(this.entity && this.entity.Photo) ? (this.photoPath + this.entity.Photo.Url + '.' + this.entity.Photo.Type) : '' }}"
+             alt="{{this.entity?.Title}}">
     </mat-card-content>
 
     <mat-card-actions>
@@ -48,25 +48,34 @@
           </button>
         </span>
         <span matTooltip="Скачать фото с сайта">
-          <button (click)="downloadFile(this.page?.Url)" mat-mini-fab color="accent">
+          <button (click)="downloadFile(this.entity?.Url)" mat-mini-fab color="accent">
             <mat-icon class="flipV" aria-label="Отменить">file_download</mat-icon>
           </button>
         </span>
         <span matTooltip="Удалить фото с сайта">
-          <button (click)="delete(this.page?.Url)" mat-mini-fab color="warn">
+          <button (click)="delete(this.entity?.Url)" mat-mini-fab color="warn">
             <mat-icon aria-label="Удалить">delete</mat-icon>
           </button>
         </span>
       </div>
     </mat-card-actions>
 
+    <mat-card-footer>
+      <mat-grid-list cols="2" rowHeight="10:1">
+        <mat-grid-tile>{{this.entity.SourceName}}</mat-grid-tile>
+        <mat-grid-tile>{{(this.entity.Size / 1024) | number}} {{this.entity.Size ? "Kb" : ""}}</mat-grid-tile>
+      </mat-grid-list>
+    </mat-card-footer>
+
   </mat-card>
 
-  <input type="file" form="photoForm"
-         accept="image/jpeg,image/png"
-         style="opacity: 0"
-         #photoFile name="photoFile" id="photoFile" multiple required
-        (change)="uploadFile(photoFile.files)" />
+<input type="file"
+  accept="image/jpeg,image/png"
+  style="opacity: 0"
+  #photoFile
+  (change)="previewPhoto(photoFile.files)" />
+<div id="preview"></div>
 
-  <div id="preview"></div>
-</form>
+<!--#photoFile required multiple-->
+<!--</form>-->
+

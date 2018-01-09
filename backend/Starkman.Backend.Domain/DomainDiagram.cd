@@ -15,9 +15,9 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Starkman.Backend.Domain.Entities.Page.Photo">
-    <Position X="6.5" Y="6" Width="1.5" />
+    <Position X="6.5" Y="6" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAggAAAAAAAAAAAQAAAAAAAQAAAAAAAAA=</HashCode>
       <FileName>Entities\Page\Photo.cs</FileName>
     </TypeIdentifier>
   </Class>

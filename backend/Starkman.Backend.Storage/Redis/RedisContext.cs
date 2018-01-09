@@ -10,7 +10,7 @@ namespace Starkman.Backend.Storage.Redis
     /// </summary>
     public static class RedisContext
     {
-        public static ConnectionMultiplexer RedisConnection;
+        public static readonly ConnectionMultiplexer RedisConnection;
 
         static RedisContext()
         {

@@ -5,7 +5,7 @@ namespace Starkman.Backend.Storage.Files
 {
     public static class FilesContext
     {
-        public static string FilesDirectoryPath;
+        public static readonly string FilesDirectoryPath;
 
         static FilesContext()
         {

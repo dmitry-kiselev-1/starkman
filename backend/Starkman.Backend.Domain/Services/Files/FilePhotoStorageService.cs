@@ -25,10 +25,7 @@ namespace Starkman.Backend.Domain.Services.Files
 
         public async Task<bool> SetAsync(Photo entity)
         {
-            //var filesDirectoryPath = FilesContext.FilesDirectoryPath;
-
-            this.InitData.TryGetValue("WebRootPath", out var webRootPath);
-            var fullPath = System.IO.Path.Combine(webRootPath, @"assets\img", entity.Url + "." + entity.Type);
+            var fullPath = System.IO.Path.Combine(this.GetDirPath(), entity.Url + "." + entity.Type);
 
             if (String.IsNullOrWhiteSpace(fullPath))
             {
@@ -49,16 +46,11 @@ namespace Starkman.Backend.Domain.Services.Files
             return await new Task<bool>(() => true);
         }
 
-        /*
         private string GetDirPath()
         {
-            var filesDirectoryPath = "assets\\img"; //FilesContext.FilesDirectoryPath;
-            string webRootPath;
-
-            this.InitData.TryGetValue("WebRootPath", out webRootPath);
-
-            return System.IO.Path.Combine(webRootPath, filesDirectoryPath);
+            var filesDirectoryPath = FilesContext.FilesDirectoryPath;
+            this.InitData.TryGetValue("WebRootPath", out var webRootPath);
+            return System.IO.Path.Combine(webRootPath, @filesDirectoryPath);
         }
-        */
     }
 }

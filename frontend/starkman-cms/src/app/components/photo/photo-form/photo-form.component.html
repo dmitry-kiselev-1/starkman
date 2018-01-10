@@ -7,7 +7,7 @@
   </mat-card-title>
 
   <mat-card-subtitle>
-    {{this.entity.Url}}
+    {{this.isPreviewPhoto ? this.entity.Url : this.entity.Base64String}}
   </mat-card-subtitle>
 
     <mat-card-content>

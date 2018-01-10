@@ -17,6 +17,8 @@ export class PhotoFormComponent extends BaseComponent implements OnInit {
   @Input() entity: Photo;
   @Input() isSinglePhoto: boolean;
 
+  private isPreviewPhoto: boolean = true;
+
   constructor(
     private notificationService: NotificationService,
     private photoService: PhotoService,
@@ -59,6 +61,8 @@ export class PhotoFormComponent extends BaseComponent implements OnInit {
 
     this.notificationService.appLoadingSet(true);
 
+    this.isPreviewPhoto = true;
+
     let file: File = files[0];
     let fileSourceName: string = file.name;
     let fileSize: number = file.size;
@@ -74,7 +78,6 @@ export class PhotoFormComponent extends BaseComponent implements OnInit {
       //this.entity.BinaryString = reader.result;
       //console.log(reader.result);
 
-      // сохраняем новую сущность:
       this.photoService.post(this.entity)
         .then(item => {
           this.notificationService.appLoadingSet(false);

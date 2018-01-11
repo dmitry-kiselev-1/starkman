@@ -7,6 +7,8 @@ import {Photo} from '../models/page/photo.model';
 @Injectable()
 export class PhotoService extends BaseService {
 
+  public apiDomainPhotoPath: string = "/assets/img/";
+
   constructor(private http: Http) {
     super();
     this.apiRoutePrefix = '/api/photo/';

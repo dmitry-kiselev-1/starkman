@@ -1,7 +1,5 @@
 ﻿export abstract class BaseComponent {
 
-  protected photoPath = "/assets/img/";
-
   protected componentTitle: string;
 
   constructor() {}

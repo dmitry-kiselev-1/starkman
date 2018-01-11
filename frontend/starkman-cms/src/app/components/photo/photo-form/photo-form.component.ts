@@ -18,6 +18,7 @@ export class PhotoFormComponent extends BaseComponent implements OnInit {
   @Input() isSinglePhoto: boolean;
 
   private isPreviewPhoto: boolean = true;
+  private photoPath: string;
 
   constructor(
     private notificationService: NotificationService,
@@ -31,6 +32,7 @@ export class PhotoFormComponent extends BaseComponent implements OnInit {
   ngOnInit()
   {
     this.reload(this.entity.Url)
+    this.photoPath = this.photoService.apiDomainPhotoPath;
   }
 
   reload(url: string)

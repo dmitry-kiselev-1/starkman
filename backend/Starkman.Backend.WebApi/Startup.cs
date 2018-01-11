@@ -50,7 +50,8 @@ namespace WebApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            //app.UseStaticFiles();
+            // allow to upload img
+            app.UseStaticFiles();
 
             app.UseCors(builder => builder
                 .AllowAnyOrigin()

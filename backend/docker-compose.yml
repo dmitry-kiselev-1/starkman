@@ -14,5 +14,19 @@ services:
     networks:
       - starkman-backend
 
+  webapi:
+    container_name: starkman-api
+    image: webapi
+    ports:
+      - "8080:80"
+    restart: always
+    build:
+      context: .
+      dockerfile: Starkman.Backend.WebApi/Dockerfile
+    networks:
+     - starkman-backend
+    depends_on: 
+      - redis
+      
 networks:
   starkman-backend:

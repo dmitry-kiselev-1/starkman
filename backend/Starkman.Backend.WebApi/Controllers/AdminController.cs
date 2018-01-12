@@ -5,14 +5,14 @@ namespace Starkman.Backend.WebApi.Controllers
     [Route("api/[controller]")]
     public class AdminController : Controller
     {
-        /*
         // GET api/admin
         [HttpGet]
-        public IEnumerable<string> Get()
+        public string Get()
         {
-            return new string[] {"value1", "value2"};
+            return "ok";
         }
 
+        /*
         // GET api/admin/5
         [HttpGet("{id}")]
         public string Get(int id)

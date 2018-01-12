@@ -13,7 +13,7 @@ RUN for version in '2.0.0' '2.0.3' '2.0.5'; do \
     done
 
 FROM microsoft/aspnetcore
-WORKDIR /app
+WORKDIR /
 COPY . .
 EXPOSE 80
 ENTRYPOINT ["dotnet", "Starkman.Backend.WebApi.dll"]

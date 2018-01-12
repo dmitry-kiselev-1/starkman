@@ -1,19 +1,19 @@
-<!--<form #photoForm="ngForm" id="photoForm" enctype="multipart/form-data" method="post" action="http://localhost:8082/api/photo/{{this.Url}}">-->
+<!--<form #photoForm="ngForm" id="photoForm">-->
 
 <mat-card>
 
-  <mat-card-title>
-    {{this.entity.Title}}
-  </mat-card-title>
+  <mat-card-title>{{this.entity.Title}}</mat-card-title>
 
-  <mat-card-subtitle>
-    {{this.isPreviewPhoto ? this.entity.Url : this.entity.Base64String}}
-  </mat-card-subtitle>
+  <mat-card-subtitle>{{this.entity?.Url}}</mat-card-subtitle>
 
     <mat-card-content>
 
-        <img mat-card-image width="100px"
-             src="{{(this.entity && this.entity.Photo) ? (this.photoPath + this.entity.Photo.Url + '.' + this.entity.Photo.Type) : '' }}"
+      <img *ngIf="this.isPreviewPhoto" mat-card-image width="100px"
+           src="{{(this.entity && this.entity.Photo) ? (this.entity.Base64String) : '' }}"
+           alt="{{this.entity?.Title}}">
+
+      <img *ngIf="!this.isPreviewPhoto" mat-card-image width="100px"
+             src="{{(this.entity && this.entity.Photo) ? (this.photoService.apiDomain + this.photoService.apiDomainPhotoPath + this.entity.Photo.Url + '.' + this.entity.Photo.Type) : '' }}"
              alt="{{this.entity?.Title}}">
 
         <mat-grid-list cols="4" rowHeight="3:1">
@@ -22,14 +22,14 @@
           <mat-grid-tile>{{this.entity.SourceName}}</mat-grid-tile>
 
           <mat-grid-tile>
-            <mat-form-field>
-              <input *ngIf="this.isSinglePhoto" matInput placeholder="Порядковый номер" [type]="'number'" autocomplete="off"
+            <mat-form-field *ngIf="!this.isSinglePhoto" >
+              <input matInput placeholder="Порядковый номер" [type]="'number'" autocomplete="off"
                      [(ngModel)]="this.entity.SortOrder" name="SortOrder" #SortOrder="ngModel"/>
             </mat-form-field>
           </mat-grid-tile>
 
           <mat-grid-tile>
-            <mat-checkbox *ngIf="this.isSinglePhoto" [(ngModel)]="this.entity.IsVisible" #IsVisible="ngModel" name="IsVisible"
+            <mat-checkbox *ngIf="!this.isSinglePhoto" [(ngModel)]="this.entity.IsVisible" #IsVisible="ngModel" name="IsVisible"
                           color="primary">Показывать на сайте
             </mat-checkbox>
           </mat-grid-tile>
@@ -40,9 +40,16 @@
 
     <mat-card-actions>
       <div class="button-row">
-        <span matTooltip="Загрузить фото на сайт">
-          <button (click)="photoFile.click()" mat-mini-fab color="primary">  <!--uploadFile()-->
-            <mat-icon aria-label="Сохранить">add_a_photo</mat-icon>
+
+        <span matTooltip="Сохранить фото">
+          <button (click)="savePhoto()" mat-mini-fab color="primary" [disabled]="!openFile.files[0]">
+            <mat-icon aria-label="Сохранить">done</mat-icon>
+          </button>
+        </span>
+
+        <span matTooltip="Открыть фото">
+          <button (click)="openFile.click()" mat-mini-fab color="accent">  <!--uploadFile()-->
+            <mat-icon aria-label="Сохранить">photo_camera</mat-icon>
           </button>
         </span>
         <span matTooltip="Скачать фото с сайта">
@@ -59,13 +66,12 @@
     </mat-card-actions>
   </mat-card>
 
-<input type="file"
+<input type="file" required
   accept="image/jpeg,image/png"
   style="opacity: 0"
-  #photoFile
-  (change)="previewPhoto(photoFile.files)" />
+  #openFile
+  (change)="previewPhoto(openFile.files)" />
 <div id="preview"></div>
 
-<!--#photoFile required multiple-->
 <!--</form>-->
 

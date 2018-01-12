@@ -17,8 +17,7 @@ export class PhotoFormComponent extends BaseComponent implements OnInit {
   @Input() entity: Photo;
   @Input() isSinglePhoto: boolean;
 
-  private isPreviewPhoto: boolean = true;
-  private photoPath: string;
+  private isPreviewPhoto: boolean = false;
 
   constructor(
     private notificationService: NotificationService,
@@ -32,15 +31,12 @@ export class PhotoFormComponent extends BaseComponent implements OnInit {
   ngOnInit()
   {
     this.reload(this.entity.Url)
-    this.photoPath = this.photoService.apiDomainPhotoPath;
   }
 
   reload(url: string)
   {
     if (!url) return;
 
-    this.entity = { Url: "bryuki_zauzhennye", Type: "jpeg" } as Photo;
-    return;
     /*
     this.notificationService.appLoadingSet(true);
     this.photoService.get(url)
@@ -63,8 +59,6 @@ export class PhotoFormComponent extends BaseComponent implements OnInit {
 
     this.notificationService.appLoadingSet(true);
 
-    this.isPreviewPhoto = true;
-
     let file: File = files[0];
     let fileSourceName: string = file.name;
     let fileSize: number = file.size;
@@ -77,19 +71,11 @@ export class PhotoFormComponent extends BaseComponent implements OnInit {
     var reader = new FileReader();
     reader.onloadend = (() => {
       this.entity.Base64String = reader.result;
+
+      this.isPreviewPhoto = true;
+
       //this.entity.BinaryString = reader.result;
       //console.log(reader.result);
-
-      this.photoService.post(this.entity)
-        .then(item => {
-          this.notificationService.appLoadingSet(false);
-          //this.reload(this.entity.Url);
-        })
-        .catch(error => {
-          this.handleError(error);
-          this.notificationService.appLoadingSet(false);
-        });
-
       this.notificationService.appLoadingSet(false);
     });
 
@@ -97,4 +83,26 @@ export class PhotoFormComponent extends BaseComponent implements OnInit {
     //reader.readAsBinaryString(file);
   }
 
+  savePhoto() {
+    if (!this.entity || !this.entity.Base64String) return;
+
+    this.notificationService.appLoadingSet(true);
+
+    this.photoService.post(this.entity)
+      .then(item => {
+        this.notificationService.appLoadingSet(false);
+        this.isPreviewPhoto = false;
+      })
+      .catch(error => {
+        this.handleError(error);
+        this.notificationService.appLoadingSet(false);
+      });
+  }
+
+  /*
+  random: string;
+  ngAfterContentChecked() {
+    this.random = '?nocache=' + Math.floor(Math.random() * 1000).toString();
+  }
+  */
 }

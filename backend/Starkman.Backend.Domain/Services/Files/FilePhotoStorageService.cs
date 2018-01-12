@@ -43,7 +43,13 @@ namespace Starkman.Backend.Domain.Services.Files
 
         public async Task<bool> RemoveAsync(string key)
         {
-            return await new Task<bool>(() => true);
+            var fullPath = System.IO.Path.Combine(this.GetDirPath(), key);
+
+            return await Task.Run(() =>
+            {
+                System.IO.File.Delete(fullPath);
+                return true;
+            });
         }
 
         private string GetDirPath()

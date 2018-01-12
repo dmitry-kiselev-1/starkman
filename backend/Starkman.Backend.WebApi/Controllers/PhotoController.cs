@@ -37,7 +37,7 @@ namespace Starkman.Backend.WebApi.Controllers
 
         // GET api/сategory/5
         [HttpGet("{id}")]
-        public async Task<Photo> Get(string id)
+        public async Task<Photo> Get([FromQuery] string id)
         {
             return await this._storageService.FindAsync(id);
         }
@@ -52,9 +52,9 @@ namespace Starkman.Backend.WebApi.Controllers
 
         // DELETE api/сategory/5
         [HttpDelete("{id}")]
-        public async Task<bool> Delete(string id)
+        public async Task<bool> Delete([FromBody] Photo entity)
         {
-            return await this._storageService.RemoveAsync(id);
+            return await this._storageService.RemoveAsync($"{entity.Url}.{entity.Type}");
         }
 
     }

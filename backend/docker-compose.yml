@@ -21,8 +21,8 @@ services:
       - "8080:80"
     restart: always
     build:
-      context: .
-      dockerfile: Starkman.Backend.WebApi/Dockerfile
+      context: Starkman.Backend.WebApi
+      dockerfile: Dockerfile
     networks:
      - starkman-backend
     depends_on: 

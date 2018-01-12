@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:2.0.5-runtime-stretch
+FROM microsoft/dotnet:2.0.5-runtime-jessie
 
 # set up network
 ENV ASPNETCORE_URLS http://+:80
@@ -13,9 +13,30 @@ RUN for version in '2.0.0' '2.0.3' '2.0.5'; do \
     done
 
 FROM microsoft/aspnetcore
-WORKDIR /
-COPY . .
+WORKDIR /app
+COPY ./bin/Release/PublishOutput/*.* ./
+
 EXPOSE 80
 ENTRYPOINT ["dotnet", "Starkman.Backend.WebApi.dll"]
- 
-	
+
+#old build commands:
+#FROM microsoft/aspnetcore:2.0 AS base
+#WORKDIR /app
+#EXPOSE 80
+#
+#FROM microsoft/aspnetcore-build:2.0 AS build
+#WORKDIR /src
+#COPY *.sln ./
+#COPY Starkman.Backend.WebApi/Starkman.Backend.WebApi.csproj Starkman.Backend.WebApi/
+#RUN dotnet restore
+#COPY . .
+#WORKDIR /src/Starkman.Backend.WebApi
+#RUN dotnet build -c Release -o /app
+#
+#FROM build AS publish
+#RUN dotnet publish -c Release -o /app
+#
+#FROM base AS final
+#WORKDIR /app
+#COPY --from=publish /app .
+#ENTRYPOINT ["dotnet", "Starkman.Backend.WebApi.dll"]

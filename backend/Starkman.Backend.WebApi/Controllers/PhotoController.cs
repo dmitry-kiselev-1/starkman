@@ -52,9 +52,9 @@ namespace Starkman.Backend.WebApi.Controllers
 
         // DELETE api/сategory/5
         [HttpDelete("{id}")]
-        public async Task<bool> Delete([FromBody] Photo entity)
+        public async Task<bool> Delete([FromQuery] string id)
         {
-            return await this._storageService.RemoveAsync($"{entity.Url}.{entity.Type}");
+            return await this._storageService.RemoveAsync(id);
         }
 
     }

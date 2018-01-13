@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading;
@@ -20,7 +21,25 @@ namespace Starkman.Backend.Domain.Services.Files
 
         public async Task<Photo> FindAsync(string key)
         {
-            return await new Task<Photo>(() => new Photo());
+            if (String.IsNullOrWhiteSpace(key))
+            {
+                return null;
+            }
+            else
+            {
+                var fullPath = System.IO.Path.Combine(this.GetDirPath(), key);
+                var bytes = await File.ReadAllBytesAsync(fullPath);   
+                var base64String = Convert.ToBase64String(bytes);
+
+                Photo photo = new Photo
+                {
+                    Base64String = base64String,
+                    Url = key.Split('.')[0],
+                    Type = key.Split('.')[1]
+                };
+
+                return photo;
+            }
         }
 
         public async Task<bool> SetAsync(Photo entity)

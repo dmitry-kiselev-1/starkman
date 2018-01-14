@@ -40,7 +40,12 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       this.query_url = params['category_url'];
 
-      this.reload(this.query_url)
+      if (!this.query_url) {
+        this.entity = new Category();
+      }
+      else {
+        this.reload(this.query_url)
+      }
     });
 
     this.froalaInit();
@@ -87,14 +92,14 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
     this.notificationService.appLoadingSet(true);
 
     let photoBase64String: string;
-    if (this.entity.Photo) {
+    if (this.entity.Photo && this.entity.Photo.Base64String) {
       this.entity.Photo.Url = this.entity.Url;
       photoBase64String = this.entity.Photo.Base64String;
       this.entity.Photo.Base64String = null;
     }
 
     // если изменился Url, удаляем старую сущность и обновляем ссылки:
-    if ((this.query_url != this.entity.Url) && (this.query_url != 'new')) {
+    if ((this.query_url != this.entity.Url) && (this.query_url != '')) {
       this.rename(this.query_url, this.entity.Url, this.entity.Url);
     }
 
@@ -139,7 +144,7 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
         .then(item => {
           this.notificationService.categoryChange.emit();
           if (gotoNewAfterDelete) {
-            this.router.navigateByUrl("/category/new");
+            this.router.navigateByUrl("/category");
           }
           this.notificationService.appLoadingSet(false);
         })
@@ -174,7 +179,7 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
   add()
   {
     this.notificationService.appLoadingSet(true);
-    this.router.navigateByUrl("/category/new");
+    this.router.navigateByUrl("/category");
     this.notificationService.appLoadingSet(false);
   }
 

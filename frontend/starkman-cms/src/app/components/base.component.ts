@@ -28,7 +28,9 @@
   };
 
   protected toUrl(title) {
-    return title.toLowerCase().split('').map((char) => { return this.a[char] || char }).join("");
+    return title
+      ? (title.toLowerCase().split('').map((char) => { return this.a[char] || char }).join(""))
+      : "";
   }
 
 }

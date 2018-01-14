@@ -88,13 +88,14 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
 
     let photoBase64String: string;
     if (this.entity.Photo) {
+      this.entity.Photo.Url = this.entity.Url;
       photoBase64String = this.entity.Photo.Base64String;
-      this.entity.Photo.Base64String = null
+      this.entity.Photo.Base64String = null;
     }
 
     // если изменился Url, удаляем старую сущность и обновляем ссылки:
     if (this.query_url != this.entity.Url) {
-      this.changeUrl(this.query_url, this.entity.Url);
+      this.rename(this.query_url, this.entity.Url);
     }
 
     // сохраняем новую сущность:
@@ -116,9 +117,12 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
       });
   }
 
-  changeUrl(oldUrl: string, newUrl: string)
+  rename(oldUrl: string, newUrl: string)
   {
     this.delete(oldUrl, false, false);
+
+    this.photoService.rename(oldUrl, newUrl);
+
     // ToDo: переместить все товары из категории oldUrl в категорию newUrl
   }
 

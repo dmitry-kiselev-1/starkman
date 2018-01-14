@@ -47,4 +47,20 @@ export class PhotoService extends BaseService {
       .then(response => response)
       .catch(this.handleError);
   }
+
+  public rename(oldId: string, newId: string): Promise<boolean> {
+    return this.http.get(
+      this.apiDomain + this.apiRoutePrefix +
+      'renamePhoto' +
+      '?oldId:' + oldId +
+      '&newId:' + newId,
+      this.requestOptions)
+      .toPromise()
+      .then(response => {
+          return response.json() as Photo;
+        }
+      )
+      .catch(this.handleError);
+  }
+
 }

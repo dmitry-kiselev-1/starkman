@@ -9,7 +9,12 @@
     <h1 class="starkman-app-name">{{appTitle}}</h1>
   </mat-toolbar>
 
-  <mat-progress-bar [color]="'primary'" [mode]="this.progressBarMode"></mat-progress-bar>
+  <mat-progress-bar
+    [color]="'primary'"
+    [mode]="this.appLoading ? 'buffer' : 'determinate'"
+    [value]="0"
+    [bufferValue]="0">
+  </mat-progress-bar>
 
   <mat-sidenav-container class="starkman-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
 

@@ -11,3 +11,17 @@
 .mat-progress-bar-buffer {
   background-color: #fafafa;
 }
+
+.mat-progress-bar.mat-accent .mat-progress-bar-buffer {
+  /*background-color: #ff80ab;*/
+  background-color: #fafafa;
+}
+
+.mat-progress-bar.mat-accent .mat-progress-bar-buffer {
+  background-color: #fafafa;
+  /*background-color: #ff80ab;*/
+}
+
+.mat-progress-bar.mat-accent .mat-progress-bar-buffer {
+  /*background-color: #ff80ab;*/
+}

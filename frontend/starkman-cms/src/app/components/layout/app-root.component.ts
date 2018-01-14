@@ -18,7 +18,7 @@ export class AppRootComponent implements OnInit {
   private _mobileQueryListener: () => void;
 
   constructor(private notificationService: NotificationService,
-              changeDetectorRef: ChangeDetectorRef,
+              private changeDetectorRef: ChangeDetectorRef,
               media: MediaMatcher) {
 
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
@@ -28,16 +28,20 @@ export class AppRootComponent implements OnInit {
     this.notificationService.appLoadingChange
       .subscribe((state) => {
         this.appLoading = state
-        //this.progressBarMode =  this.appLoading ? "query" : "determinate";
+        this.progressBarMode = this.getProgressBarMode(state);
       });
   }
 
-  ngOnInit(): void {
+  getProgressBarMode(state: boolean)
+  {
+    return state ? "buffer" : "determinate";
   }
 
-  ngAfterContentChecked() {
-  }
+  ngOnInit(): void {}
 
+  // https://blog.angularindepth.com/everything-you-need-to-know-about-the-expressionchangedafterithasbeencheckederror-error-e3fd9ce7dbb4
   ngAfterViewInit() {
+    this.changeDetectorRef.detectChanges();
   }
+
 }

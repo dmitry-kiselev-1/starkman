@@ -2,24 +2,24 @@
 
 <mat-card>
 
-  <mat-card-title>{{this.entity.Title}}</mat-card-title>
+  <mat-card-title>{{this.entity?.Title}}</mat-card-title>
 
   <mat-card-subtitle>{{this.entity?.Url}}</mat-card-subtitle>
 
     <mat-card-content>
 
-      <img *ngIf="this.isPreviewPhoto" mat-card-image width="100px"
-           src="{{(this.entity && this.entity.Photo) ? (this.entity.Base64String) : '' }}"
-           alt="{{this.entity?.Title}}">
-
-      <img *ngIf="!this.isPreviewPhoto" mat-card-image width="100px"
-             src="{{(this.entity && this.entity.Photo) ? (this.photoService.apiDomain + this.photoService.apiDomainPhotoPath + this.entity.Photo.Url + '.' + this.entity.Photo.Type) : '' }}"
-             alt="{{this.entity?.Title}}">
-
+      <img mat-card-image width="100px"
+        src="{{this.entity?.Base64String}}"
+        alt="{{this.entity?.Title}}">
+      <!--
+      <img mat-card-image width="100px"
+        src="{{(this.entity && this.entity.Photo) ? (this.photoService.apiDomain + this.photoService.apiDomainPhotoPath + this.entity.Photo.Url + '.' + this.entity.Photo.Type) : '' }}"
+        alt="{{this.entity?.Title}}">
+      -->
         <mat-grid-list cols="4" rowHeight="3:1">
 
-          <mat-grid-tile>{{(this.entity.Size / 1024) | number}} {{this.entity.Size ? "Kb" : ""}}</mat-grid-tile>
-          <mat-grid-tile>{{this.entity.SourceName}}</mat-grid-tile>
+          <mat-grid-tile>{{(this.entity?.Size / 1024) | number}} {{this.entity?.Size ? "Kb" : ""}}</mat-grid-tile>
+          <mat-grid-tile>{{this.entity?.SourceName}}</mat-grid-tile>
 
           <mat-grid-tile>
             <mat-form-field *ngIf="!this.isSinglePhoto" >
@@ -53,12 +53,12 @@
           </button>
         </span>
         <span matTooltip="Скачать фото с сайта">
-          <button (click)="downloadFile(this.entity?.Url)" mat-mini-fab color="accent">
+          <button (click)="downloadFile(this.entity.Url)" mat-mini-fab color="accent">
             <mat-icon class="flipV" aria-label="Отменить">file_download</mat-icon>
           </button>
         </span>
         <span matTooltip="Удалить фото с сайта">
-          <button (click)="delete(this.entity?.Url)" mat-mini-fab color="warn">
+          <button (click)="delete(this.entity.Url)" mat-mini-fab color="warn">
             <mat-icon aria-label="Удалить">delete</mat-icon>
           </button>
         </span>

@@ -14,10 +14,8 @@ import {Page} from '../../../models/page/page.model';
 })
 export class PhotoFormComponent extends BaseComponent implements OnInit {
 
-  @Input() entity: Photo;
-  @Input() isSinglePhoto: boolean;
-
-  private isPreviewPhoto: boolean = false;
+  @Input() entity: Photo = new Photo();
+  @Input() isSinglePhoto: boolean = true;
 
   constructor(
     private notificationService: NotificationService,
@@ -30,16 +28,16 @@ export class PhotoFormComponent extends BaseComponent implements OnInit {
 
   ngOnInit()
   {
-    this.reload(this.entity.Url)
+    //this.reload(this.entity.Photo)
   }
 
-  reload(url: string)
+  /*
+  reload(photo: Photo)
   {
-    if (!url) return;
+    if (!photo || !photo.Url || !photo.Type) return;
 
-    /*
     this.notificationService.appLoadingSet(true);
-    this.photoService.get(url)
+    this.photoService.get(`${photo.Url}.${photo.Type}`)
       .then(item => {
         this.entity = (item || new Photo());
         this.notificationService.appLoadingSet(false);
@@ -48,8 +46,8 @@ export class PhotoFormComponent extends BaseComponent implements OnInit {
         this.handleError(error);
         this.notificationService.appLoadingSet(false);
       });
-      */
   }
+  */
 
   // https://www.thepolyglotdeveloper.com/2016/02/upload-files-to-node-js-using-angular-2/
   // https://developer.mozilla.org/ru/docs/Web/API/FileReader/readAsBinaryString
@@ -71,9 +69,6 @@ export class PhotoFormComponent extends BaseComponent implements OnInit {
     var reader = new FileReader();
     reader.onloadend = (() => {
       this.entity.Base64String = reader.result;
-
-      this.isPreviewPhoto = true;
-
       //this.entity.BinaryString = reader.result;
       //console.log(reader.result);
       this.notificationService.appLoadingSet(false);
@@ -84,14 +79,14 @@ export class PhotoFormComponent extends BaseComponent implements OnInit {
   }
 
   savePhoto() {
-    if (!this.entity || !this.entity.Base64String) return;
+    if (!this.entity || !this.entity.Url || !this.entity.Type || !this.entity.Base64String) return;
 
     this.notificationService.appLoadingSet(true);
 
     this.photoService.post(this.entity)
       .then(item => {
-        this.notificationService.appLoadingSet(false);
-        this.isPreviewPhoto = false;
+        let result = this.notificationService.appLoadingSet(false);
+        //if (result) { this.snackBar.open('Фото сохранено', "ok") };
       })
       .catch(error => {
         this.handleError(error);

@@ -6,6 +6,7 @@ import {BaseComponent} from '../../base.component';
 import {NotificationService} from '../../../services/notification.service';
 import {MatDialog, MatSnackBar} from '@angular/material';
 import {Photo} from '../../../models/page/photo.model';
+import {PhotoService} from '../../../services/photo.service';
 
 declare var $ :any;
 
@@ -24,6 +25,7 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
 
   constructor(
     private notificationService: NotificationService,
+    private photoService: PhotoService,
     private snackBar: MatSnackBar,
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -52,11 +54,24 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
     this.categoryService.get(url)
       .then(item => {
         this.entity = (item || new Category());
-
-        // ToDo: вызов сервиса фото:
-        this.entity.Photo = { Url: this.entity.Url, Type: "jpeg" } as Photo;
-
         this.descriptionSelectedTabIndex = 0;
+        this.notificationService.appLoadingSet(false);
+        this.reloadPhoto(this.entity.Photo);
+      })
+      .catch(error => {
+        this.handleError(error);
+        this.notificationService.appLoadingSet(false);
+      });
+  }
+
+  reloadPhoto(photo: Photo)
+  {
+    if (!photo || !photo.Url || !photo.Type) return;
+
+    this.notificationService.appLoadingSet(true);
+    this.photoService.get(`${photo.Url}.${photo.Type}`)
+      .then(item => {
+        this.entity.Photo.Base64String = item.Base64String;
         this.notificationService.appLoadingSet(false);
       })
       .catch(error => {

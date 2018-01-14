@@ -23,19 +23,28 @@ namespace Starkman.Backend.Domain.Services.Files
         {
             if (String.IsNullOrWhiteSpace(key))
             {
-                return null;
+                return new Photo();
             }
             else
             {
+                var url = key.Split('.')[0];
+                var type = key.Split('.')[1];
+
                 var fullPath = System.IO.Path.Combine(this.GetDirPath(), key);
+
+                if (!File.Exists(fullPath))
+                {
+                    return new Photo();
+                }
+
                 var bytes = await File.ReadAllBytesAsync(fullPath);   
                 var base64String = Convert.ToBase64String(bytes);
 
                 Photo photo = new Photo
                 {
-                    Base64String = base64String,
-                    Url = key.Split('.')[0],
-                    Type = key.Split('.')[1]
+                    Base64String = $"data:image/{type};base64,{base64String}",
+                    Url = url,
+                    Type = type
                 };
 
                 return photo;

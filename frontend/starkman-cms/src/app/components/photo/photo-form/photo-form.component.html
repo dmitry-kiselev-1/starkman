@@ -13,23 +13,22 @@
         alt="{{this.entity?.Photo?.Title}}">
       <!--
       <img mat-card-image width="100px"
-        src="{{this.photoService.apiDomain + this.photoService.apiDomainPhotoPath + this.entity.Photo.Url + '.' + this.entity.Photo.Type) : '' }}"
+        src="{{this.photoService?.apiDomain + this.photoService?.apiDomainPhotoPath + this.entity?.Photo?.Url + '.' + this.entity?.Photo?.Type}}"
         alt="{{this.entity?.Title}}">
       -->
-        <mat-grid-list cols="4" rowHeight="3:1">
+        <mat-grid-list cols="3" rowHeight="3:1">
 
           <mat-grid-tile><div *ngIf="(this.entity?.Photo?.Size > 0)">{{(this.entity?.Photo?.Size / 1024) | number}} Kb </div></mat-grid-tile>
-          <mat-grid-tile>{{this.entity?.Photo?.SourceName}}</mat-grid-tile>
 
           <mat-grid-tile>
-            <mat-form-field *ngIf="!this.isSinglePhoto" >
+            <mat-form-field *ngIf="this.isSinglePhoto && this.entity?.Photo?.SortOrder">
               <input matInput placeholder="Порядковый номер" [type]="'number'" autocomplete="off"
                   [(ngModel)]="this.entity.Photo.SortOrder" name="SortOrder" #SortOrder="ngModel"/>
             </mat-form-field>
           </mat-grid-tile>
 
           <mat-grid-tile>
-            <mat-checkbox *ngIf="!this.isSinglePhoto"
+            <mat-checkbox *ngIf="this.isSinglePhoto && this.entity?.Photo?.IsVisible"
                   [(ngModel)]="this.entity.Photo.IsVisible" #IsVisible="ngModel" name="IsVisible" color="primary">Показывать на сайте
             </mat-checkbox>
           </mat-grid-tile>

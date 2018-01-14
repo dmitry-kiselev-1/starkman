@@ -18,7 +18,7 @@
       -->
         <mat-grid-list cols="4" rowHeight="3:1">
 
-          <mat-grid-tile>{{(this.entity?.Size / 1024) | number}} {{this.entity?.Size ? "Kb" : ""}}</mat-grid-tile>
+          <mat-grid-tile><div *ngIf="(this.entity?.Size > 0)">{{(this.entity?.Size / 1024) | number}} Kb </div></mat-grid-tile>
           <mat-grid-tile>{{this.entity?.SourceName}}</mat-grid-tile>
 
           <mat-grid-tile>

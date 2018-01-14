@@ -27,27 +27,7 @@ export class PhotoFormComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit()
-  {
-    //this.reload(this.entity.Photo)
-  }
-
-  /*
-  reload(photo: Photo)
-  {
-    if (!photo || !photo.Url || !photo.Type) return;
-
-    this.notificationService.appLoadingSet(true);
-    this.photoService.get(`${photo.Url}.${photo.Type}`)
-      .then(item => {
-        this.entity = (item || new Photo());
-        this.notificationService.appLoadingSet(false);
-      })
-      .catch(error => {
-        this.handleError(error);
-        this.notificationService.appLoadingSet(false);
-      });
-  }
-  */
+  {}
 
   // https://www.thepolyglotdeveloper.com/2016/02/upload-files-to-node-js-using-angular-2/
   // https://developer.mozilla.org/ru/docs/Web/API/FileReader/readAsBinaryString

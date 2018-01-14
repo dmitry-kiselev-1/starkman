@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, Input, OnInit, AfterContentChecked} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnInit, AfterContentChecked, AfterViewInit} from '@angular/core';
 import {MediaMatcher} from '@angular/cdk/layout';
 import {BaseComponent} from '../base.component';
 import {NotificationService} from '../../services/notification.service';
@@ -11,7 +11,8 @@ import {NotificationService} from '../../services/notification.service';
 export class AppRootComponent implements OnInit {
 
   public appTitle = 'Starkman CMS';
-  public appLoading = true;
+  public appLoading = false;
+  public progressBarMode: string = "determinate";
 
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
@@ -23,16 +24,20 @@ export class AppRootComponent implements OnInit {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
+
+    this.notificationService.appLoadingChange
+      .subscribe((state) => {
+        this.appLoading = state
+        //this.progressBarMode =  this.appLoading ? "query" : "determinate";
+      });
   }
 
   ngOnInit(): void {
   }
 
   ngAfterContentChecked() {
-    this.notificationService.appLoadingChange
-      .subscribe((state) => {
-        this.appLoading = state
-      });
+  }
 
+  ngAfterViewInit() {
   }
 }

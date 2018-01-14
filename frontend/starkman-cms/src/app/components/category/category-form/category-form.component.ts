@@ -35,6 +35,8 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
 
   ngOnInit()
   {
+    this.entity.Photo = {Url: this.entity.Url} as Photo;
+
     this.componentTitle = this.activatedRoute.snapshot.data['title'];
 
     this.activatedRoute.params.subscribe(params => {

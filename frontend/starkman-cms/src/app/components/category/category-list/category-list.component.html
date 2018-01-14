@@ -5,8 +5,10 @@
   </mat-expansion-panel-header>
   <p>
     <mat-nav-list> <!-- dense -->
-      <mat-list-item  *ngFor="let entity of entityList">
-        <a routerLink="category/{{entity.Url}}">{{entity.Title}}</a>
+      <mat-list-item
+        *ngFor="let entity of entityList" routerLink="category/{{entity.Url}}">
+        {{entity.Title}}
+        <!--<a routerLink="category/{{entity.Url}}">{{entity.Title}}</a>-->
       </mat-list-item>
     </mat-nav-list>
     <!--

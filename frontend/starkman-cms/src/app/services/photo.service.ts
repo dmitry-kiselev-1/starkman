@@ -51,7 +51,7 @@ export class PhotoService extends BaseService {
   public rename(oldId: string, newId: string): Promise<boolean> {
     return this.http.get(
       this.apiDomain + this.apiRoutePrefix +
-      'renamePhoto' +
+      'rename' +
       '?oldId:' + oldId +
       '&newId:' + newId,
       this.requestOptions)

@@ -66,7 +66,7 @@ export class PhotoFormComponent extends BaseComponent implements OnInit {
     this.photoService.post(photo)
       .then(result => {
         this.notificationService.appLoadingSet(false);
-        if (result) { this.snackBar.open('Фото сохранено', "ok") };
+        //if (result) { this.snackBar.open('Фото успешно загружено') };
       })
       .catch(error => {
         this.handleError(error);

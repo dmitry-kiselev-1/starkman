@@ -26,10 +26,10 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
   constructor(
     private notificationService: NotificationService,
     private photoService: PhotoService,
-    private snackBar: MatSnackBar,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private categoryService: CategoryService) {
+    private categoryService: CategoryService,
+    private snackBar: MatSnackBar) {
     super();
   }
 
@@ -86,7 +86,11 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
 
     this.notificationService.appLoadingSet(true);
 
-    if (this.entity.Photo) {this.entity.Photo.Base64String = null};
+    let photoBase64String: string;
+    if (this.entity.Photo) {
+      photoBase64String = this.entity.Photo.Base64String;
+      this.entity.Photo.Base64String = null
+    }
 
     // если изменился Url, удаляем старую сущность и обновляем ссылки:
     if (this.query_url != this.entity.Url) {
@@ -98,6 +102,11 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
       .then(item => {
         this.notificationService.categoryChange.emit();
         this.router.navigateByUrl(`/category/${this.entity.Url}`);
+
+        if (this.entity.Photo) {
+          this.entity.Photo.Base64String = photoBase64String;
+        }
+
         this.notificationService.appLoadingSet(false);
         //this.reload(this.entity.Url);
       })

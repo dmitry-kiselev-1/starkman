@@ -3,6 +3,7 @@
 .mat-toolbar.mat-primary
 {
   background: #808080;
+  /*background: rgb(50, 50, 50);*/
 }
 
 h1.starkman-app-name {

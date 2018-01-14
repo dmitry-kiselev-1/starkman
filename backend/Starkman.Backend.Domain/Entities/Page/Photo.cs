@@ -6,7 +6,6 @@
     /// </summary>
     public class Photo: Page
     {
-        public string SourceName;
         public string Type;
         public int Size;
         public string BinaryString { get; set; }

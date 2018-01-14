@@ -43,7 +43,6 @@ export class PhotoFormComponent extends BaseComponent implements OnInit {
     let fileSize: number = file.size;
     let fileType: string = file.type.split('/')[1];
 
-    this.entity.Photo.SourceName = fileSourceName;
     this.entity.Photo.Type = fileType;
     this.entity.Photo.Size = fileSize;
 
@@ -65,9 +64,9 @@ export class PhotoFormComponent extends BaseComponent implements OnInit {
     this.notificationService.appLoadingSet(true);
 
     this.photoService.post(photo)
-      .then(item => {
-        let result = this.notificationService.appLoadingSet(false);
-        //if (result) { this.snackBar.open('Фото сохранено', "ok") };
+      .then(result => {
+        this.notificationService.appLoadingSet(false);
+        if (result) { this.snackBar.open('Фото сохранено', "ok") };
       })
       .catch(error => {
         this.handleError(error);

@@ -46,14 +46,20 @@
       <div class="button-row">
         <span matTooltip="Загрузить фото на сайт">
           <button (click)="openFile.click()" mat-mini-fab color="accent" [disabled]="!this.entity.Url">
-            <mat-icon aria-label="Сохранить">add_a_photo</mat-icon>
+            <mat-icon aria-label="Загрузить">add_a_photo</mat-icon>
           </button>
         </span>
+
         <span matTooltip="Скачать фото с сайта">
-          <button (click)="downloadPhoto()" mat-mini-fab color="accent">
-            <mat-icon class="flipV" aria-label="Отменить">file_download</mat-icon>
-          </button>
+          <a href="{{this.photoService?.apiDomain + this.photoService?.apiDomainPhotoPath + this.entity?.Photo?.Url + '.' + this.entity?.Photo?.Type}}"
+             download="{{this.entity?.Url}}.{{this.entity?.Photo?.Type}}">
+            <button mat-mini-fab color="accent">
+              <mat-icon class="flipV" aria-label="Скачать">file_download</mat-icon>
+            </button>
+          </a>
         </span>
+        <!-- <i class="material-icons">file_download</i> -->
+
         <span matTooltip="Удалить фото с сайта">
           <button (click)="deletePhoto()" mat-mini-fab color="warn">
             <mat-icon aria-label="Удалить">delete</mat-icon>

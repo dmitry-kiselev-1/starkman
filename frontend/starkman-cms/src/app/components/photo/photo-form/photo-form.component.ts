@@ -14,7 +14,8 @@ import {Page} from '../../../models/page/page.model';
 })
 export class PhotoFormComponent extends BaseComponent implements OnInit {
 
-  @Input() entity: Photo = new Photo();
+  private query_url: string;
+  @Input() entity: Photo;
   @Input() isSinglePhoto: boolean = true;
 
   constructor(
@@ -26,8 +27,11 @@ export class PhotoFormComponent extends BaseComponent implements OnInit {
     super();
   }
 
-  ngOnInit()
-  {}
+  ngOnInit() {
+    this.activatedRoute.params.subscribe(params => {
+      this.query_url = params['category_url'];
+    });
+  }
 
   // https://www.thepolyglotdeveloper.com/2016/02/upload-files-to-node-js-using-angular-2/
   // https://developer.mozilla.org/ru/docs/Web/API/FileReader/readAsBinaryString

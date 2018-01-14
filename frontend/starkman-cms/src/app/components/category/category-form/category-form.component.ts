@@ -17,7 +17,7 @@ declare var $ :any;
 })
 export class CategoryFormComponent extends BaseComponent implements OnInit {
 
-  public query_url: string;
+  private query_url: string;
   public entity: Category = new Category();
 
   //submitted = false;
@@ -35,8 +35,6 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
 
   ngOnInit()
   {
-    this.entity.Photo = {Url: this.entity.Url} as Photo;
-
     this.componentTitle = this.activatedRoute.snapshot.data['title'];
 
     this.activatedRoute.params.subscribe(params => {
@@ -58,7 +56,7 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
         this.entity = (item || new Category());
         this.descriptionSelectedTabIndex = 0;
         this.notificationService.appLoadingSet(false);
-        this.reloadPhoto(this.entity.Photo);
+        this.reloadPhoto();
       })
       .catch(error => {
         this.handleError(error);
@@ -66,12 +64,12 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
       });
   }
 
-  reloadPhoto(photo: Photo)
+  reloadPhoto()
   {
-    if (!photo || !photo.Url || !photo.Type) return;
+    if (!this.entity.Photo) return;
 
     this.notificationService.appLoadingSet(true);
-    this.photoService.get(`${photo.Url}.${photo.Type}`)
+    this.photoService.get(`${this.entity.Photo.Url}.${this.entity.Photo.Type}`)
       .then(item => {
         this.entity.Photo.Base64String = item.Base64String;
         this.notificationService.appLoadingSet(false);

@@ -86,7 +86,7 @@ namespace Starkman.Backend.Domain.Services.Files
                 }
             });
         }
-
+        
         private string GetDirPath()
         {
             var filesDirectoryPath = FilesContext.FilesDirectoryPath;

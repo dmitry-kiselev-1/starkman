@@ -95,7 +95,7 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
 
     // если изменился Url, удаляем старую сущность и обновляем ссылки:
     if (this.query_url != this.entity.Url) {
-      this.rename(this.query_url, this.entity.Url);
+      this.rename(this.query_url, this.entity.Url, this.entity.Url);
     }
 
     // сохраняем новую сущность:
@@ -117,11 +117,11 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
       });
   }
 
-  rename(oldUrl: string, newUrl: string)
+  rename(oldUrl: string, oldUrlType: string, newUrl: string)
   {
     this.delete(oldUrl, false, false);
 
-    this.photoService.rename(oldUrl, newUrl);
+    this.photoService.rename(oldUrl, this.entity.Photo.Type, newUrl);
 
     // ToDo: переместить все товары из категории oldUrl в категорию newUrl
   }

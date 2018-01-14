@@ -48,12 +48,13 @@ export class PhotoService extends BaseService {
       .catch(this.handleError);
   }
 
-  public rename(oldId: string, newId: string): Promise<boolean> {
+  public rename(oldUrl: string, oldUrlType: string, newUrl: string): Promise<boolean> {
     return this.http.get(
       this.apiDomain + this.apiRoutePrefix +
       'rename' +
-      '?oldId:' + oldId +
-      '&newId:' + newId,
+      '?oldUrl=' + oldUrl +
+      '&oldUrlType=' + oldUrlType +
+      '&newUrl=' + newUrl,
       this.requestOptions)
       .toPromise()
       .then(response => {

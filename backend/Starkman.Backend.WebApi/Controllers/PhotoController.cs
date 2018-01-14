@@ -57,5 +57,21 @@ namespace Starkman.Backend.WebApi.Controllers
             return await this._storageService.RemoveAsync(id);
         }
 
+        // GET api/photo/rename?oldUrl=old.jpeg&newUrl=new.jpeg
+        [Route("rename")]
+        [HttpGet("{oldUrl}")]
+        [HttpGet("{oldUrlType}")]
+        [HttpGet("{newUrl}")]
+        public async Task<bool> Get(string oldUrl, string oldUrlType, string newUrl)
+        {
+            var oldPhoto = await this._storageService.FindAsync($"{oldUrl}.{oldUrlType}");
+            var newPhoto = oldPhoto;
+                newPhoto.Url = newUrl;
+
+            var removeResult = await this._storageService.RemoveAsync(oldUrl);
+            var setResult = await this._storageService.SetAsync(newPhoto);
+
+            return removeResult && setResult;
+        }
     }
 }

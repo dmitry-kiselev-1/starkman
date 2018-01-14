@@ -50,10 +50,10 @@
           </button>
         </span>
 
-        <span matTooltip="Скачать фото с сайта">
+        <span matTooltip="Скачать фото с сайта" *ngIf="this.entity?.Photo?.Base64String">
           <a href="{{this.photoService?.apiDomain + this.photoService?.apiDomainPhotoPath + this.entity?.Photo?.Url + '.' + this.entity?.Photo?.Type}}"
              download="{{this.entity?.Url}}.{{this.entity?.Photo?.Type}}">
-            <button mat-mini-fab color="accent">
+            <button mat-mini-fab color="accent" [disabled]="!this.entity?.Photo?.Base64String">
               <mat-icon class="flipV" aria-label="Скачать">file_download</mat-icon>
             </button>
           </a>
@@ -61,7 +61,7 @@
         <!-- <i class="material-icons">file_download</i> -->
 
         <span matTooltip="Удалить фото с сайта">
-          <button (click)="deletePhoto()" mat-mini-fab color="warn">
+          <button (click)="deletePhoto()" mat-mini-fab color="warn" [disabled]="!this.entity?.Photo?.Base64String">
             <mat-icon aria-label="Удалить">delete</mat-icon>
           </button>
         </span>

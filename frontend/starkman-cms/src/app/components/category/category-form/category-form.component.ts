@@ -94,7 +94,7 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
     }
 
     // если изменился Url, удаляем старую сущность и обновляем ссылки:
-    if (this.query_url != this.entity.Url) {
+    if ((this.query_url != this.entity.Url) && (this.query_url != 'new')) {
       this.rename(this.query_url, this.entity.Url, this.entity.Url);
     }
 

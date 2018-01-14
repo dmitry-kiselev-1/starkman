@@ -4,7 +4,9 @@
 
   <mat-card-title>{{this.entity?.Title}}</mat-card-title>
 
-  <mat-card-subtitle>{{this.entity?.Url}}</mat-card-subtitle>
+  <mat-card-subtitle>
+    {{this.entity?.Url}}.{{this.entity?.Photo?.Type}} - {{(this.entity?.Photo?.Size / 1024) | number}} Kb
+  </mat-card-subtitle>
 
     <mat-card-content>
 
@@ -16,6 +18,8 @@
         src="{{this.photoService?.apiDomain + this.photoService?.apiDomainPhotoPath + this.entity?.Photo?.Url + '.' + this.entity?.Photo?.Type}}"
         alt="{{this.entity?.Title}}">
       -->
+
+      <!--
         <mat-grid-list cols="3" rowHeight="3:1">
 
           <mat-grid-tile><div *ngIf="(this.entity?.Photo?.Size > 0)">{{(this.entity?.Photo?.Size / 1024) | number}} Kb </div></mat-grid-tile>
@@ -34,6 +38,7 @@
           </mat-grid-tile>
 
         </mat-grid-list>
+      -->
 
     </mat-card-content>
 

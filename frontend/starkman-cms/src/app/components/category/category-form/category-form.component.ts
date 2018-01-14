@@ -86,6 +86,8 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
 
     this.notificationService.appLoadingSet(true);
 
+    if (this.entity.Photo) {this.entity.Photo.Base64String = null};
+
     // если изменился Url, удаляем старую сущность и обновляем ссылки:
     if (this.query_url != this.entity.Url) {
       this.changeUrl(this.query_url, this.entity.Url);

@@ -5,7 +5,7 @@ import {PhotoService} from '../../../services/photo.service';
 import {BaseComponent} from '../../base.component';
 import {NotificationService} from '../../../services/notification.service';
 import {MatDialog, MatSnackBar} from '@angular/material';
-import {Page} from '../../../models/page/page.model';
+import {Category} from '../../../models/page/category.model';
 
 @Component({
   selector: 'app-photo-form',
@@ -15,29 +15,26 @@ import {Page} from '../../../models/page/page.model';
 export class PhotoFormComponent extends BaseComponent implements OnInit {
 
   private query_url: string;
-  @Input() entity: Photo;
+  @Input() entity: Category;
   @Input() isSinglePhoto: boolean = true;
 
   constructor(
     private notificationService: NotificationService,
     private photoService: PhotoService,
-    private snackBar: MatSnackBar,
-    private activatedRoute: ActivatedRoute,
-    private router: Router,) {
+    private snackBar: MatSnackBar) {
     super();
   }
 
-  ngOnInit() {
-    this.activatedRoute.params.subscribe(params => {
-      this.query_url = params['category_url'];
-    });
-  }
+  ngOnInit() {}
 
   // https://www.thepolyglotdeveloper.com/2016/02/upload-files-to-node-js-using-angular-2/
   // https://developer.mozilla.org/ru/docs/Web/API/FileReader/readAsBinaryString
   previewPhoto(files: File[])
   {
     if (!files || !files[0]) return;
+
+    this.entity.Photo = new Photo();
+    this.entity.Photo.Url = this.entity.Url;
 
     this.notificationService.appLoadingSet(true);
 
@@ -46,15 +43,16 @@ export class PhotoFormComponent extends BaseComponent implements OnInit {
     let fileSize: number = file.size;
     let fileType: string = file.type.split('/')[1];
 
-    this.entity.SourceName = fileSourceName;
-    this.entity.Type = fileType;
-    this.entity.Size = fileSize;
+    this.entity.Photo.SourceName = fileSourceName;
+    this.entity.Photo.Type = fileType;
+    this.entity.Photo.Size = fileSize;
 
     var reader = new FileReader();
     reader.onloadend = (() => {
-      this.entity.Base64String = reader.result;
+      this.entity.Photo.Base64String = reader.result;
       //this.entity.BinaryString = reader.result;
       //console.log(reader.result);
+      this.savePhoto(this.entity.Photo);
       this.notificationService.appLoadingSet(false);
     });
 
@@ -62,12 +60,11 @@ export class PhotoFormComponent extends BaseComponent implements OnInit {
     //reader.readAsBinaryString(file);
   }
 
-  savePhoto() {
-    if (!this.entity || !this.entity.Url || !this.entity.Type || !this.entity.Base64String) return;
+  savePhoto(photo: Photo) {
 
     this.notificationService.appLoadingSet(true);
 
-    this.photoService.post(this.entity)
+    this.photoService.post(photo)
       .then(item => {
         let result = this.notificationService.appLoadingSet(false);
         //if (result) { this.snackBar.open('Фото сохранено', "ok") };

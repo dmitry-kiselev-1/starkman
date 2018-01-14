@@ -28,21 +28,21 @@ namespace Starkman.Backend.WebApi.Controllers
             this._storageService.InitData = new Dictionary<string, string> {{"WebRootPath", webRootPath}};
         }
 
-        // GET api/сategory
+        // GET api/photo
         [HttpGet]
         public async Task<IEnumerable<Photo>> Get()
         {
             return await this._storageService.ListAsync();
         }
 
-        // GET api/сategory/5
+        // GET api/photo/5
         [HttpGet("{id}")]
         public async Task<Photo> Get(string id)
         {
             return await this._storageService.FindAsync(id);
         }
-        
-        // POST api/сategory
+
+        // POST api/photo
         [HttpPost]
         public async Task<bool> Post([FromBody] Photo entity)
         {
@@ -50,7 +50,7 @@ namespace Starkman.Backend.WebApi.Controllers
         }
 
 
-        // DELETE api/сategory/5
+        // DELETE api/photo/5
         [HttpDelete("{id}")]
         public async Task<bool> Delete(string id)
         {

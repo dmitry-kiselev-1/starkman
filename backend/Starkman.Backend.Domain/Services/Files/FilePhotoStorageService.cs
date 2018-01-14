@@ -75,8 +75,15 @@ namespace Starkman.Backend.Domain.Services.Files
 
             return await Task.Run(() =>
             {
-                System.IO.File.Delete(fullPath);
-                return true;
+                if (!File.Exists(fullPath))
+                {
+                    return false;
+                }
+                else
+                {
+                    System.IO.File.Delete(fullPath);
+                    return true;
+                }
             });
         }
 

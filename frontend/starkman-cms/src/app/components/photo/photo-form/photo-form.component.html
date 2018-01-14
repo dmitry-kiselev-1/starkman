@@ -5,7 +5,7 @@
   <mat-card-title>{{this.entity?.Title}}</mat-card-title>
 
   <mat-card-subtitle>
-    {{this.entity?.Url}}.{{this.entity?.Photo?.Type}} = {{(this.entity?.Photo?.Size / 1024) | number}} Kb
+    {{this.entity?.Url}}{{this.entity?.Photo?.Type ? ("." + this.entity?.Photo?.Type + " = " + ((this.entity?.Photo?.Size / 1024) | number) + " Kb") : "" }}
   </mat-card-subtitle>
 
     <mat-card-content>
@@ -50,12 +50,12 @@
           </button>
         </span>
         <span matTooltip="Скачать фото с сайта">
-          <button (click)="downloadFile()" mat-mini-fab color="accent">
+          <button (click)="downloadPhoto()" mat-mini-fab color="accent">
             <mat-icon class="flipV" aria-label="Отменить">file_download</mat-icon>
           </button>
         </span>
         <span matTooltip="Удалить фото с сайта">
-          <button (click)="delete()" mat-mini-fab color="warn">
+          <button (click)="deletePhoto()" mat-mini-fab color="warn">
             <mat-icon aria-label="Удалить">delete</mat-icon>
           </button>
         </span>

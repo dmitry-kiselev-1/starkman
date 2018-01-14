@@ -143,8 +143,28 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
           this.handleError(error);
           this.notificationService.appLoadingSet(false);
         });
+
+      this.deletePhoto();
     }
 
+  }
+
+  deletePhoto() {
+    if (!this.entity || !this.entity.Photo) return;
+
+    let id = `${this.entity.Url}.${this.entity.Photo.Type}`;
+
+    this.notificationService.appLoadingSet(true);
+
+    this.photoService.delete(id)
+      .then(item => {
+        this.entity.Photo = new Photo();
+        this.notificationService.appLoadingSet(false);
+      })
+      .catch(error => {
+        this.handleError(error);
+        this.notificationService.appLoadingSet(false);
+      });
   }
 
   add()

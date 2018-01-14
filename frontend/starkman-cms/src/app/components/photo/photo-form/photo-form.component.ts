@@ -51,7 +51,7 @@ export class PhotoFormComponent extends BaseComponent implements OnInit {
       this.entity.Photo.Base64String = reader.result;
       //this.entity.BinaryString = reader.result;
       //console.log(reader.result);
-      this.savePhoto(this.entity.Photo);
+      this.uploadPhoto(this.entity.Photo);
       this.notificationService.appLoadingSet(false);
     });
 
@@ -59,7 +59,7 @@ export class PhotoFormComponent extends BaseComponent implements OnInit {
     //reader.readAsBinaryString(file);
   }
 
-  savePhoto(photo: Photo) {
+  uploadPhoto(photo: Photo) {
 
     this.notificationService.appLoadingSet(true);
 
@@ -72,6 +72,34 @@ export class PhotoFormComponent extends BaseComponent implements OnInit {
         this.handleError(error);
         this.notificationService.appLoadingSet(false);
       });
+  }
+
+  downloadPhoto()
+  {}
+
+  deletePhoto(needConfirmation: boolean = true)
+  {
+    if (!this.entity || !this.entity.Photo) return;
+
+    let id = `${this.entity.Url}.${this.entity.Photo.Type}`;
+
+    if (needConfirmation
+        ? confirm(`Удалить фото ${id}?`)
+        : true ) {
+
+      this.notificationService.appLoadingSet(true);
+
+      this.photoService.delete(id)
+        .then(item => {
+          this.entity.Photo = new Photo();
+          this.notificationService.appLoadingSet(false);
+        })
+        .catch(error => {
+          this.handleError(error);
+          this.notificationService.appLoadingSet(false);
+        });
+    }
+
   }
 
   /*

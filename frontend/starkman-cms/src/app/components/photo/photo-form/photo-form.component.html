@@ -44,25 +44,18 @@
 
     <mat-card-actions>
       <div class="button-row">
-
-        <span matTooltip="Сохранить фото">
-          <button (click)="savePhoto()" mat-mini-fab color="primary" [disabled]="!openFile.files[0]">
-            <mat-icon aria-label="Сохранить">done</mat-icon>
-          </button>
-        </span>
-
-        <span matTooltip="Открыть фото">
+        <span matTooltip="Загрузить фото на сайт">
           <button (click)="openFile.click()" mat-mini-fab color="accent">  <!--uploadFile()-->
-            <mat-icon aria-label="Сохранить">photo_camera</mat-icon>
+            <mat-icon aria-label="Сохранить">add_a_photo</mat-icon>
           </button>
         </span>
         <span matTooltip="Скачать фото с сайта">
-          <button (click)="downloadFile(this.entity.Url)" mat-mini-fab color="accent">
+          <button (click)="downloadFile()" mat-mini-fab color="accent">
             <mat-icon class="flipV" aria-label="Отменить">file_download</mat-icon>
           </button>
         </span>
         <span matTooltip="Удалить фото с сайта">
-          <button (click)="delete(this.entity.Url)" mat-mini-fab color="warn">
+          <button (click)="delete()" mat-mini-fab color="warn">
             <mat-icon aria-label="Удалить">delete</mat-icon>
           </button>
         </span>
@@ -70,7 +63,7 @@
     </mat-card-actions>
   </mat-card>
 
-<input type="file" required
+<input type="file" required style="display: none" hidden="hidden"
   accept="image/jpeg,image/png"
   style="opacity: 0"
   #openFile

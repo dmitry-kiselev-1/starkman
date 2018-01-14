@@ -68,7 +68,7 @@ namespace Starkman.Backend.WebApi.Controllers
             var newPhoto = oldPhoto;
                 newPhoto.Url = newUrl;
 
-            var removeResult = await this._storageService.RemoveAsync(oldUrl);
+            var removeResult = await this._storageService.RemoveAsync($"{newUrl}.{oldUrlType}");
             var setResult = await this._storageService.SetAsync(newPhoto);
 
             return removeResult && setResult;

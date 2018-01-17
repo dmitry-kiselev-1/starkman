@@ -23,7 +23,8 @@
 
     <mat-expansion-panel *ngFor="let entity of entityList" style="color: #222222"
                          routerLink="category/{{entity.Url}}"
-                         hideToggle="true">
+                         hideToggle="true"
+                         [expanded]="this.openedCategory?.Url === entity?.Url">
       <mat-expansion-panel-header>
         <mat-panel-title>{{entity.Title}}</mat-panel-title>
         <mat-panel-description>

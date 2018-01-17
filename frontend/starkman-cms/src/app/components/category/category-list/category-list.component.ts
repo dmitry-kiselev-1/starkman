@@ -18,18 +18,20 @@ export class CategoryListComponent extends BaseComponent implements OnInit {
   }
 
   public entityList: Category[] = [];
+  public openedCategory: Category;
 
   ngOnInit() {
     this.reload();
-    this.notificationService.categoryChange.subscribe(() => { this.reload() });
+    this.notificationService.categoryChange.subscribe((category) => { this.reload(category) });
   }
 
-  reload()
+  reload(category: Category = null)
   {
     this.notificationService.appLoadingSet(true);
     this.categoryService.getList()
       .then(items => {
         this.entityList = items as Category[];
+        this.openedCategory = category;
         this.notificationService.appLoadingSet(false);
       })
       .catch(error => {

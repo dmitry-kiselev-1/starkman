@@ -106,7 +106,7 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
     // сохраняем новую сущность:
     this.categoryService.post(this.entity)
       .then(item => {
-        this.notificationService.categoryChange.emit();
+        this.notificationService.categoryChange.emit({Url: this.entity.Url} as Category);
         this.router.navigateByUrl(`/category/${this.entity.Url}`);
 
         if (this.entity.Photo) {
@@ -142,7 +142,7 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
 
       this.categoryService.delete(url)
         .then(item => {
-          this.notificationService.categoryChange.emit();
+          this.notificationService.categoryChange.emit({Url: this.entity.Url} as Category);
           if (gotoNewAfterDelete) {
             this.router.navigateByUrl("/category");
           }

@@ -1,20 +1,57 @@
 
 <mat-expansion-panel expanded="false">
+
   <mat-expansion-panel-header>
     <mat-panel-title>Список товарных категорий</mat-panel-title>
   </mat-expansion-panel-header>
-  <p>
-    <mat-nav-list> <!-- dense -->
+  <!--<p>
+    <mat-nav-list> &lt;!&ndash; dense &ndash;&gt;
       <mat-list-item
         *ngFor="let entity of entityList" routerLink="category/{{entity.Url}}">
         {{entity.Title}}
-        <!--<a routerLink="category/{{entity.Url}}">{{entity.Title}}</a>-->
+        &lt;!&ndash;<a routerLink="category/{{entity.Url}}">{{entity.Title}}</a>&ndash;&gt;
       </mat-list-item>
     </mat-nav-list>
-    <!--
+    &lt;!&ndash;
     <mat-nav-list>
       <a *ngFor="let entity of entityList" mat-list-item routerLink="category/{{entity.Url}}">{{entity.Title}}</a>
     </mat-nav-list>
-    -->
-  </p>
+    &ndash;&gt;
+  </p>-->
+
+  <mat-accordion>
+
+    <mat-expansion-panel *ngFor="let entity of entityList"
+                         routerLink="category/{{entity.Url}}"
+                         hideToggle="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>{{entity.Title}}</mat-panel-title>
+        <mat-panel-description>
+        <!--
+          <mat-chip-list>
+            <mat-chip>0 товаров</mat-chip>
+          </mat-chip-list>
+        -->
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <!--<mat-form-field><input matInput type="search" placeholder="Поиск"></mat-form-field>-->
+      <mat-form-field>
+        <input type="search" matInput placeholder="Поиск товара">
+        <mat-icon matSuffix style="color: grey">search</mat-icon>
+      </mat-form-field>
+
+      <mat-list dense>
+        <mat-list-item> Товар 1 </mat-list-item>
+        <mat-list-item> Товар 2 </mat-list-item>
+        <mat-list-item> Товар 3 </mat-list-item>
+        <mat-list-item> Товар 4 </mat-list-item>
+        <mat-list-item> Товар 5 </mat-list-item>
+      </mat-list>
+
+    </mat-expansion-panel>
+
+  </mat-accordion>
+
+
 </mat-expansion-panel>
+

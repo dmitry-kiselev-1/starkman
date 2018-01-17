@@ -15,13 +15,13 @@
 /* Стилизация бокового меню */
 .mat-nav-list
 {
-  background-color: #fafafa;
+  /*background-color: #fafafa;*/
   height: 99%;
 }
 
 .mat-expansion-panel
 {
-  background: transparent;
+  /*background: transparent;*/
 }
 /*
 a

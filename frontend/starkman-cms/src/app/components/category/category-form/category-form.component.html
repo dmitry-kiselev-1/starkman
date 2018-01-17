@@ -26,15 +26,15 @@
 
             <!-- https://github.com/froala/angular-froala-wysiwyg/blob/master/README.md#installation-instructions -->
             <div style="margin-top: 1em; margin-bottom: 1.5em;">
-              <div style="margin-top: 0; margin-bottom: 0.5em; color: grey; font-size: 0.75em;">Description (описание)
-              </div>
+              <div style="margin-top: 0; margin-bottom: 0.5em; color: grey; font-size: 0.75em;">Description (описание)</div>
               <mat-tab-group
                 [(selectedIndex)]="descriptionSelectedTabIndex"
                 (selectedTabChange)="descriptionSelectedTabChange($event)" [dynamicHeight]="true">
                 <mat-tab label="Текст">
                   <div>
-                    <textarea style="height: 250px;" [(ngModel)]="this.entity.Description" name="Description"
-                              #Description="ngModel" matInput placeholder=""></textarea>
+                    <textarea matTextareaAutosize matAutosizeMinRows="5" matAutosizeMaxRows="5"
+                      [(ngModel)]="this.entity.Description" name="Description"
+                      #Description="ngModel" matInput placeholder=""></textarea>
                   </div>
                 </mat-tab>
                 <mat-tab label="Просмотр HTML">
@@ -61,13 +61,15 @@
             </mat-form-field>
             -->
             <mat-form-field>
-            <textarea style="height: 100px;" [(ngModel)]="this.entity.MetaKeywords" name="MetaKeywords"
+            <textarea matTextareaAutosize matAutosizeMinRows="1" matAutosizeMaxRows="5"
+                      [(ngModel)]="this.entity.MetaKeywords" name="MetaKeywords"
                       #MetaKeywords="ngModel" matInput
                       placeholder="Meta Keywords (ключевые слова для Title)"></textarea>
             </mat-form-field>
 
             <mat-form-field>
-            <textarea style="height: 100px;" [(ngModel)]="this.entity.MetaDescription" name="MetaDescription"
+            <textarea matTextareaAutosize matAutosizeMinRows="1" matAutosizeMaxRows="5"
+                      [(ngModel)]="this.entity.MetaDescription" name="MetaDescription"
                       #MetaDescription="ngModel" matInput
                       placeholder="Meta Description (ключевые слова из Description)"></textarea>
             </mat-form-field>

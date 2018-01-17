@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import {CategoryFormComponent} from './components/category/category-form/category-form.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/category/', pathMatch: 'full' },
+  /*{ path: '', redirectTo: '/category/', pathMatch: 'full' },*/
   /*{ path: '**', component: AppComponent },*/
   {
     path: 'category', children: [

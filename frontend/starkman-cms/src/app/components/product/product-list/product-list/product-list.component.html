@@ -1,0 +1,13 @@
+
+<mat-form-field>
+  <input type="text" #search matInput placeholder="Поиск товара"
+         style="color: grey;"
+         (keyup)="this.searchProduct(search.value)">
+  <mat-icon matSuffix style="color: grey; font-size: medium;">search</mat-icon>
+</mat-form-field>
+
+<mat-list dense>
+  <mat-list-item
+    *ngFor="let entity of entityListFiltered"
+    routerLink="product/{{entity.Url}}">{{entity.Title}}</mat-list-item>
+</mat-list>

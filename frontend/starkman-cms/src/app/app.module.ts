@@ -19,6 +19,7 @@ import {SidenavComponent} from './components/layout/sidenav/sidenav/sidenav.comp
 import { PhotoListComponent } from './components/photo/photo-list/photo-list.component';
 import { PhotoFormComponent } from './components/photo/photo-form/photo-form.component';
 import {PhotoService} from './services/photo.service';
+import { ProductListComponent } from './components/product/product-list/product-list/product-list.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import {PhotoService} from './services/photo.service';
     OrderListComponent,
     SidenavComponent,
     PhotoListComponent,
-    PhotoFormComponent
+    PhotoFormComponent,
+    ProductListComponent
   ],
   imports: [
     BrowserModule,

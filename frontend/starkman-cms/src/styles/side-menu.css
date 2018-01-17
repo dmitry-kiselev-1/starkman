@@ -15,7 +15,7 @@
 /* Стилизация бокового меню */
 .mat-nav-list
 {
-  /*background-color: #fafafa;*/
+  background-color: #fafafa;
   height: 99%;
 }
 
@@ -38,4 +38,9 @@ a
 .mat-card-title
 {
   font-size: 20px;
+}
+
+.top-level-expanded-panel-background
+{
+  background-color: #fafafa;
 }

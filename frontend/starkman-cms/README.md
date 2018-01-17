@@ -1,6 +1,9 @@
 
-ng generate component components\photo\photo-form\photo-form --module app
+npm update -g
+npm install -g @angular/cli
 
+ng generate component components\product\product-list\product-list --module app
+ng generate component components\photo\photo-form\photo-form --module app
 ng generate component components\photo\photo-list\photo-list --module app
 ng generate component components\order\order-list\order-list --module app
 

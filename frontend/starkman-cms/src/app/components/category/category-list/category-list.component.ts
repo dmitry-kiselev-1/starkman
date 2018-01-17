@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {CategoryService} from '../../../services/category.service';
-import {Category} from '../../../models/page/category.model';
-import {BaseComponent} from '../../base.component';
-import {NotificationService} from '../../../services/notification.service';
+import { Component, OnInit } from '@angular/core';
+import { CategoryService } from '../../../services/category.service';
+import { Category } from '../../../models/page/category.model';
+import { BaseComponent } from '../../base.component';
+import { NotificationService } from "../../../services/notification.service";
 
 @Component({
   selector: 'app-category-list',

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using Newtonsoft.Json;
 using StackExchange.Redis;
 using Starkman.Backend.Domain.Entities.Page;
@@ -73,6 +74,22 @@ namespace Starkman.Backend.xUnitTest.Storage
             var keyExists = await RedisContext.RedisConnection.GetDatabase(0).KeyExistsAsync(EntityName);
 
             Assert.True(keyExists);
+        }
+
+        [Fact]
+        public async void StorageExportTest()
+        {
+            var categoryList = new List<Category>();
+
+            var categoryHashValues = await RedisContext.RedisConnection.GetDatabase(0).HashValuesAsync(EntityName, CommandFlags.HighPriority);
+
+            foreach (var categoryHashValue in categoryHashValues)
+            {
+                var category = JsonConvert.DeserializeObject<Category>(categoryHashValue);
+                categoryList.Add(category);
+            }
+
+            Assert.True(categoryList.Any());
         }
 
     }

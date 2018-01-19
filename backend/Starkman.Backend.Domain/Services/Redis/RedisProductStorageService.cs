@@ -10,30 +10,43 @@ namespace Starkman.Backend.Domain.Services.Redis
 {
     public class RedisProductStorageService : IStorageService<Product>
     {
-        private string _entityName = "Product";
-        private int _databaseId = 1;
+        private string _entityName = "CategoryProducts";
+        private int _databaseId = 0;
 
         public IDictionary<string, string> InitData { get; set; }
 
-        private const string EntityName = "Product";
         public async Task<IEnumerable<Product>> ListAsync()
         {
-            throw new System.NotImplementedException();
+            var redisHash = await RedisContext.RedisConnection.GetDatabase(_databaseId).HashValuesAsync(_entityName);
+
+            return
+                redisHash.Any()
+                    ? redisHash.Select(c => JsonConvert.DeserializeObject<Product>(c)).OrderBy(c => c.SortOrder)
+                    : null;
         }
 
         public async Task<Product> FindAsync(string key)
         {
-            throw new System.NotImplementedException();
+            var redisValue = await RedisContext.RedisConnection.GetDatabase(_databaseId).HashGetAsync(_entityName, key);
+
+            return
+                redisValue.HasValue
+                    ? JsonConvert.DeserializeObject<Product>(redisValue)
+                    : null;
         }
 
         public async Task<bool> SetAsync(Product entity)
         {
-            throw new System.NotImplementedException();
+            return await RedisContext.RedisConnection.GetDatabase(_databaseId)
+                .HashSetAsync($"{_entityName}:{entity.UrlParent}", entity.Url,
+                JsonConvert.SerializeObject(entity, Formatting.None,
+                    new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore }));
         }
 
         public async Task<bool> RemoveAsync(string key)
         {
-            throw new System.NotImplementedException();
+            return await RedisContext.RedisConnection.GetDatabase(_databaseId).HashDeleteAsync(_entityName, key);
         }
+
     }
 }

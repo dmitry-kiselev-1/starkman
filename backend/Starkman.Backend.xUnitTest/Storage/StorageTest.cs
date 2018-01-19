@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -12,11 +13,11 @@ namespace Starkman.Backend.xUnitTest.Storage
 {
     public class StorageTest
     {
-        private const string EntityName = "Category";
-
         [Fact]
         public async void StorageInitTest()
         {
+            string categoryHashName = "Category";
+
             var categoryList = new List<Category>()
             {
                 new Category()
@@ -66,30 +67,69 @@ namespace Starkman.Backend.xUnitTest.Storage
 
             foreach (var category in categoryList)
             {
-                await RedisContext.RedisConnection.GetDatabase(0).HashSetAsync(EntityName, category.Url,
+                await RedisContext.RedisConnection.GetDatabase(0).HashSetAsync(categoryHashName, category.Url,
                     JsonConvert.SerializeObject(category, Formatting.None,
                         new JsonSerializerSettings() {NullValueHandling = NullValueHandling.Ignore}));
             }
 
-            var keyExists = await RedisContext.RedisConnection.GetDatabase(0).KeyExistsAsync(EntityName);
-
+            var keyExists = await RedisContext.RedisConnection.GetDatabase(0).KeyExistsAsync(categoryHashName);
+            
             Assert.True(keyExists);
         }
 
         [Fact]
-        public async void StorageExportTest()
+        public async void StorageBackupRestoreTest()
         {
-            var categoryList = new List<Category>();
+            // Backup:
 
-            var categoryHashValues = await RedisContext.RedisConnection.GetDatabase(0).HashValuesAsync(EntityName, CommandFlags.HighPriority);
+            int backupDatabaseId = 0;
+            var db1 = RedisContext.RedisConnection.GetDatabase(backupDatabaseId);
 
-            foreach (var categoryHashValue in categoryHashValues)
+            string categoryHashName = "Category";
+            string categoryProductsHashNamePrefix = "CategoryProducts";
+
+            var categoryProductsHashNames = await db1.HashKeysAsync(categoryHashName);
+
+            byte[] categoryDump = await db1.KeyDumpAsync(categoryHashName);
+
+            Dictionary<string, byte[]> categoryProductsDump = new Dictionary<string, byte[]>();
+
+            foreach (var categoryProductsHashName in categoryProductsHashNames)
             {
-                var category = JsonConvert.DeserializeObject<Category>(categoryHashValue);
-                categoryList.Add(category);
+                string categoryProductsKey = $"{categoryProductsHashNamePrefix}:{categoryProductsHashName}";
+
+                categoryProductsDump.Add(
+                    categoryProductsHashName,
+                    await db1.KeyDumpAsync(categoryProductsKey));
             }
 
-            Assert.True(categoryList.Any());
+            Assert.True(categoryDump.Any() && categoryProductsDump.Any());
+
+            // Restore:
+
+            int restoreDatabaseId = 0;
+            var db2 = RedisContext.RedisConnection.GetDatabase(backupDatabaseId);
+
+            await db2.KeyDeleteAsync(categoryHashName);
+            await db2.KeyRestoreAsync(categoryHashName, categoryDump);
+
+            foreach (var categoryProductsHashName in categoryProductsHashNames.ToStringArray())
+            {
+                string categoryProductsKey = $"{categoryProductsHashNamePrefix}:{categoryProductsHashName}";
+
+                if (db1.KeyExists(categoryProductsKey))
+                {
+                    await db2.KeyDeleteAsync(categoryProductsKey);
+                    await db2.KeyRestoreAsync(
+                        categoryProductsKey,
+                        categoryProductsDump[categoryProductsHashName]);
+                }
+            }
+
+            bool categoryHashExist = await RedisContext.RedisConnection.GetDatabase(restoreDatabaseId)
+                .KeyExistsAsync(categoryHashName);
+
+            Assert.True(categoryHashExist);
         }
 
     }

@@ -48,8 +48,7 @@ namespace Starkman.Backend.WebApi.Controllers
         {
             return await this._storageService.SetAsync(entity);
         }
-
-
+        
         // DELETE api/photo/5
         [HttpDelete("{id}")]
         public async Task<bool> Delete(string id)

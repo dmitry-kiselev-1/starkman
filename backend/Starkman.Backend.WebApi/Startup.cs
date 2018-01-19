@@ -45,6 +45,7 @@ namespace WebApi
             // Dependency Injection:
             services.Add(ServiceDescriptor.Transient<IStorageService<Category>, RedisCategoryStorageService>());
             services.Add(ServiceDescriptor.Transient<IStorageService<Photo>, FilePhotoStorageService>());
+            services.Add(ServiceDescriptor.Transient<IStorageService<Product>, RedisProductStorageService>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

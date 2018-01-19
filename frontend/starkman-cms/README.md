@@ -5,12 +5,16 @@ npm update -g
 npm install -g @angular/cli
 
 ng generate component components\product\product-list\product-list --module app
+ng generate component components\product\product-form\product-form --module app
+
 ng generate component components\photo\photo-form\photo-form --module app
 ng generate component components\photo\photo-list\photo-list --module app
+
 ng generate component components\order\order-list\order-list --module app
 
 ng generate component components\layout\sidenav\sidenav --module app
 
+ng generate service services\product
 ng generate service services\category
 ng generate component components\category  --module app
 

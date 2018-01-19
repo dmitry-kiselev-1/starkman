@@ -8,40 +8,40 @@ using Starkman.Backend.Domain.Services.Redis;
 namespace Starkman.Backend.WebApi.Controllers
 {
     [Route("api/[controller]")]
-    public class CategoryController : Controller
+    public class ProductController : Controller
     {
-        private readonly IStorageService<Category> _storageService;
+        private readonly IStorageService<Product> _storageService;
 
         /// <summary>
         /// Dependency injection from Startup.cs -> void ConfigureServices
         /// </summary>
-        public CategoryController(IStorageService<Category> storageService)
+        public ProductController(IStorageService<Product> storageService)
         {
             this._storageService = storageService;
         }
 
-        // GET api/сategory
+        // GET api/product
         [HttpGet]
-        public async Task<IEnumerable<Category>> Get()
+        public async Task<IEnumerable<Product>> Get()
         {
             return await this._storageService.ListAsync();
         }
 
-        // GET api/сategory/5
+        // GET api/product/5
         [HttpGet("{id}")]
-        public async Task<Category> Get(string id)
+        public async Task<Product> Get(string id)
         {
             return await this._storageService.FindAsync(id);
         }
         
-        // POST api/сategory
+        // POST api/product
         [HttpPost]
-        public async Task<bool> Post([FromBody] Category entity)
+        public async Task<bool> Post([FromBody] Product entity)
         {
             return await this._storageService.SetAsync(entity);
         }
-
-        // DELETE api/сategory/5
+        
+        // DELETE api/product/5
         [HttpDelete("{id}")]
         public async Task<bool> Delete(string id)
         {

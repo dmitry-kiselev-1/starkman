@@ -17,12 +17,7 @@ namespace Starkman.Backend.Domain.Services.Redis
 
         public async Task<IEnumerable<Product>> ListAsync()
         {
-            var redisHash = await RedisContext.RedisConnection.GetDatabase(_databaseId).HashValuesAsync(_entityName);
-
-            return
-                redisHash.Any()
-                    ? redisHash.Select(c => JsonConvert.DeserializeObject<Product>(c)).OrderBy(c => c.SortOrder)
-                    : null;
+            return await Task.Run(() => new List<Product>());
         }
 
         public async Task<Product> FindAsync(string key)

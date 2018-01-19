@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
 using StackExchange.Redis;
@@ -105,6 +106,20 @@ namespace Starkman.Backend.xUnitTest.Storage
 
             Assert.True(categoryDump.Any() && categoryProductsDump.Any());
 
+            // to file:
+            await File.WriteAllBytesAsync($@"c:\temp\{categoryHashName}.dump", categoryDump);
+
+            foreach (var categoryProductsHashName in categoryProductsHashNames.ToStringArray())
+            {
+                string categoryProductsKey = $"{categoryProductsHashNamePrefix}:{categoryProductsHashName}";
+
+                if (db1.KeyExists(categoryProductsKey))
+                {
+                    await File.WriteAllBytesAsync($@"c:\temp\{categoryProductsKey.Replace(":", "-")}.dump", 
+                        categoryProductsDump[categoryProductsHashName]);
+                }
+            }
+            
             // Restore:
 
             int restoreDatabaseId = 0;

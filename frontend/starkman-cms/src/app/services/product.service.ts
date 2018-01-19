@@ -3,7 +3,6 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import {BaseService} from './base-service';
 import {Product} from '../models/page/product.model';
-import { Category } from "../models/page/category.model";
 
 @Injectable()
 export class ProductService extends BaseService {

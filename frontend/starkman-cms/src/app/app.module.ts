@@ -19,8 +19,9 @@ import {SidenavComponent} from './components/layout/sidenav/sidenav/sidenav.comp
 import { PhotoListComponent } from './components/photo/photo-list/photo-list.component';
 import { PhotoFormComponent } from './components/photo/photo-form/photo-form.component';
 import {PhotoService} from './services/photo.service';
-import { ProductListComponent } from './components/product/product-list/product-list/product-list.component';
-import { ProductFormComponent } from './components/product/product-form/product-form/product-form.component';
+import { ProductListComponent } from './components/product/product-list/product-list.component';
+import { ProductFormComponent } from './components/product/product-form/product-form.component';
+import { ProductService } from "./services/product.service";
 
 @NgModule({
   declarations: [
@@ -46,7 +47,7 @@ import { ProductFormComponent } from './components/product/product-form/product-
     FlexLayoutModule,
     FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()
   ],
-  providers: [NotificationService, CategoryService, PhotoService],
+  providers: [NotificationService, CategoryService, PhotoService, ProductService],
   bootstrap: [AppRootComponent]
 })
 export class AppModule {}

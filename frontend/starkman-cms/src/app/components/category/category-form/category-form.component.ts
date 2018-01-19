@@ -186,7 +186,7 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
   addProduct()
   {
     this.notificationService.appLoadingSet(true);
-    this.router.navigateByUrl("/product");
+    this.router.navigateByUrl(`/product/${this.entity.Url}`);
     this.notificationService.appLoadingSet(false);
   }
 

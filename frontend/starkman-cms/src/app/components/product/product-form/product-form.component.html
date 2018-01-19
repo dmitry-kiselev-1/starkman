@@ -1,0 +1,136 @@
+<mat-tab-group>
+  <mat-tab label="Текст">
+
+    <form #categoryForm="ngForm">
+      <mat-card>
+        <!--
+        <mat-card-header>
+          <mat-card-title>{{this.entity.Url}}</mat-card-title>
+        </mat-card-header>
+        -->
+        <mat-card-content>
+
+          <div class="edit-form-container">
+
+            <mat-form-field>
+              <input [(ngModel)]="this.entity.Url" name="Url" [disabled]="true" matInput placeholder="Url" required/>
+            </mat-form-field>
+
+            <mat-form-field>
+              <input autocomplete="off"
+                     (keyup.enter)="onTitleInputEnter(titleInput.value)"
+                     (blur)="onTitleInputEnter(titleInput.value)"
+                     [(ngModel)]="this.entity.Title" name="Title" #titleInput="ngModel" matInput
+                     placeholder="Title (название)" required minlength="1">
+            </mat-form-field>
+
+            <!-- https://github.com/froala/angular-froala-wysiwyg/blob/master/README.md#installation-instructions -->
+            <div style="margin-top: 1em; margin-bottom: 1.5em;">
+              <div style="margin-top: 0; margin-bottom: 0.5em; color: grey; font-size: 0.75em;">Description (описание)</div>
+              <mat-tab-group
+                [(selectedIndex)]="descriptionSelectedTabIndex"
+                (selectedTabChange)="descriptionSelectedTabChange($event)" [dynamicHeight]="true">
+                <mat-tab label="Текст">
+                  <div>
+                    <textarea matTextareaAutosize matAutosizeMinRows="5" matAutosizeMaxRows="5"
+                              [(ngModel)]="this.entity.Description" name="Description"
+                              #Description="ngModel" matInput placeholder="Description (описание)"></textarea>
+                  </div>
+                </mat-tab>
+                <mat-tab label="Просмотр HTML">
+                  <div [froalaView]="this.entity.Description"></div>
+                </mat-tab>
+                <mat-tab label="Редактор HTML">
+                  <div>
+                    <textarea id="htmlEditor" #htmlEditor [froalaEditor]="froalaOptions"
+                              [(froalaModel)]="froalaEditorContent"></textarea>
+                    <!--
+                    <textarea
+                      #Description
+                      [froalaEditor]="froalaOptions"
+                      [(froalaModel)]="this.entity.Description" name="Description">
+                    </textarea>
+                    -->
+                  </div>
+                </mat-tab>
+              </mat-tab-group>
+            </div>
+            <!--
+            <mat-form-field>
+              <textarea style="height: 250px;" [(ngModel)]="this.entity.Description" name="Description" matInput placeholder="Description (описание)"></textarea>
+            </mat-form-field>
+            -->
+            <mat-form-field>
+            <textarea matTextareaAutosize matAutosizeMinRows="1" matAutosizeMaxRows="5"
+                      [(ngModel)]="this.entity.MetaKeywords" name="MetaKeywords"
+                      #MetaKeywords="ngModel" matInput
+                      placeholder="Meta Keywords (ключевые слова для Title)"></textarea>
+            </mat-form-field>
+
+            <mat-form-field>
+            <textarea matTextareaAutosize matAutosizeMinRows="1" matAutosizeMaxRows="5"
+                      [(ngModel)]="this.entity.MetaDescription" name="MetaDescription"
+                      #MetaDescription="ngModel" matInput
+                      placeholder="Meta Description (ключевые слова из Description)"></textarea>
+            </mat-form-field>
+
+            <mat-checkbox style="padding-bottom: 1.5em;" [(ngModel)]="this.entity.IsVisible" #IsVisible="ngModel"
+                          name="IsVisible"
+                          color="primary">Показывать на сайте
+            </mat-checkbox>
+
+            <mat-form-field style="width: 25%">
+          <span matTooltipPosition="right"
+                matTooltip="Число 1 означает, что в общем списке элемент будет на первом месте, число 2 - на втором, и так далее">
+            <input autocomplete="off" [(ngModel)]="this.entity.SortOrder" name="SortOrder" #SortOrder="ngModel" matInput
+                   [type]="'number'"
+                   placeholder="Порядковый номер"/>
+          </span>
+            </mat-form-field>
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+
+          <div class="button-row">
+
+            <span matTooltip="Отменить внесённые изменения">
+          <button (click)="reload(this.query_url)" mat-mini-fab color="accent">
+            <mat-icon class="flipV" aria-label="Отменить">refresh</mat-icon>
+          </button>
+        </span>
+
+            <span matTooltip="Добавить товар">
+          <button (click)="add()" mat-mini-fab color="accent">
+            <mat-icon aria-label="Добавить">add</mat-icon>
+          </button>
+        </span>
+
+
+            <span matTooltip="Удалить товар">
+          <button (click)="delete(this.entity?.Url)" mat-mini-fab color="warn">
+            <mat-icon aria-label="Удалить">delete</mat-icon>
+          </button>
+        </span>
+
+          </div>
+
+        </mat-card-actions>
+      </mat-card>
+    </form>
+
+  </mat-tab>
+
+  <mat-tab label="Фото">
+
+    <app-photo-form [entity]="this.entity" [isSinglePhoto]="true"></app-photo-form>
+
+  </mat-tab>
+
+  <!-- <mat-tab label="Цены"></mat-tab> -->
+</mat-tab-group>
+
+<span matTooltip="Сохранить изменения" style="margin-left: 20px;">
+  <button (click)="save()" mat-fab color="primary" [disabled]="!categoryForm.form.valid">
+    <mat-icon aria-label="Сохранить">done</mat-icon>
+  </button>
+</span>

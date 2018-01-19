@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { BaseComponent } from "../../../base.component";
-import { Category } from "../../../../models/page/category.model";
-import { Product } from "../../../../models/page/product.model";
-import { Photo } from "../../../../models/page/photo.model";
-import { PhotoListComponent } from "../../../photo/photo-list/photo-list.component";
+import { BaseComponent } from "../../base.component";
+import { Category } from "../../../models/page/category.model";
+import { Product } from "../../../models/page/product.model";
+import { Photo } from "../../../models/page/photo.model";
+import { PhotoListComponent } from "../../photo/photo-list/photo-list.component";
 import { forEach } from "@angular/router/src/utils/collection";
 
 import * as _ from "lodash";
@@ -25,7 +25,7 @@ export class ProductListComponent extends BaseComponent implements OnInit {
   ngOnInit() {
 
     for (var i = 1; i <= 10; i++) {
-      this.entityList.push({ Title: `Продукт ${i}`, Sku: 1, PhotoList: [] } as Product);
+      this.entityList.push({ Title: `Продукт ${i}`, Url: `product_${i}`, UrlParent: `category_${i}` } as Product);
     }
 
     this.entityListFiltered = Object.assign([{}], this.entityList);

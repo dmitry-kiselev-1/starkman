@@ -9,5 +9,5 @@
 <mat-list dense>
   <mat-list-item
     *ngFor="let entity of entityListFiltered"
-    routerLink="product/{{entity.Url}}">{{entity.Title}}</mat-list-item>
+    routerLink="product/{{entity.UrlParent}}/{{entity.Url}}">{{entity.Title}}</mat-list-item>
 </mat-list>

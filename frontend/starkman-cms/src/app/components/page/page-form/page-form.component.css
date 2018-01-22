@@ -1,0 +1,19 @@
+.mat-card {
+  margin: 20px;
+}
+
+.edit-form-container {
+  display: flex;
+  flex-direction: column;
+}
+/*
+.edit-form-container > * {
+  width: 100%;
+}
+*/
+
+.fr-view {
+  font-family: "Times New Roman", Georgia, Serif;
+  font-size: 18px;
+  color: #444444;
+}

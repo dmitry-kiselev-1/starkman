@@ -24,6 +24,8 @@ export class ProductListComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
 
+
+    this.entityList.push({ Title: `Продукт 0`, Url: `product_0`, UrlParent: `pidzhaki_pritalennye` } as Product);
     for (var i = 1; i <= 10; i++) {
       this.entityList.push({ Title: `Продукт ${i}`, Url: `product_${i}`, UrlParent: `category_${i}` } as Product);
     }

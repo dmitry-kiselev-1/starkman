@@ -32,7 +32,7 @@ export class AppRootComponent implements OnInit {
       });
   }
 
-  getProgressBarMode(state: boolean)
+  getProgressBarMode(state: boolean): string
   {
     return state ? "buffer" : "determinate";
   }

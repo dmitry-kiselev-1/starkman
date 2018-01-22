@@ -22,6 +22,7 @@ import {PhotoService} from './services/photo.service';
 import { ProductListComponent } from './components/product/product-list/product-list.component';
 import { ProductFormComponent } from './components/product/product-form/product-form.component';
 import { ProductService } from "./services/product.service";
+import { PageFormComponent } from './components/page/page-form/page-form.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ProductService } from "./services/product.service";
     PhotoListComponent,
     PhotoFormComponent,
     ProductListComponent,
-    ProductFormComponent
+    ProductFormComponent,
+    PageFormComponent
   ],
   imports: [
     BrowserModule,

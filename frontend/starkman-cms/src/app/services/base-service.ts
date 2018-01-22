@@ -7,7 +7,7 @@ export abstract class BaseService {
   protected apiRoutePrefix: string;
 
   constructor(
-    protected apiDomain: string = 'http://localhost:8082', /* 'http://138.68.185.190:3000' */
+    protected apiDomain: string = 'http://localhost:8080', /* 'http://138.68.185.190:3000' */
     protected requestOptions = new RequestOptions(),
     private headers =
       new Headers(

@@ -4,6 +4,7 @@ http://www.asos.com/ru/women/?ctaref=HP|gen|top|women
 npm update -g
 npm install -g @angular/cli
 
+ng generate component components\page\page-form --module app
 ng generate component components\product\product-list --module app
 ng generate component components\product\product-form --module app
 

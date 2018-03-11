@@ -9,16 +9,37 @@
     <h1 class="starkman-app-name">{{appTitle}}</h1>
   </mat-toolbar>
 
-  <mat-progress-bar
-    [color]="'primary'"
-    [mode]="this.appLoading ? 'buffer' : 'determinate'"
-    [value]="0"
-    [bufferValue]="0">
-  </mat-progress-bar>
+<!--
+  <div [ngSwitch]="this.appLoading">
+    <ng-template [ngSwitchCase]="true">
+      <mat-progress-bar
+        [mode]="'buffer'" [color]="'primary'" [value]="0" [bufferValue]="0">
+      </mat-progress-bar>
+    </ng-template>
+    <ng-template ngSwitchDefault>
+      <mat-progress-bar"
+        [mode]="'determinate'" [color]="'primary'" [value]="0" [bufferValue]="0">
+      </mat-progress-bar>
+    </ng-template>
+  </div>
+  -->
 
+  <div [hidden]="!this.appLoading">
+    <mat-progress-bar
+      [mode]="'buffer'" [color]="'primary'" [value]="0" [bufferValue]="0">
+    </mat-progress-bar>
+  </div>
+  <div [hidden]="this.appLoading">
+    <mat-progress-bar
+      [mode]="'determinate'" [color]="'primary'" [value]="0" [bufferValue]="0">
+    </mat-progress-bar>
+  </div>
+  
   <mat-sidenav-container class="starkman-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
 
-    <mat-sidenav #snav [disableClose]="true" [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56" [opened]="true">
+    <mat-sidenav #snav [disableClose]="true"
+                 [mode]="mobileQuery.matches ? 'over' : 'side'"
+                 [fixedInViewport]="mobileQuery.matches" fixedTopGap="56" [opened]="true">
         <mat-nav-list>
           <app-sidenav></app-sidenav>
         </mat-nav-list>

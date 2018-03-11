@@ -16,6 +16,8 @@ FROM microsoft/aspnetcore
 WORKDIR /app
 COPY ./bin/Release/PublishOutput/*.* ./
 
+RUN mkdir -p /app/assets
+
 EXPOSE 80
 ENTRYPOINT ["dotnet", "Starkman.Backend.WebApi.dll"]
 

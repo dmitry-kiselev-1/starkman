@@ -89,9 +89,10 @@ namespace Starkman.Backend.Domain.Services.Files
         
         private string GetDirPath()
         {
-            var filesDirectoryPath = FilesContext.FilesDirectoryPath;
-            this.InitData.TryGetValue("WebRootPath", out var webRootPath);
-            return System.IO.Path.Combine(webRootPath, @filesDirectoryPath);
+            return FilesContext.FilesDirectoryPath;
+            //var filesDirectoryPath = FilesContext.FilesDirectoryPath;
+            //this.InitData.TryGetValue("WebRootPath", out var webRootPath);
+            //return System.IO.Path.Combine(webRootPath, @filesDirectoryPath);
         }
     }
 }

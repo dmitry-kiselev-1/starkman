@@ -93,27 +93,27 @@
 
           <div class="button-row">
 
-            <span matTooltip="Отменить внесённые изменения">
+            <span matTooltip="Отменить">
           <button (click)="reload(this.query_url)" mat-mini-fab color="accent">
-            <mat-icon class="flipV" aria-label="Отменить">refresh</mat-icon>
+            <mat-icon class="flipV">refresh</mat-icon>
           </button>
         </span>
 
-            <span matTooltip="Добавить категорию">
+            <span matTooltip="Добавить">
           <button (click)="add()" mat-mini-fab color="accent">
-            <mat-icon aria-label="Добавить">add</mat-icon>
+            <mat-icon>add</mat-icon>
           </button>
         </span>
 
-            <span matTooltip="Добавить товар" *ngIf="this.entity?.Url">
-          <button (click)="addProduct()" mat-mini-fab color="accent">
-            <mat-icon aria-label="Добавить">playlist_add</mat-icon>
+            <span matTooltip="Добавить {{this.child?.Title}}" *ngIf="this.child && this.entity?.Url">
+          <button (click)="addChild()" mat-mini-fab color="accent">
+            <mat-icon>playlist_add</mat-icon>
           </button>
         </span>
 
-            <span matTooltip="Удалить категорию">
+            <span matTooltip="Удалить">
           <button (click)="delete(this.entity?.Url)" mat-mini-fab color="warn">
-            <mat-icon aria-label="Удалить">delete</mat-icon>
+            <mat-icon>delete</mat-icon>
           </button>
         </span>
 

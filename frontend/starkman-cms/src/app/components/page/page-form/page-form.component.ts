@@ -7,6 +7,8 @@ import {NotificationService} from '../../../services/notification.service';
 import {MatDialog, MatSnackBar} from '@angular/material';
 import {Photo} from '../../../models/page/photo.model';
 import {PhotoService} from '../../../services/photo.service';
+import { Page } from "../../../models/page/page.model";
+import { ProductService } from "../../../services/product.service";
 
 declare var $ :any;
 
@@ -17,18 +19,23 @@ declare var $ :any;
 })
 export class PageFormComponent extends BaseComponent implements OnInit {
 
-  private query_url: string;
+  @Input() child: Page;
+
+  private category_url: string;
+  private product_url: string;
+
   public entity: Category = new Category();
 
   //submitted = false;
   //onSubmit() { this.submitted = true; }
 
   constructor(
-    private notificationService: NotificationService,
+    private entityService: CategoryService,
+    private childService: ProductService,
     private photoService: PhotoService,
+    private notificationService: NotificationService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private categoryService: CategoryService,
     private snackBar: MatSnackBar) {
     super();
   }
@@ -38,13 +45,14 @@ export class PageFormComponent extends BaseComponent implements OnInit {
     this.componentTitle = this.activatedRoute.snapshot.data['title'];
 
     this.activatedRoute.params.subscribe(params => {
-      this.query_url = params['category_url'];
+      this.category_url = params['category_url'];
+      this.product_url = params['product_url'];
 
-      if (!this.query_url) {
+      if (!this.category_url) {
         this.entity = new Category();
       }
       else {
-        this.reload(this.query_url)
+        this.reload(this.category_url)
       }
     });
 
@@ -56,7 +64,7 @@ export class PageFormComponent extends BaseComponent implements OnInit {
     if (!url) return;
 
     this.notificationService.appLoadingSet(true);
-    this.categoryService.get(url)
+    this.entityService.get(url)
       .then(item => {
         this.entity = (item || new Category());
         this.descriptionSelectedTabIndex = 0;
@@ -99,12 +107,12 @@ export class PageFormComponent extends BaseComponent implements OnInit {
     }
 
     // если изменился Url, удаляем старую сущность и обновляем ссылки:
-    if ((this.query_url != this.entity.Url) && (this.query_url != '')) {
-      this.rename(this.query_url, this.entity.Url, this.entity.Url);
+    if ((this.category_url != this.entity.Url) && (this.category_url != '')) {
+      this.rename(this.category_url, this.entity.Url, this.entity.Url);
     }
 
     // сохраняем новую сущность:
-    this.categoryService.post(this.entity)
+    this.entityService.post(this.entity)
       .then(item => {
         this.notificationService.categoryChange.emit({Url: this.entity.Url} as Category);
         this.router.navigateByUrl(`/category/${this.entity.Url}`);
@@ -140,7 +148,7 @@ export class PageFormComponent extends BaseComponent implements OnInit {
 
       // this.openSnackBar(`Категорию ${this.entity.Title} нельзя удалить, т.к. она содержит товары`, "");
 
-      this.categoryService.delete(url)
+      this.entityService.delete(url)
         .then(item => {
           this.notificationService.categoryChange.emit({Url: this.entity.Url} as Category);
           if (gotoNewAfterDelete) {
@@ -183,10 +191,12 @@ export class PageFormComponent extends BaseComponent implements OnInit {
     this.notificationService.appLoadingSet(false);
   }
 
-  addProduct()
+  addChild()
   {
+    if( !this.child ) return;
+
     this.notificationService.appLoadingSet(true);
-    this.router.navigateByUrl(`/product/${this.entity.Url}`);
+    this.router.navigateByUrl(`/${this.child.Url}/${this.entity.Url}`);
     this.notificationService.appLoadingSet(false);
   }
 

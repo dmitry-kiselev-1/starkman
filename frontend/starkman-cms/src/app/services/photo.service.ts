@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import { Http } from '@angular/http';
-import 'rxjs/add/operator/toPromise';
+
 import {BaseService} from './base-service';
 import {Photo} from '../models/page/photo.model';
 

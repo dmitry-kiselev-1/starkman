@@ -54,7 +54,7 @@ export class CategoryFormComponent extends FroalaСontainerComponent implements 
         this.notificationService.appLoading = false;
       })
       .catch(error => {
-        this.handleError({userMessage: "Ошибка при чтении списка категорий.", logMessage: `categoryService.get(${url})`, error} as AppError);
+        this.handleError({userMessage: "Ошибка при запросе списка категорий.", logMessage: `categoryService.get(${url})`, error} as AppError);
         this.notificationService.appLoading = false;
       });
   }
@@ -69,7 +69,7 @@ export class CategoryFormComponent extends FroalaСontainerComponent implements 
         this.notificationService.appLoading = false;
       })
       .catch(error => {
-        this.handleError(error);
+        this.handleError({userMessage: "Ошибка при запросе изображения.", logMessage: `photoService.get(${this.entity.Photo.Url}.${this.entity.Photo.Type}`, error} as AppError);
         this.notificationService.appLoading = false;
       });
   }
@@ -105,7 +105,7 @@ export class CategoryFormComponent extends FroalaСontainerComponent implements 
         //this.reload(this.entity.Url);
       })
       .catch(error => {
-        this.handleError(error);
+        this.handleError({userMessage: "Ошибка при обновлении категории.", logMessage: `categoryService.post(${this.entity}`, error} as AppError);
         this.notificationService.appLoading = false;
       });
   }
@@ -176,12 +176,6 @@ export class CategoryFormComponent extends FroalaСontainerComponent implements 
 
   onTitleInputEnter(value: string) {
     this.entity.Url = this.toUrl(value);
-  }
-
-  openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action, {
-      duration: 5000,
-    });
   }
 
 }

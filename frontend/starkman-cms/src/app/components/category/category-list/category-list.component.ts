@@ -3,6 +3,7 @@ import { CategoryService } from '../../../services/category.service';
 import { Category } from '../../../models/page/category';
 import { BaseComponent } from '../../base.component';
 import { NotificationService } from "../../../services/notification.service";
+import { MatSnackBar } from "@angular/material";
 
 @Component({
   selector: 'app-category-list',
@@ -13,8 +14,9 @@ export class CategoryListComponent extends BaseComponent implements OnInit {
 
   constructor(
     private notificationService: NotificationService,
-    private categoryService: CategoryService) {
-    super();
+    private categoryService: CategoryService,
+    protected snackBar: MatSnackBar) {
+    super(snackBar);
   }
 
   public entityList: Category[] = [];

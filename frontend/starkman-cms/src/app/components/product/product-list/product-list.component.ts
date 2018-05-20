@@ -7,6 +7,7 @@ import { PhotoListComponent } from "../../photo/photo-list/photo-list.component"
 import { forEach } from "@angular/router/src/utils/collection";
 
 import * as _ from "lodash";
+import { MatSnackBar } from "@angular/material";
 
 @Component({
   selector: 'app-product-list',
@@ -15,8 +16,10 @@ import * as _ from "lodash";
 })
 export class ProductListComponent extends BaseComponent implements OnInit {
 
-  constructor() {
-    super();
+  constructor(
+    protected snackBar: MatSnackBar
+  ) {
+    super(snackBar);
   }
 
   public entityList: Product[] = [];

@@ -17,7 +17,7 @@ declare var $ :any;
 })
 export class CategoryFormComponent extends BaseComponent implements OnInit {
 
-  private query_url: string;
+  public query_url: string;
   public entity: Category = new Category();
 
   //submitted = false;

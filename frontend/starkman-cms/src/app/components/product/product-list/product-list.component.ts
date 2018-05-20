@@ -33,7 +33,7 @@ export class ProductListComponent extends BaseComponent implements OnInit {
     this.entityListFiltered = Object.assign([{}], this.entityList);
   }
 
-  private searchProduct(filterValue: string)
+  public searchProduct(filterValue: string)
   {
     if (!filterValue || filterValue.length === 0) {
       this.entityListFiltered = this.entityList;

@@ -8,7 +8,6 @@
     "npm prune": "npm prune",
     "ng build": "ng build",
     "ng build --prod --aot": "ng build --prod --aot",
-    "ng build --env=prod -prod --aot": "ng build --env=prod -prod --aot",
     "ng serve --port 4200": "ng serve --port 4200",
     "ng test": "ng test",
     "ng lint": "ng lint",

@@ -27,16 +27,16 @@ export class CategoryListComponent extends BaseComponent implements OnInit {
 
   reload(category: Category = null)
   {
-    this.notificationService.appLoadingSet(true);
+    this.notificationService.appLoading = true;
     this.categoryService.getList()
       .then(items => {
         this.entityList = items as Category[];
         this.openedCategory = category;
-        this.notificationService.appLoadingSet(false);
+        this.notificationService.appLoading = false;
       })
       .catch(error => {
         this.handleError(error);
-        this.notificationService.appLoadingSet(false);
+        this.notificationService.appLoading = false;
       });
   }
 }

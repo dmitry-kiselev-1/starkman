@@ -7,15 +7,17 @@ import { Category } from "../models/page/category.model";
 @Injectable()
 export class NotificationService {
 
-  public appLoading: boolean = false;
   public appLoadingChange: EventEmitter<boolean> = new EventEmitter<boolean>();
-
   public categoryChange: EventEmitter<Category> = new EventEmitter<Category>();
 
-  constructor() {}
-
-  public appLoadingSet(state: boolean) {
-    this.appLoading = state;
-    this.appLoadingChange.emit(this.appLoading);
+  public get appLoading(): boolean {
+    return this._appLoading;
   }
+
+  public set appLoading(value: boolean) {
+    this._appLoading = value;
+    this.appLoadingChange.emit(this._appLoading);
+  }
+
+  private _appLoading: boolean = true;
 }

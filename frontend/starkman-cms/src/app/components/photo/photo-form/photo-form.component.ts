@@ -36,7 +36,7 @@ export class PhotoFormComponent extends BaseComponent implements OnInit {
     this.entity.Photo = new Photo();
     this.entity.Photo.Url = this.entity.Url;
 
-    this.notificationService.appLoadingSet(true);
+    this.notificationService.appLoading = true;
 
     let file: File = files[0];
     let fileSourceName: string = file.name;
@@ -52,7 +52,7 @@ export class PhotoFormComponent extends BaseComponent implements OnInit {
       //this.entity.BinaryString = reader.result;
       //console.log(reader.result);
       this.uploadPhoto(this.entity.Photo);
-      this.notificationService.appLoadingSet(false);
+      this.notificationService.appLoading = false;
     });
 
     reader.readAsDataURL(file);
@@ -61,16 +61,16 @@ export class PhotoFormComponent extends BaseComponent implements OnInit {
 
   uploadPhoto(photo: Photo) {
 
-    this.notificationService.appLoadingSet(true);
+    this.notificationService.appLoading = true;
 
     this.photoService.post(photo)
       .then(result => {
-        this.notificationService.appLoadingSet(false);
+        this.notificationService.appLoading = false;
         //if (result) { this.snackBar.open('Фото успешно загружено') };
       })
       .catch(error => {
         this.handleError(error);
-        this.notificationService.appLoadingSet(false);
+        this.notificationService.appLoading = false;
       });
   }
 
@@ -87,16 +87,16 @@ export class PhotoFormComponent extends BaseComponent implements OnInit {
         ? confirm(`Удалить фото ${id}?`)
         : true ) {
 
-      this.notificationService.appLoadingSet(true);
+      this.notificationService.appLoading = true;
 
       this.photoService.delete(id)
         .then(item => {
           this.entity.Photo = new Photo();
-          this.notificationService.appLoadingSet(false);
+          this.notificationService.appLoading = false;
         })
         .catch(error => {
           this.handleError(error);
-          this.notificationService.appLoadingSet(false);
+          this.notificationService.appLoading = false;
         });
     }
 

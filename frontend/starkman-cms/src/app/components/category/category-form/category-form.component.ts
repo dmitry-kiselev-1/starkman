@@ -55,17 +55,17 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
   {
     if (!url) return;
 
-    this.notificationService.appLoadingSet(true);
+    this.notificationService.appLoading = true;
     this.categoryService.get(url)
       .then(item => {
         this.entity = (item || new Category());
         this.descriptionSelectedTabIndex = 0;
-        this.notificationService.appLoadingSet(false);
+        this.notificationService.appLoading = false;
         this.reloadPhoto();
       })
       .catch(error => {
         this.handleError(error);
-        this.notificationService.appLoadingSet(false);
+        this.notificationService.appLoading = false;
       });
   }
 
@@ -73,15 +73,15 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
   {
     if (!this.entity.Photo) return;
 
-    this.notificationService.appLoadingSet(true);
+    this.notificationService.appLoading = true;
     this.photoService.get(`${this.entity.Photo.Url}.${this.entity.Photo.Type}`)
       .then(item => {
         this.entity.Photo.Base64String = item.Base64String;
-        this.notificationService.appLoadingSet(false);
+        this.notificationService.appLoading = false;
       })
       .catch(error => {
         this.handleError(error);
-        this.notificationService.appLoadingSet(false);
+        this.notificationService.appLoading = false;
       });
   }
 
@@ -89,7 +89,7 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
   {
     if (!this.entity.Url) return;
 
-    this.notificationService.appLoadingSet(true);
+    this.notificationService.appLoading = true;
 
     let photoBase64String: string;
     if (this.entity.Photo && this.entity.Photo.Base64String) {
@@ -113,12 +113,12 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
           this.entity.Photo.Base64String = photoBase64String;
         }
 
-        this.notificationService.appLoadingSet(false);
+        this.notificationService.appLoading = false;
         //this.reload(this.entity.Url);
       })
       .catch(error => {
         this.handleError(error);
-        this.notificationService.appLoadingSet(false);
+        this.notificationService.appLoading = false;
       });
   }
 
@@ -136,7 +136,7 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
     if (needConfirmation
         ? confirm(`Удалить категорию "${this.entity.Title}"?`)
         : true ) {
-      this.notificationService.appLoadingSet(true);
+      this.notificationService.appLoading = true;
 
       // this.openSnackBar(`Категорию ${this.entity.Title} нельзя удалить, т.к. она содержит товары`, "");
 
@@ -146,11 +146,11 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
           if (gotoNewAfterDelete) {
             this.router.navigateByUrl("/category");
           }
-          this.notificationService.appLoadingSet(false);
+          this.notificationService.appLoading = false;
         })
         .catch(error => {
           this.handleError(error);
-          this.notificationService.appLoadingSet(false);
+          this.notificationService.appLoading = false;
         });
 
       this.deletePhoto();
@@ -163,31 +163,31 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
 
     let id = `${this.entity.Url}.${this.entity.Photo.Type}`;
 
-    this.notificationService.appLoadingSet(true);
+    this.notificationService.appLoading = true;
 
     this.photoService.delete(id)
       .then(item => {
         this.entity.Photo = new Photo();
-        this.notificationService.appLoadingSet(false);
+        this.notificationService.appLoading = false;
       })
       .catch(error => {
         this.handleError(error);
-        this.notificationService.appLoadingSet(false);
+        this.notificationService.appLoading = false;
       });
   }
 
   add()
   {
-    this.notificationService.appLoadingSet(true);
+    this.notificationService.appLoading = true;
     this.router.navigateByUrl("/category");
-    this.notificationService.appLoadingSet(false);
+    this.notificationService.appLoading = false;
   }
 
   addProduct()
   {
-    this.notificationService.appLoadingSet(true);
+    this.notificationService.appLoading = true;
     this.router.navigateByUrl(`/product/${this.entity.Url}`);
-    this.notificationService.appLoadingSet(false);
+    this.notificationService.appLoading = false;
   }
 
   onTitleInputEnter(value: string)

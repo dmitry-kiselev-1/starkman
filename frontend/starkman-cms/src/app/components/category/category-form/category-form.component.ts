@@ -1,21 +1,19 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {ActivatedRoute, Router, Params} from '@angular/router';
-import {Category} from '../../../models/page/category.model';
-import {CategoryService} from '../../../services/category.service';
-import {BaseComponent} from '../../base.component';
-import {NotificationService} from '../../../services/notification.service';
-import {MatDialog, MatSnackBar} from '@angular/material';
-import {Photo} from '../../../models/page/photo.model';
-import {PhotoService} from '../../../services/photo.service';
-
-declare var $ :any;
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Router, Params } from '@angular/router';
+import { Category } from '../../../models/page/category.model';
+import { CategoryService } from '../../../services/category.service';
+import { NotificationService } from '../../../services/notification.service';
+import { MatDialog, MatSnackBar } from '@angular/material';
+import { Photo } from '../../../models/page/photo.model';
+import { PhotoService } from '../../../services/photo.service';
+import { FroalaСontainerComponent } from "../../froala-container.component";
 
 @Component({
   selector: 'app-category-edit',
   templateUrl: './category-form.component.html',
   styleUrls: ['./category-form.component.css']
 })
-export class CategoryFormComponent extends BaseComponent implements OnInit {
+export class CategoryFormComponent extends FroalaСontainerComponent implements OnInit {
 
   public query_url: string;
   public entity: Category = new Category();
@@ -199,46 +197,6 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
     this.snackBar.open(message, action, {
       duration: 5000,
     });
-  }
-
-  // Froala Init and fix:
-
-  public froalaOptions: any = {
-    placeholder: "Description (описание категории на русском)",
-    height: 300,
-    toolbarButtons: ['save', 'bold', 'italic', 'underline', 'fontFamily', 'fontSize', '|', 'color', 'emoticons', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'insertHR', '-', 'insertLink', 'insertTable', 'undo', 'redo', 'clearFormatting', 'selectAll', 'html'],
-    toolbarButtonsXS: ['save', 'bold', 'italic', 'underline', 'fontFamily', 'fontSize', '|', 'color', 'emoticons', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'insertHR', '-', 'insertLink', 'insertTable', 'undo', 'redo', 'clearFormatting', 'selectAll', 'html'],
-    toolbarButtonsSM: ['save', 'bold', 'italic', 'underline', 'fontFamily', 'fontSize', '|', 'color', 'emoticons', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'insertHR', '-', 'insertLink', 'insertTable', 'undo', 'redo', 'clearFormatting', 'selectAll', 'html'],
-    toolbarButtonsMD: ['save', 'bold', 'italic', 'underline', 'fontFamily', 'fontSize', '|', 'color', 'emoticons', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'insertHR', '-', 'insertLink', 'insertTable', 'undo', 'redo', 'clearFormatting', 'selectAll', 'html']
-
-    /*toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'fontFamily', 'fontSize', '|', 'color', 'emoticons', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', 'insertHR', '-', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', 'undo', 'redo', 'clearFormatting', 'selectAll', 'html']*/
-  }
-
-  public froalaInit() {
-    $.FroalaEditor.DefineIcon('save', {NAME: 'check'});
-    $.FroalaEditor.RegisterCommand('save', {
-      title: 'Сохранить',
-      focus: false,
-      undo: false,
-      refreshAfterCallback: false,
-      callback: () => {
-        /* $('#htmlEditor').froalaEditor('html.set', 'My custom paragraph.'); */
-        let htmlEditorContent = $('#htmlEditor').froalaEditor('html.get');
-        this.entity.Description = htmlEditorContent;
-        this.froalaEditorContent = htmlEditorContent;
-      }
-    });
-  }
-
-  descriptionSelectedTabIndex: number;
-  froalaEditorContent: string;
-
-  descriptionSelectedTabChange(tab)
-  {
-    if (tab.index == 2)
-    {
-      this.froalaEditorContent = this.entity.Description;
-    }
   }
 
 }

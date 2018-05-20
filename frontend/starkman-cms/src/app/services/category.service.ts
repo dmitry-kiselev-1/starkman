@@ -17,11 +17,8 @@ export class CategoryService extends BaseService {
       this.apiDomain + this.apiRoutePrefix,
       this.requestOptions)
       .toPromise()
-      .then(response => {
-          return response.json() as Category[];
-        }
-      )
-      .catch(this.handleError);
+      .then(response => response.json() as Category[])
+      .catch(error => Promise.reject(error));
   }
 
   public get(id: string): Promise<Category> {
@@ -29,29 +26,26 @@ export class CategoryService extends BaseService {
       this.apiDomain + this.apiRoutePrefix + id,
       this.requestOptions)
       .toPromise()
-      .then(response => {
-          return response.json() as Category;
-        }
-      )
-      .catch(this.handleError);
+      .then(response => response.json() as Category)
+      .catch(error => Promise.reject(error));
   }
 
-  public delete(id: string): Promise<boolean> {
+  public delete(id: string): Promise<object> {
     return this.http.delete(
       this.apiDomain + this.apiRoutePrefix + id,
       this.requestOptions)
       .toPromise()
       .then(response => response)
-      .catch(this.handleError);
+      .catch(error => Promise.reject(error));
   }
 
-  public post(period: Category): Promise<boolean> {
+  public post(period: Category): Promise<object> {
     return this.http.post(
       this.apiDomain + this.apiRoutePrefix,
       period,
       this.requestOptions)
       .toPromise()
       .then(response => response)
-      .catch(this.handleError);
+      .catch(error => Promise.reject(error));
   }
 }

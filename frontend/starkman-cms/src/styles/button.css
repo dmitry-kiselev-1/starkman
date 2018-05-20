@@ -38,3 +38,9 @@
 
 /* оодновременное отражение по горизонтали и вертикали */
 .flipHV { transform: scale(-1, -1) }
+
+/* для snack-bar */
+.mat-button {
+  color: white;
+  background: 0 0;
+}

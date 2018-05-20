@@ -17,11 +17,8 @@ export class ProductService extends BaseService {
       this.apiDomain + this.apiRoutePrefix,
       this.requestOptions)
       .toPromise()
-      .then(response => {
-          return response.json() as Product[];
-        }
-      )
-      .catch(this.handleError);
+      .then(response => response.json() as Product[])
+      .catch(error => Promise.reject(error));
   }
 
   public get(id: string): Promise<Product> {
@@ -29,29 +26,26 @@ export class ProductService extends BaseService {
       this.apiDomain + this.apiRoutePrefix + id,
       this.requestOptions)
       .toPromise()
-      .then(response => {
-          return response.json() as Product;
-        }
-      )
-      .catch(this.handleError);
+      .then(response => response.json() as Product)
+      .catch(error => Promise.reject(error));
   }
 
-  public delete(id: string): Promise<boolean> {
+  public delete(id: string): Promise<object> {
     return this.http.delete(
       this.apiDomain + this.apiRoutePrefix + id,
       this.requestOptions)
       .toPromise()
       .then(response => response)
-      .catch(this.handleError);
+      .catch(error => Promise.reject(error));
   }
 
-  public post(period: Product): Promise<boolean> {
+  public post(period: Product): Promise<object> {
     return this.http.post(
       this.apiDomain + this.apiRoutePrefix,
       period,
       this.requestOptions)
       .toPromise()
       .then(response => response)
-      .catch(this.handleError);
+      .catch(error => Promise.reject(error));
   }
 }

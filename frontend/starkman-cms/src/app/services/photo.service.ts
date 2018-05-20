@@ -19,23 +19,20 @@ export class PhotoService extends BaseService {
       this.apiDomain + this.apiRoutePrefix + id,
       this.requestOptions)
       .toPromise()
-      .then(response => {
-          return response.json() as Photo;
-        }
-      )
-      .catch(this.handleError);
+      .then(response => response.json() as Photo)
+      .catch(error => Promise.reject(error));
   }
 
-  public delete(id: string): Promise<boolean> {
+  public delete(id: string): Promise<object> {
     return this.http.delete(
       this.apiDomain + this.apiRoutePrefix + id,
       this.requestOptions)
       .toPromise()
       .then(response => response)
-      .catch(this.handleError);
+      .catch(error => Promise.reject(error));
   }
 
-  public post(photo: Photo): Promise<boolean> {
+  public post(photo: Photo): Promise<object> {
 
     //this.requestOptions.headers.append("enctype", "multipart/form-data");
 
@@ -45,10 +42,10 @@ export class PhotoService extends BaseService {
       this.requestOptions)
       .toPromise()
       .then(response => response)
-      .catch(this.handleError);
+      .catch(error => Promise.reject(error));
   }
 
-  public rename(oldUrl: string, oldUrlType: string, newUrl: string): Promise<boolean> {
+  public rename(oldUrl: string, oldUrlType: string, newUrl: string): Promise<object> {
     return this.http.get(
       this.apiDomain + this.apiRoutePrefix +
       'rename' +
@@ -57,11 +54,8 @@ export class PhotoService extends BaseService {
       '&newUrl=' + newUrl,
       this.requestOptions)
       .toPromise()
-      .then(response => {
-          return response.json() as Photo;
-        }
-      )
-      .catch(this.handleError);
+      .then(response => response.json() as Photo)
+      .catch(error => Promise.reject(error));
   }
 
 }

@@ -1,14 +1,21 @@
 ﻿import { Category } from "../models/page/category";
 import { Page } from "../models/page/page";
 import { BaseComponent } from "./base.component";
+import { OnInit } from "@angular/core";
+import { MatSnackBar } from "@angular/material";
 
 declare var $ :any;
 
-export abstract class FroalaСontainerComponent extends BaseComponent {
+export abstract class FroalaСontainerComponent extends BaseComponent implements OnInit {
 
-  public entity: Page = {} as Page;
+public entity: Page = {} as Page;
 
-  constructor() { super(); }
+  constructor(protected snackBar: MatSnackBar) { super(snackBar); }
+
+  ngOnInit(): void {
+    this.froalaInit();
+    this.entity.Description = this.entity.Description || "000";
+  }
 
   public froalaOptions: any = {
     placeholder: "Description (описание категории на русском)",
@@ -40,12 +47,14 @@ export abstract class FroalaСontainerComponent extends BaseComponent {
   public descriptionSelectedTabIndex: number;
   public froalaEditorContent: string;
 
-  public  descriptionSelectedTabChange(tab)
+  public descriptionSelectedTabChange(tab)
   {
-    if (tab.index == 2)
+    if ((tab.index == 1) || (tab.index == 2))
     {
+      this.entity.Description = this.entity.Description || ""
       this.froalaEditorContent = this.entity.Description;
     }
   }
+
 }
 

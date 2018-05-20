@@ -7,6 +7,7 @@ import { MatDialog, MatSnackBar } from '@angular/material';
 import { Photo } from '../../../models/page/photo';
 import { PhotoService } from '../../../services/photo.service';
 import { FroalaСontainerComponent } from "../../froala-container.component";
+import { AppError } from "../../../models/app-error";
 
 @Component({
   selector: 'app-category-edit',
@@ -24,8 +25,8 @@ export class CategoryFormComponent extends FroalaСontainerComponent implements 
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private categoryService: CategoryService,
-    private snackBar: MatSnackBar) {
-    super();
+    protected snackBar: MatSnackBar) {
+    super(snackBar);
   }
 
   ngOnInit() {
@@ -34,15 +35,11 @@ export class CategoryFormComponent extends FroalaСontainerComponent implements 
     this.activatedRoute.params.subscribe(params => {
       this.query_url = params['category_url'];
 
-      if (!this.query_url) {
-        this.entity = new Category();
-      }
-      else {
-        this.reload(this.query_url)
-      }
+      if (!this.query_url)
+        { this.entity = new Category() }
+      else
+        { this.reload(this.query_url) }
     });
-
-    this.froalaInit();
   }
 
   reload(url: string) {
@@ -53,11 +50,11 @@ export class CategoryFormComponent extends FroalaСontainerComponent implements 
       .then(item => {
         this.entity = (item || new Category());
         this.descriptionSelectedTabIndex = 0;
-        this.notificationService.appLoading = false;
         this.reloadPhoto();
+        this.notificationService.appLoading = false;
       })
       .catch(error => {
-        this.handleError(error);
+        this.handleError({userMessage: "Ошибка при чтении списка категорий.", logMessage: `categoryService.get(${url})`, error} as AppError);
         this.notificationService.appLoading = false;
       });
   }

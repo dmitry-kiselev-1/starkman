@@ -19,9 +19,4 @@ export abstract class BaseService {
   ) {
     this.requestOptions.headers = this.headers;
   }
-
-  protected handleError(error: any): Promise<any> {
-    console.log(error);
-    return Promise.reject(error);
-  }
 }

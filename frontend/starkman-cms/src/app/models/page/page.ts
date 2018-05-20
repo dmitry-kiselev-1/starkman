@@ -2,7 +2,7 @@
   public Url: string;
   public UrlParent: string;
   public Title: string;
-  public Description: string;
+  public Description: string = "";
   public MetaKeywords: string;
   public MetaDescription: string;
   public SortOrder: number;

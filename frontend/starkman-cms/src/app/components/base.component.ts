@@ -1,11 +1,18 @@
-﻿export abstract class BaseComponent {
+﻿import { MatSnackBar } from "@angular/material";
+import { AppError } from "../models/app-error";
+
+export abstract class BaseComponent {
 
   protected componentTitle: string;
 
-  constructor() {}
+  constructor(protected snackBar: MatSnackBar) {}
 
-  protected handleError(error) {
+  protected handleError(error: AppError) {
+    const defaultMessage = "При выполнении операции произошла ошибка.";
+    const repeatMessage = "Пожалуйста, повторите операцию позже.";
+
     console.error(error);
+    this.snackBar.open((error.userMessage || defaultMessage) + " " + repeatMessage, 'ОК');
   }
 
   protected  showError(summary: string, detail?: string): void {}

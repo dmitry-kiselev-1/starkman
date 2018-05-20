@@ -1,4 +1,4 @@
-import {Page} from './page.model';
+import {Page} from './page';
 
 export class Photo extends Page {
   public Type: string;

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import { Http } from '@angular/http';
 
 import {BaseService} from './base-service';
-import {Category} from '../models/page/category.model';
+import {Category} from '../models/page/category';
 
 @Injectable()
 export class CategoryService extends BaseService {

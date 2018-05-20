@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import { Http } from '@angular/http';
 
 import {BaseService} from './base-service';
-import {Photo} from '../models/page/photo.model';
+import {Photo} from '../models/page/photo';
 
 @Injectable()
 export class PhotoService extends BaseService {

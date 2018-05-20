@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../../../services/category.service';
-import { Category } from '../../../models/page/category.model';
+import { Category } from '../../../models/page/category';
 import { BaseComponent } from '../../base.component';
 import { NotificationService } from "../../../services/notification.service";
 

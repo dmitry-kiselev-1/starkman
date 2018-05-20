@@ -1,5 +1,5 @@
-import {Page} from './page.model';
-import {Photo} from './photo.model';
+import {Page} from './page';
+import {Photo} from './photo';
 
 export class Product extends Page {
   public Sku: number;

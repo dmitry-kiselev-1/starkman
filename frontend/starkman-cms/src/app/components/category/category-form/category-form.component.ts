@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
-import { Category } from '../../../models/page/category.model';
+import { Category } from '../../../models/page/category';
 import { CategoryService } from '../../../services/category.service';
 import { NotificationService } from '../../../services/notification.service';
 import { MatDialog, MatSnackBar } from '@angular/material';
-import { Photo } from '../../../models/page/photo.model';
+import { Photo } from '../../../models/page/photo';
 import { PhotoService } from '../../../services/photo.service';
 import { FroalaСontainerComponent } from "../../froala-container.component";
 
@@ -18,9 +18,6 @@ export class CategoryFormComponent extends FroalaСontainerComponent implements 
   public query_url: string;
   public entity: Category = new Category();
 
-  //submitted = false;
-  //onSubmit() { this.submitted = true; }
-
   constructor(
     private notificationService: NotificationService,
     private photoService: PhotoService,
@@ -31,8 +28,7 @@ export class CategoryFormComponent extends FroalaСontainerComponent implements 
     super();
   }
 
-  ngOnInit()
-  {
+  ngOnInit() {
     this.componentTitle = this.activatedRoute.snapshot.data['title'];
 
     this.activatedRoute.params.subscribe(params => {
@@ -49,8 +45,7 @@ export class CategoryFormComponent extends FroalaСontainerComponent implements 
     this.froalaInit();
   }
 
-  reload(url: string)
-  {
+  reload(url: string) {
     if (!url) return;
 
     this.notificationService.appLoading = true;
@@ -67,8 +62,7 @@ export class CategoryFormComponent extends FroalaСontainerComponent implements 
       });
   }
 
-  reloadPhoto()
-  {
+  reloadPhoto() {
     if (!this.entity.Photo) return;
 
     this.notificationService.appLoading = true;
@@ -83,8 +77,7 @@ export class CategoryFormComponent extends FroalaСontainerComponent implements 
       });
   }
 
-  save()
-  {
+  save() {
     if (!this.entity.Url) return;
 
     this.notificationService.appLoading = true;
@@ -120,8 +113,7 @@ export class CategoryFormComponent extends FroalaСontainerComponent implements 
       });
   }
 
-  rename(oldUrl: string, oldUrlType: string, newUrl: string)
-  {
+  rename(oldUrl: string, oldUrlType: string, newUrl: string) {
     this.delete(oldUrl, false, false);
 
     this.photoService.rename(oldUrl, this.entity.Photo.Type, newUrl);
@@ -129,8 +121,7 @@ export class CategoryFormComponent extends FroalaСontainerComponent implements 
     // ToDo: переместить все товары из категории oldUrl в категорию newUrl
   }
 
-  delete(url: string, needConfirmation: boolean = true, gotoNewAfterDelete: boolean = true)
-  {
+  delete(url: string, needConfirmation: boolean = true, gotoNewAfterDelete: boolean = true) {
     if (needConfirmation
         ? confirm(`Удалить категорию "${this.entity.Title}"?`)
         : true ) {
@@ -174,22 +165,19 @@ export class CategoryFormComponent extends FroalaСontainerComponent implements 
       });
   }
 
-  add()
-  {
+  add() {
     this.notificationService.appLoading = true;
     this.router.navigateByUrl("/category");
     this.notificationService.appLoading = false;
   }
 
-  addProduct()
-  {
+  addProduct() {
     this.notificationService.appLoading = true;
     this.router.navigateByUrl(`/product/${this.entity.Url}`);
     this.notificationService.appLoading = false;
   }
 
-  onTitleInputEnter(value: string)
-  {
+  onTitleInputEnter(value: string) {
     this.entity.Url = this.toUrl(value);
   }
 

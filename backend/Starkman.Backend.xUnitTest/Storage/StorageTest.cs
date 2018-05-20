@@ -23,7 +23,7 @@ namespace Starkman.Backend.xUnitTest.Storage
             {
                 new Category()
                 {
-                    Url = "bryuki_casual", Title = "Брюки Casual", IsVisible = true, SortOrder = 1,
+                    Url = "bryuki_casual", Title = "Брюки кажуал", IsVisible = true, SortOrder = 1,
                     Photo = new Photo() { Type = "jpeg", Size = 370661, Url = "bryuki_casual", IsVisible = false, IsDeleted = false },
                     ProductList = new List<Product>()
                     {

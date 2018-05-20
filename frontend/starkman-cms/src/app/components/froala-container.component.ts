@@ -1,5 +1,5 @@
-﻿import { Category } from "../models/page/category.model";
-import { Page } from "../models/page/page.model";
+﻿import { Category } from "../models/page/category";
+import { Page } from "../models/page/page";
 import { BaseComponent } from "./base.component";
 
 declare var $ :any;

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from "../../base.component";
-import { Category } from "../../../models/page/category.model";
-import { Product } from "../../../models/page/product.model";
-import { Photo } from "../../../models/page/photo.model";
+import { Category } from "../../../models/page/category";
+import { Product } from "../../../models/page/product";
+import { Photo } from "../../../models/page/photo";
 import { PhotoListComponent } from "../../photo/photo-list/photo-list.component";
 import { forEach } from "@angular/router/src/utils/collection";
 

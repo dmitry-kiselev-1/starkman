@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Category} from '../../../../models/page/category.model';
+import {Category} from '../../../../models/page/category';
 
 @Component({
   selector: 'app-order-list',

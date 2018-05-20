@@ -1,6 +1,4 @@
-﻿import {StorageEntity} from '../storage-entity.model';
-
-export abstract class Page extends StorageEntity {
+﻿export abstract class Page {
   public Url: string;
   public UrlParent: string;
   public Title: string;

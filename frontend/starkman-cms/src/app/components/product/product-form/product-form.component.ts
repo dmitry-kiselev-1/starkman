@@ -1,13 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
-import { Category } from '../../../models/page/category.model';
+import { Category } from '../../../models/page/category';
 import { CategoryService } from '../../../services/category.service';
 import { BaseComponent } from '../../base.component';
 import { NotificationService } from '../../../services/notification.service';
 import { MatDialog, MatSnackBar } from '@angular/material';
-import { Photo } from '../../../models/page/photo.model';
+import { Photo } from '../../../models/page/photo';
 import { PhotoService } from '../../../services/photo.service';
-import { Product } from "../../../models/page/product.model";
+import { Product } from "../../../models/page/product";
 import { ProductService } from "../../../services/product.service";
 
 //declare var $ :any;

@@ -1,11 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, Router, Params} from '@angular/router';
-import {Photo} from '../../../models/page/photo.model';
+import {Photo} from '../../../models/page/photo';
 import {PhotoService} from '../../../services/photo.service';
 import {BaseComponent} from '../../base.component';
 import {NotificationService} from '../../../services/notification.service';
 import {MatDialog, MatSnackBar} from '@angular/material';
-import {Category} from '../../../models/page/category.model';
+import {Category} from '../../../models/page/category';
 
 @Component({
   selector: 'app-photo-form',

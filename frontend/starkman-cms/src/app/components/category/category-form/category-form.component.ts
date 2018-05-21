@@ -42,67 +42,87 @@ export class CategoryFormComponent extends FroalaСontainerComponent implements 
     });
   }
 
-  reload(url: string) {
+  reload(url: string, silent: boolean = false) {
     if (!url) return;
 
-    this.notificationService.appLoading = true;
+    if (!silent) { this.notificationService.appLoading = true };
     this.categoryService.get(url)
       .then(item => {
         this.entity = (item || new Category());
         this.descriptionSelectedTabIndex = 0;
-        this.reloadPhoto();
-        this.notificationService.appLoading = false;
+        this.reloadPhoto(url);
+        if (!silent) { this.notificationService.appLoading = false };
       })
       .catch(error => {
         this.handleError({userMessage: "Ошибка при запросе списка категорий.", logMessage: `categoryService.get(${url})`, error} as AppError);
-        this.notificationService.appLoading = false;
+        if (!silent) { this.notificationService.appLoading = false };
       });
   }
 
-  reloadPhoto() {
-    if (!this.entity.Photo) return;
+  reloadPhoto(url: string, silent: boolean = false) {
+    if (!url || !this.entity.Photo || !this.entity.Photo.Type) return;
 
-    this.notificationService.appLoading = true;
-    this.photoService.get(`${this.entity.Photo.Url}.${this.entity.Photo.Type}`)
+    if (!silent) { this.notificationService.appLoading = true };
+    let id = `${url}.${this.entity.Photo.Type}`;
+    this.photoService.get(id)
       .then(item => {
-        this.entity.Photo.Base64String = item.Base64String;
-        this.notificationService.appLoading = false;
+        if (item && item.Base64String) {
+          this.entity.Photo.Base64String = item.Base64String;
+        }
+        if (!silent) { this.notificationService.appLoading = false };
       })
       .catch(error => {
-        this.handleError({userMessage: "Ошибка при запросе изображения.", logMessage: `photoService.get(${this.entity.Photo.Url}.${this.entity.Photo.Type}`, error} as AppError);
-        this.notificationService.appLoading = false;
+        this.handleError({userMessage: "Ошибка при запросе изображения.", logMessage: `photoService.get(${id}`, error} as AppError);
+        if (!silent) { this.notificationService.appLoading = false };
       });
   }
 
   save() {
-    if (!this.entity.Url) return;
+    if (!this.entity.Url || !this.query_url) return;
 
     this.notificationService.appLoading = true;
 
-    let photoBase64String: string;
-    if (this.entity.Photo && this.entity.Photo.Base64String) {
+    // имена страниц являются их идентификаторами, поэтому, если если изменился url,
+    // будет создана новая сущность, а сущность-дубль со старым именем необходимо удалить:
+    const oldName = this.query_url;
+    const newName = this.entity.Url;
+    const oldPhoto = this.entity.Photo;
+
+    // если есть изображение, сохраняем информацию о нём (т.к. изображения сохраняются отдельно):
+    if( this.entity.Photo && this.entity.Photo.Base64String)
+    {
       this.entity.Photo.Url = this.entity.Url;
-      photoBase64String = this.entity.Photo.Base64String;
+      // перед сохранением массив байт изображения очищается:
       this.entity.Photo.Base64String = null;
     }
 
-    // если изменился Url, удаляем старую сущность и обновляем ссылки:
-    if ((this.query_url != this.entity.Url) && (this.query_url != '')) {
-      this.rename(this.query_url, this.entity.Url, this.entity.Url);
-    }
-
-    // сохраняем новую сущность:
     this.categoryService.post(this.entity)
       .then(item => {
+
+        // после сохранения изображению возвращается обратно массив байт:
+        this.entity.Photo.Base64String = oldPhoto.Base64String;
+
         this.notificationService.categoryChange.emit({Url: this.entity.Url} as Category);
         this.router.navigateByUrl(`/category/${this.entity.Url}`);
 
-        if (this.entity.Photo) {
-          this.entity.Photo.Base64String = photoBase64String;
+        // если было переименование, сущности со старым именем необходимо удалить:
+        if (oldName != newName) {
+          // удаление фото:
+          this.photoService.delete(`${oldName}${oldPhoto.Type}`)
+            .then( result =>{
+              this.notificationService.appLoading = false;
+              this.showInfo(`Cохранено: "${this.entity.Title}"`);
+            })
+            .catch(error => {
+              this.handleError({userMessage: "Ошибка при обновлении изображения категории.", logMessage: `photoService.delete(${oldName}${oldPhoto.Type}`, error} as AppError);
+              this.notificationService.appLoading = false;
+            });
         }
-
-        this.notificationService.appLoading = false;
-        //this.reload(this.entity.Url);
+        else {
+          // если переименования не было, удалять дубли не нужно и сохранение завершается:
+          this.notificationService.appLoading = false;
+          this.showInfo(`Cохранено: "${this.entity.Title}"`);
+        }
       })
       .catch(error => {
         this.handleError({userMessage: "Ошибка при обновлении категории.", logMessage: `categoryService.post(${this.entity}`, error} as AppError);
@@ -110,21 +130,11 @@ export class CategoryFormComponent extends FroalaСontainerComponent implements 
       });
   }
 
-  rename(oldUrl: string, oldUrlType: string, newUrl: string) {
-    this.delete(oldUrl, false, false);
-
-    this.photoService.rename(oldUrl, this.entity.Photo.Type, newUrl);
-
-    // ToDo: переместить все товары из категории oldUrl в категорию newUrl
-  }
-
   delete(url: string, needConfirmation: boolean = true, gotoNewAfterDelete: boolean = true) {
     if (needConfirmation
         ? confirm(`Удалить категорию "${this.entity.Title}"?`)
         : true ) {
       this.notificationService.appLoading = true;
-
-      // this.openSnackBar(`Категорию ${this.entity.Title} нельзя удалить, т.к. она содержит товары`, "");
 
       this.categoryService.delete(url)
         .then(item => {
@@ -135,43 +145,37 @@ export class CategoryFormComponent extends FroalaСontainerComponent implements 
           this.notificationService.appLoading = false;
         })
         .catch(error => {
-          this.handleError(error);
+          this.handleError({userMessage: "Ошибка при удалении категории.", logMessage: `categoryService.delete(${this.entity}`, error} as AppError);
           this.notificationService.appLoading = false;
         });
 
-      this.deletePhoto();
+      // удаление фото:
+      if (this.entity.Photo && this.entity.Photo.Type)
+      {
+        this.photoService.delete(`${url}${this.entity.Photo.Type}`)
+          .then(result => {
+            this.notificationService.appLoading = false;
+            this.showInfo(`Cохранено: "${this.entity.Title}"`);
+          })
+          .catch(error => {
+            this.handleError({
+              userMessage: "Ошибка при обновлении изображения.",
+              logMessage: `photoService.delete(${url}${this.entity.Photo.Type}`,
+              error
+            } as AppError);
+            this.notificationService.appLoading = false;
+          });
+      }
     }
 
   }
 
-  deletePhoto() {
-    if (!this.entity || !this.entity.Photo) return;
-
-    let id = `${this.entity.Url}.${this.entity.Photo.Type}`;
-
-    this.notificationService.appLoading = true;
-
-    this.photoService.delete(id)
-      .then(item => {
-        this.entity.Photo = new Photo();
-        this.notificationService.appLoading = false;
-      })
-      .catch(error => {
-        this.handleError(error);
-        this.notificationService.appLoading = false;
-      });
-  }
-
   add() {
-    this.notificationService.appLoading = true;
     this.router.navigateByUrl("/category");
-    this.notificationService.appLoading = false;
   }
 
   addProduct() {
-    this.notificationService.appLoading = true;
     this.router.navigateByUrl(`/product/${this.entity.Url}`);
-    this.notificationService.appLoading = false;
   }
 
   onTitleInputEnter(value: string) {

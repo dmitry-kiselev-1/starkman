@@ -15,8 +15,11 @@ export abstract class BaseComponent {
     this.snackBar.open((error.userMessage || defaultMessage) + " " + repeatMessage, 'ОК');
   }
 
-  protected  showError(summary: string, detail?: string): void {}
-  protected  confirm(message: string, action: Function) {}
+  protected showInfo(message: string): void {
+    this.snackBar.open(message, null, { duration: 3000 });
+  }
+
+  protected confirm(message: string, action: Function) {}
 
   private space = '_';
   private empty = 'y';

@@ -31,7 +31,7 @@ namespace Starkman.Backend.xUnitTest.Storage
                             UrlParent = "bryuki_casual", Url = "bryuki_casual_100", Sku = 100,
                             Title = "Брюки классика", Description = "Брюки классика Description",
                             MetaKeywords = "Брюки классика MetaKeywords", MetaDescription = "Брюки классика MetaDescription",
-                            IsVisible = true, SortOrder = 2, IsDeleted = false,
+                            IsVisible = true, SortOrder = 2,
                             PhotoList = new List<Photo>()
                             {
                                 new Photo() { Type = "jpeg", Size = 370661, Url = "bryuki_casual_100_v1", IsVisible = true, IsDeleted = false },
@@ -43,7 +43,7 @@ namespace Starkman.Backend.xUnitTest.Storage
                             UrlParent = "kostyumy_detskie", Url = "kostyumy_detskie_200", Sku = 200,
                             Title = "Костюмы для мальчиков", Description = "Костюмы для мальчиков Description",
                             MetaKeywords = "Костюмы для мальчиков MetaKeywords", MetaDescription = "Костюмы для мальчиков MetaDescription",
-                            IsVisible = true, SortOrder = 2, IsDeleted = false,
+                            IsVisible = true, SortOrder = 2,
                             PhotoList = new List<Photo>()
                             {
                                 new Photo() { Type = "jpeg", Size = 370661, Url = "kostyumy_detskie_200_v1", IsVisible = true, IsDeleted = false },

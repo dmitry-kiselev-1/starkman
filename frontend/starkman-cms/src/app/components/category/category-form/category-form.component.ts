@@ -9,6 +9,7 @@ import { PhotoService } from '../../../services/photo.service';
 import { FroalaСontainerComponent } from "../../froala-container.component";
 import { AppError } from "../../../models/app-error";
 import { Page } from "../../../models/page/page";
+import { logging } from "selenium-webdriver";
 
 @Component({
   selector: 'app-category-edit',
@@ -79,6 +80,7 @@ export class CategoryFormComponent extends FroalaСontainerComponent implements 
   }
 
   save() {
+    debugger;
     if (!this.entity.Url || !this.query_url) return;
 
     this.notificationService.appLoading = true;
@@ -87,7 +89,9 @@ export class CategoryFormComponent extends FroalaСontainerComponent implements 
     // будет создана новая сущность, а сущность-дубль со старым именем необходимо удалить:
     const oldName = this.query_url;
     const newName = this.entity.Url;
-    const oldEntity = this.entity;
+    let oldEntity = {Url: oldName} as Category;
+    let oldPhoto = {Type: this.entity.Photo.Type || null} as Photo;
+    oldEntity.Photo = oldPhoto;
 
     // если есть изображение, сохраняем информацию о нём (т.к. изображения сохраняются отдельно):
     if( this.entity.Photo && this.entity.Photo.Base64String)
@@ -101,7 +105,8 @@ export class CategoryFormComponent extends FroalaСontainerComponent implements 
       .then(item => {
 
         // после сохранения изображению возвращается обратно массив байт:
-        this.entity.Photo.Base64String = oldEntity.Photo.Base64String;
+        if (this.entity.Photo)
+        { this.entity.Photo.Base64String = oldEntity.Photo.Base64String; }
 
         this.notificationService.categoryChange.emit({Url: this.entity.Url} as Category);
         this.router.navigateByUrl(`/category/${this.entity.Url}`);
@@ -123,6 +128,8 @@ export class CategoryFormComponent extends FroalaСontainerComponent implements 
   }
 
   delete(category: Category, needConfirmation: boolean = true, gotoNewAfterDelete: boolean = true, silent: boolean = false) {
+    debugger;
+    if (!category.Photo || !category.Photo.Type) {  return; }
 
     if (needConfirmation ? confirm(`Удалить категорию "${this.entity.Title}"?`) : true )
     {

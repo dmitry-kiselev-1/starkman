@@ -8,6 +8,7 @@ import { Photo } from '../../../models/page/photo';
 import { PhotoService } from '../../../services/photo.service';
 import { FroalaСontainerComponent } from "../../froala-container.component";
 import { AppError } from "../../../models/app-error";
+import { Page } from "../../../models/page/page";
 
 @Component({
   selector: 'app-category-edit',
@@ -86,7 +87,7 @@ export class CategoryFormComponent extends FroalaСontainerComponent implements 
     // будет создана новая сущность, а сущность-дубль со старым именем необходимо удалить:
     const oldName = this.query_url;
     const newName = this.entity.Url;
-    const oldPhoto = this.entity.Photo;
+    const oldEntity = this.entity;
 
     // если есть изображение, сохраняем информацию о нём (т.к. изображения сохраняются отдельно):
     if( this.entity.Photo && this.entity.Photo.Base64String)
@@ -100,23 +101,14 @@ export class CategoryFormComponent extends FroalaСontainerComponent implements 
       .then(item => {
 
         // после сохранения изображению возвращается обратно массив байт:
-        this.entity.Photo.Base64String = oldPhoto.Base64String;
+        this.entity.Photo.Base64String = oldEntity.Photo.Base64String;
 
         this.notificationService.categoryChange.emit({Url: this.entity.Url} as Category);
         this.router.navigateByUrl(`/category/${this.entity.Url}`);
 
         // если было переименование, сущности со старым именем необходимо удалить:
         if (oldName != newName) {
-          // удаление фото:
-          this.photoService.delete(`${oldName}${oldPhoto.Type}`)
-            .then( result =>{
-              this.notificationService.appLoading = false;
-              this.showInfo(`Cохранено: "${this.entity.Title}"`);
-            })
-            .catch(error => {
-              this.handleError({userMessage: "Ошибка при обновлении изображения категории.", logMessage: `photoService.delete(${oldName}${oldPhoto.Type}`, error} as AppError);
-              this.notificationService.appLoading = false;
-            });
+          this.delete(oldEntity, false, false);
         }
         else {
           // если переименования не было, удалять дубли не нужно и сохранение завершается:
@@ -130,19 +122,19 @@ export class CategoryFormComponent extends FroalaСontainerComponent implements 
       });
   }
 
-  delete(url: string, needConfirmation: boolean = true, gotoNewAfterDelete: boolean = true) {
-    if (needConfirmation
-        ? confirm(`Удалить категорию "${this.entity.Title}"?`)
-        : true ) {
-      this.notificationService.appLoading = true;
+  delete(category: Category, needConfirmation: boolean = true, gotoNewAfterDelete: boolean = true, silent: boolean = false) {
 
-      this.categoryService.delete(url)
+    if (needConfirmation ? confirm(`Удалить категорию "${this.entity.Title}"?`) : true )
+    {
+      if (!silent) { this.notificationService.appLoading = true };
+
+      this.categoryService.delete(category.Url)
         .then(item => {
           this.notificationService.categoryChange.emit({Url: this.entity.Url} as Category);
           if (gotoNewAfterDelete) {
             this.router.navigateByUrl("/category");
           }
-          this.notificationService.appLoading = false;
+          if (!silent) { this.notificationService.appLoading = false };
         })
         .catch(error => {
           this.handleError({userMessage: "Ошибка при удалении категории.", logMessage: `categoryService.delete(${this.entity}`, error} as AppError);
@@ -150,19 +142,16 @@ export class CategoryFormComponent extends FroalaСontainerComponent implements 
         });
 
       // удаление фото:
-      if (this.entity.Photo && this.entity.Photo.Type)
+      if (category.Photo && category.Photo.Type)
       {
-        this.photoService.delete(`${url}${this.entity.Photo.Type}`)
+        let photoId: string = `${category.Url}${category.Photo.Type}`;
+        this.photoService.delete(photoId)
           .then(result => {
-            this.notificationService.appLoading = false;
-            this.showInfo(`Cохранено: "${this.entity.Title}"`);
+            if (!silent) { this.notificationService.appLoading = false };
+            this.showInfo(`Удалено: "${category.Title}"`);
           })
           .catch(error => {
-            this.handleError({
-              userMessage: "Ошибка при обновлении изображения.",
-              logMessage: `photoService.delete(${url}${this.entity.Photo.Type}`,
-              error
-            } as AppError);
+            this.handleError({ userMessage: "Ошибка при удалении изображения.", logMessage: `photoService.delete(${photoId}`, error } as AppError);
             this.notificationService.appLoading = false;
           });
       }

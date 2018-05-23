@@ -8,8 +8,6 @@ import { Photo } from '../../../models/page/photo';
 import { PhotoService } from '../../../services/photo.service';
 import { FroalaСontainerComponent } from "../../froala-container.component";
 import { AppError } from "../../../models/app-error";
-import { Page } from "../../../models/page/page";
-import { logging } from "selenium-webdriver";
 
 @Component({
   selector: 'app-category-edit',

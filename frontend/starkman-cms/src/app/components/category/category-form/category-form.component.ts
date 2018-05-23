@@ -83,6 +83,12 @@ export class CategoryFormComponent extends FroalaСontainerComponent implements 
     debugger;
     if (!this.entity.Url || !this.query_url) return;
 
+    // идентификатор сущности изменился (страница переименована)
+    if (this.entity.Url != this.query_url)
+    {
+      // удаление
+    }
+
     this.notificationService.appLoading = true;
 
     // имена страниц являются их идентификаторами, поэтому, если если изменился url,

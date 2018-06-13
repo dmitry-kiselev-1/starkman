@@ -1,4 +1,6 @@
+﻿dotnet --info
 
+ng new ClientApp --routing
 http://www.asos.com/ru/women/?ctaref=HP|gen|top|women
 
 npm update -g

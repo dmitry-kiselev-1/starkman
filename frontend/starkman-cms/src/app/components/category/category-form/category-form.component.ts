@@ -3,11 +3,12 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Category } from '../../../models/page/category';
 import { CategoryService } from '../../../services/category.service';
 import { NotificationService } from '../../../services/notification.service';
-import { MatDialog, MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { Photo } from '../../../models/page/photo';
 import { PhotoService } from '../../../services/photo.service';
 import { FroalaСontainerComponent } from "../../froala-container.component";
 import { AppError } from "../../../models/app-error";
+import { ConfirmationDialogComponent } from "../../dialog/confirmation-dialog/confirmation-dialog.component";
 
 @Component({
   selector: 'app-category-edit',
@@ -123,6 +124,17 @@ export class CategoryFormComponent extends FroalaСontainerComponent implements 
         this.handleError({userMessage: "Ошибка при обновлении категории.", logMessage: `categoryService.post(${this.entity}`, error} as AppError);
         this.notificationService.appLoading = false;
       });
+  }
+
+  openDialog(): void {
+    let dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '250px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      //this.animal = result;
+    });
   }
 
   delete(category: Category, needConfirmation: boolean = true, gotoNewAfterDelete: boolean = true, silent: boolean = false) {

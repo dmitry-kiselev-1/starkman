@@ -1,0 +1,15 @@
+<p>
+  confirmation-dialog works!
+</p>
+
+<span matTooltip="Удалить">
+  <button (click)="delete(this.entity?.Url)" mat-mini-fab color="warn">
+    <mat-icon aria-label="Удалить">delete</mat-icon>
+  </button>
+</span>
+
+<span matTooltip="Отменить">
+  <button (click)="reload(this.query_url)" mat-mini-fab color="accent">
+      <mat-icon class="flipV" aria-label="Отменить">refresh</mat-icon>
+  </button>
+</span>

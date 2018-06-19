@@ -125,7 +125,7 @@ export class CategoryFormComponent extends FroalaСontainerComponent implements 
         this.notificationService.appLoading = false;
       });
   }
-
+/*
   openDialog(): void {
     let dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '250px',
@@ -136,7 +136,7 @@ export class CategoryFormComponent extends FroalaСontainerComponent implements 
       //this.animal = result;
     });
   }
-
+*/
   delete(category: Category, needConfirmation: boolean = true, gotoNewAfterDelete: boolean = true, silent: boolean = false) {
     debugger;
     if (!category.Photo || !category.Photo.Type) {  return; }

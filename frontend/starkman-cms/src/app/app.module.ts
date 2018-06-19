@@ -22,7 +22,7 @@ import { ProductListComponent } from './components/product/product-list/product-
 import { ProductFormComponent } from './components/product/product-form/product-form.component';
 import { ProductService } from "./services/product.service";
 import { PageFormComponent } from './components/page/page-form/page-form.component';
-import { ConfirmationDialogComponent } from './component/dialog/confirmation-dialog/confirmation-dialog.component';
+import { ConfirmationDialogComponent } from './components/dialog/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [

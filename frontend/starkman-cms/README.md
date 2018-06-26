@@ -1,6 +1,15 @@
 ﻿dotnet --info
 
-ng new ClientApp --routing
+ng new ClientApp --routing --style=scss
+npm install node-sass --save-dev
+npm install -g sass
+npm install -g node-sass
+ng set defaults.styleExt scss
+
+        "sass -w": "node-sass -w src/assets/mytheme/theme.scss -o src/assets/mytheme/css/",
+        "sass": "node-sass src/assets/mytheme/theme.scss src/assets/mytheme/css/theme.css"
+
+
 http://www.asos.com/ru/women/?ctaref=HP|gen|top|women
 
 npm update -g

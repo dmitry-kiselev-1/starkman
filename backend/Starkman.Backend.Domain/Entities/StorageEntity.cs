@@ -9,11 +9,5 @@
         /// Уникальный идентификатор сущности в коллекции
         /// </summary>
         public string Key { get; set; }
-
-        /// <summary>
-        /// Признак удаления сущности
-        /// </summary>
-        public bool IsDeleted { get; set; }
-
     }
 }

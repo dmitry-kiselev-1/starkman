@@ -1,0 +1,46 @@
+/* Стилизация бокового меню */
+
+.starkman-is-mobile .starkman-sidenav-container {
+  /* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the
+     `<body>` to be our scrolling element for mobile layouts. */
+  flex: 1 0 auto;
+  color: grey;
+  background-color: #fafafa;
+}
+
+.mat-sidenav {
+  width: 30%;
+}
+
+/* Стилизация бокового меню */
+.mat-nav-list
+{
+  background-color: #fafafa;
+  height: 99%;
+}
+
+.mat-expansion-panel
+{
+  /*background: transparent;*/
+}
+/*
+a
+{
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+*/
+
+.mat-list .mat-list-item, .mat-nav-list .mat-list-item, .mat-selection-list .mat-list-item {
+  /*font-size: 1em;*/ /*16px*/
+}
+
+.mat-card-title
+{
+  font-size: 20px;
+}
+
+.top-level-expanded-panel-background
+{
+  background-color: #fafafa;
+}

@@ -1,0 +1,38 @@
+
+<div class="app-component-container" [class.starkman-is-mobile]="mobileQuery.matches">
+
+  <mat-toolbar color="primary">
+    <button mat-icon-button (click)="snav.toggle()">
+      <mat-icon>menu</mat-icon>
+      <!--<mat-icon>more_vert</mat-icon>-->
+    </button>
+    <h1 class="starkman-app-name">{{appTitle}}</h1>
+  </mat-toolbar>
+
+  <div [hidden]="!this.appLoading">
+    <mat-progress-bar
+      [mode]="'buffer'" [color]="'primary'" [value]="0" [bufferValue]="0">
+    </mat-progress-bar>
+  </div>
+  <div [hidden]="this.appLoading">
+    <mat-progress-bar
+      [mode]="'determinate'" [color]="'primary'" [value]="0" [bufferValue]="0">
+    </mat-progress-bar>
+  </div>
+
+  <mat-sidenav-container class="starkman-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+
+    <mat-sidenav #snav [disableClose]="true"
+                 [mode]="mobileQuery.matches ? 'over' : 'side'"
+                 [fixedInViewport]="mobileQuery.matches" fixedTopGap="56" [opened]="true">
+        <mat-nav-list>
+          <app-sidenav></app-sidenav>
+        </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
+</div>

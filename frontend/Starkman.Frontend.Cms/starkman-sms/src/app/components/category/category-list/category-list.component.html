@@ -1,0 +1,46 @@
+
+<mat-expansion-panel
+  expanded="false"
+  class="top-level-expanded-panel-background">
+
+  <mat-expansion-panel-header routerLink="category/">
+    <mat-panel-title>Список товарных категорий</mat-panel-title>
+  </mat-expansion-panel-header>
+  <!--<p>
+    <mat-nav-list> &lt;!&ndash; dense &ndash;&gt;
+      <mat-list-item
+        *ngFor="let entity of entityList" routerLink="category/{{entity.Url}}">
+        {{entity.Title}}
+        &lt;!&ndash;<a routerLink="category/{{entity.Url}}">{{entity.Title}}</a>&ndash;&gt;
+      </mat-list-item>
+    </mat-nav-list>
+    &lt;!&ndash;
+    <mat-nav-list>
+      <a *ngFor="let entity of entityList" mat-list-item routerLink="category/{{entity.Url}}">{{entity.Title}}</a>
+    </mat-nav-list>
+    &ndash;&gt;
+  </p>-->
+
+  <mat-accordion>
+
+    <!-- routerLink="category/{{entity.Url}}" -->
+    <mat-expansion-panel *ngFor="let entity of entityList" style="color: #222222"
+                         hideToggle="true"
+                         [expanded]="this.openedCategory?.Url === entity?.Url">
+
+      <mat-expansion-panel-header routerLink="category/{{entity.Url}}">
+        <mat-panel-title>{{entity.Title}}</mat-panel-title>
+        <mat-panel-description>
+          <span class="productCount">{{entity.ProductList?.length || 0}}</span>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <app-product-list [entityList]="entity.ProductList"></app-product-list>
+
+    </mat-expansion-panel>
+
+  </mat-accordion>
+
+
+</mat-expansion-panel>
+

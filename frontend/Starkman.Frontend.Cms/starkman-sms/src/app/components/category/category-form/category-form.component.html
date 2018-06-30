@@ -1,4 +1,4 @@
-<!--<app-page-form [child]="{Title: 'Товар', Url: 'product'}"></app-page-form>-->
+<!--<app-page-form [child]="{Title: 'Товар', url: 'product'}"></app-page-form>-->
 
 <mat-tab-group>
   <mat-tab label="Текст">
@@ -7,7 +7,7 @@
       <mat-card>
         <!--
         <mat-card-header>
-          <mat-card-title>{{this.entity.Url}}</mat-card-title>
+          <mat-card-title>{{this.entity.url}}</mat-card-title>
         </mat-card-header>
         -->
         <mat-card-content>
@@ -15,45 +15,45 @@
           <div class="edit-form-container">
 
             <mat-form-field>
-                {{this.entity.Url}}
-              <input [(ngModel)]="this.entity.Url" name="Url" [disabled]="true" matInput placeholder="Url" required/>
+                {{this.entity.url}}
+              <input [(ngModel)]="this.entity.url" name="url" [disabled]="true" matInput placeholder="url" required/>
             </mat-form-field>
 
             <mat-form-field>
               <input autocomplete="off"
                      (keyup.enter)="onTitleInputEnter(titleInput.value)"
                      (blur)="onTitleInputEnter(titleInput.value)"
-                     [(ngModel)]="this.entity.Title" name="Title" #titleInput="ngModel" matInput
+                     [(ngModel)]="this.entity.title" name="Title" #titleInput="ngModel" matInput
                      placeholder="Title (название)" required minlength="1">
             </mat-form-field>
 
             <mat-form-field>
-              <textarea style="height: 250px;" [(ngModel)]="this.entity.Description" name="Description" matInput placeholder="Description (описание)"></textarea>
+              <textarea style="height: 250px;" [(ngModel)]="this.entity.description" name="description" matInput placeholder="description (описание)"></textarea>
             </mat-form-field>
 
             <mat-form-field>
             <textarea matTextareaAutosize matAutosizeMinRows="1" matAutosizeMaxRows="5"
-                      [(ngModel)]="this.entity.MetaKeywords" name="MetaKeywords"
-                      #MetaKeywords="ngModel" matInput
+                      [(ngModel)]="this.entity.metaKeywords" name="metaKeywords"
+                      #metaKeywords="ngModel" matInput
                       placeholder="Meta Keywords (ключевые слова для Title)"></textarea>
             </mat-form-field>
 
             <mat-form-field>
             <textarea matTextareaAutosize matAutosizeMinRows="1" matAutosizeMaxRows="5"
-                      [(ngModel)]="this.entity.MetaDescription" name="MetaDescription"
-                      #MetaDescription="ngModel" matInput
-                      placeholder="Meta Description (ключевые слова из Description)"></textarea>
+                      [(ngModel)]="this.entity.metaDescription" name="metaDescription"
+                      #metaDescription="ngModel" matInput
+                      placeholder="Meta description (ключевые слова из description)"></textarea>
             </mat-form-field>
 
-            <mat-checkbox style="padding-bottom: 1.5em;" [(ngModel)]="this.entity.IsVisible" #IsVisible="ngModel"
-                          name="IsVisible"
+            <mat-checkbox style="padding-bottom: 1.5em;" [(ngModel)]="this.entity.isVisible" #isVisible="ngModel"
+                          name="isVisible"
                           color="primary">Показывать на сайте
             </mat-checkbox>
 
             <mat-form-field style="width: 25%">
           <span matTooltipPosition="right"
                 matTooltip="Число 1 означает, что в общем списке элемент будет на первом месте, число 2 - на втором, и так далее">
-            <input autocomplete="off" [(ngModel)]="this.entity.SortOrder" name="SortOrder" #SortOrder="ngModel" matInput
+            <input autocomplete="off" [(ngModel)]="this.entity.sortOrder" name="sortOrder" #sortOrder="ngModel" matInput
                    [type]="'number'"
                    placeholder="Порядковый номер"/>
           </span>
@@ -76,14 +76,14 @@
           </button>
         </span>
 
-        <span matTooltip="Добавить товар" *ngIf="this.entity?.Url">
+        <span matTooltip="Добавить товар" *ngIf="this.entity?.url">
           <button (click)="addProduct()" mat-mini-fab color="accent">
             <mat-icon aria-label="Добавить">playlist_add</mat-icon>
           </button>
         </span>
 
             <span matTooltip="Удалить категорию">
-          <button (click)="delete(this.entity?.Url)" mat-mini-fab color="warn">
+          <button (click)="delete(this.entity?.url)" mat-mini-fab color="warn">
             <mat-icon aria-label="Удалить">delete</mat-icon>
           </button>
         </span>

@@ -33,8 +33,8 @@ export class PhotoFormComponent extends BaseComponent implements OnInit {
   {
     if (!files || !files[0]) return;
 
-    this.entity.Photo = new Photo();
-    this.entity.Photo.url = this.entity.url;
+    this.entity.photo = {} as Photo;
+    this.entity.photo.url = this.entity.url;
 
     this.notificationService.appLoading = true;
 
@@ -43,15 +43,15 @@ export class PhotoFormComponent extends BaseComponent implements OnInit {
     let fileSize: number = file.size;
     let fileType: string = file.type.split('/')[1];
 
-    this.entity.Photo.Type = fileType;
-    this.entity.Photo.Size = fileSize;
+    this.entity.photo.type = fileType;
+    this.entity.photo.size = fileSize;
 
     var reader = new FileReader();
     reader.onloadend = (() => {
-      this.entity.Photo.Base64String = reader.result;
+      this.entity.photo.base64String = reader.result;
       //this.entity.BinaryString = reader.result;
       //console.log(reader.result);
-      this.uploadPhoto(this.entity.Photo);
+      this.uploadPhoto(this.entity.photo);
       this.notificationService.appLoading = false;
     });
 
@@ -79,9 +79,9 @@ export class PhotoFormComponent extends BaseComponent implements OnInit {
 
   deletePhoto(needConfirmation: boolean = true)
   {
-    if (!this.entity || !this.entity.Photo) return;
+    if (!this.entity || !this.entity.photo) return;
 
-    let id = `${this.entity.url}.${this.entity.Photo.Type}`;
+    let id = `${this.entity.url}.${this.entity.photo.type}`;
 
     if (needConfirmation
         ? confirm(`Удалить фото ${id}?`)
@@ -91,7 +91,7 @@ export class PhotoFormComponent extends BaseComponent implements OnInit {
 
       this.photoService.delete(id)
         .then(item => {
-          this.entity.Photo = new Photo();
+          this.entity.photo = {} as Photo;
           this.notificationService.appLoading = false;
         })
         .catch(error => {

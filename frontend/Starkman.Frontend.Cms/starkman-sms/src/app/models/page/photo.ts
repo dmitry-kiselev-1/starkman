@@ -1,8 +1,8 @@
 import {Page} from './page';
 
-export class Photo extends Page {
-  public Type: string;
-  public Size: number;
-  public BinaryString: string;
-  public Base64String: string;
+export interface Photo extends Page {
+  type: string;
+  size: number;
+  binaryString: string;
+  base64String: string;
 }

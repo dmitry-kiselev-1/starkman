@@ -7,7 +7,7 @@ import { Product } from '../models/page/product';
 /*
   GET api/categories          // all categories
   GET api/categories/42       // the category with id=42
-  GET api/categories??propertyName=^j  // 'j' is a regexPattern; returns heroes whose name starting with 'j' or 'J'
+  GET api/categories?propertyName=^j  // 'j' is a regexPattern; returns heroes whose name starting with 'j' or 'J'
   GET api/categories.json/42  // ignores the ".json"
 */
 
@@ -21,58 +21,59 @@ export class InMemoryDataService implements InMemoryDbService {
         let categories: Category[] =
             [
                 {
-                    id: 1,
                     url: 'bryuki_casual',
-                    Title: 'Брюки кажуал',
-                    SortOrder: 1,
-                    IsVisible: true
+                    title: 'Брюки кажуал',
+                    sortOrder: 1,
+                    isVisible: true
                 },
                 {
                     url: 'bryuki_klassika',
-                    Title: 'Брюки классика',
-                    SortOrder: 2,
-                    IsVisible: true
+                    title: 'Брюки классика',
+                    sortOrder: 2,
+                    isVisible: true
                 },
                 {
                     url: 'bryuki_zauzhennye',
-                    Title: 'Брюки зауженные',
-                    SortOrder: 3,
-                    IsVisible: true
+                    title: 'Брюки зауженные',
+                    sortOrder: 3,
+                    isVisible: true
                 },
                 {
                     url: 'bryuki_detskie',
-                    Title: 'Брюки детские',
-                    SortOrder: 4,
-                    IsVisible: true
+                    title: 'Брюки детские',
+                    sortOrder: 4,
+                    isVisible: true
                 },
                 {
                     url: 'kostyumy_pritalennye',
-                    Title: 'Костюмы приталенные',
-                    SortOrder: 5,
-                    IsVisible: true
+                    title: 'Костюмы приталенные',
+                    sortOrder: 5,
+                    isVisible: true
                 },
                 {
                     url: 'kostyumy_detskie',
-                    Title: 'Костюмы для мальчиков',
-                    SortOrder: 6,
-                    IsVisible: true
+                    title: 'Костюмы для мальчиков',
+                    sortOrder: 6,
+                    isVisible: true
                 },
                 {
                     url: 'pidzhaki_klassika',
-                    Title: 'Пиджаки классика',
-                    SortOrder: 7,
-                    IsVisible: true
+                    title: 'Пиджаки классика',
+                    sortOrder: 7,
+                    isVisible: true
                 },
                 {
                     url: 'pidzhaki_pritalennye',
-                    Title: 'Пиджаки приталенные',
-                    SortOrder: 8,
-                    IsVisible: true
+                    title: 'Пиджаки приталенные',
+                    sortOrder: 8,
+                    isVisible: true
                 }
             ] as Category[];
 
         categories.forEach((category, index) =>
         {
+            category.id = category.url
+
             let productList = [];
 
             let productCount = this.randomBetween(0, 5);
@@ -82,19 +83,19 @@ export class InMemoryDataService implements InMemoryDbService {
                 productList.push(
                     {
                         url: `${category.url}_product_${i}`,
-                        UrlParent: category.url,
-                        Title: `Product ${i} (${category.Title})`,
-                        Description: `Description ${i} (${category.Title})`,
-                        MetaKeywords: `MetaKeywords ${i} (${category.Title})`,
-                        MetaDescription: `MetaDescription ${i} (${category.Title})`,
-                        SortOrder: i,
-                        IsVisible: true,
-                        Sku: i*(productCount/10)*10 + index,
-                        PhotoList: []
+                        urlParent: category.url,
+                        title: `Product ${i} (${category.title})`,
+                        description: `Description ${i} (${category.title})`,
+                        metaKeywords: `MetaKeywords ${i} (${category.title})`,
+                        metaDescription: `MetaDescription ${i} (${category.title})`,
+                        sortOrder: i,
+                        isVisible: true,
+                        sku: i*(productCount/10)*10 + index,
+                        photoList: []
                     } as Product
                 );
 
-                category.ProductList = productList;
+                category.productList = productList;
             }
         });
         //debugger;

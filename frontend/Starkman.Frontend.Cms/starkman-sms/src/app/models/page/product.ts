@@ -1,7 +1,7 @@
 import {Page} from './page';
 import {Photo} from './photo';
 
-export class Product extends Page {
-  public Sku: number;
-  public PhotoList: Photo[];
+export interface Product extends Page {
+  sku: number;
+  photoList: Photo[];
 }

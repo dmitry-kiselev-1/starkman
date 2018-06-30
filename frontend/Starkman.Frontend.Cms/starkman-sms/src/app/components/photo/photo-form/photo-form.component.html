@@ -2,27 +2,27 @@
 
 <mat-card>
 
-  <mat-card-title>{{this.entity?.Title}}</mat-card-title>
+  <mat-card-title>{{this.entity?.title}}</mat-card-title>
 
   <mat-card-subtitle>
-    {{this.entity?.Url}}{{this.entity?.Photo?.Type ? ("." + this.entity?.Photo?.Type + " = " + ((this.entity?.Photo?.Size / 1024) | number) + " Kb") : "" }}
+    {{this.entity?.url}}{{this.entity?.photo?.type ? ("." + this.entity?.photo?.type + " = " + ((this.entity?.photo?.size / 1024) | number) + " Kb") : "" }}
   </mat-card-subtitle>
 
     <mat-card-content>
 
       <img mat-card-image width="100px"
-        src="{{this.entity?.Photo?.Base64String}}"
-        alt="{{this.entity?.Photo?.Title}}">
+        src="{{this.entity?.photo?.base64String}}"
+        alt="{{this.entity?.photo?.title}}">
       <!--
       <img mat-card-image width="100px"
-        src="{{this.photoService?.apiDomain + this.photoService?.apiDomainPhotoPath + this.entity?.Photo?.Url + '.' + this.entity?.Photo?.Type}}"
+        src="{{this.photoService?.apiDomain + this.photoService?.apiDomainPhotoPath + this.entity?.Photo?.url + '.' + this.entity?.Photo?.type}}"
         alt="{{this.entity?.Title}}">
       -->
 
       <!--
         <mat-grid-list cols="3" rowHeight="3:1">
 
-          <mat-grid-tile><div *ngIf="(this.entity?.Photo?.Size > 0)">{{(this.entity?.Photo?.Size / 1024) | number}} Kb </div></mat-grid-tile>
+          <mat-grid-tile><div *ngIf="(this.entity?.Photo?.size > 0)">{{(this.entity?.Photo?.size / 1024) | number}} Kb </div></mat-grid-tile>
 
           <mat-grid-tile>
             <mat-form-field *ngIf="this.isSinglePhoto && this.entity?.Photo?.SortOrder">
@@ -45,15 +45,15 @@
     <mat-card-actions>
       <div class="button-row">
         <span matTooltip="Загрузить фото на сайт">
-          <button (click)="openFile.click()" mat-mini-fab color="accent" [disabled]="!this.entity.Url">
+          <button (click)="openFile.click()" mat-mini-fab color="accent" [disabled]="!this.entity.url">
             <mat-icon aria-label="Загрузить">add_a_photo</mat-icon>
           </button>
         </span>
 
-        <span matTooltip="Скачать фото с сайта" *ngIf="this.entity?.Photo?.Base64String">
-          <a href="{{this.photoService?.apiDomain + this.photoService?.apiDomainPhotoPath + this.entity?.Photo?.Url + '.' + this.entity?.Photo?.Type}}"
-             download="{{this.entity?.Url}}.{{this.entity?.Photo?.Type}}">
-            <button mat-mini-fab color="accent" [disabled]="!this.entity?.Photo?.Base64String">
+        <span matTooltip="Скачать фото с сайта" *ngIf="this.entity?.photo?.base64String">
+          <a href="{{this.photoService?.apiDomain + this.photoService?.apiDomainPhotoPath + this.entity?.photo?.url + '.' + this.entity?.photo?.type}}"
+             download="{{this.entity?.url}}.{{this.entity?.photo?.type}}">
+            <button mat-mini-fab color="accent" [disabled]="!this.entity?.photo?.base64String">
               <mat-icon class="flipV" aria-label="Скачать">file_download</mat-icon>
             </button>
           </a>
@@ -61,7 +61,7 @@
         <!-- <i class="material-icons">file_download</i> -->
 
         <span matTooltip="Удалить фото с сайта">
-          <button (click)="deletePhoto()" mat-mini-fab color="warn" [disabled]="!this.entity?.Photo?.Base64String">
+          <button (click)="deletePhoto()" mat-mini-fab color="warn" [disabled]="!this.entity?.photo?.base64String">
             <mat-icon aria-label="Удалить">delete</mat-icon>
           </button>
         </span>
@@ -77,4 +77,3 @@
 <div id="preview"></div>
 
 <!--</form>-->
-

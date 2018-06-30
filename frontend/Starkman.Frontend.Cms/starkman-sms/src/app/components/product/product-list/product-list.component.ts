@@ -33,7 +33,7 @@ export class ProductListComponent extends BaseComponent implements OnInit {
       this.entityListFiltered = this.entityList;
     }
     else {
-      this.entityListFiltered = _.filter(this.entityList, (entity) => entity.Title.includes(filterValue));
+      this.entityListFiltered = _.filter(this.entityList, (entity) => entity.title.includes(filterValue));
       // this.entityList.filter(entity => entity.Title.includes(filterValue) );
     }
   }

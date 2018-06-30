@@ -20,7 +20,7 @@ export class CategoryListComponent extends BaseComponent implements OnInit {
   }
 
   public entityList: Category[] = [];
-  public openedCategory: Category;
+  public selectedCategory: Category;
 
   ngOnInit() {
     this.reload();
@@ -33,7 +33,7 @@ export class CategoryListComponent extends BaseComponent implements OnInit {
     this.categoryService.getList()
       .then(items => {
         this.entityList = items as Category[];
-        this.openedCategory = category;
+        this.selectedCategory = category;
         this.notificationService.appLoading = false;
       })
       .catch(error => {

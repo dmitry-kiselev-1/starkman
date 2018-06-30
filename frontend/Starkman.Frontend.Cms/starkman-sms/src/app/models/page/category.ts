@@ -2,7 +2,7 @@
 import {Photo} from './photo';
 import {Product} from './product';
 
-export class Category extends Page {
-  public Photo: Photo;
-  public ProductList: Product[];
+export interface Category extends Page {
+    photo: Photo;
+    productList: Product[];
 }

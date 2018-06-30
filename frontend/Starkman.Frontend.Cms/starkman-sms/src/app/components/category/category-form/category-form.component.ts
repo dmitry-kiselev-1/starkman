@@ -18,7 +18,7 @@ import { BaseComponent } from '../../base.component';
 export class CategoryFormComponent extends BaseComponent implements OnInit {
 
   public query_url: string;
-  public entity: Category = new Category();
+  public entity: Category = {} as Category;
 
   constructor(
     private notificationService: NotificationService,
@@ -35,9 +35,9 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
 
     this.activatedRoute.params.subscribe(params => {
       this.query_url = params['category_url'];
-      debugger;
+      //debugger;
       if (!this.query_url)
-        { this.entity = new Category() }
+        { this.entity = {} as Category }
       else
         { this.reload(this.query_url) }
     });
@@ -49,7 +49,7 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
     if (!silent) { this.notificationService.appLoading = true };
     this.categoryService.get(url)
       .then(item => {
-        this.entity = (item || new Category());
+        this.entity = (item || {} as Category);
         //this.reloadPhoto(url);
         if (!silent) { this.notificationService.appLoading = false };
       })
@@ -60,14 +60,14 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
   }
 
   reloadPhoto(url: string, silent: boolean = false) {
-    if (!url || !this.entity.Photo || !this.entity.Photo.Type) return;
+    if (!url || !this.entity.photo || !this.entity.photo.type) return;
 
     if (!silent) { this.notificationService.appLoading = true };
-    let id = `${url}.${this.entity.Photo.Type}`;
+    let id = `${url}.${this.entity.photo.type}`;
     this.photoService.get(id)
       .then(item => {
-        if (item && item.Base64String) {
-          this.entity.Photo.Base64String = item.Base64String;
+        if (item && item.base64String) {
+          this.entity.photo.base64String = item.base64String;
         }
         if (!silent) { this.notificationService.appLoading = false };
       })
@@ -88,23 +88,23 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
     const oldName = this.query_url;
     const newName = this.entity.url;
     let oldEntity = {url: oldName} as Category;
-    let oldPhoto = {Type: this.entity.Photo.Type || null} as Photo;
-    oldEntity.Photo = oldPhoto;
+    let oldPhoto = {type: this.entity.photo.type || null} as Photo;
+    oldEntity.photo = oldPhoto;
 
     // если есть изображение, сохраняем информацию о нём (т.к. изображения сохраняются отдельно):
-    if( this.entity.Photo && this.entity.Photo.Base64String)
+    if( this.entity.photo && this.entity.photo.base64String)
     {
-      this.entity.Photo.url = this.entity.url;
+      this.entity.photo.url = this.entity.url;
       // перед сохранением массив байт изображения очищается:
-      this.entity.Photo.Base64String = null;
+      this.entity.photo.base64String = null;
     }
 
     this.categoryService.post(this.entity)
       .then(item => {
 
         // после сохранения изображению возвращается обратно массив байт:
-        if (this.entity.Photo)
-        { this.entity.Photo.Base64String = oldEntity.Photo.Base64String; }
+        if (this.entity.photo)
+        { this.entity.photo.base64String = oldEntity.photo.base64String; }
 
         this.notificationService.categoryChange.emit({url: this.entity.url} as Category);
         this.router.navigateByUrl(`/category/${this.entity.url}`);
@@ -116,7 +116,7 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
         else {
           // если переименования не было, удалять дубли не нужно и сохранение завершается:
           this.notificationService.appLoading = false;
-          this.showInfo(`Cохранено: "${this.entity.Title}"`);
+          this.showInfo(`Cохранено: "${this.entity.title}"`);
         }
       })
       .catch(error => {
@@ -138,9 +138,9 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
 */
   delete(category: Category, needConfirmation: boolean = true, gotoNewAfterDelete: boolean = true, silent: boolean = false) {
     debugger;
-    if (!category.Photo || !category.Photo.Type) {  return; }
+    if (!category.photo || !category.photo.type) {  return; }
 
-    if (needConfirmation ? confirm(`Удалить категорию "${this.entity.Title}"?`) : true )
+    if (needConfirmation ? confirm(`Удалить категорию "${this.entity.title}"?`) : true )
     {
       if (!silent) { this.notificationService.appLoading = true };
 
@@ -158,13 +158,13 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
         });
 
       // удаление фото:
-      if (category.Photo && category.Photo.Type)
+      if (category.photo && category.photo.type)
       {
-        let photoId: string = `${category.url}${category.Photo.Type}`;
+        let photoId: string = `${category.url}${category.photo.type}`;
         this.photoService.delete(photoId)
           .then(result => {
             if (!silent) { this.notificationService.appLoading = false };
-            this.showInfo(`Удалено: "${category.Title}"`);
+            this.showInfo(`Удалено: "${category.title}"`);
           })
           .catch(error => {
             this.handleError({ userMessage: "Ошибка при удалении изображения.", logMessage: `photoService.delete(${photoId}`, error } as AppError);

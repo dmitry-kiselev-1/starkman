@@ -1,4 +1,3 @@
-
 <mat-expansion-panel
   expanded="false"
   class="top-level-expanded-panel-background">
@@ -26,21 +25,19 @@
     <!-- routerLink="category/{{entity.Url}}" -->
     <mat-expansion-panel *ngFor="let entity of entityList" style="color: #222222"
                          hideToggle="true"
-                         [expanded]="this.openedCategory?.Url === entity?.Url">
+                         [expanded]="this.selectedCategory?.url === entity?.url">
 
-      <mat-expansion-panel-header routerLink="category/{{entity.Url}}">
-        <mat-panel-title>{{entity.Title}}</mat-panel-title>
+      <mat-expansion-panel-header [routerLink]="'category/' + entity.url">
+        <mat-panel-title>{{entity.title}}</mat-panel-title>
         <mat-panel-description>
-          <span class="productCount">{{entity.ProductList?.length || 0}}</span>
+          <span class="productCount">{{entity.productList?.length || 0}}</span>
         </mat-panel-description>
       </mat-expansion-panel-header>
 
-      <app-product-list [entityList]="entity.ProductList"></app-product-list>
+      <app-product-list [entityList]="entity.productList"></app-product-list>
 
     </mat-expansion-panel>
 
   </mat-accordion>
 
-
 </mat-expansion-panel>
-

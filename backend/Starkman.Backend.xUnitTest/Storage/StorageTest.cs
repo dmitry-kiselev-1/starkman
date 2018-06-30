@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using StackExchange.Redis;
 using Starkman.Backend.Domain.Entities.Page;
@@ -15,7 +16,7 @@ namespace Starkman.Backend.xUnitTest.Storage
     public class StorageTest
     {
         [Fact]
-        public async void StorageInitTest()
+        public async Task StorageInitTest()
         {
             string categoryHashName = "Category";
 
@@ -24,7 +25,7 @@ namespace Starkman.Backend.xUnitTest.Storage
                 new Category()
                 {
                     Url = "bryuki_casual", Title = "Брюки кажуал", IsVisible = true, SortOrder = 1,
-                    Photo = new Photo() { Type = "jpeg", Size = 370661, Url = "bryuki_casual", IsVisible = false, IsDeleted = false },
+                    Photo = new Photo() { Type = "jpeg", Size = 370661, Url = "bryuki_casual", IsVisible = false},
                     ProductList = new List<Product>()
                     {
                         new Product(){
@@ -34,9 +35,9 @@ namespace Starkman.Backend.xUnitTest.Storage
                             IsVisible = true, SortOrder = 2,
                             PhotoList = new List<Photo>()
                             {
-                                new Photo() { Type = "jpeg", Size = 370661, Url = "bryuki_casual_100_v1", IsVisible = true, IsDeleted = false },
-                                new Photo() { Type = "jpeg", Size = 370661, Url = "bryuki_casual_100_v2", IsVisible = true, IsDeleted = false },
-                                new Photo() { Type = "jpeg", Size = 370661, Url = "bryuki_casual_100_v3", IsVisible = true, IsDeleted = false }
+                                new Photo() { Type = "jpeg", Size = 370661, Url = "bryuki_casual_100_v1", IsVisible = true},
+                                new Photo() { Type = "jpeg", Size = 370661, Url = "bryuki_casual_100_v2", IsVisible = true},
+                                new Photo() { Type = "jpeg", Size = 370661, Url = "bryuki_casual_100_v3", IsVisible = true}
                             }
                         },
                         new Product(){
@@ -46,9 +47,9 @@ namespace Starkman.Backend.xUnitTest.Storage
                             IsVisible = true, SortOrder = 2,
                             PhotoList = new List<Photo>()
                             {
-                                new Photo() { Type = "jpeg", Size = 370661, Url = "kostyumy_detskie_200_v1", IsVisible = true, IsDeleted = false },
-                                new Photo() { Type = "jpeg", Size = 370661, Url = "kostyumy_detskie_200_v2", IsVisible = true, IsDeleted = false },
-                                new Photo() { Type = "jpeg", Size = 370661, Url = "kostyumy_detskie_200_v3", IsVisible = true, IsDeleted = false }
+                                new Photo() { Type = "jpeg", Size = 370661, Url = "kostyumy_detskie_200_v1", IsVisible = true},
+                                new Photo() { Type = "jpeg", Size = 370661, Url = "kostyumy_detskie_200_v2", IsVisible = true},
+                                new Photo() { Type = "jpeg", Size = 370661, Url = "kostyumy_detskie_200_v3", IsVisible = true}
                             }
                         }
 
@@ -65,6 +66,9 @@ namespace Starkman.Backend.xUnitTest.Storage
                 new Category() { Url = "pidzhaki_klassika", Title = "Пиджаки классика", IsVisible = true, SortOrder = 7 },
                 new Category() { Url = "pidzhaki_pritalennye", Title = "Пиджаки приталенные", IsVisible = true, SortOrder = 8 }
             };
+
+            //string x = JsonConvert.SerializeObject(categoryList, Formatting.Indented,
+            //    new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
 
             foreach (var category in categoryList)
             {

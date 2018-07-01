@@ -1,11 +1,11 @@
 ﻿export interface Page {
-  id: string;
+  id?: string;
   url: string;
-  urlParent: string;
+  urlParent?: string;
   title: string;
-  description: string;
-  metaKeywords: string;
-  metaDescription: string;
+  description?: string;
+  metaKeywords?: string;
+  metaDescription?: string;
   sortOrder: number;
   isVisible: boolean;
 }

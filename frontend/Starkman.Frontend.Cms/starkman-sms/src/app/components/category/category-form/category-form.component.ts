@@ -54,6 +54,7 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
         if (!silent) { this.notificationService.appLoading = false };
       })
       .catch(error => {
+          debugger;
         this.handleError({userMessage: "Ошибка при запросе списка категорий.", logMessage: `categoryService.get(${url})`, error} as AppError);
         if (!silent) { this.notificationService.appLoading = false };
       });

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { DateService } from './date.service';
 import { Category } from '../models/page/category';
 import { Product } from '../models/page/product';
+import { Photo } from '../models/page/photo';
 
 /*
   GET api/categories          // all categories
@@ -20,66 +21,59 @@ export class InMemoryDataService implements InMemoryDbService {
     createDb() {
         let categories: Category[] =
             [
-                {
-                    url: 'bryuki_casual',
-                    title: 'Брюки кажуал',
-                    sortOrder: 1,
-                    isVisible: true
-                },
-                {
-                    url: 'bryuki_klassika',
-                    title: 'Брюки классика',
-                    sortOrder: 2,
-                    isVisible: true
-                },
-                {
-                    url: 'bryuki_zauzhennye',
-                    title: 'Брюки зауженные',
-                    sortOrder: 3,
-                    isVisible: true
-                },
-                {
-                    url: 'bryuki_detskie',
-                    title: 'Брюки детские',
-                    sortOrder: 4,
-                    isVisible: true
-                },
-                {
-                    url: 'kostyumy_pritalennye',
-                    title: 'Костюмы приталенные',
-                    sortOrder: 5,
-                    isVisible: true
-                },
-                {
-                    url: 'kostyumy_detskie',
-                    title: 'Костюмы для мальчиков',
-                    sortOrder: 6,
-                    isVisible: true
-                },
-                {
-                    url: 'pidzhaki_klassika',
-                    title: 'Пиджаки классика',
-                    sortOrder: 7,
-                    isVisible: true
-                },
-                {
-                    url: 'pidzhaki_pritalennye',
-                    title: 'Пиджаки приталенные',
-                    sortOrder: 8,
-                    isVisible: true
-                }
+                { url: 'bryuki_casual', title: 'Брюки кажуал' },
+                { url: 'bryuki_klassika', title: 'Брюки классика' },
+                { url: 'bryuki_zauzhennye', title: 'Брюки зауженные' },
+                { url: 'bryuki_detskie', title: 'Брюки детские' },
+                { url: 'kostyumy_pritalennye', title: 'Костюмы приталенные' },
+                { url: 'kostyumy_detskie', title: 'Костюмы для мальчиков' },
+                { url: 'pidzhaki_klassika', title: 'Пиджаки классика' },
+                { url: 'pidzhaki_pritalennye', title: 'Пиджаки приталенные' }
             ] as Category[];
 
         categories.forEach((category, index) =>
         {
-            category.id = category.url
+            category.id = category.url;
+            category.sortOrder = index + 1;
+            category.isVisible = true;
+            category.description = `Description (${category.title})`;
+            category.metaKeywords = `MetaKeywords (${category.title})`;
+            category.metaDescription = `MetaDescription (${category.title})`;
+            category.isVisible = true;
+            category.photo = {
+                url: `${category.url}_photo`,
+                title: `${category.title} photo`,
+                type: "type",
+                size: 0,
+                binaryString: "binaryString",
+                base64String: "base64String",
+                sortOrder: 1,
+                isVisible: true
+            } as Photo;
 
+            let photoList = [];
             let productList = [];
 
+            let photoCount = this.randomBetween(0, 5);
             let productCount = this.randomBetween(0, 5);
 
             for (let i = 1; i <= productCount; i++)
             {
+                for (let ii = 1; i <= photoCount; i++) {
+                    photoList.push(
+                        {
+                            url: `${category.url}_product_${i}_photo_${ii}`,
+                            title: `${category.title} product ${i} photo ${ii}`,
+                            type: `type`,
+                            size: 0,
+                            binaryString: `binaryString`,
+                            base64String: `base64String`,
+                            sortOrder: ii,
+                            isVisible: true
+                        } as Photo
+                    );
+                }
+
                 productList.push(
                     {
                         url: `${category.url}_product_${i}`,
@@ -91,7 +85,7 @@ export class InMemoryDataService implements InMemoryDbService {
                         sortOrder: i,
                         isVisible: true,
                         sku: i*(productCount/10)*10 + index,
-                        photoList: []
+                        photoList: photoList
                     } as Product
                 );
 

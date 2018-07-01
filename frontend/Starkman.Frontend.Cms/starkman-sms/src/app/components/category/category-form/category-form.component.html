@@ -63,14 +63,20 @@
 
           <div class="button-row">
 
+            <span matTooltip="Сохранить изменения" style="margin-left: 20px;">
+              <button (click)="save()" mat-fab color="primary" [disabled]="!categoryForm.form.valid">
+                <mat-icon aria-label="Сохранить">done</mat-icon>
+              </button>
+            </span>
+
             <span matTooltip="Отменить внесённые изменения">
-          <button (click)="reload(this.query_url)" mat-mini-fab color="accent">
+          <button (click)="reload()" mat-mini-fab color="accent">
             <mat-icon class="flipV" aria-label="Отменить">refresh</mat-icon>
           </button>
         </span>
 
         <span matTooltip="Добавить категорию">
-          <button (click)="add()" mat-mini-fab color="accent">
+          <button (click)="addCategory()" mat-mini-fab color="accent">
             <mat-icon aria-label="Добавить">add</mat-icon>
           </button>
         </span>
@@ -82,7 +88,7 @@
         </span>
 
             <span matTooltip="Удалить категорию">
-          <button (click)="delete(this.entity?.url)" mat-mini-fab color="warn">
+          <button (click)="delete()" mat-mini-fab color="warn">
             <mat-icon aria-label="Удалить">delete</mat-icon>
           </button>
         </span>
@@ -103,9 +109,3 @@
 
 <!-- <mat-tab label="Цены"></mat-tab> -->
 </mat-tab-group>
-
-<span matTooltip="Сохранить изменения" style="margin-left: 20px;">
-  <button (click)="save()" mat-fab color="primary" [disabled]="!categoryForm.form.valid">
-    <mat-icon aria-label="Сохранить">done</mat-icon>
-  </button>
-</span>

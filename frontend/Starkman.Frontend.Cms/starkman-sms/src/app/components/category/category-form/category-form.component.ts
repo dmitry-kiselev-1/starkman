@@ -42,7 +42,7 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
                     let category_id = params.get('category_id');
                     if (category_id) {
                         this.query_url = category_id
-                        this.reload(category_id);
+                        this.reload();
                     }
                     else
                         this.entity = {} as Category;
@@ -51,14 +51,14 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
             );
     }
 
-    reload(url: string, notify: boolean = true) {
-        if (!url) return;
+    reload(notify: boolean = true) {
+        if (!this.query_url) return;
 
         if (notify) {
             this.notificationService.appLoading = true;
         }
 
-        this.categoryService.get(url)
+        this.categoryService.get(this.query_url)
             .pipe(finalize(() => {
                 if (notify) {
                     this.notificationService.appLoading = false;
@@ -70,18 +70,19 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
                     this.entity = (data || {} as Category);
                 },
                 error => this.handleError({
-                    userMessage: 'Ошибка при запросе списка категорий.',
-                    logMessage: `categoryService.get(${url})`,
+                    userMessage: 'Ошибка при запросе категории!',
+                    logMessage: `categoryService.get(${this.query_url})`,
                     error
                 } as AppError)
             );
     }
 
     save() {
-        if (!this.entity.url || !this.query_url) return;
+        if (!this.entity.url) return;
 
         this.notificationService.appLoading = true;
 
+        // delete:
         this.categoryService.delete(this.query_url)
             .subscribe(
                 httpResponse =>
@@ -92,7 +93,9 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
                     else
                         console.error(httpResponse);
 
+                    // post:
                     this.entity.id = this.entity.url;
+                    this.entity.sortOrder = this.entity.sortOrder || 0;
                     this.categoryService.post(this.entity)
                         .pipe(finalize(() => this.notificationService.appLoading = false))
                         .subscribe(
@@ -105,67 +108,25 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
                                 }
                                 else
                                     console.error(httpResponse);
+
+                                // reload:
+                                this.router.navigateByUrl(`/category/${this.entity.id}`);
                             },
-                            error => this.handleError(error)
+                            error => this.handleError({
+                                userMessage: 'Ошибка при добавлении категории!',
+                                logMessage: `categoryService.post(${this.entity.url})`,
+                                error
+                            } as AppError)
                         );
                 },
-                error => this.handleError(error)
+                error => this.handleError({
+                    userMessage: 'Ошибка при удалении категории!',
+                    logMessage: `categoryService.delete(${this.query_url})`,
+                    error
+                } as AppError)
             );
     }
 
-    /*
-    save() {
-        debugger;
-        if (!this.entity.url || !this.query_url) return;
-
-        this.notificationService.appLoading = true;
-
-        // имена страниц являются их идентификаторами, поэтому, если если изменился url,
-        // будет создана новая сущность, а сущность-дубль со старым именем необходимо удалить:
-        const oldName = this.query_url;
-        const newName = this.entity.url;
-        let oldEntity = {url: oldName} as Category;
-        let oldPhoto = {type: this.entity.photo.type || null} as Photo;
-        oldEntity.photo = oldPhoto;
-
-        // если есть изображение, сохраняем информацию о нём (т.к. изображения сохраняются отдельно):
-        if (this.entity.photo && this.entity.photo.base64String) {
-            this.entity.photo.url = this.entity.url;
-            // перед сохранением массив байт изображения очищается:
-            this.entity.photo.base64String = null;
-        }
-
-        this.categoryService.post(this.entity)
-            .then(item => {
-
-                // после сохранения изображению возвращается обратно массив байт:
-                if (this.entity.photo) {
-                    this.entity.photo.base64String = oldEntity.photo.base64String;
-                }
-
-                this.notificationService.categoryChange.emit({url: this.entity.url} as Category);
-                this.router.navigateByUrl(`/category/${this.entity.url}`);
-
-                // если было переименование, сущности со старым именем необходимо удалить:
-                if (oldName != newName) {
-                    this.delete(oldEntity, false, false);
-                }
-                else {
-                    // если переименования не было, удалять дубли не нужно и сохранение завершается:
-                    this.notificationService.appLoading = false;
-                    this.showInfo(`Cохранено: "${this.entity.title}"`);
-                }
-            })
-            .catch(error => {
-                this.handleError({
-                    userMessage: 'Ошибка при обновлении категории.',
-                    logMessage: `categoryService.post(${this.entity}`,
-                    error
-                } as AppError);
-                this.notificationService.appLoading = false;
-            });
-    }
-    */
     /*
       openDialog(): void {
         let dialogRef = this.dialog.open(ConfirmationDialogComponent, {
@@ -178,64 +139,35 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
         });
       }
     */
-    /*
-    delete(category: Category, needConfirmation: boolean = true, gotoNewAfterDelete: boolean = true, silent: boolean = false) {
-        debugger;
-        if (!category.photo || !category.photo.type) {
-            return;
-        }
+    delete() {
+        if (!this.query_url) return;
 
-        if (needConfirmation ? confirm(`Удалить категорию "${this.entity.title}"?`) : true) {
-            if (!silent) {
-                this.notificationService.appLoading = true;
-            }
-            ;
+        this.notificationService.appLoading = true;
 
-            this.categoryService.delete(category.url)
-                .then(item => {
-                    this.notificationService.categoryChange.emit({url: this.entity.url} as Category);
-                    if (gotoNewAfterDelete) {
-                        this.router.navigateByUrl('/category');
+        this.categoryService.delete(this.query_url)
+            .subscribe(
+                httpResponse =>
+                {
+                    //debugger;
+                    if ((httpResponse as HttpResponse<any>).ok == true) {
+                        this.notificationService.categoryChange.emit({url: this.entity.url} as Category);
+                        console.log(`${this.query_url} deleted`);
+
+                        // reload:
+                        this.router.navigateByUrl(`/category`);
                     }
-                    if (!silent) {
-                        this.notificationService.appLoading = false;
-                    }
-                    ;
-                })
-                .catch(error => {
-                    this.handleError({
-                        userMessage: 'Ошибка при удалении категории.',
-                        logMessage: `categoryService.delete(${this.entity}`,
-                        error
-                    } as AppError);
-                    this.notificationService.appLoading = false;
-                });
-
-            // удаление фото:
-            if (category.photo && category.photo.type) {
-                let photoId: string = `${category.url}${category.photo.type}`;
-                this.photoService.delete(photoId)
-                    .then(result => {
-                        if (!silent) {
-                            this.notificationService.appLoading = false;
-                        }
-                        ;
-                        this.showInfo(`Удалено: "${category.title}"`);
-                    })
-                    .catch(error => {
-                        this.handleError({
-                            userMessage: 'Ошибка при удалении изображения.',
-                            logMessage: `photoService.delete(${photoId}`,
-                            error
-                        } as AppError);
-                        this.notificationService.appLoading = false;
-                    });
-            }
-        }
-
+                    else
+                        console.error(httpResponse);
+                },
+                error => this.handleError({
+                    userMessage: 'Ошибка при удалении категории!',
+                    logMessage: `categoryService.delete(${this.query_url})`,
+                    error
+                } as AppError)
+            );
     }
-    */
-    add() {
+
+    addCategory() {
         this.router.navigateByUrl('/category');
     }
 
@@ -246,25 +178,5 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
     onTitleInputEnter(value: string) {
         this.entity.url = this.toUrl(value);
     }
-
-    /*
-      reloadPhoto(url: string, silent: boolean = false) {
-        if (!url || !this.entity.photo || !this.entity.photo.type) return;
-
-        if (!silent) { this.notificationService.appLoading = true };
-        let id = `${url}.${this.entity.photo.type}`;
-        this.photoService.get(id)
-          .then(item => {
-            if (item && item.base64String) {
-              this.entity.photo.base64String = item.base64String;
-            }
-            if (!silent) { this.notificationService.appLoading = false };
-          })
-          .catch(error => {
-            this.handleError({userMessage: "Ошибка при запросе изображения.", logMessage: `photoService.get(${id}`, error} as AppError);
-            if (!silent) { this.notificationService.appLoading = false };
-          });
-      }
-    */
 
 }

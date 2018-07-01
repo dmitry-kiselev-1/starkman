@@ -41,7 +41,7 @@ export class CategoryListComponent extends BaseComponent implements OnInit {
                 this.selectedCategory = category;
             },
             error => this.handleError({
-                userMessage: 'Ошибка при запросе списка категорий.',
+                userMessage: 'Ошибка при запросе списка категорий!',
                 logMessage: `categoryService.getList()`,
                 error
             } as AppError)

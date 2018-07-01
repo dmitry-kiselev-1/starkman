@@ -14,7 +14,6 @@ const routes: Routes = [
   },
   {
     path: 'product', children: [
-      { path: '', redirectTo: '/', pathMatch: 'full' },
       { path: ':category_id', component: ProductFormComponent, data: {title: 'Карточка нового товара'} },
       { path: ':category_id/:product_id', component: ProductFormComponent, data: {title: 'Карточка товара'} }
     ]

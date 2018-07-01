@@ -172,7 +172,7 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
     }
 
     addProduct() {
-        //this.router.navigateByUrl(`/product/${this.entity.url}`);
+        this.router.navigateByUrl(`/product/${this.entity.url}`);
     }
 
     onTitleInputEnter(value: string) {

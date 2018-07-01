@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BaseService } from './base.service';
 import { Category } from '../models/page/category';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class CategoryService extends BaseService {
@@ -11,36 +12,39 @@ export class CategoryService extends BaseService {
         this.apiPoint = 'categories';
     }
 
-    public getList(): Promise<Category[]> {
-        return this.httpClient.get(
-            `${this.apiDomain}${this.apiPoint}`)
-            .toPromise()
-            .then(response => response as Category[])
-            .catch(error => Promise.reject(error));
-    }
-
-    public get(id: string): Promise<Category> {
-        return this.httpClient.get(
-            `${this.apiDomain}${this.apiPoint}/${id}`)
-            .toPromise()
-            .then(response => response as Category)
-            .catch(error => Promise.reject(error));
-    }
-
-    public delete(id: string): Promise<object> {
-        return this.httpClient.delete(
-            `${this.apiDomain}${this.apiPoint}/${id}`)
-            .toPromise()
-            .then(response => response)
-            .catch(error => Promise.reject(error));
-    }
-
-    public post(period: Category): Promise<object> {
-        return this.httpClient.post(
+    getList(): Observable<Category[]> {
+        return this.httpClient.get<Category[]>(
             `${this.apiDomain}${this.apiPoint}`,
-            period)
-            .toPromise()
-            .then(response => response)
-            .catch(error => Promise.reject(error));
+            {
+                headers: this.httpOptions.headers
+            });
     }
+
+    get(id: string): Observable<Category> {
+        return this.httpClient.get<Category>(
+            `${this.apiDomain}${this.apiPoint}/${id}`,
+            {
+                headers: this.httpOptions.headers
+            });
+    }
+
+    post(entity: Category): Observable<HttpResponse<any>> {
+        return this.httpClient.post<Category>(
+            `${this.apiDomain}${this.apiPoint}/${entity.id}`,
+            entity,
+            {
+                headers: this.httpOptions.headers,
+                observe: 'response'
+            });
+    }
+
+    delete(id: string): Observable<HttpResponse<any>> {
+        return this.httpClient.delete(
+            `${this.apiDomain}${this.apiPoint}/${id}`,
+            {
+                headers: this.httpOptions.headers,
+                observe: 'response'
+            });
+    }
+
 }

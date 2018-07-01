@@ -4,6 +4,8 @@ import { Category } from '../../../models/page/category';
 import { BaseComponent } from '../../base.component';
 import { NotificationService } from "../../../services/notification.service";
 import { MatSnackBar } from "@angular/material";
+import { finalize } from 'rxjs/operators';
+import { AppError } from '../../../models/app-error';
 
 @Component({
   selector: 'app-category-list',
@@ -31,14 +33,18 @@ export class CategoryListComponent extends BaseComponent implements OnInit {
   {
     this.notificationService.appLoading = true;
     this.categoryService.getList()
-      .then(items => {
-        this.entityList = items as Category[];
-        this.selectedCategory = category;
-        this.notificationService.appLoading = false;
-      })
-      .catch(error => {
-        this.handleError(error);
-        this.notificationService.appLoading = false;
-      });
+        .pipe(finalize(() => { this.notificationService.appLoading = false; }))
+        .subscribe(
+            data => {
+                //debugger;
+                this.entityList = ((data as Category[]).sort((a,b) => a.sortOrder > b.sortOrder) || []) as Category[];
+                this.selectedCategory = category;
+            },
+            error => this.handleError({
+                userMessage: 'Ошибка при запросе списка категорий.',
+                logMessage: `categoryService.getList()`,
+                error
+            } as AppError)
+        );
   }
 }

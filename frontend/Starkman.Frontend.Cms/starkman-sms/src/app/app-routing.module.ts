@@ -9,14 +9,14 @@ const routes: Routes = [
   {
     path: 'category', children: [
       { path: '', component: CategoryFormComponent, data: {title: 'Карточка новой товарной категории'} },
-      { path: ':category_url', component: CategoryFormComponent, data: {title: 'Карточка товарной категории'} }
+      { path: ':category_id', component: CategoryFormComponent, data: {title: 'Карточка товарной категории'} }
     ]
   },
   {
     path: 'product', children: [
       { path: '', redirectTo: '/', pathMatch: 'full' },
-      { path: ':category_url', component: ProductFormComponent, data: {title: 'Карточка нового товара'} },
-      { path: ':category_url/:product_url', component: ProductFormComponent, data: {title: 'Карточка товара'} }
+      { path: ':category_id', component: ProductFormComponent, data: {title: 'Карточка нового товара'} },
+      { path: ':category_id/:product_id', component: ProductFormComponent, data: {title: 'Карточка товара'} }
     ]
   }
 ];

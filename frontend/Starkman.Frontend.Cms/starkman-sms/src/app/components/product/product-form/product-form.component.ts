@@ -20,6 +20,7 @@ import { Category } from '../../../models/page/category';
 export class ProductFormComponent extends BaseComponent implements OnInit {
 
     public query_url: string;
+    public parent_query_url: string;
     public entity: Product = {} as Product;
 
     constructor(
@@ -39,9 +40,11 @@ export class ProductFormComponent extends BaseComponent implements OnInit {
             .subscribe(
                 (params: ParamMap) => {
                     //debugger;
-                    let category_id = params.get('product_id');
+                    let product_id = params.get('product_id');
+                    let category_id = params.get('category_id');
                     if (category_id) {
-                        this.query_url = category_id
+                        this.query_url = product_id;
+                        this.parent_query_url = category_id;
                         this.reload();
                     }
                     else
@@ -56,7 +59,7 @@ export class ProductFormComponent extends BaseComponent implements OnInit {
     }
 
     addProduct() {
-        this.router.navigateByUrl(`/product/${this.query_url}`);
+        this.router.navigateByUrl(`/product/${this.entity.urlParent}/${this.query_url}`);
     }
 
     onTitleInputEnter(value: string) {
@@ -107,6 +110,7 @@ export class ProductFormComponent extends BaseComponent implements OnInit {
 
                     // post:
                     this.entity.id = this.entity.url;
+                    this.entity.urlParent = this.parent_query_url;
                     this.entity.sortOrder = this.entity.sortOrder || 0;
                     this.pageService.post(this.entity.url, this.entity)
                         .pipe(finalize(() => this.notificationService.appLoading = false))
@@ -172,8 +176,8 @@ export class ProductFormComponent extends BaseComponent implements OnInit {
                         console.error(httpResponse);
                 },
                 error => this.handleError({
-                    userMessage: `Ошибка при удалении ${EntityType[EntityType.Product]}!`,
-                    logMessage: `productService.delete(${this.query_url})`,
+                    userMessage: `Ошибка при удалении ${EntityType[this.entityType]}!`,
+                    logMessage: `${EntityType[this.entityType]}Service.delete(${this.query_url})`,
                     error
                 } as AppError)
             );

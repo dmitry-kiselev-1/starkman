@@ -27,8 +27,8 @@ export class ProductFormComponent extends BaseComponent implements OnInit {
         public notificationService: NotificationService,
         private activatedRoute: ActivatedRoute,
         private router: Router,
-        protected snackBar: MatSnackBar,
-        private pageService: ProductService) {
+        private pageService: ProductService,
+        protected snackBar: MatSnackBar) {
         super(snackBar);
         this.entityType = EntityType.Product;
     }

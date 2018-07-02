@@ -25,8 +25,9 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
         public notificationService: NotificationService,
         private activatedRoute: ActivatedRoute,
         private router: Router,
+        private pageService: CategoryService,
         protected snackBar: MatSnackBar,
-        private pageService: CategoryService) {
+        protected snackBar: MatSnackBar) {
         super(snackBar);
         this.entityType = EntityType.Category;
     }

@@ -19,6 +19,9 @@ export class InMemoryDataService implements InMemoryDbService {
     }
 
     createDb() {
+
+        let products: Product[] = [];
+
         let categories: Category[] =
             [
                 { url: 'bryuki_casual', title: 'Брюки кажуал' },
@@ -62,6 +65,7 @@ export class InMemoryDataService implements InMemoryDbService {
                 for (let ii = 1; i <= photoCount; i++) {
                     photoList.push(
                         {
+                            id:  `${category.url}_product_${i}_photo_${ii}`,
                             url: `${category.url}_product_${i}_photo_${ii}`,
                             title: `${category.title} product ${i} photo ${ii}`,
                             type: `type`,
@@ -74,8 +78,9 @@ export class InMemoryDataService implements InMemoryDbService {
                     );
                 }
 
-                productList.push(
+                let product =
                     {
+                        id:  `${category.url}_product_${i}`,
                         url: `${category.url}_product_${i}`,
                         urlParent: category.url,
                         title: `Product ${i} (${category.title})`,
@@ -85,15 +90,18 @@ export class InMemoryDataService implements InMemoryDbService {
                         sortOrder: i,
                         isVisible: true,
                         sku: i*(productCount/10)*10 + index,
+                        price: this.randomBetween(500, 5000),
                         photoList: photoList
-                    } as Product
-                );
+                    } as Product;
+
+                productList.push(product);
+                products.push(product);
 
                 category.productList = productList;
             }
         });
         //debugger;
-        return {categories};
+        return {categories, products};
     }
 
     // Id generator

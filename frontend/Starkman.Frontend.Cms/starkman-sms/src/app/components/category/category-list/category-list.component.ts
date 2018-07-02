@@ -40,8 +40,11 @@ export class CategoryListComponent extends BaseComponent implements OnInit {
                 //debugger;
 
                 if ((data as Category[]).length > 0)
-                    //this.entityList = (data as Category[]).sort((a, b) => (a.sortOrder > b.sortOrder));
-                    this.entityList = data as Category[];
+                    this.entityList = (data as Category[]).sort((a, b) => {
+                        if (a.sortOrder > b.sortOrder) { return 1; }
+                        if (a.sortOrder < b.sortOrder) { return -1; }
+                        return 0;
+                    });
                 else
                     this.entityList = [];
             },

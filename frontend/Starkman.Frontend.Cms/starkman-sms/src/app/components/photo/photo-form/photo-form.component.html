@@ -1,5 +1,4 @@
-<!--<form #photoForm="ngForm" id="photoForm">-->
-
+<!--
 <mat-card>
 
   <mat-card-title>{{this.entity?.title}}</mat-card-title>
@@ -13,33 +12,6 @@
       <img mat-card-image width="100px"
         src="{{this.entity?.photo?.base64String}}"
         alt="{{this.entity?.photo?.title}}">
-      <!--
-      <img mat-card-image width="100px"
-        src="{{this.photoService?.apiDomain + this.photoService?.apiDomainPhotoPath + this.entity?.Photo?.url + '.' + this.entity?.Photo?.type}}"
-        alt="{{this.entity?.Title}}">
-      -->
-
-      <!--
-        <mat-grid-list cols="3" rowHeight="3:1">
-
-          <mat-grid-tile><div *ngIf="(this.entity?.Photo?.size > 0)">{{(this.entity?.Photo?.size / 1024) | number}} Kb </div></mat-grid-tile>
-
-          <mat-grid-tile>
-            <mat-form-field *ngIf="this.isSinglePhoto && this.entity?.Photo?.SortOrder">
-              <input matInput placeholder="Порядковый номер" [type]="'number'" autocomplete="off"
-                  [(ngModel)]="this.entity.Photo.SortOrder" name="SortOrder" #SortOrder="ngModel"/>
-            </mat-form-field>
-          </mat-grid-tile>
-
-          <mat-grid-tile>
-            <mat-checkbox *ngIf="this.isSinglePhoto && this.entity?.Photo?.IsVisible"
-                  [(ngModel)]="this.entity.Photo.IsVisible" #IsVisible="ngModel" name="IsVisible" color="primary">Показывать на сайте
-            </mat-checkbox>
-          </mat-grid-tile>
-
-        </mat-grid-list>
-      -->
-
     </mat-card-content>
 
     <mat-card-actions>
@@ -58,7 +30,6 @@
             </button>
           </a>
         </span>
-        <!-- <i class="material-icons">file_download</i> -->
 
         <span matTooltip="Удалить фото с сайта">
           <button (click)="deletePhoto()" mat-mini-fab color="warn" [disabled]="!this.entity?.photo?.base64String">
@@ -75,5 +46,4 @@
   #openFile
   (change)="previewPhoto(openFile.files)" />
 <div id="preview"></div>
-
-<!--</form>-->
+-->

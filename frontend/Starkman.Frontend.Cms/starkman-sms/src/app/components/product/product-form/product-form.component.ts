@@ -59,7 +59,7 @@ export class ProductFormComponent extends BaseComponent implements OnInit {
     }
 
     addProduct() {
-        this.router.navigateByUrl(`/product/${this.entity.urlParent}/${this.query_url}`);
+        this.router.navigateByUrl(`/product/${this.entity.urlParent}`);
     }
 
     onTitleInputEnter(value: string) {

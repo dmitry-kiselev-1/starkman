@@ -8,14 +8,14 @@ const routes: Routes = [
   /*{ path: '**', component: AppComponent },*/
   {
     path: 'category', children: [
-      { path: '', component: CategoryFormComponent, data: {title: 'Карточка новой товарной категории'} },
-      { path: ':category_id', component: CategoryFormComponent, data: {title: 'Карточка товарной категории'} }
+      { path: '', component: CategoryFormComponent, data: {title: 'Форма новой товарной категории'} },
+      { path: ':category_id', component: CategoryFormComponent, data: {title: 'Форма товарной категории'} }
     ]
   },
   {
     path: 'product', children: [
-      { path: ':category_id', component: ProductFormComponent, data: {title: 'Карточка нового товара'} },
-      { path: ':category_id/:product_id', component: ProductFormComponent, data: {title: 'Карточка товара'} }
+      { path: ':category_id', component: ProductFormComponent, data: {title: 'Форма нового товара'} },
+      { path: ':category_id/:product_id', component: ProductFormComponent, data: {title: 'Форма товара'} }
     ]
   }
 ];

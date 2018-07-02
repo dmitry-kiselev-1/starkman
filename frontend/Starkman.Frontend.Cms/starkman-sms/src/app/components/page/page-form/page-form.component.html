@@ -44,15 +44,21 @@
                       placeholder="Meta description (ключевые слова из description)"></textarea>
                         </mat-form-field>
 
-                        <mat-grid-list cols="3" rowHeight="6:1">
+                        <mat-grid-list cols="4" rowHeight="4:1">
                             <mat-grid-tile>
-                                <mat-form-field style="width: 100%; padding-right: 10em;" *ngIf="this.entityType != 0">
+                                <mat-form-field *ngIf="this.entityType != 0">
                                     <input [(ngModel)]="this.entity.price" name="price" matInput placeholder="Цена"
                                            type="number" width="100%"/>
                                 </mat-form-field>
                             </mat-grid-tile>
                             <mat-grid-tile>
-                                <mat-form-field style="width: 100%; padding-right: 10em;">
+                                <mat-form-field *ngIf="this.entityType != 0">
+                                    <input [(ngModel)]="this.entity.sku" name="sku" matInput placeholder="Артикул"
+                                           type="number" width="100%"/>
+                                </mat-form-field>
+                            </mat-grid-tile>
+                            <mat-grid-tile>
+                                <mat-form-field>
                                       <span matTooltipPosition="right"
                                             matTooltip="Число 1 означает, что в общем списке элемент будет на первом месте, число 2 - на втором, и так далее">
                                         <input autocomplete="off" [(ngModel)]="this.entity.sortOrder" name="sortOrder"

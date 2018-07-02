@@ -4,18 +4,17 @@ import { Category } from '../../../models/page/category';
 import { CategoryService } from '../../../services/category.service';
 import { NotificationService } from '../../../services/notification.service';
 import { MatSnackBar, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Photo } from '../../../models/page/photo';
-import { PhotoService } from '../../../services/photo.service';
 import { AppError } from '../../../models/app-error';
-import { ConfirmationDialogComponent } from '../../dialog/confirmation-dialog/confirmation-dialog.component';
 import { BaseComponent } from '../../base.component';
 import { finalize } from 'rxjs/operators';
 import { HttpResponse } from '@angular/common/http';
+import { ConfirmationDialogComponent } from '../../dialog/confirmation-dialog/confirmation-dialog.component';
+import { EntityType } from '../../../models/entity-type';
 
 @Component({
-    selector: 'app-category-edit',
-    templateUrl: './category-form.component.html',
-    styleUrls: ['./category-form.component.scss']
+    selector: 'app-category-form',
+    templateUrl: "../../page/page-form/page-form.component.html",
+    styleUrls: ['../../page/page-form/page-form.component.scss']
 })
 export class CategoryFormComponent extends BaseComponent implements OnInit {
 
@@ -23,13 +22,13 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
     public entity: Category = {} as Category;
 
     constructor(
-        private notificationService: NotificationService,
-        private photoService: PhotoService,
+        public notificationService: NotificationService,
         private activatedRoute: ActivatedRoute,
         private router: Router,
-        private categoryService: CategoryService,
-        protected snackBar: MatSnackBar) {
+        protected snackBar: MatSnackBar,
+        private pageService: CategoryService) {
         super(snackBar);
+        this.entityType = EntityType.Category;
     }
 
     ngOnInit() {
@@ -51,6 +50,18 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
             );
     }
 
+    addCategory() {
+        this.router.navigateByUrl('/category');
+    }
+
+    addProduct() {
+        this.router.navigateByUrl(`/product/${this.query_url}`);
+    }
+
+    onTitleInputEnter(value: string) {
+        this.entity.url = this.toUrl(value);
+    }
+
     reload(notify: boolean = true) {
         if (!this.query_url) return;
 
@@ -58,7 +69,7 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
             this.notificationService.appLoading = true;
         }
 
-        this.categoryService.get(this.query_url)
+        this.pageService.get(this.query_url)
             .pipe(finalize(() => {
                 if (notify) {
                     this.notificationService.appLoading = false;
@@ -83,7 +94,7 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
         this.notificationService.appLoading = true;
 
         // delete:
-        this.categoryService.delete(this.query_url)
+        this.pageService.delete(this.query_url)
             .subscribe(
                 httpResponse =>
                 {
@@ -96,7 +107,7 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
                     // post:
                     this.entity.id = this.entity.url;
                     this.entity.sortOrder = this.entity.sortOrder || 0;
-                    this.categoryService.post(this.entity)
+                    this.pageService.post(this.entity.url, this.entity)
                         .pipe(finalize(() => this.notificationService.appLoading = false))
                         .subscribe(
                             httpResponse =>
@@ -144,7 +155,7 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
 
         this.notificationService.appLoading = true;
 
-        this.categoryService.delete(this.query_url)
+        this.pageService.delete(this.query_url)
             .subscribe(
                 httpResponse =>
                 {
@@ -165,18 +176,6 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
                     error
                 } as AppError)
             );
-    }
-
-    addCategory() {
-        this.router.navigateByUrl('/category');
-    }
-
-    addProduct() {
-        this.router.navigateByUrl(`/product/${this.query_url}`);
-    }
-
-    onTitleInputEnter(value: string) {
-        this.entity.url = this.toUrl(value);
     }
 
 }

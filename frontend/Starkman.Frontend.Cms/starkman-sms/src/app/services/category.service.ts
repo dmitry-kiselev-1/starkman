@@ -3,48 +3,14 @@ import { BaseService } from './base.service';
 import { Category } from '../models/page/category';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { concatMap, retryWhen, delay, take, timeout } from 'rxjs/operators';
+import { PageService } from './page.service';
 
 @Injectable()
-export class CategoryService extends BaseService {
+export class CategoryService extends PageService<Category> {
 
-    constructor(private httpClient: HttpClient) {
-        super();
+    constructor(protected httpClient: HttpClient) {
+        super(httpClient);
         this.apiPoint = 'categories';
     }
-
-    getList(): Observable<Category[]> {
-        return this.httpClient.get<Category[]>(
-            `${this.apiDomain}${this.apiPoint}`,
-            {
-                headers: this.httpOptions.headers
-            });
-    }
-
-    get(id: string): Observable<Category> {
-        return this.httpClient.get<Category>(
-            `${this.apiDomain}${this.apiPoint}/${id}`,
-            {
-                headers: this.httpOptions.headers
-            });
-    }
-
-    post(entity: Category): Observable<HttpResponse<any>> {
-        return this.httpClient.post<Category>(
-            `${this.apiDomain}${this.apiPoint}/${entity.id}`,
-            entity,
-            {
-                headers: this.httpOptions.headers,
-                observe: 'response'
-            });
-    }
-
-    delete(id: string): Observable<HttpResponse<any>> {
-        return this.httpClient.delete(
-            `${this.apiDomain}${this.apiPoint}/${id}`,
-            {
-                headers: this.httpOptions.headers,
-                observe: 'response'
-            });
-    }
-
 }

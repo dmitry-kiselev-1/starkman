@@ -1,1 +1,130 @@
-page-form.component
+<mat-tab-group>
+    <mat-tab label="Текст">
+
+        <form #categoryForm="ngForm">
+            <mat-card>
+                <!--
+                <mat-card-header>
+                  <mat-card-title>{{this.entity.url}}</mat-card-title>
+                </mat-card-header>
+                -->
+                <mat-card-content>
+
+                    <div class="edit-form-container">
+
+                        <mat-form-field>
+                            <input [(ngModel)]="this.entity.url" name="url" [disabled]="true" matInput placeholder="url"
+                                   required/>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <input autocomplete="off"
+                                   (keyup.enter)="onTitleInputEnter(titleInput.value)"
+                                   (blur)="onTitleInputEnter(titleInput.value)"
+                                   [(ngModel)]="this.entity.title" name="Title" #titleInput="ngModel" matInput
+                                   placeholder="Title (название)" required minlength="1">
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <textarea style="height: 250px;" [(ngModel)]="this.entity.description" name="description"
+                                      matInput placeholder="description (описание)"></textarea>
+                        </mat-form-field>
+
+                        <mat-form-field>
+            <textarea matTextareaAutosize matAutosizeMinRows="1" matAutosizeMaxRows="5"
+                      [(ngModel)]="this.entity.metaKeywords" name="metaKeywords"
+                      #metaKeywords="ngModel" matInput
+                      placeholder="Meta Keywords (ключевые слова для Title)"></textarea>
+                        </mat-form-field>
+
+                        <mat-form-field>
+            <textarea matTextareaAutosize matAutosizeMinRows="1" matAutosizeMaxRows="5"
+                      [(ngModel)]="this.entity.metaDescription" name="metaDescription"
+                      #metaDescription="ngModel" matInput
+                      placeholder="Meta description (ключевые слова из description)"></textarea>
+                        </mat-form-field>
+
+                        <mat-grid-list cols="3" rowHeight="6:1">
+                            <mat-grid-tile>
+                                <mat-form-field style="width: 100%; padding-right: 10em;" *ngIf="this.entityType != 0">
+                                    <input [(ngModel)]="this.entity.price" name="price" matInput placeholder="Цена"
+                                           type="number" width="100%"/>
+                                </mat-form-field>
+                            </mat-grid-tile>
+                            <mat-grid-tile>
+                                <mat-form-field style="width: 100%; padding-right: 10em;">
+                                      <span matTooltipPosition="right"
+                                            matTooltip="Число 1 означает, что в общем списке элемент будет на первом месте, число 2 - на втором, и так далее">
+                                        <input autocomplete="off" [(ngModel)]="this.entity.sortOrder" name="sortOrder"
+                                               #sortOrder="ngModel" matInput
+                                               [type]="'number'"
+                                               placeholder="Порядковый номер"/>
+                                      </span>
+                                </mat-form-field>
+                            </mat-grid-tile>
+                            <mat-grid-tile>
+                                <mat-checkbox [(ngModel)]="this.entity.isVisible"
+                                              #isVisible="ngModel"
+                                              name="isVisible"
+                                              color="primary">Показывать на сайте
+                                </mat-checkbox>
+                            </mat-grid-tile>
+                        </mat-grid-list>
+                    </div>
+                </mat-card-content>
+                <mat-card-actions>
+
+                    <div class="button-row">
+
+            <span matTooltip="Сохранить изменения" style="margin-left: 20px;">
+              <button (click)="save()" mat-fab color="primary"
+                      [disabled]="!categoryForm.form.valid || this.notificationService.appLoading">
+                <mat-icon aria-label="Сохранить">done</mat-icon>
+              </button>
+            </span>
+
+                        <span matTooltip="Отменить внесённые изменения">
+          <button (click)="reload()" mat-mini-fab color="accent"
+                  [disabled]="!this.query_url || this.notificationService.appLoading">
+            <mat-icon class="flipV" aria-label="Отменить">refresh</mat-icon>
+          </button>
+        </span>
+
+                        <span matTooltip="Добавить категорию">
+          <button (click)="addCategory()" mat-mini-fab color="accent"
+                  [disabled]="this.notificationService.appLoading">
+            <mat-icon aria-label="Добавить">add</mat-icon>
+          </button>
+        </span>
+
+                        <span matTooltip="Добавить товар">
+          <button (click)="addProduct()" mat-mini-fab color="accent"
+                  [disabled]="!this.query_url || this.notificationService.appLoading">
+            <mat-icon aria-label="Добавить">playlist_add</mat-icon>
+          </button>
+        </span>
+
+                        <span matTooltip="Удалить категорию">
+          <button (click)="delete()" mat-mini-fab color="warn"
+                  [disabled]="!this.query_url || this.notificationService.appLoading">
+            <mat-icon aria-label="Удалить">delete</mat-icon>
+          </button>
+        </span>
+
+                    </div>
+
+                </mat-card-actions>
+            </mat-card>
+        </form>
+
+    </mat-tab>
+
+    <mat-tab label="Фото">
+
+        <!--<app-photo-form [entity]="this.entity" [isSinglePhoto]="true"></app-photo-form>-->
+
+    </mat-tab>
+
+    <!-- <mat-tab label="Цены"></mat-tab> -->
+</mat-tab-group>
+

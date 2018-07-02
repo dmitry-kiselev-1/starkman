@@ -1,53 +1,16 @@
-import {Injectable} from '@angular/core';
-import { Http } from '@angular/http';
-
-import {BaseService} from './base.service';
-import {Product} from '../models/page/product';
-import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { BaseService } from './base.service';
+import { Product } from '../models/page/product';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { concatMap, retryWhen, delay, take, timeout } from 'rxjs/operators';
+import { PageService } from './page.service';
 
 @Injectable()
-export class ProductService extends BaseService {
+export class ProductService extends PageService<Product> {
 
-  constructor(private httpClient: HttpClient) {
-    super();
+  constructor(protected httpClient: HttpClient) {
+    super(httpClient);
     this.apiPoint = 'products';
   }
-/*
-  public getList(): Promise<Product[]> {
-    return this.http.get(
-      this.apiDomain + this.apiRoutePrefix,
-      this.requestOptions)
-      .toPromise()
-      .then(response => response.json() as Product[])
-      .catch(error => Promise.reject(error));
-  }
-
-  public get(id: string): Promise<Product> {
-    return this.http.get(
-      this.apiDomain + this.apiRoutePrefix + id,
-      this.requestOptions)
-      .toPromise()
-      .then(response => response.json() as Product)
-      .catch(error => Promise.reject(error));
-  }
-
-  public delete(id: string): Promise<object> {
-    return this.http.delete(
-      this.apiDomain + this.apiRoutePrefix + id,
-      this.requestOptions)
-      .toPromise()
-      .then(response => response)
-      .catch(error => Promise.reject(error));
-  }
-
-  public post(period: Product): Promise<object> {
-    return this.http.post(
-      this.apiDomain + this.apiRoutePrefix,
-      period,
-      this.requestOptions)
-      .toPromise()
-      .then(response => response)
-      .catch(error => Promise.reject(error));
-  }
-*/
 }

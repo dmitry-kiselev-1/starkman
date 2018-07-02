@@ -6,6 +6,6 @@
   description?: string;
   metaKeywords?: string;
   metaDescription?: string;
-  sortOrder: number;
-  isVisible: boolean;
+  sortOrder?: number;
+  isVisible?: boolean;
 }

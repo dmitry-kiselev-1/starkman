@@ -6,6 +6,7 @@ import { NotificationService } from "../../../services/notification.service";
 import { MatSnackBar } from "@angular/material";
 import { finalize } from 'rxjs/operators';
 import { AppError } from '../../../models/app-error';
+import * as _ from "lodash";
 
 @Component({
   selector: 'app-category-list',
@@ -37,8 +38,12 @@ export class CategoryListComponent extends BaseComponent implements OnInit {
         .subscribe(
             data => {
                 //debugger;
-                this.entityList = ((data as Category[]).sort((a,b) => a.sortOrder > b.sortOrder) || []) as Category[];
-                this.selectedCategory = category;
+
+                if ((data as Category[]).length > 0)
+                    //this.entityList = (data as Category[]).sort((a, b) => (a.sortOrder > b.sortOrder));
+                    this.entityList = data as Category[];
+                else
+                    this.entityList = [];
             },
             error => this.handleError({
                 userMessage: 'Ошибка при запросе списка категорий!',

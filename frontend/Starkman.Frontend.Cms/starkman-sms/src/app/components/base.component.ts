@@ -1,9 +1,11 @@
 ﻿import { MatSnackBar } from "@angular/material";
 import { AppError } from "../models/app-error";
+import { EntityType } from '../models/entity-type';
 
 export abstract class BaseComponent {
 
-  protected componentTitle: string;
+  componentTitle: string;
+  entityType: EntityType;
 
   constructor(protected snackBar: MatSnackBar) {}
 

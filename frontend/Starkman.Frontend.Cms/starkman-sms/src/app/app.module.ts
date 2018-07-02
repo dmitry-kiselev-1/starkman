@@ -34,7 +34,6 @@ import { PhotoListComponent } from './components/photo/photo-list/photo-list.com
 import { PhotoFormComponent } from './components/photo/photo-form/photo-form.component';
 import { ProductListComponent } from './components/product/product-list/product-list.component';
 import { ProductFormComponent } from './components/product/product-form/product-form.component';
-import { PageFormComponent } from './components/page/page-form/page-form.component';
 import { ConfirmationDialogComponent } from './components/dialog/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
@@ -45,13 +44,12 @@ import { ConfirmationDialogComponent } from './components/dialog/confirmation-di
         SidenavComponent,
         CategoryListComponent,
         CategoryFormComponent,
-        OrderListComponent,
-        PhotoListComponent,
-        PhotoFormComponent,
         ProductListComponent,
         ProductFormComponent,
-        PageFormComponent,
-        ConfirmationDialogComponent
+        ConfirmationDialogComponent,
+        OrderListComponent,
+        PhotoListComponent,
+        PhotoFormComponent
     ],
     imports: [
         BrowserModule,

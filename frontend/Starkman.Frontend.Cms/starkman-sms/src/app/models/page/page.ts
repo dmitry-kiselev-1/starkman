@@ -1,5 +1,6 @@
-﻿export interface Page {
-  id?: string;
+﻿import { Storageable } from './storageable';
+
+export interface Page extends Storageable{
   url: string;
   urlParent?: string;
   title: string;

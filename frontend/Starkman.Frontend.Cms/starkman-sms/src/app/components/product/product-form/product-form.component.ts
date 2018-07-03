@@ -67,13 +67,13 @@ export class ProductFormComponent extends BaseComponent implements OnInit {
     }
 
     reload(notify: boolean = true) {
-        if (!this.query_url) return;
+        if (!this.parent_query_url || !this.query_url) return;
 
         if (notify) {
             this.notificationService.appLoading = true;
         }
 
-        this.pageService.get(this.query_url)
+        this.pageService.get(this.parent_query_url, this.query_url)
             .pipe(finalize(() => {
                 if (notify) {
                     this.notificationService.appLoading = false;
@@ -86,7 +86,7 @@ export class ProductFormComponent extends BaseComponent implements OnInit {
                 },
                 error => this.handleError({
                     userMessage: 'Ошибка при запросе товара!',
-                    logMessage: `productService.get(${this.query_url})`,
+                    logMessage: `productService.get(${this.parent_query_url}/${this.query_url})`,
                     error
                 } as AppError)
             );
@@ -109,6 +109,7 @@ export class ProductFormComponent extends BaseComponent implements OnInit {
                         console.error(httpResponse);
 
                     // post:
+                    this.entity.url =`${this.entity.urlParent}_${this.entity.url}`
                     this.entity.id = this.entity.url;
                     this.entity.urlParent = this.parent_query_url;
                     this.entity.sortOrder = this.entity.sortOrder || 0;

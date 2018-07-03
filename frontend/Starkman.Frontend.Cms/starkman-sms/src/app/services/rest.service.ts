@@ -6,7 +6,7 @@ import { concatMap, retryWhen, delay, take, timeout } from 'rxjs/operators';
 import { Page } from '../models/page/page';
 
 @Injectable()
-export class PageService<T> extends BaseService {
+export class RestService<T> extends BaseService {
 
   constructor(protected httpClient: HttpClient) {
     super();

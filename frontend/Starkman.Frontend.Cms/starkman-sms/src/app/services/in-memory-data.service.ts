@@ -20,8 +20,7 @@ export class InMemoryDataService implements InMemoryDbService {
 
     createDb() {
 
-        let products: Product[] = [];
-
+        //let products: Product[] = [];
         let categories: Category[] =
             [
                 { url: 'bryuki_casual', title: 'Брюки кажуал' },
@@ -95,13 +94,13 @@ export class InMemoryDataService implements InMemoryDbService {
                     } as Product;
 
                 productList.push(product);
-                products.push(product);
+                //products.push(product);
 
                 category.productList = productList;
             }
         });
         //debugger;
-        return {categories, products};
+        return {categories};
     }
 
     // Id generator

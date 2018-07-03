@@ -3,7 +3,7 @@ import { BaseService } from './base.service';
 import { Product } from '../models/page/product';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { from, Observable } from 'rxjs';
-import { single, switchMap, concatMap, retryWhen, delay, take, timeout } from 'rxjs/operators';
+import { concat, single, switchMap, concatMap, retryWhen, delay, take, timeout } from 'rxjs/operators';
 import { RestService } from './rest.service';
 import { CategoryService } from './category.service';
 import { Category } from '../models/page/category';
@@ -23,10 +23,17 @@ export class ProductService extends BaseService {
         )
     }
 
-    post(id: string, entity: Product): Observable<HttpResponse<any>> {
-        return this.categoryService.post(
-            `${this.apiDomain}${this.apiPoint}/${id}`,
-            entity);
+    post(category_id: string, product_id: string, entity: Product): Observable<HttpResponse<any>> {
+        return this.categoryService.get(category_id).pipe(
+            concatMap((category: Category) => {
+                debugger;
+                if (!category.productList)
+                    category.productList = [];
+                category.productList.push(entity);
+                this.categoryService.delete(category_id);
+                return this.categoryService.post(category_id, category);
+            })
+        )
     }
 
     delete(id: string): Observable<HttpResponse<any>> {

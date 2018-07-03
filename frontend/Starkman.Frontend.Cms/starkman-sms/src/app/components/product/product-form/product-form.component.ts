@@ -93,55 +93,35 @@ export class ProductFormComponent extends BaseComponent implements OnInit {
     }
 
     save() {
-        if (!this.entity.url) return;
+        debugger;
+        if (!this.parent_query_url || !this.entity.url) return;
 
         this.notificationService.appLoading = true;
 
-        // delete:
-        this.pageService.delete(this.query_url)
+        this.entity.id = this.entity.url;
+        this.entity.urlParent = this.parent_query_url;
+
+        this.pageService.post(this.entity.urlParent, this.entity.url, this.entity)
+            .pipe(finalize(() => this.notificationService.appLoading = false))
             .subscribe(
-                httpResponse =>
-                {
+                httpResponse => {
                     //debugger;
-                    if ((httpResponse as HttpResponse<any>).ok == true)
-                        console.log(`${this.query_url} deleted`);
+                    if ((httpResponse as HttpResponse<any>).ok == true) {
+                        this.notificationService.categoryChange.emit({url: this.entity.urlParent} as Category);
+                        console.log(`${this.entity.urlParent}/${this.entity.url} posted`);
+                    }
                     else
                         console.error(httpResponse);
 
-                    // post:
-                    this.entity.url =`${this.entity.urlParent}_${this.entity.url}`
-                    this.entity.id = this.entity.url;
-                    this.entity.urlParent = this.parent_query_url;
-                    this.entity.sortOrder = this.entity.sortOrder || 0;
-                    this.pageService.post(this.entity.url, this.entity)
-                        .pipe(finalize(() => this.notificationService.appLoading = false))
-                        .subscribe(
-                            httpResponse =>
-                            {
-                                //debugger;
-                                if ((httpResponse as HttpResponse<any>).ok == true) {
-                                    this.notificationService.categoryChange.emit({url: this.entity.url} as Product);
-                                    console.log(`${this.entity.url} posted`);
-                                }
-                                else
-                                    console.error(httpResponse);
-
-                                // reload:
-                                this.router.navigateByUrl(`/product/${this.entity.urlParent}/${this.entity.url}`);
-                            },
-                            error => this.handleError({
-                                userMessage: 'Ошибка при добавлении товара!',
-                                logMessage: `productService.post(${this.entity.url})`,
-                                error
-                            } as AppError)
-                        );
+                    // reload:
+                    this.router.navigateByUrl(`/product/${this.entity.urlParent}/${this.entity.url}`);
                 },
                 error => this.handleError({
-                    userMessage: 'Ошибка при удалении товара!',
-                    logMessage: `productService.delete(${this.query_url})`,
+                    userMessage: 'Ошибка при добавлении товара!',
+                    logMessage: `productService.post(${this.entity.url})`,
                     error
                 } as AppError)
-            );
+            )
     }
 
     /*

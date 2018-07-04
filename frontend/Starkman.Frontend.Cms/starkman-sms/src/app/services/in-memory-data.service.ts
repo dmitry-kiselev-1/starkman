@@ -113,7 +113,7 @@ export class InMemoryDataService implements InMemoryDbService {
             orders.push(
                 {
                     id: `Order_${o}`,
-                    date: Date.now(),
+                    date: this.dateService.toDate(`2018-01-${this.randomBetween(10, 28)}T13.59.59.997`),
                     customer: {id: `id_${o}`, email: `email_${o}`, phone: `phone_${o}`} as Customer,
                     note: `note_${o}`,
                     offerList: [] as Offer[]
@@ -125,7 +125,6 @@ export class InMemoryDataService implements InMemoryDbService {
             for (let f = 1; f <= offerCount; f++) {
                 order.offerList.push(
                     {
-                        date: this.dateService.toDate(`2018-01-${this.randomBetween(10, 28)}T14.00.00.000`),
                         product: {
                             id: `product_${f}`,
                             url: `product_${f}`,

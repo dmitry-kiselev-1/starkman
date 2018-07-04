@@ -116,7 +116,7 @@ export class InMemoryDataService implements InMemoryDbService {
                     date: Date.now(),
                     customer: {id: `id_${o}`, email: `email_${o}`, phone: `phone_${o}`} as Customer,
                     note: `note_${o}`,
-                    offerList: []
+                    offerList: [] as Offer[]
                 } as Order
             )
         }

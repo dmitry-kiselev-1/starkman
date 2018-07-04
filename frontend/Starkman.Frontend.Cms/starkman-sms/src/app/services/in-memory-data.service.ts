@@ -125,7 +125,7 @@ export class InMemoryDataService implements InMemoryDbService {
             for (let f = 1; f <= offerCount; f++) {
                 order.offerList.push(
                     {
-                        date: new Date(2018, 1, f, this.randomBetween(0, 24), this.randomBetween(0, 60), this.randomBetween(0, 60)).getDate(),
+                        date: this.dateService.toDate(`2018-01-${this.randomBetween(10, 28)}T14.00.00.000`),
                         product: {
                             id: `product_${f}`,
                             url: `product_${f}`,

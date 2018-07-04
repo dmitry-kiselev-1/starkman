@@ -4,6 +4,10 @@ import { DateService } from './date.service';
 import { Category } from '../models/page/category';
 import { Product } from '../models/page/product';
 import { Photo } from '../models/page/photo';
+import { Order } from '../models/page/order';
+import { Offer } from '../models/page/offer';
+import * as moment from 'moment';
+import { Customer } from '../models/page/customer';
 
 /*
   GET api/categories          // all categories
@@ -99,8 +103,46 @@ export class InMemoryDataService implements InMemoryDbService {
                 category.productList = productList;
             }
         });
+
+        let orders: Order[] = [];
+        let orderCount = this.randomBetween(5, 10);
+        let offerList: Offer[] = [];
+        let offerCount = this.randomBetween(1, 10);
+
+        for (let o = 1; o <= orderCount; o++) {
+            orders.push(
+                {
+                    id: `Order_${o}`,
+                    date: Date.now(),
+                    customer: {id: `id_${o}`, email: `email_${o}`, phone: `phone_${o}`} as Customer,
+                    note: `note_${o}`,
+                    offerList: []
+                } as Order
+            )
+        }
+
+        orders.forEach((order, index) => {
+            for (let f = 1; f <= offerCount; f++) {
+                order.offerList.push(
+                    {
+                        date: new Date(2018, 1, f, this.randomBetween(0, 24), this.randomBetween(0, 60), this.randomBetween(0, 60)).getDate(),
+                        product: {
+                            id: `product_${f}`,
+                            url: `product_${f}`,
+                            urlParent: `category_${f}`,
+                            sku: f
+                        } as Product,
+                        count: this.randomBetween(1, 10),
+                        price: this.randomBetween(1000, 5000),
+                        height: this.randomBetween(150, 200),
+                        size: this.randomBetween(1, 10)
+                    } as Offer
+                );
+            }
+        });
+
         //debugger;
-        return {categories};
+        return {categories, orders};
     }
 
     // Id generator

@@ -89,28 +89,28 @@
 
                         <span matTooltip="Отменить внесённые изменения">
           <button (click)="reload()" mat-mini-fab color="accent"
-                  [disabled]="!this.query_url || this.notificationService.appLoading">
+                  [disabled]="!this.category_id || this.notificationService.appLoading">
             <mat-icon class="flipV" aria-label="Отменить">refresh</mat-icon>
           </button>
         </span>
 
                         <span matTooltip="Добавить категорию">
-          <button (click)="addCategory()" mat-mini-fab color="accent"
+          <button [routerLink]="'/category/'" mat-mini-fab color="accent"
                   [disabled]="this.notificationService.appLoading">
-            <mat-icon aria-label="Добавить">add</mat-icon>
+            <mat-icon aria-label="Добавить категорию">add</mat-icon>
           </button>
         </span>
 
                         <span matTooltip="Добавить товар">
           <button (click)="addProduct()" mat-mini-fab color="accent"
-                  [disabled]="!this.query_url || this.notificationService.appLoading">
-            <mat-icon aria-label="Добавить">playlist_add</mat-icon>
+                  [disabled]="!this.category_id || this.notificationService.appLoading">
+            <mat-icon aria-label="Добавить товар">playlist_add</mat-icon>
           </button>
         </span>
 
                         <span matTooltip="Удалить категорию">
           <button (click)="delete()" mat-mini-fab color="warn"
-                  [disabled]="!this.query_url || this.notificationService.appLoading">
+                  [disabled]="!this.category_id || this.notificationService.appLoading">
             <mat-icon aria-label="Удалить">delete</mat-icon>
           </button>
         </span>

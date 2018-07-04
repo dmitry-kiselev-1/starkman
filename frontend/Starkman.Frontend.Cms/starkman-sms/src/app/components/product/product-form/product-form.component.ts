@@ -13,21 +13,21 @@ import { EntityType } from '../../../models/entity-type';
 import { Category } from '../../../models/page/category';
 
 @Component({
-  selector: 'app-product-form',
-    templateUrl: "../../page/page-form/page-form.component.html",
+    selector: 'app-product-form',
+    templateUrl: '../../page/page-form/page-form.component.html',
     styleUrls: ['../../page/page-form/page-form.component.scss']
 })
 export class ProductFormComponent extends BaseComponent implements OnInit {
 
-    public query_url: string;
-    public parent_query_url: string;
+    public product_id: string;
+    public category_id: string;
     public entity: Product = {} as Product;
 
     constructor(
         public notificationService: NotificationService,
         private activatedRoute: ActivatedRoute,
         private router: Router,
-        private pageService: ProductService,
+        private restService: ProductService,
         protected snackBar: MatSnackBar) {
         super(snackBar);
         this.entityType = EntityType.Product;
@@ -39,27 +39,16 @@ export class ProductFormComponent extends BaseComponent implements OnInit {
         this.activatedRoute.paramMap
             .subscribe(
                 (params: ParamMap) => {
-                    //debugger;
-                    let product_id = params.get('product_id');
-                    let category_id = params.get('category_id');
-                    if (category_id) {
-                        this.query_url = product_id;
-                        this.parent_query_url = category_id;
-                        this.reload();
-                    }
-                    else
-                        this.entity = {} as Product;
+                    this.product_id = params.get('product_id');
+                    this.category_id = params.get('category_id');
+                    this.reload();
                 },
                 error => this.handleError(error)
             );
     }
 
-    addCategory() {
-        this.router.navigateByUrl('/category');
-    }
-
     addProduct() {
-        this.router.navigateByUrl(`/product/${this.entity.urlParent}`);
+        this.router.navigateByUrl(`/product/${this.category_id}`);
     }
 
     onTitleInputEnter(value: string) {
@@ -67,17 +56,11 @@ export class ProductFormComponent extends BaseComponent implements OnInit {
     }
 
     reload(notify: boolean = true) {
-        if (!this.parent_query_url || !this.query_url) return;
-
-        if (notify) {
-            this.notificationService.appLoading = true;
-        }
-
-        this.pageService.get(this.parent_query_url, this.query_url)
+        if (!this.category_id || !this.product_id) return;
+        if (notify) { this.notificationService.appLoading = true; }
+        this.restService.get(this.category_id, this.product_id)
             .pipe(finalize(() => {
-                if (notify) {
-                    this.notificationService.appLoading = false;
-                }
+                if (notify) { this.notificationService.appLoading = false; }
             }))
             .subscribe(
                 data => {
@@ -86,79 +69,46 @@ export class ProductFormComponent extends BaseComponent implements OnInit {
                 },
                 error => this.handleError({
                     userMessage: 'Ошибка при запросе товара!',
-                    logMessage: `productService.get(${this.parent_query_url}/${this.query_url})`,
+                    logMessage: `productService.get(${this.category_id}/${this.product_id})`,
                     error
                 } as AppError)
             );
     }
 
     save() {
-        debugger;
-        if (!this.parent_query_url || !this.entity.url) return;
-
+        if (!this.category_id || !this.entity.url) return;
         this.notificationService.appLoading = true;
-
         this.entity.id = this.entity.url;
-        this.entity.urlParent = this.parent_query_url;
-
-        this.pageService.post(this.entity.urlParent, this.entity.url, this.entity)
+        this.entity.urlParent = this.category_id;
+        this.restService.post(this.entity.urlParent, this.entity.url, this.entity)
             .pipe(finalize(() => this.notificationService.appLoading = false))
             .subscribe(
                 httpResponse => {
-                    //debugger;
-                    if ((httpResponse as HttpResponse<any>).ok == true) {
-                        this.notificationService.categoryChange.emit({url: this.entity.urlParent} as Category);
-                        console.log(`${this.entity.urlParent}/${this.entity.url} posted`);
-                    }
-                    else
-                        console.error(httpResponse);
-
-                    // reload:
+                    this.notificationService.categoryChange.emit({url: this.entity.urlParent} as Category);
+                    console.log(`${this.entity.urlParent}/${this.entity.url} posted`);
                     this.router.navigateByUrl(`/product/${this.entity.urlParent}/${this.entity.url}`);
                 },
                 error => this.handleError({
                     userMessage: 'Ошибка при добавлении товара!',
-                    logMessage: `productService.post(${this.entity.url})`,
+                    logMessage: `productService.post(${this.entity.urlParent}/${this.entity.url})`,
                     error
                 } as AppError)
-            )
+            );
     }
 
-    /*
-      openDialog(): void {
-        let dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-          width: '250px',
-        });
-
-        dialogRef.afterClosed().subscribe(result => {
-          console.log('The dialog was closed');
-          //this.animal = result;
-        });
-      }
-    */
     delete() {
-        if (!this.query_url) return;
-
+        if (!this.product_id) return;
         this.notificationService.appLoading = true;
-
-        this.pageService.delete(this.query_url)
+        this.restService.delete(this.category_id, this.product_id)
             .subscribe(
-                httpResponse =>
-                {
-                    //debugger;
-                    if ((httpResponse as HttpResponse<any>).ok == true) {
-                        this.notificationService.categoryChange.emit({url: this.entity.urlParent} as Category);
-                        console.log(`${this.query_url} deleted`);
-
-                        // reload:
-                        this.router.navigateByUrl(`/product/${this.entity.urlParent}`);
-                    }
-                    else
-                        console.error(httpResponse);
+                httpResponse => {
+                    this.notificationService.categoryChange.emit({url: this.category_id} as Category);
+                    console.log(`${this.category_id}/${this.product_id} deleted`);
+                    this.router.navigateByUrl(`/product/${this.category_id}`);
                 },
                 error => this.handleError({
                     userMessage: `Ошибка при удалении ${EntityType[this.entityType]}!`,
-                    logMessage: `${EntityType[this.entityType]}Service.delete(${this.query_url})`,
+                    logMessage: `${EntityType[this.entityType]}Service.delete(${this.category_id}/${this.product_id})`,
                     error
                 } as AppError)
             );

@@ -18,14 +18,14 @@ import { EntityType } from '../../../models/entity-type';
 })
 export class CategoryFormComponent extends BaseComponent implements OnInit {
 
-    public query_url: string;
+    public category_id: string;
     public entity: Category = {} as Category;
 
     constructor(
         public notificationService: NotificationService,
         private activatedRoute: ActivatedRoute,
         private router: Router,
-        private pageService: CategoryService,
+        private restService: CategoryService,
         protected snackBar: MatSnackBar) {
         super(snackBar);
         this.entityType = EntityType.Category;
@@ -37,25 +37,15 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
         this.activatedRoute.paramMap
             .subscribe(
                 (params: ParamMap) => {
-                    //debugger;
-                    let category_id = params.get('category_id');
-                    if (category_id) {
-                        this.query_url = category_id
-                        this.reload();
-                    }
-                    else
-                        this.entity = {} as Category;
+                    this.category_id = params.get('category_id');
+                    this.reload();
                 },
                 error => this.handleError(error)
             );
     }
 
-    addCategory() {
-        this.router.navigateByUrl('/category');
-    }
-
     addProduct() {
-        this.router.navigateByUrl(`/product/${this.query_url}`);
+        this.router.navigateByUrl(`/product/${this.category_id}`);
     }
 
     onTitleInputEnter(value: string) {
@@ -63,17 +53,11 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
     }
 
     reload(notify: boolean = true) {
-        if (!this.query_url) return;
-
-        if (notify) {
-            this.notificationService.appLoading = true;
-        }
-
-        this.pageService.get(this.query_url)
+        if (!this.category_id) return;
+        if (notify) { this.notificationService.appLoading = true; }
+        this.restService.get(this.category_id)
             .pipe(finalize(() => {
-                if (notify) {
-                    this.notificationService.appLoading = false;
-                }
+                if (notify) { this.notificationService.appLoading = false; }
             }))
             .subscribe(
                 data => {
@@ -82,7 +66,7 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
                 },
                 error => this.handleError({
                     userMessage: 'Ошибка при запросе категории!',
-                    logMessage: `categoryService.get(${this.query_url})`,
+                    logMessage: `categoryService.get(${this.category_id})`,
                     error
                 } as AppError)
             );
@@ -90,49 +74,19 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
 
     save() {
         if (!this.entity.url) return;
-
         this.notificationService.appLoading = true;
-
-        // delete:
-        this.pageService.delete(this.query_url)
+        this.entity.id = this.entity.url;
+        this.restService.post(this.entity.url, this.entity)
+            .pipe(finalize(() => this.notificationService.appLoading = false))
             .subscribe(
-                httpResponse =>
-                {
-                    //debugger;
-                    if ((httpResponse as HttpResponse<any>).ok == true)
-                        console.log(`${this.query_url} deleted`);
-                    else
-                        console.error(httpResponse);
-
-                    // post:
-                    this.entity.id = this.entity.url;
-                    this.entity.sortOrder = this.entity.sortOrder || 0;
-                    this.pageService.post(this.entity.url, this.entity)
-                        .pipe(finalize(() => this.notificationService.appLoading = false))
-                        .subscribe(
-                            httpResponse =>
-                            {
-                                //debugger;
-                                if ((httpResponse as HttpResponse<any>).ok == true) {
-                                    this.notificationService.categoryChange.emit({url: this.entity.url} as Category);
-                                    console.log(`${this.entity.url} posted`);
-                                }
-                                else
-                                    console.error(httpResponse);
-
-                                // reload:
-                                this.router.navigateByUrl(`/category/${this.entity.id}`);
-                            },
-                            error => this.handleError({
-                                userMessage: 'Ошибка при добавлении категории!',
-                                logMessage: `categoryService.post(${this.entity.url})`,
-                                error
-                            } as AppError)
-                        );
+                httpResponse => {
+                    this.notificationService.categoryChange.emit({url: this.entity.url} as Category);
+                    console.log(`${this.entity.url} posted`);
+                    this.router.navigateByUrl(`/category/${this.entity.id}`);
                 },
                 error => this.handleError({
-                    userMessage: 'Ошибка при удалении категории!',
-                    logMessage: `categoryService.delete(${this.query_url})`,
+                    userMessage: 'Ошибка при добавлении категории!',
+                    logMessage: `categoryService.post(${this.entity.url})`,
                     error
                 } as AppError)
             );
@@ -151,28 +105,18 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
       }
     */
     delete() {
-        if (!this.query_url) return;
-
+        if (!this.category_id) return;
         this.notificationService.appLoading = true;
-
-        this.pageService.delete(this.query_url)
+        this.restService.delete(this.category_id)
             .subscribe(
-                httpResponse =>
-                {
-                    //debugger;
-                    if ((httpResponse as HttpResponse<any>).ok == true) {
-                        this.notificationService.categoryChange.emit({url: this.entity.url} as Category);
-                        console.log(`${this.query_url} deleted`);
-
-                        // reload:
-                        this.router.navigateByUrl(`/category`);
-                    }
-                    else
-                        console.error(httpResponse);
+                httpResponse => {
+                    this.notificationService.categoryChange.emit({url: this.category_id} as Category);
+                    console.log(`${this.category_id} deleted`);
+                    this.router.navigateByUrl(`/category`);
                 },
                 error => this.handleError({
                     userMessage: 'Ошибка при удалении категории!',
-                    logMessage: `categoryService.delete(${this.query_url})`,
+                    logMessage: `${EntityType[this.entityType]}Service.delete(${this.category_id})`,
                     error
                 } as AppError)
             );

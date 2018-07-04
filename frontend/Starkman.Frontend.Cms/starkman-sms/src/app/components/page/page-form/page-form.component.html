@@ -24,7 +24,7 @@
                         </mat-form-field>
 
                         <mat-form-field>
-                            <textarea style="height: 250px;" [(ngModel)]="this.entity.description" name="description"
+                            <textarea style="height: 10em;" [(ngModel)]="this.entity.description" name="description"
                                       matInput placeholder="description (описание)"></textarea>
                         </mat-form-field>
 
@@ -42,19 +42,7 @@
                       placeholder="Meta description (ключевые слова из description)"></textarea>
                         </mat-form-field>
 
-                        <mat-grid-list cols="4" rowHeight="4:1">
-                            <mat-grid-tile>
-                                <mat-form-field *ngIf="this.entityType != 0">
-                                    <input [(ngModel)]="this.entity.price" name="price" matInput placeholder="Цена"
-                                           type="number" width="100%"/>
-                                </mat-form-field>
-                            </mat-grid-tile>
-                            <mat-grid-tile>
-                                <mat-form-field *ngIf="this.entityType != 0">
-                                    <input [(ngModel)]="this.entity.sku" name="sku" matInput placeholder="Артикул"
-                                           type="number" width="100%"/>
-                                </mat-form-field>
-                            </mat-grid-tile>
+                        <mat-grid-list cols="2" rowHeight="4:1">
                             <mat-grid-tile>
                                 <mat-form-field>
                                       <span matTooltipPosition="right"
@@ -72,6 +60,18 @@
                                               name="isVisible"
                                               color="primary">Показывать на сайте
                                 </mat-checkbox>
+                            </mat-grid-tile>
+                            <mat-grid-tile>
+                                <mat-form-field *ngIf="this.entityType != 0">
+                                    <input [(ngModel)]="this.entity.price" name="price" matInput placeholder="Цена"
+                                           type="number"/>
+                                </mat-form-field>
+                            </mat-grid-tile>
+                            <mat-grid-tile>
+                                <mat-form-field *ngIf="this.entityType != 0">
+                                    <input [(ngModel)]="this.entity.sku" name="sku" matInput placeholder="Артикул"
+                                           type="number"/>
+                                </mat-form-field>
                             </mat-grid-tile>
                         </mat-grid-list>
                     </div>

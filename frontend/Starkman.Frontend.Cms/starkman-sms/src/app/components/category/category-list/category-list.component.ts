@@ -16,7 +16,7 @@ import * as _ from "lodash";
 export class CategoryListComponent extends BaseComponent implements OnInit {
 
   constructor(
-    private notificationService: NotificationService,
+    public notificationService: NotificationService,
     private categoryService: CategoryService,
     protected snackBar: MatSnackBar) {
     super(snackBar);

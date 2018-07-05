@@ -2,9 +2,16 @@
   expanded="false"
   class="top-level-expanded-panel-background">
 
-  <mat-expansion-panel-header routerLink="category/">
+  <mat-expansion-panel-header>
     <mat-panel-title>Список товарных категорий</mat-panel-title>
   </mat-expansion-panel-header>
+
+    <span matTooltip="Добавить категорию">
+          <button [routerLink]="'/category/'" mat-mini-fab color="accent"
+                  [disabled]="this.notificationService.appLoading">
+            <mat-icon aria-label="Добавить категорию">add</mat-icon>
+          </button>
+        </span>
 
   <mat-accordion>
     <mat-expansion-panel *ngFor="let entity of entityList" style="color: #222222"

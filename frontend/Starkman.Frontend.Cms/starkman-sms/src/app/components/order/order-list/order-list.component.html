@@ -1,16 +1,20 @@
 <mat-expansion-panel expanded="true" class="top-level-expanded-panel-background">
-    <mat-expansion-panel-header routerLink="/order">
+    <mat-expansion-panel-header>
         <mat-panel-title>Список заказов</mat-panel-title>
     </mat-expansion-panel-header>
-    <p>
-        <span matTooltipPosition="right" matTooltip="Обновить">
+    <span matTooltip="Добавить заказ">
+          <button [routerLink]="'/order/'" mat-mini-fab color="accent"
+                  [disabled]="this.notificationService.appLoading">
+            <mat-icon aria-label="Добавить заказ">add</mat-icon>
+          </button>
+        </span>
+    <span matTooltipPosition="right" matTooltip="Обновить">
       <button (click)="reload()" mat-mini-fab color="accent">
         <mat-icon aria-label="Обновить">autorenew</mat-icon>
       </button>
     </span>
-        <mat-nav-list dense>
-            <a *ngFor="let entity of entityList" mat-list-item routerLink="order/{{entity.id}}">
-                {{entity.date | date:"dd.MM - HH:mm"}}</a>
-        </mat-nav-list>
-    </p>
+    <mat-nav-list dense>
+        <a *ngFor="let entity of entityList" mat-list-item routerLink="order/{{entity.id}}">
+            {{entity.date | date:"dd.MM - HH:mm"}}</a>
+    </mat-nav-list>
 </mat-expansion-panel>

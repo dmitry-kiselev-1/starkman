@@ -15,7 +15,7 @@ import { Order } from '../../../models/order/order';
 export class OrderListComponent extends BaseComponent implements OnInit {
 
     constructor(
-        private notificationService: NotificationService,
+        public notificationService: NotificationService,
         private orderService: OrderService,
         protected snackBar: MatSnackBar) {
         super(snackBar);

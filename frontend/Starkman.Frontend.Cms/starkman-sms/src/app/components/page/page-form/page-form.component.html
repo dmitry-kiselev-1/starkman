@@ -11,7 +11,7 @@
                     <div class="edit-form-container">
 
                         <mat-form-field>
-                            <input [(ngModel)]="this.entity.url" name="url" [disabled]="true" matInput placeholder="url"
+                            <input autocomplete="off" [(ngModel)]="this.entity.url" name="url" [disabled]="true" matInput placeholder="url"
                                    required/>
                         </mat-form-field>
 
@@ -63,13 +63,13 @@
                             </mat-grid-tile>
                             <mat-grid-tile>
                                 <mat-form-field *ngIf="this.entityType != 0">
-                                    <input [(ngModel)]="this.entity.price" name="price" matInput placeholder="Цена"
+                                    <input autocomplete="off" [(ngModel)]="this.entity.price" name="price" matInput placeholder="Цена"
                                            type="number"/>
                                 </mat-form-field>
                             </mat-grid-tile>
                             <mat-grid-tile>
                                 <mat-form-field *ngIf="this.entityType != 0">
-                                    <input [(ngModel)]="this.entity.sku" name="sku" matInput placeholder="Артикул"
+                                    <input autocomplete="off" [(ngModel)]="this.entity.sku" name="sku" matInput placeholder="Артикул"
                                            type="number"/>
                                 </mat-form-field>
                             </mat-grid-tile>

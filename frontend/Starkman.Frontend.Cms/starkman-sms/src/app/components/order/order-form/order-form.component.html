@@ -9,9 +9,27 @@
             <div class="edit-form-container">
 
                 <mat-form-field>
-                    <input [(ngModel)]="this.entity.id" name="id" [disabled]="true" matInput placeholder="id"
+                    <input input autocomplete="off" [(ngModel)]="this.entity.id" name="id" [disabled]="true" matInput placeholder="id"
                            required/>
                 </mat-form-field>
+
+                {{entity.date | date:"dd.MM - HH:mm"}} <br/>
+                {{entity.customer.name}} <br/>
+                {{entity.customer.phone}} <br/>
+                {{entity.customer.email}} <br/>
+                {{entity.status}} <br/>
+                {{entity.comment}} <br/>
+
+                <table>
+                    <tr *ngFor="let offer of entity.offerList">
+                        <td>
+                            {{offer.count}}
+                        </td>
+                        <td>
+                            {{offer.product.title}}
+                        </td>
+                    </tr>
+                </table>
 
             </div>
         </mat-card-content>

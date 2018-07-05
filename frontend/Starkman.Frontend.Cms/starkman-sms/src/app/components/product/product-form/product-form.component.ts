@@ -9,7 +9,7 @@ import { BaseComponent } from '../../base.component';
 import { finalize } from 'rxjs/operators';
 import { HttpResponse } from '@angular/common/http';
 import { ConfirmationDialogComponent } from '../../dialog/confirmation-dialog/confirmation-dialog.component';
-import { EntityType } from '../../../models/entity-type';
+import { PageType } from '../../../models/page/page-type';
 import { Category } from '../../../models/page/category';
 
 @Component({
@@ -30,7 +30,7 @@ export class ProductFormComponent extends BaseComponent implements OnInit {
         private restService: ProductService,
         protected snackBar: MatSnackBar) {
         super(snackBar);
-        this.entityType = EntityType.Product;
+        this.entityType = PageType.Product;
     }
 
     ngOnInit() {
@@ -107,8 +107,8 @@ export class ProductFormComponent extends BaseComponent implements OnInit {
                     this.router.navigateByUrl(`/product/${this.category_id}`);
                 },
                 error => this.handleError({
-                    userMessage: `Ошибка при удалении ${EntityType[this.entityType]}!`,
-                    logMessage: `${EntityType[this.entityType]}Service.delete(${this.category_id}/${this.product_id})`,
+                    userMessage: `Ошибка при удалении ${PageType[this.entityType]}!`,
+                    logMessage: `${PageType[this.entityType]}Service.delete(${this.category_id}/${this.product_id})`,
                     error
                 } as AppError)
             );

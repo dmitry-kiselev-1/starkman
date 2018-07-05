@@ -4,10 +4,11 @@ import { DateService } from './date.service';
 import { Category } from '../models/page/category';
 import { Product } from '../models/page/product';
 import { Photo } from '../models/page/photo';
-import { Order } from '../models/page/order';
-import { Offer } from '../models/page/offer';
+import { Order } from '../models/order/order';
+import { Offer } from '../models/order/offer';
 import * as moment from 'moment';
-import { Customer } from '../models/page/customer';
+import { Customer } from '../models/order/customer';
+import { OrderStatus } from '../models/order/order-status';
 
 /*
   GET api/categories          // all categories
@@ -113,14 +114,15 @@ export class InMemoryDataService implements InMemoryDbService {
             orders.push(
                 {
                     id: `Order_${o}`,
-                    date: this.dateService.toDate(`2018-01-${this.randomBetween(10, 28)}T13.59.59.997`),
+                    date: this.dateService.toDate(`2018-01-${this.randomBetween(10, 28)}T${this.randomBetween(10, 23)}.${this.randomBetween(10, 59)}.59.997`),
                     customer: {id: `id_${o}`, email: `email_${o}`, phone: `phone_${o}`} as Customer,
-                    note: `note_${o}`,
+                    comment: `note_${o}`,
+                    status: this.randomBetween(0, 1), //OrderStatus.New,
                     offerList: [] as Offer[]
                 } as Order
             )
         }
-
+        //debugger;
         orders.forEach((order, index) => {
             for (let f = 1; f <= offerCount; f++) {
                 order.offerList.push(

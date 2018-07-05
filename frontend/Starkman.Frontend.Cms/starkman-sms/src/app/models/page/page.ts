@@ -1,4 +1,4 @@
-﻿import { Storageable } from './storageable';
+﻿import { Storageable } from '../storageable';
 
 export interface Page extends Storageable{
   url: string;

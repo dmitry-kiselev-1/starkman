@@ -1,11 +1,11 @@
 ﻿import { MatSnackBar } from "@angular/material";
 import { AppError } from "../models/app-error";
-import { EntityType } from '../models/entity-type';
+import { PageType } from '../models/page/page-type';
 
 export abstract class BaseComponent {
 
   componentTitle: string;
-  entityType: EntityType;
+  entityType: PageType;
 
   constructor(protected snackBar: MatSnackBar) {}
 

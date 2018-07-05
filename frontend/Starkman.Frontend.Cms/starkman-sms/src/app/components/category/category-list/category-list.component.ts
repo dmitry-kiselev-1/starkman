@@ -23,14 +23,14 @@ export class CategoryListComponent extends BaseComponent implements OnInit {
   }
 
   public entityList: Category[] = [];
-  public selectedCategory: Category;
+  public selectedEntity: Category;
 
   ngOnInit() {
     this.reload();
     this.notificationService.categoryChange.subscribe((category) => { this.reload(category) });
   }
 
-  reload(category: Category = null)
+  reload(entity: Category = null)
   {
     this.notificationService.appLoading = true;
     this.categoryService.getList()
@@ -49,7 +49,7 @@ export class CategoryListComponent extends BaseComponent implements OnInit {
                         }
                         return 0;
                     });
-                    this.selectedCategory = category;
+                    this.selectedEntity = entity;
                 }
                 else
                     this.entityList = [];

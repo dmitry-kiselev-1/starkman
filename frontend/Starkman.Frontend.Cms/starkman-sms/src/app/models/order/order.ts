@@ -1,10 +1,12 @@
+import { Storageable } from '../storageable';
 import { Offer } from './offer';
-import { Storageable } from './storageable';
 import { Customer } from './customer';
+import { OrderStatus } from './order-status';
 
 export interface Order extends Storageable{
     date: Date;
     offerList: Offer[];
     customer: Customer,
-    note?: string;
+    comment?: string;
+    status: OrderStatus;
 }

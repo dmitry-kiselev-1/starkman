@@ -7,7 +7,7 @@ import * as moment from 'moment';
 @Injectable()
 export class DateService {
 
-  public inputDateFormat = 'yyyy-MM-ddThh.mm.ss.mmm';
+  public inputDateFormat = 'YYYY-MM-DDTHH.mm.ss.SSS';
 
   constructor() { }
 

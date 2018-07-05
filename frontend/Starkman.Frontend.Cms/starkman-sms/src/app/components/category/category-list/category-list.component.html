@@ -5,27 +5,11 @@
   <mat-expansion-panel-header routerLink="category/">
     <mat-panel-title>Список товарных категорий</mat-panel-title>
   </mat-expansion-panel-header>
-  <!--<p>
-    <mat-nav-list> &lt;!&ndash; dense &ndash;&gt;
-      <mat-list-item
-        *ngFor="let entity of entityList" routerLink="category/{{entity.Url}}">
-        {{entity.Title}}
-        &lt;!&ndash;<a routerLink="category/{{entity.Url}}">{{entity.Title}}</a>&ndash;&gt;
-      </mat-list-item>
-    </mat-nav-list>
-    &lt;!&ndash;
-    <mat-nav-list>
-      <a *ngFor="let entity of entityList" mat-list-item routerLink="category/{{entity.Url}}">{{entity.Title}}</a>
-    </mat-nav-list>
-    &ndash;&gt;
-  </p>-->
 
   <mat-accordion>
-
-    <!-- routerLink="category/{{entity.Url}}" -->
     <mat-expansion-panel *ngFor="let entity of entityList" style="color: #222222"
                          hideToggle="true"
-                         [expanded]="this.selectedCategory?.url === entity?.url">
+                         [expanded]="this.selectedEntity?.url === entity?.url">
 
       <mat-expansion-panel-header [routerLink]="'category/' + entity.url">
         <mat-panel-title>{{entity.title}}</mat-panel-title>
@@ -37,7 +21,6 @@
       <app-product-list [entityList]="entity.productList"></app-product-list>
 
     </mat-expansion-panel>
-
   </mat-accordion>
 
 </mat-expansion-panel>

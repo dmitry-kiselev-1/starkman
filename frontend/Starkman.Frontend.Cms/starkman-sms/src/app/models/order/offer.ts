@@ -1,4 +1,4 @@
-import { Product } from './product';
+import { Product } from '../page/product';
 
 export interface Offer {
     product: Product;

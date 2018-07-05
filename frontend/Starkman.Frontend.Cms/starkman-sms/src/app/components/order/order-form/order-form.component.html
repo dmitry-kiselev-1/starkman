@@ -1,0 +1,48 @@
+<form #orderForm="ngForm">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>{{this.componentTitle}}</mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+
+            <div class="edit-form-container">
+
+                <mat-form-field>
+                    <input [(ngModel)]="this.entity.id" name="id" [disabled]="true" matInput placeholder="id"
+                           required/>
+                </mat-form-field>
+
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+
+            <div class="button-row">
+
+            <span matTooltip="Сохранить изменения" style="margin-left: 20px;">
+              <button (click)="save()" mat-fab color="primary"
+                      [disabled]="!orderForm.form.valid || this.notificationService.appLoading">
+                <mat-icon aria-label="Сохранить">done</mat-icon>
+              </button>
+            </span>
+
+                <span matTooltip="Отменить внесённые изменения">
+          <button (click)="reload()" mat-mini-fab color="accent"
+                  [disabled]="!this.order_id || this.notificationService.appLoading">
+            <mat-icon class="flipV" aria-label="Отменить">refresh</mat-icon>
+          </button>
+        </span>
+
+                <span matTooltip="Удалить заказ">
+          <button (click)="delete()" mat-mini-fab color="warn"
+                  [disabled]="!this.order_id || this.notificationService.appLoading">
+            <mat-icon aria-label="Удалить">delete</mat-icon>
+          </button>
+        </span>
+
+            </div>
+
+        </mat-card-actions>
+
+    </mat-card>
+</form>

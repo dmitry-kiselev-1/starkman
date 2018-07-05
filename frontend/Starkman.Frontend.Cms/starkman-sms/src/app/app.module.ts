@@ -8,9 +8,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule, InMemoryBackendConfigArgs } from 'angular-in-memory-web-api';
 
-import { NgBootstrapModule } from './ng-bootstrap.module';
-import { MaterialDesignModule } from './material-design.module';
-import { PrimeNgModule } from './primeng.module';
+import { NgBootstrapModule } from './modules/ng-bootstrap.module';
+import { MaterialDesignModule } from './modules/material-design.module';
+import { PrimeNgModule } from './modules/primeng.module';
 
 import { AppRootComponent } from './components/layout/app-root.component';
 import { EnumPipe } from './pipes/enum.pipe';
@@ -30,11 +30,13 @@ import { SidenavComponent } from './components/layout/sidenav/sidenav.component'
 import { CategoryListComponent } from './components/category/category-list/category-list.component';
 import { CategoryFormComponent } from './components/category/category-form/category-form.component';
 import { OrderListComponent } from './components/order/order-list/order-list.component';
+import { OrderFormComponent } from './components/order/order-form/order-form.component';
 import { PhotoListComponent } from './components/photo/photo-list/photo-list.component';
 import { PhotoFormComponent } from './components/photo/photo-form/photo-form.component';
 import { ProductListComponent } from './components/product/product-list/product-list.component';
 import { ProductFormComponent } from './components/product/product-form/product-form.component';
 import { ConfirmationDialogComponent } from './components/dialog/confirmation-dialog/confirmation-dialog.component';
+import { OrderService } from './services/order.service';
 
 @NgModule({
     declarations: [
@@ -48,6 +50,7 @@ import { ConfirmationDialogComponent } from './components/dialog/confirmation-di
         ProductFormComponent,
         ConfirmationDialogComponent,
         OrderListComponent,
+        OrderFormComponent,
         PhotoListComponent,
         PhotoFormComponent
     ],
@@ -70,7 +73,7 @@ import { ConfirmationDialogComponent } from './components/dialog/confirmation-di
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},
-        ConfigService, NotificationService, DateService, CategoryService, PhotoService, ProductService
+        ConfigService, NotificationService, DateService, CategoryService, PhotoService, ProductService, OrderService
     ],
     bootstrap: [AppRootComponent]
 })

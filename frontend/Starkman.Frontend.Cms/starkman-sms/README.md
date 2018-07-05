@@ -21,20 +21,22 @@ npm update -g
 npm install -g @angular/cli
 npm update -g typescript@latest
 
-ng generate component components\page\page-form --module app
-ng generate component components\product\product-list --module app
-ng generate component components\product\product-form --module app
+ng generate component components/order/order-form --module app
 
-ng generate component components\photo\photo-form --module app
-ng generate component components\photo\photo-list --module app
+ng generate component components/page/page-form --module app
+ng generate component components/product/product-list --module app
+ng generate component components/product/product-form --module app
 
-ng generate component components\order\order-list --module app
+ng generate component components/photo/photo-form --module app
+ng generate component components/photo/photo-list --module app
 
-ng generate component components\layout\sidenav --module app
+ng generate component components/order/order-list --module app
 
-ng generate service services\product
-ng generate service services\category
-ng generate component components\category  --module app
+ng generate component components/layout/sidenav --module app
+
+ng generate service services/product
+ng generate service services/category
+ng generate component components/category  --module app
 
 /*
 https://habrahabr.ru/post/336280/ описание HttpClientModule

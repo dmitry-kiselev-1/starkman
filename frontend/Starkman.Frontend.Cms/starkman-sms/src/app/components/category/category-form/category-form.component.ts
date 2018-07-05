@@ -9,7 +9,7 @@ import { BaseComponent } from '../../base.component';
 import { finalize } from 'rxjs/operators';
 import { HttpResponse } from '@angular/common/http';
 import { ConfirmationDialogComponent } from '../../dialog/confirmation-dialog/confirmation-dialog.component';
-import { EntityType } from '../../../models/entity-type';
+import { PageType } from '../../../models/page/page-type';
 
 @Component({
     selector: 'app-category-form',
@@ -28,7 +28,7 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
         private restService: CategoryService,
         protected snackBar: MatSnackBar) {
         super(snackBar);
-        this.entityType = EntityType.Category;
+        this.entityType = PageType.Category;
     }
 
     ngOnInit() {
@@ -116,7 +116,7 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
                 },
                 error => this.handleError({
                     userMessage: 'Ошибка при удалении категории!',
-                    logMessage: `${EntityType[this.entityType]}Service.delete(${this.category_id})`,
+                    logMessage: `${PageType[this.entityType]}Service.delete(${this.category_id})`,
                     error
                 } as AppError)
             );

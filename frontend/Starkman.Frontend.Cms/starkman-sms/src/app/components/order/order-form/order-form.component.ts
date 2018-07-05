@@ -83,4 +83,24 @@ export class OrderFormComponent extends BaseComponent implements OnInit {
             );
         */
     }
+
+    delete() {
+        /*
+        if (!this.category_id) return;
+        this.notificationService.appLoading = true;
+        this.restService.delete(this.category_id)
+            .subscribe(
+                httpResponse => {
+                    this.notificationService.categoryChange.emit({url: this.category_id} as Category);
+                    console.log(`${this.category_id} deleted`);
+                    this.router.navigateByUrl(`/category`);
+                },
+                error => this.handleError({
+                    userMessage: 'Ошибка при удалении категории!',
+                    logMessage: `${PageType[this.entityType]}Service.delete(${this.category_id})`,
+                    error
+                } as AppError)
+            );
+        */
+    }
 }

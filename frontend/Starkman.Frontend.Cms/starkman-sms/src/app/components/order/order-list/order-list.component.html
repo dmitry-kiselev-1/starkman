@@ -9,7 +9,8 @@
           </button>
         </span>
     <span matTooltipPosition="right" matTooltip="Обновить">
-      <button (click)="reload()" mat-mini-fab color="accent">
+      <button (click)="reload()" mat-mini-fab color="accent"
+              [disabled]="this.notificationService.appLoading">
         <mat-icon aria-label="Обновить">autorenew</mat-icon>
       </button>
     </span>

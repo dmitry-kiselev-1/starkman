@@ -9,6 +9,7 @@ const routes: Routes = [
     /*{ path: '**', component: AppComponent },*/
     {
         path: 'order', children: [
+            {path: '', component: OrderFormComponent, data: {title: 'Форма нового заказа'}},
             {path: ':order_id', component: OrderFormComponent, data: {title: 'Форма заказа'}}
         ]
     },

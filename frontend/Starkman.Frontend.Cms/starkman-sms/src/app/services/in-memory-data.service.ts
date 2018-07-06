@@ -115,7 +115,7 @@ export class InMemoryDataService implements InMemoryDbService {
                 {
                     id: `Order_${o}`,
                     date: this.dateService.toDate(`2018-01-${this.randomBetween(10, 28)}T${this.randomBetween(10, 23)}.${this.randomBetween(10, 59)}.59.997`),
-                    customer: {id: `id_${o}`, email: `email_${o}`, phone: `phone_${o}`} as Customer,
+                    customer: {id: `id_${o}`, email: `email_${o}`, phone: `phone_${o}`, name: `name_${o}`} as Customer,
                     comment: `note_${o}`,
                     status: this.randomBetween(0, 1), //OrderStatus.New,
                     offerList: [] as Offer[]

@@ -1,7 +1,7 @@
 <mat-tab-group>
     <mat-tab label="Текст">
 
-        <form #categoryForm="ngForm">
+        <form #categoryForm="ngForm" *ngIf="this.entity">
             <mat-card>
                 <mat-card-header>
                     <mat-card-title>{{this.componentTitle}}</mat-card-title>

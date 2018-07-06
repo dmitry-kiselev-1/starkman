@@ -1,5 +1,6 @@
-<form #orderForm="ngForm">
+<form #orderForm="ngForm" *ngIf="this.entity && entity.customer && entity.offerList">
     <mat-card>
+
         <mat-card-header>
             <mat-card-title>{{this.componentTitle}}</mat-card-title>
         </mat-card-header>
@@ -9,7 +10,7 @@
             <div class="edit-form-container">
 
                 <mat-form-field>
-                    <input input autocomplete="off" [(ngModel)]="this.entity.id" name="id" [disabled]="true" matInput placeholder="id"
+                    <input matInput autocomplete="off" [(ngModel)]="this.entity.id" name="id" [disabled]="true" placeholder="id"
                            required/>
                 </mat-form-field>
 
@@ -32,7 +33,9 @@
                 </table>
 
             </div>
+
         </mat-card-content>
+
         <mat-card-actions>
 
             <div class="button-row">

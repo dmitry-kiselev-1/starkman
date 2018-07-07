@@ -13,6 +13,8 @@ import { EnumPipe } from '../../../pipes/enum.pipe';
 import { OrderStatus } from '../../../models/order/order-status';
 import { SelectItem } from '../../../models/select-item';
 import * as _moment from 'moment';
+import * as _lodash from 'lodash';
+import { Offer } from '../../../models/order/offer';
 
 @Component({
   selector: 'app-order-form',
@@ -59,6 +61,7 @@ export class OrderFormComponent extends BaseComponent implements OnInit {
                 data => {
                     //debugger;
                     this.entity = (data || {} as Order);
+                    this.entity.offerList = _lodash.sortBy(this.entity.offerList, (e) => (e as Offer).product.url)
                 },
                 error => this.handleError({
                     userMessage: 'Ошибка при запросе заказа!',

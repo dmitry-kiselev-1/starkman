@@ -25,7 +25,7 @@ export class InMemoryDataService implements InMemoryDbService {
 
     createDb() {
 
-        //let products: Product[] = [];
+        let products: Product[] = [];
         let categories: Category[] =
             [
                 { url: 'bryuki_casual', title: 'Брюки кажуал' },
@@ -93,13 +93,14 @@ export class InMemoryDataService implements InMemoryDbService {
                         metaDescription: `MetaDescription ${i} (${category.title})`,
                         sortOrder: i,
                         isVisible: true,
-                        sku: i*(productCount/10)*10 + index,
+                        sku: index * 10 + i,
                         price: this.randomBetween(500, 5000),
                         photoList: photoList
                     } as Product;
 
                 productList.push(product);
-                //products.push(product);
+
+                products.push(product);
 
                 category.productList = productList;
             }
@@ -109,6 +110,7 @@ export class InMemoryDataService implements InMemoryDbService {
         let orderCount = this.randomBetween(5, 10);
         let offerList: Offer[] = [];
         let offerCount = this.randomBetween(1, 10);
+        let offerProductCount = this.randomBetween(1, 10);
 
         for (let o = 1; o <= orderCount; o++) {
             orders.push(
@@ -127,12 +129,8 @@ export class InMemoryDataService implements InMemoryDbService {
             for (let f = 1; f <= offerCount; f++) {
                 order.offerList.push(
                     {
-                        product: {
-                            id: `product_${f}`,
-                            url: `product_${f}`,
-                            urlParent: `category_${f}`,
-                            sku: f
-                        } as Product,
+                        id: f,
+                        product: products[this.randomBetween(0, products.length - 1)] as Product,
                         count: this.randomBetween(1, 10),
                         price: this.randomBetween(1000, 5000),
                         height: this.randomBetween(150, 200),

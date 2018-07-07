@@ -3,36 +3,94 @@
 
         <mat-card-header>
             <mat-card-title>{{this.componentTitle}}</mat-card-title>
+            <mat-card-subtitle>№ {{this.entity.id}} от {{entity.date | date:"dd.MM.yyyy в HH:mm"}}</mat-card-subtitle>
         </mat-card-header>
 
         <mat-card-content>
 
             <div class="edit-form-container">
+                <mat-grid-list cols="3" rowHeight="5em">
+                    <!--<mat-grid-tile> &lt;!&ndash; style="padding-left: 1em; padding-right: 0em;" &ndash;&gt;-->
+                        <!--<mat-form-field>-->
+                            <!--<input matInput type="datetime-local" [(ngModel)]="this.entity.date" name="date" placeholder="Дата заказа" required/>-->
+                            <!--
+                            <input matInput [matDatepicker]="picker" [value]="this.entity.date" placeholder="Дата заказа" required>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker color="primary"></mat-datepicker>
+                            -->
+                        <!--</mat-form-field>-->
+                    <!--</mat-grid-tile>-->
+                    <mat-grid-tile>
+                        <mat-form-field>
+                            <input matInput autocomplete="off" [(ngModel)]="this.entity.customer.name" name="name" placeholder="ФИО клиента" required/>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-form-field>
+                            <input matInput autocomplete="off" autocomplete="off" [(ngModel)]="this.entity.customer.phone" name="phone" placeholder="Телефон клиента" required/>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-form-field>
+                            <input matInput autocomplete="off" [(ngModel)]="this.entity.customer.email" name="email" placeholder="Почта клиента"/>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [rowspan]="2" [colspan]="2">
+                        <mat-form-field style="width: 100%">
+                                <textarea matTextareaAutosize matAutosizeMinRows="4" matAutosizeMaxRows="4"
+                                          [(ngModel)]="this.entity.comment" name="comment"
+                                          matInput placeholder="Комментарий к заказу"></textarea>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-form-field>
+                            <mat-select [(value)]="this.entity.status" name="status" placeholder="Статус заказа" required>
+                                <mat-option *ngFor="let orderStatus of this.orderStatusCol" [value]="orderStatus.value">
+                                    {{orderStatus.label}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                </mat-grid-list>
+           </div>
 
-                <mat-form-field>
-                    <input matInput autocomplete="off" [(ngModel)]="this.entity.id" name="id" [disabled]="true" placeholder="id"
-                           required/>
-                </mat-form-field>
+           <table mat-table [dataSource]="this.entity.offerList" class="mat-elevation-z8">
 
-                {{entity.date | date:"dd.MM - HH:mm"}} <br/>
-                {{entity.customer.name}} <br/>
-                {{entity.customer.phone}} <br/>
-                {{entity.customer.email}} <br/>
-                {{entity.status}} <br/>
-                {{entity.comment}} <br/>
+               <ng-container matColumnDef="sku">
+                   <th mat-header-cell *matHeaderCellDef> sku </th>
+                   <td mat-cell *matCellDef="let element"> {{element.product.sku}} </td>
+               </ng-container>
 
-                <table>
-                    <tr *ngFor="let offer of entity.offerList">
-                        <td>
-                            {{offer.count}}
-                        </td>
-                        <td>
-                            {{offer.product.title}}
-                        </td>
-                    </tr>
-                </table>
+               <ng-container matColumnDef="title">
+                   <th mat-header-cell *matHeaderCellDef> title </th>
+                   <td mat-cell *matCellDef="let element">
+                       <a routerLink="/product/{{element.product.urlParent}}/{{element.product.url}}">{{element.product.title}}</a>
+                       </td>
+               </ng-container>
 
-            </div>
+               <ng-container matColumnDef="size">
+                   <th mat-header-cell *matHeaderCellDef> size </th>
+                   <td mat-cell *matCellDef="let element"> {{element.size}} </td>
+               </ng-container>
+
+               <ng-container matColumnDef="height">
+                   <th mat-header-cell *matHeaderCellDef> height </th>
+                   <td mat-cell *matCellDef="let element"> {{element.height}} </td>
+               </ng-container>
+
+               <ng-container matColumnDef="price">
+                   <th mat-header-cell *matHeaderCellDef> price </th>
+                   <td mat-cell *matCellDef="let element"> {{element.price || element.product.price}} </td>
+               </ng-container>
+
+               <ng-container matColumnDef="count">
+                   <th mat-header-cell *matHeaderCellDef> count </th>
+                   <td mat-cell *matCellDef="let element"> {{element.count}} </td>
+               </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="offerColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: offerColumns;"></tr>
+            </table>
 
         </mat-card-content>
 

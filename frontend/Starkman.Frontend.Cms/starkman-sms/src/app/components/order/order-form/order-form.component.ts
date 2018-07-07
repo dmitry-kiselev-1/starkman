@@ -9,6 +9,10 @@ import { finalize } from 'rxjs/operators';
 import { AppError } from '../../../models/app-error';
 import { Category } from '../../../models/page/category';
 import { OrderService } from '../../../services/order.service';
+import { EnumPipe } from '../../../pipes/enum.pipe';
+import { OrderStatus } from '../../../models/order/order-status';
+import { SelectItem } from '../../../models/select-item';
+import * as _moment from 'moment';
 
 @Component({
   selector: 'app-order-form',
@@ -17,8 +21,10 @@ import { OrderService } from '../../../services/order.service';
 })
 export class OrderFormComponent extends BaseComponent implements OnInit {
 
-    public order_id: string;
-    public entity: Order = {} as Order;
+    order_id: string;
+    entity: Order = {} as Order;
+    orderStatusCol: SelectItem[];
+    offerColumns: string[] = ['sku', 'title', 'size', 'height', 'price', 'count'];
 
     constructor(
         public notificationService: NotificationService,
@@ -60,6 +66,12 @@ export class OrderFormComponent extends BaseComponent implements OnInit {
                     error
                 } as AppError)
             );
+
+        (new EnumPipe()).transform(OrderStatus).subscribe(data => {
+                this.orderStatusCol = data.map((v, i) =>
+                    ({value: i, label: v} as SelectItem)) as SelectItem[];
+            }
+        );
     }
 
     save() {

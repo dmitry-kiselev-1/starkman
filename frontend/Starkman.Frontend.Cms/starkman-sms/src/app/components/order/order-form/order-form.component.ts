@@ -16,6 +16,7 @@ import { Offer } from '../../../models/order/offer';
 import {MatTableDataSource} from '@angular/material';
 import * as _moment from 'moment';
 import * as _lodash from 'lodash';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-order-form',
@@ -27,7 +28,8 @@ export class OrderFormComponent extends BaseComponent implements OnInit {
     order_id: string;
     entity: Order = {} as Order;
     orderStatusCol: SelectItem[];
-    offerColumns: string[] = ['sku', 'title', 'size', 'height', 'price', 'count'];
+    offerColumns: string[] = ['sku', 'title', 'size', 'height', 'price', 'count', 'select'];
+    selection: any;
 
     constructor(
         public notificationService: NotificationService,
@@ -49,6 +51,10 @@ export class OrderFormComponent extends BaseComponent implements OnInit {
               },
               error => this.handleError(error)
           );
+
+      const initialSelection = [];
+      const allowMultiSelect = true;
+      this.selection = new SelectionModel<Offer>(allowMultiSelect, initialSelection);
   }
 
     reload(notify: boolean = true) {
@@ -127,6 +133,20 @@ export class OrderFormComponent extends BaseComponent implements OnInit {
         let total: number = 0;
         this.entity.offerList.forEach(o => total = total + (o.price * o.count));
         return total;
+    }
+
+    /** Whether the number of selected elements matches the total number of rows. */
+    isAllSelected() {
+        const numSelected = this.selection.selected.length;
+        const numRows = this.entity.offerList.length;
+        return numSelected == numRows;
+    }
+
+    /** Selects all rows if they are not all selected; otherwise clear selection. */
+    masterToggle() {
+        this.isAllSelected() ?
+            this.selection.clear() :
+            this.entity.offerList.forEach(row => this.selection.select(row));
     }
 
 }

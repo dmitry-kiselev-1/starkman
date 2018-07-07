@@ -6,7 +6,7 @@ import { Photo } from "../../../models/page/photo";
 import { PhotoListComponent } from "../../photo/photo-list/photo-list.component";
 import { forEach } from "@angular/router/src/utils/collection";
 
-import * as _ from "lodash";
+import * as _lodash from "lodash";
 import { MatSnackBar } from "@angular/material";
 
 @Component({
@@ -33,8 +33,8 @@ export class ProductListComponent extends BaseComponent implements OnInit {
       this.entityListFiltered = this.entityList;
     }
     else {
-      this.entityListFiltered = _.filter(this.entityList, (entity) => entity.title.includes(filterValue));
-      // this.entityList.filter(entity => entity.Title.includes(filterValue) );
+      this.entityListFiltered = _lodash.filter(this.entityList, (entity) =>
+          (entity.title.includes(filterValue) || entity.sku.toString().includes(filterValue)));
     }
   }
 

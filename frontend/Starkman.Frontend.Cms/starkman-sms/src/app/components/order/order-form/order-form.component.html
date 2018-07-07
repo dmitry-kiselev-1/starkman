@@ -38,20 +38,20 @@
                             <input matInput autocomplete="off" [(ngModel)]="this.entity.customer.email" name="email" placeholder="Почта клиента"/>
                         </mat-form-field>
                     </mat-grid-tile>
-                    <mat-grid-tile [rowspan]="2" [colspan]="2">
-                        <mat-form-field style="width: 100%">
-                                <textarea matTextareaAutosize matAutosizeMinRows="4" matAutosizeMaxRows="4"
-                                          [(ngModel)]="this.entity.comment" name="comment"
-                                          matInput placeholder="Комментарий к заказу"></textarea>
-                        </mat-form-field>
-                    </mat-grid-tile>
-                    <mat-grid-tile>
+                    <mat-grid-tile [rowspan]="1" [colspan]="1">
                         <mat-form-field>
                             <mat-select [(value)]="this.entity.status" name="status" placeholder="Статус заказа" required>
                                 <mat-option *ngFor="let orderStatus of this.orderStatusCol" [value]="orderStatus.value">
                                     {{orderStatus.label}}
                                 </mat-option>
                             </mat-select>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile [rowspan]="2" [colspan]="3">
+                        <mat-form-field style="width: 100%">
+                                <textarea matTextareaAutosize matAutosizeMinRows="4" matAutosizeMaxRows="4"
+                                          [(ngModel)]="this.entity.comment" name="comment"
+                                          matInput placeholder="Комментарий к заказу"></textarea>
                         </mat-form-field>
                     </mat-grid-tile>
                 </mat-grid-list>

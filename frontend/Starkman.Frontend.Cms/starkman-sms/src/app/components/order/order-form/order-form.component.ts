@@ -12,9 +12,10 @@ import { OrderService } from '../../../services/order.service';
 import { EnumPipe } from '../../../pipes/enum.pipe';
 import { OrderStatus } from '../../../models/order/order-status';
 import { SelectItem } from '../../../models/select-item';
+import { Offer } from '../../../models/order/offer';
+import {MatTableDataSource} from '@angular/material';
 import * as _moment from 'moment';
 import * as _lodash from 'lodash';
-import { Offer } from '../../../models/order/offer';
 
 @Component({
   selector: 'app-order-form',
@@ -127,4 +128,5 @@ export class OrderFormComponent extends BaseComponent implements OnInit {
         this.entity.offerList.forEach(o => total = total + (o.price * o.count));
         return total;
     }
+
 }

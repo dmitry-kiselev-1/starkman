@@ -6,7 +6,7 @@
       <mat-icon>menu</mat-icon>
       <!--<mat-icon>more_vert</mat-icon>-->
     </button>
-    <h1 class="starkman-app-name">{{appTitle}}</h1>
+    <h1 class="starkman-app-name" [routerLink]="'/'">{{appTitle}}</h1>
   </mat-toolbar>
 
   <div [hidden]="!this.appLoading">

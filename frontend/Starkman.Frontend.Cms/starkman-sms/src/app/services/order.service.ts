@@ -32,6 +32,6 @@ export class OrderService extends RestService<Order> {
                         return 0;
                     })
                 ),
-                take(100));
+                take(10));
     }
 }

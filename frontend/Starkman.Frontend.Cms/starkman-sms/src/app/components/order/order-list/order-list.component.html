@@ -39,7 +39,7 @@
             </mat-expansion-panel-header>
 
             <mat-nav-list dense>
-                <a *ngFor="let entity of entityList" mat-list-item routerLink="order/{{entity.id}}">
+                <a *ngFor="let entity of entityListFilter" mat-list-item routerLink="order/{{entity.id}}">
                     {{entity.date | date:"dd.MM - HH:mm"}}</a>
             </mat-nav-list>
 

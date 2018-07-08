@@ -22,6 +22,7 @@ export class OrderListComponent extends BaseComponent implements OnInit {
     }
 
     public entityList: Order[] = [];
+    public entityListFilter: Order[] = [];
     public selectedEntity: Order;
 
   ngOnInit() {
@@ -40,8 +41,25 @@ export class OrderListComponent extends BaseComponent implements OnInit {
                       this.selectedEntity = entity;
               },
               error => this.handleError({
-                  userMessage: 'Ошибка при запросе списка заказов!',
-                  logMessage: `orderService.getList()`,
+                  userMessage: 'Ошибка при запросе списка новых заказов!',
+                  logMessage: `orderService.getListNew()`,
+                  error
+              } as AppError)
+          );
+  }
+
+  filter()
+  {
+      this.notificationService.appLoading = true;
+      this.orderService.getListNew()
+          .pipe(finalize(() => { this.notificationService.appLoading = false; }))
+          .subscribe(
+              data => {
+                  this.entityListFilter = (data || []);
+              },
+              error => this.handleError({
+                  userMessage: 'Ошибка при запросе списка фильтрованных заказов!',
+                  logMessage: `orderService.getListFilter()`,
                   error
               } as AppError)
           );

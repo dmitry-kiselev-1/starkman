@@ -85,25 +85,22 @@ export class OrderFormComponent extends BaseComponent implements OnInit {
     }
 
     save() {
-        /*
-        if (!this.entity.url) return;
+        if (!this.entity.id) return;
         this.notificationService.appLoading = true;
-        this.entity.id = this.entity.url;
-        this.restService.post(this.entity.url, this.entity)
+        this.restService.post(this.entity.id, this.entity)
             .pipe(finalize(() => this.notificationService.appLoading = false))
             .subscribe(
                 httpResponse => {
-                    this.notificationService.categoryChange.emit({url: this.entity.url} as Category);
-                    console.log(`${this.entity.url} posted`);
-                    this.router.navigateByUrl(`/category/${this.entity.id}`);
+                    this.notificationService.orderChange.emit(this.entity);
+                    console.log(`${this.entity.id} posted`);
+                    this.router.navigateByUrl(`/order/${this.entity.id}`);
                 },
                 error => this.handleError({
                     userMessage: 'Ошибка при добавлении заказа!',
-                    logMessage: `${PageType[this.entityType]}Service.post(${this.entity.url})`,
+                    logMessage: `${PageType[this.entityType]}Service.post(${this.entity.id})`,
                     error
                 } as AppError)
             );
-        */
     }
 
     delete() {

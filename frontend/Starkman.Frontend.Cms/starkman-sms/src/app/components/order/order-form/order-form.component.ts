@@ -7,7 +7,6 @@ import { NotificationService } from '../../../services/notification.service';
 import { Order } from '../../../models/order/order';
 import { finalize } from 'rxjs/operators';
 import { AppError } from '../../../models/app-error';
-import { Category } from '../../../models/page/category';
 import { OrderService } from '../../../services/order.service';
 import { EnumPipe } from '../../../pipes/enum.pipe';
 import { OrderStatus } from '../../../models/order/order-status';
@@ -38,6 +37,7 @@ export class OrderFormComponent extends BaseComponent implements OnInit {
         private restService: OrderService,
         protected snackBar: MatSnackBar) {
         super(snackBar);
+        this.entityType = PageType.Order;
     }
 
   ngOnInit() {
@@ -72,7 +72,7 @@ export class OrderFormComponent extends BaseComponent implements OnInit {
                 },
                 error => this.handleError({
                     userMessage: 'Ошибка при запросе заказа!',
-                    logMessage: `categoryService.get(${this.order_id})`,
+                    logMessage: `${PageType[this.entityType]}Service.get(${this.order_id})`,
                     error
                 } as AppError)
             );
@@ -98,8 +98,8 @@ export class OrderFormComponent extends BaseComponent implements OnInit {
                     this.router.navigateByUrl(`/category/${this.entity.id}`);
                 },
                 error => this.handleError({
-                    userMessage: 'Ошибка при добавлении категории!',
-                    logMessage: `categoryService.post(${this.entity.url})`,
+                    userMessage: 'Ошибка при добавлении заказа!',
+                    logMessage: `${PageType[this.entityType]}Service.post(${this.entity.url})`,
                     error
                 } as AppError)
             );
@@ -107,23 +107,21 @@ export class OrderFormComponent extends BaseComponent implements OnInit {
     }
 
     delete() {
-        /*
-        if (!this.category_id) return;
+        if (!this.order_id) return;
         this.notificationService.appLoading = true;
-        this.restService.delete(this.category_id)
+        this.restService.delete(this.order_id)
             .subscribe(
                 httpResponse => {
-                    this.notificationService.categoryChange.emit({url: this.category_id} as Category);
-                    console.log(`${this.category_id} deleted`);
-                    this.router.navigateByUrl(`/category`);
+                    this.notificationService.orderChange.emit(this.entity);
+                    console.log(`${this.order_id} deleted`);
+                    this.router.navigateByUrl(`/`);
                 },
                 error => this.handleError({
-                    userMessage: 'Ошибка при удалении категории!',
-                    logMessage: `${PageType[this.entityType]}Service.delete(${this.category_id})`,
+                    userMessage: 'Ошибка при удалении заказа!',
+                    logMessage: `${PageType[this.entityType]}Service.delete(${this.order_id})`,
                     error
                 } as AppError)
             );
-        */
     }
 
     getTotal(): number

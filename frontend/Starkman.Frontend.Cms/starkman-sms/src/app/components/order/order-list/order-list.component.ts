@@ -26,6 +26,7 @@ export class OrderListComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
       this.reload();
+      this.notificationService.orderChange.subscribe((order) => { this.reload(order) });
   }
 
   reload(entity: Order = null)
@@ -35,22 +36,8 @@ export class OrderListComponent extends BaseComponent implements OnInit {
           .pipe(finalize(() => { this.notificationService.appLoading = false; }))
           .subscribe(
               data => {
-                  //debugger;
-
-                  if ((data as Order[]).length > 0) {
-                      this.entityList = (data as Order[]).sort((a, b) => {
-                          if (a.date > b.date) {
-                              return -1;
-                          }
-                          if (a.date < b.date) {
-                              return 1;
-                          }
-                          return 0;
-                      });
+                      this.entityList = (data || []);
                       this.selectedEntity = entity;
-                  }
-                  else
-                      this.entityList = [];
               },
               error => this.handleError({
                   userMessage: 'Ошибка при запросе списка заказов!',

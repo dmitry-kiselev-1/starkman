@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BaseService } from './base.service';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { from, Observable, pipe } from 'rxjs';
-import { concatMap, retryWhen, delay, take, timeout, single } from 'rxjs/operators';
+import { concatMap, retryWhen, delay, take, timeout, single, map } from 'rxjs/operators';
 import { RestService } from './rest.service';
 import { Order } from '../models/order/order';
 import { Category } from '../models/page/category';
@@ -21,6 +21,17 @@ export class OrderService extends RestService<Order> {
             {
                 headers: this.httpOptions.headers
             })
-            .pipe(take(100));
+            .pipe(
+                map(o => (o as Order[]).sort((a, b) => {
+                        if (a.date > b.date) {
+                            return -1;
+                        }
+                        if (a.date < b.date) {
+                            return 1;
+                        }
+                        return 0;
+                    })
+                ),
+                take(100));
     }
 }

@@ -1,4 +1,6 @@
 export enum PageType {
     Category,
-    Product
+    Product,
+    Order,
+    Offer
 }

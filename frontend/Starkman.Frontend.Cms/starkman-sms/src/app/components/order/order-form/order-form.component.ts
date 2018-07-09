@@ -26,7 +26,7 @@ import * as _lodash from 'lodash';
 })
 export class OrderFormComponent extends BaseComponent implements OnInit {
     order_id: string;
-    entity: Order = {id: "0", date: Date.now(), time: Date.now(), offerList: [] as Offer[], customer: {} as Customer, status: OrderStatus.New} as Order;
+    entity: Order = {id: "0", date: new Date() as Date, time: new Date() as Date, offerList: [] as Offer[], customer: {phoneCountryCode: "+7"} as Customer, status: OrderStatus.New} as Order;
     orderStatusCol: SelectItem[];
     offerColumns: string[] = ['sku', 'title', 'size', 'height', 'price', 'count', 'select'];
     selection: any;
@@ -80,12 +80,12 @@ export class OrderFormComponent extends BaseComponent implements OnInit {
                 this.notificationService.appLoading = false;
             }))
             .subscribe(
-                data => {
+                id => {
                     //debugger;
-                    if (!data || !data.id)
+                    if (!id)
                         this.entity.id = "1";
                     else
-                        this.entity.id = (Number.parseInt((data as Order).id) + 1).toString();
+                        this.entity.id = (Number.parseInt(id) + 1).toString();
                 },
                 error => this.handleError({
                     userMessage: 'Ошибка при запросе номера нового заказа!',

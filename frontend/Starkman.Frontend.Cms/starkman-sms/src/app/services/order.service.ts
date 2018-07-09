@@ -58,8 +58,8 @@ export class OrderService extends RestService<Order> {
                 take(this.queryTakeCount));
     }
 
-    getNewId(): Observable<Order> {
-        return this.httpClient.get<Order>(
+    getNewId(): Observable<string> {
+        return this.httpClient.get<Order[]>(
             `${this.apiDomain}${this.apiPoint}`,
             {
                 headers: this.httpOptions.headers
@@ -67,8 +67,8 @@ export class OrderService extends RestService<Order> {
             .pipe(
                 switchMap(o => {
                     //debugger;
-                    let max = _lodash.maxBy(o, (item) => (item as Order).id);
-                    return of(max);
+                    let lastOrder = _lodash.maxBy(o, (item) => (item as Order).id);
+                    return of((lastOrder as Order).id);
                 })
             );
     }

@@ -37,6 +37,7 @@ import { ProductListComponent } from './components/product/product-list/product-
 import { ProductFormComponent } from './components/product/product-form/product-form.component';
 import { ConfirmationDialogComponent } from './components/dialog/confirmation-dialog/confirmation-dialog.component';
 import { OrderService } from './services/order.service';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
     declarations: [
@@ -52,7 +53,8 @@ import { OrderService } from './services/order.service';
         OrderListComponent,
         OrderFormComponent,
         PhotoListComponent,
-        PhotoFormComponent
+        PhotoFormComponent,
+        PageNotFoundComponent
     ],
     imports: [
         BrowserModule,

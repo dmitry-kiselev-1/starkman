@@ -16,22 +16,22 @@
                 <mat-grid-list cols="3" rowHeight="5em">
                     <mat-grid-tile>
                         <mat-form-field>
-                            <input matInput autocomplete="off" [(ngModel)]="this.entity.customer.name" name="name" placeholder="ФИО клиента"/>
+                            <input matInput type="text" autocomplete="off" [(ngModel)]="this.entity.customer.name" name="name" placeholder="ФИО клиента"/>
                         </mat-form-field>
                     </mat-grid-tile>
                     <mat-grid-tile>
                         <mat-form-field>
-                            <input matInput autocomplete="off" autocomplete="off" [(ngModel)]="this.entity.customer.phoneCountryCode" name="phoneCountryCode" placeholder="Код страны" required/>
+                            <input matInput type="text" autocomplete="off" [(ngModel)]="this.entity.customer.phoneCountryCode" name="phoneCountryCode" placeholder="Код страны" required/>
                         </mat-form-field>
                     </mat-grid-tile>
                     <mat-grid-tile>
                         <mat-form-field>
-                            <input matInput autocomplete="off" autocomplete="off" [(ngModel)]="this.entity.customer.phone" name="phone" placeholder="Телефон клиента" required/>
+                            <input matInput type="text" autocomplete="off" [(ngModel)]="this.entity.customer.phone" name="phone" placeholder="Телефон клиента" required/>
                         </mat-form-field>
                     </mat-grid-tile>
                     <mat-grid-tile>
                         <mat-form-field>
-                            <input matInput autocomplete="off" [(ngModel)]="this.entity.customer.email" name="email" placeholder="Почта клиента"/>
+                            <input matInput type="text" autocomplete="off" [(ngModel)]="this.entity.customer.email" name="email" placeholder="Почта клиента"/>
                         </mat-form-field>
                     </mat-grid-tile>
                     <mat-grid-tile [rowspan]="1" [colspan]="1">

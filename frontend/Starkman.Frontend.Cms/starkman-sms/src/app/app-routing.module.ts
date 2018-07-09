@@ -3,10 +3,10 @@ import { Routes, RouterModule } from '@angular/router';
 import { CategoryFormComponent } from './components/category/category-form/category-form.component';
 import { ProductFormComponent } from './components/product/product-form/product-form.component';
 import { OrderFormComponent } from './components/order/order-form/order-form.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 const routes: Routes = [
-    /*{ path: '', redirectTo: '/category/', pathMatch: 'full' },*/
-    /*{ path: '**', component: AppComponent },*/
+    { path: '', redirectTo: '', pathMatch: 'full' },
     {
         path: 'order', children: [
             {path: '', component: OrderFormComponent, data: {title: 'Форма нового заказа'}},
@@ -24,7 +24,8 @@ const routes: Routes = [
             {path: ':category_id', component: ProductFormComponent, data: {title: 'Форма нового товара'}},
             {path: ':category_id/:product_id', component: ProductFormComponent, data: {title: 'Форма товара'}}
         ]
-    }
+    },
+    { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({

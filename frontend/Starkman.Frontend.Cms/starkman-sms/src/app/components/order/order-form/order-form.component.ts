@@ -25,9 +25,8 @@ import * as _lodash from 'lodash';
   styleUrls: ['./order-form.component.scss']
 })
 export class OrderFormComponent extends BaseComponent implements OnInit {
-
     order_id: string;
-    entity: Order = {id: 1, date: Date.now(), time: Date.now(), offerList: [] as Offer[], customer: {} as Customer, status: OrderStatus.New} as Order;
+    entity: Order = {id: "0", date: Date.now(), time: Date.now(), offerList: [] as Offer[], customer: {} as Customer, status: OrderStatus.New} as Order;
     orderStatusCol: SelectItem[];
     offerColumns: string[] = ['sku', 'title', 'size', 'height', 'price', 'count', 'select'];
     selection: any;
@@ -49,8 +48,15 @@ export class OrderFormComponent extends BaseComponent implements OnInit {
       this.activatedRoute.paramMap
           .subscribe(
               (params: ParamMap) => {
-                  this.order_id = params.get('order_id');
-                  this.reload();
+                  if (params.keys.length == 0) {
+                      //debugger;
+                      this.setNewId();
+                  }
+                  else {
+                      //debugger;
+                      this.order_id = params.get('order_id');
+                      this.reload();
+                  }
               },
               error => this.handleError(error)
           );
@@ -65,6 +71,29 @@ export class OrderFormComponent extends BaseComponent implements OnInit {
       const allowMultiSelect = true;
       this.selection = new SelectionModel<Offer>(allowMultiSelect, initialSelection);
   }
+
+    setNewId()
+    {
+        this.notificationService.appLoading = true;
+        this.restService.getNewId()
+            .pipe(finalize(() => {
+                this.notificationService.appLoading = false;
+            }))
+            .subscribe(
+                data => {
+                    //debugger;
+                    if (!data || !data.id)
+                        this.entity.id = "1";
+                    else
+                        this.entity.id = (Number.parseInt((data as Order).id) + 1).toString();
+                },
+                error => this.handleError({
+                    userMessage: 'Ошибка при запросе номера нового заказа!',
+                    logMessage: `${PageType[this.entityType]}Service.getNewId(${this.order_id})`,
+                    error
+                } as AppError)
+            );
+    }
 
     reload(notify: boolean = true) {
         if (!this.order_id) return;

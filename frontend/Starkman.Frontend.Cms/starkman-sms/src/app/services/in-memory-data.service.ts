@@ -117,7 +117,7 @@ export class InMemoryDataService implements InMemoryDbService {
             let phone = this.randomBetween(9252668815, 9259999999);
             orders.push(
                 {
-                    id: `order_${o}`,
+                    id: `${100 * o}`,
                     date: date,
                     time: time,
                     customer: {id: `customer_${o}`, email: `email_${o}`, phoneCountryCode: `+7`, phone: `${phone}`, name: `name_${o}`} as Customer,

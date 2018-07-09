@@ -27,7 +27,7 @@
 
             <mat-nav-list dense>
                 <a *ngFor="let entity of entityList" mat-list-item routerLink="order/{{entity.id}}">
-                    {{entity.date | date:"dd.MM"}} - {{entity.time | date:"HH:mm"}}</a>
+                    № {{entity.id}} от {{entity.date | date:"dd.MM"}} в {{entity.time | date:"HH:mm"}}</a>
             </mat-nav-list>
 
         </mat-expansion-panel>
@@ -85,7 +85,7 @@
 
             <mat-nav-list dense>
                 <a *ngFor="let entity of entityListFiltered" mat-list-item routerLink="order/{{entity.id}}">
-                    {{entity.date | date:"dd.MM"}} - {{entity.time | date:"HH:mm"}}</a>
+                    № {{entity.id}} от {{entity.date | date:"dd.MM"}} в {{entity.time | date:"HH:mm"}}</a>
             </mat-nav-list>
 
         </mat-expansion-panel>

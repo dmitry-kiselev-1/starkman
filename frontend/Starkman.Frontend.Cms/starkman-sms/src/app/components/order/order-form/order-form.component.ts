@@ -13,9 +13,11 @@ import { OrderStatus } from '../../../models/order/order-status';
 import { SelectItem } from '../../../models/select-item';
 import { Offer } from '../../../models/order/offer';
 import {MatTableDataSource} from '@angular/material';
+import { SelectionModel } from '@angular/cdk/collections';
+import { DateService } from '../../../services/date.service';
+import { Customer } from '../../../models/order/customer';
 import * as _moment from 'moment';
 import * as _lodash from 'lodash';
-import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-order-form',
@@ -25,13 +27,14 @@ import { SelectionModel } from '@angular/cdk/collections';
 export class OrderFormComponent extends BaseComponent implements OnInit {
 
     order_id: string;
-    entity: Order = {} as Order;
+    entity: Order = {id: 1, date: Date.now(), time: Date.now(), offerList: [] as Offer[], customer: {} as Customer, status: OrderStatus.New} as Order;
     orderStatusCol: SelectItem[];
     offerColumns: string[] = ['sku', 'title', 'size', 'height', 'price', 'count', 'select'];
     selection: any;
 
     constructor(
         public notificationService: NotificationService,
+        private dateService: DateService,
         private activatedRoute: ActivatedRoute,
         private router: Router,
         private restService: OrderService,
@@ -51,6 +54,12 @@ export class OrderFormComponent extends BaseComponent implements OnInit {
               },
               error => this.handleError(error)
           );
+
+      (new EnumPipe()).transform(OrderStatus).subscribe(data => {
+              this.orderStatusCol = data.map((v, i) =>
+                  ({value: i, label: v} as SelectItem)) as SelectItem[];
+          }
+      );
 
       const initialSelection = [];
       const allowMultiSelect = true;
@@ -76,16 +85,18 @@ export class OrderFormComponent extends BaseComponent implements OnInit {
                     error
                 } as AppError)
             );
-
-        (new EnumPipe()).transform(OrderStatus).subscribe(data => {
-                this.orderStatusCol = data.map((v, i) =>
-                    ({value: i, label: v} as SelectItem)) as SelectItem[];
-            }
-        );
     }
 
     save() {
         if (!this.entity.id) return;
+
+        if (this.entity.customer.phone[0] == '8') {
+            this.entity.customer.phone = this.entity.customer.phone.substring(1);
+        }
+
+        this.entity.filterOrderDate = this.dateService.toString(this.entity.date, true);
+        this.entity.filterCustomerPhone = this.entity.customer.phone;
+
         this.notificationService.appLoading = true;
         this.restService.post(this.entity.id, this.entity)
             .pipe(finalize(() => this.notificationService.appLoading = false))

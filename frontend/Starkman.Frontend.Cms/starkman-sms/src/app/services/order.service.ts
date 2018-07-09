@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BaseService } from './base.service';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { from, Observable, pipe } from 'rxjs';
-import { concatMap, retryWhen, delay, take, timeout, single, map } from 'rxjs/operators';
+import { concatMap, retryWhen, delay, take, timeout, single, map, max } from 'rxjs/operators';
 import { RestService } from './rest.service';
 import { Order } from '../models/order/order';
 import { Category } from '../models/page/category';
@@ -15,7 +15,7 @@ export class OrderService extends RestService<Order> {
 
     private queryTakeCount = 10;
 
-    constructor(protected httpClient: HttpClient, protected dateService: DateService) {
+    constructor(protected httpClient: HttpClient, private dateService: DateService) {
         super(httpClient);
         this.apiPoint = 'orders';
     }
@@ -63,6 +63,18 @@ export class OrderService extends RestService<Order> {
                     _lodash.sortBy(o,item => (item as Order).time)
                 ),
                 take(this.queryTakeCount));
+    }
+
+    getNewId(): Observable<number>
+    {
+        return this.httpClient.get<Order[]>(
+            `${this.apiDomain}${this.apiPoint}`,
+            {
+                headers: this.httpOptions.headers
+            })
+            .pipe(
+                max((o1, o2) => o1 > o2)
+            );
     }
 
 }

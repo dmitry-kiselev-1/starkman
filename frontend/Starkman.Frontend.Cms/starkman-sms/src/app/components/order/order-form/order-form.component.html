@@ -53,6 +53,31 @@
                 </mat-grid-list>
            </div>
 
+           <div class="button-row">
+
+            <span matTooltip="Добавить позицию заказа">
+              <button (click)="offerAdd()" mat-mini-fab color="accent"
+                      [disabled]="this.notificationService.appLoading">
+                <mat-icon aria-label="Сохранить">add</mat-icon>
+              </button>
+            </span>
+
+            <span matTooltip="Изменить позицию заказа">
+              <button (click)="offerEdit()" mat-mini-fab color="accent"
+                      [disabled]="this.notificationService.appLoading">
+                <mat-icon class="flipV" aria-label="Отменить">edit</mat-icon>
+              </button>
+            </span>
+
+            <span matTooltip="Удалить позицию заказа">
+               <button (click)="offerDelete()" mat-mini-fab color="accent"
+                       [disabled]="this.notificationService.appLoading">
+                  <mat-icon aria-label="Удалить">delete</mat-icon>
+               </button>
+            </span>
+
+            </div>
+
            <table mat-table
                   [dataSource]="this.entity.offerList"
                   class="mat-elevation-z8">

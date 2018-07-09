@@ -1,6 +1,6 @@
 import { Storageable } from '../storageable';
 
-export interface Customer extends Storageable{
+export interface Customer extends Storageable {
     name?: string;
     phoneCountryCode?: string;
     phone?: string;

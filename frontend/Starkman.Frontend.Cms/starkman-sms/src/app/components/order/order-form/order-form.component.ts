@@ -72,8 +72,7 @@ export class OrderFormComponent extends BaseComponent implements OnInit {
       this.selection = new SelectionModel<Offer>(allowMultiSelect, initialSelection);
   }
 
-    setNewId()
-    {
+    setNewId() {
         this.notificationService.appLoading = true;
         this.restService.getNewId()
             .pipe(finalize(() => {
@@ -159,6 +158,20 @@ export class OrderFormComponent extends BaseComponent implements OnInit {
                     error
                 } as AppError)
             );
+    }
+
+    offerAdd() {
+
+    }
+
+    offerEdit() {
+
+    }
+
+    offerDelete() {
+        this.entity.offerList = _lodash.filter(this.entity.offerList,
+            (offer) => !this.selection.selected.includes(offer)
+        );
     }
 
     getTotal(): number

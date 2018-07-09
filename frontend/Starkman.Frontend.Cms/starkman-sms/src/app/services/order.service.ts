@@ -41,7 +41,7 @@ export class OrderService extends RestService<Order> {
     }
 
     getListFiltered(filter: OrderFilter): Observable<Order[]> {
-        debugger;
+        //debugger;
         let filterString =`?`;
 
         if (filter.orderId)

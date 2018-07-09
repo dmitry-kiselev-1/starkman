@@ -146,7 +146,7 @@ export class InMemoryDataService implements InMemoryDbService {
             }
         });
 
-        debugger;
+        //debugger;
         return {categories, orders};
     }
 

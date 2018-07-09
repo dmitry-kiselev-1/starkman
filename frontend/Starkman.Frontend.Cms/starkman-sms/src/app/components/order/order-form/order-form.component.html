@@ -13,16 +13,6 @@
 
             <div class="edit-form-container">
                 <mat-grid-list cols="3" rowHeight="5em">
-                    <!--<mat-grid-tile> &lt;!&ndash; style="padding-left: 1em; padding-right: 0em;" &ndash;&gt;-->
-                        <!--<mat-form-field>-->
-                            <!--<input matInput type="datetime-local" [(ngModel)]="this.entity.date" name="date" placeholder="Дата заказа" required/>-->
-                            <!--
-                            <input matInput [matDatepicker]="picker" [value]="this.entity.date" placeholder="Дата заказа" required>
-                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker color="primary"></mat-datepicker>
-                            -->
-                        <!--</mat-form-field>-->
-                    <!--</mat-grid-tile>-->
                     <mat-grid-tile>
                         <mat-form-field>
                             <input matInput autocomplete="off" [(ngModel)]="this.entity.customer.name" name="name" placeholder="ФИО клиента" required/>

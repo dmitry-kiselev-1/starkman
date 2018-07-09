@@ -36,10 +36,56 @@
 
             <mat-expansion-panel-header>
                 <mat-panel-title>Поиск заказов</mat-panel-title>
+                <mat-panel-description>
+                    <span class="orderCount">{{entityListFiltered?.length || 0}}</span>
+                </mat-panel-description>
             </mat-expansion-panel-header>
 
+            <mat-grid-list cols="1" rowHeight="4em">
+                <mat-grid-tile>
+                    <!--
+                        <mat-form-field>
+                            <input type="date" matInput autocomplete="off" [(ngModel)]="this.orderFilter.orderDate" name="orderDate" placeholder="Дата заказа"/>
+                        </mat-form-field>
+                    -->
+                    <mat-form-field>
+                        <input style="width: 100px;" matInput [matDatepicker]="orderDatePicker" (dateChange)="orderDatePickerChange($event)" placeholder="Дата заказа"/>
+                        <mat-datepicker-toggle matSuffix [for]="orderDatePicker"></mat-datepicker-toggle>
+                        <mat-datepicker #orderDatePicker color="primary"></mat-datepicker>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field>
+                        <input matInput autocomplete="off" [(ngModel)]="this.orderFilter.orderId" name="orderId" placeholder="Номер заказа"/>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field>
+                        <input matInput autocomplete="off" [(ngModel)]="this.orderFilter.customerPhone" name="customerPhone" placeholder="Телефон клиента"/>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field>
+                            <mat-select [(value)]="this.orderFilter.status" name="orderStatus" placeholder="Статус заказа">
+                                <mat-option *ngFor="let orderStatus of this.orderStatusCol" [value]="orderStatus.value">
+                                    {{orderStatus.label}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                </mat-grid-tile>
+            </mat-grid-list>
+            <span matTooltipPosition="right" matTooltip="Найти заказы">
+                  <button (click)="filter()" mat-mini-fab color="accent"
+                          [disabled]="this.notificationService.appLoading
+                          || (!this.orderFilter.orderDate && !this.orderFilter.orderId && !this.orderFilter.customerPhone &&
+                          (this.orderFilter.status < 0))">
+                  <mat-icon aria-label="Обновить">search</mat-icon>
+                  </button>
+            </span>
+
+
             <mat-nav-list dense>
-                <a *ngFor="let entity of entityListFilter" mat-list-item routerLink="order/{{entity.id}}">
+                <a *ngFor="let entity of entityListFiltered" mat-list-item routerLink="order/{{entity.id}}">
                     {{entity.date | date:"dd.MM - HH:mm"}}</a>
             </mat-nav-list>
 

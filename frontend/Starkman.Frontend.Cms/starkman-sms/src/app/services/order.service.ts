@@ -6,9 +6,12 @@ import { concatMap, retryWhen, delay, take, timeout, single, map } from 'rxjs/op
 import { RestService } from './rest.service';
 import { Order } from '../models/order/order';
 import { Category } from '../models/page/category';
+import { OrderFilter } from '../models/order/order-filter';
 
 @Injectable()
 export class OrderService extends RestService<Order> {
+
+    private queryTakeCount = 10;
 
     constructor(protected httpClient: HttpClient) {
         super(httpClient);
@@ -32,6 +35,30 @@ export class OrderService extends RestService<Order> {
                         return 0;
                     })
                 ),
-                take(10));
+                take(this.queryTakeCount));
     }
+
+    getListFiltered(filter: OrderFilter): Observable<Order[]> {
+
+        let filterString = "?status=1";
+
+        return this.httpClient.get<Order[]>(
+            `${this.apiDomain}${this.apiPoint}${filterString}`,
+            {
+                headers: this.httpOptions.headers
+            })
+            .pipe(
+                map(o => (o as Order[]).sort((a, b) => {
+                        if (a.date > b.date) {
+                            return -1;
+                        }
+                        if (a.date < b.date) {
+                            return 1;
+                        }
+                        return 0;
+                    })
+                ),
+                take(this.queryTakeCount));
+    }
+
 }

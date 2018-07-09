@@ -172,6 +172,7 @@ export class OrderFormComponent extends BaseComponent implements OnInit {
         this.entity.offerList = _lodash.filter(this.entity.offerList,
             (offer) => !this.selection.selected.includes(offer)
         );
+        this.selection.clear();
     }
 
     getTotal(): number

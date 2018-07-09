@@ -8,6 +8,7 @@ import * as moment from 'moment';
 export class DateService {
 
   public inputDateFormat = 'YYYY-MM-DDTHH.mm.ss.SSS';
+  public outputShortDateFormat = 'YYYY-MM-DD';
 
   constructor() { }
 
@@ -25,14 +26,14 @@ export class DateService {
     const isInRange = inputDate.isBetween('1901-01-01', '2050-31-12', 'day', '[]');
 
     if (isValid && isInRange ) {
-      return inputDate.toDate();
+      return inputDate.local(true).toDate();
     } else {
       return null;
     }
   }
 
   // Преобразует дату в строку, в случае некорректной даты возвращает null
-  toString(dateOject: Date): string {
+  toString(dateOject: Date, withoutTime: boolean = false): string {
 
     // debugger;
     const inputDate = moment(dateOject, this.inputDateFormat, true);
@@ -44,7 +45,10 @@ export class DateService {
     const isInRange = inputDate.isBetween('1901-01-01', '2050-31-12', 'day', '[]');
 
       if (isValid && isInRange ) {
-          return inputDate.toISOString(true);
+          if (withoutTime)
+              return inputDate.local().format(this.outputShortDateFormat);
+          else
+            return inputDate.local().toISOString(true);
       } else {
           return null;
       }

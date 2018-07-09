@@ -4,7 +4,7 @@
         <mat-card-header>
             <mat-card-title>{{this.componentTitle}}</mat-card-title>
             <mat-card-subtitle>
-                № {{this.entity.id}} от {{entity.date | date:"dd.MM.yyyy в HH:mm"}}
+                № {{this.entity.id}} от {{entity.date | date:"dd.MM.yyyy"}} в {{entity.time | date:"HH:mm"}}
                 на сумму {{this.getTotal() | number}}
             </mat-card-subtitle>
         </mat-card-header>
@@ -16,6 +16,11 @@
                     <mat-grid-tile>
                         <mat-form-field>
                             <input matInput autocomplete="off" [(ngModel)]="this.entity.customer.name" name="name" placeholder="ФИО клиента" required/>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-form-field>
+                            <input matInput autocomplete="off" autocomplete="off" [(ngModel)]="this.entity.customer.phoneCountryCode" name="phoneCountryCode" placeholder="Код страны" required/>
                         </mat-form-field>
                     </mat-grid-tile>
                     <mat-grid-tile>

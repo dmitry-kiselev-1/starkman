@@ -7,13 +7,15 @@ import { RestService } from './rest.service';
 import { Order } from '../models/order/order';
 import { Category } from '../models/page/category';
 import { OrderFilter } from '../models/order/order-filter';
+import * as _lodash from 'lodash'
+import { DateService } from './date.service';
 
 @Injectable()
 export class OrderService extends RestService<Order> {
 
     private queryTakeCount = 10;
 
-    constructor(protected httpClient: HttpClient) {
+    constructor(protected httpClient: HttpClient, protected dateService: DateService) {
         super(httpClient);
         this.apiPoint = 'orders';
     }
@@ -39,8 +41,17 @@ export class OrderService extends RestService<Order> {
     }
 
     getListFiltered(filter: OrderFilter): Observable<Order[]> {
+        debugger;
+        let filterString =`?`;
 
-        let filterString = "?status=1";
+        if (filter.orderId)
+            filterString += `id=^${filter.orderId}&`;
+        if (filter.status != -1)
+            filterString += `status=${filter.status}&`;
+        if (filter.orderDate)
+             filterString += `filterOrderDate=${this.dateService.toString(filter.orderDate, true)}&`;
+        if (filter.customerPhone)
+             filterString += `filterCustomerPhone=^${filter.customerPhone}&`;
 
         return this.httpClient.get<Order[]>(
             `${this.apiDomain}${this.apiPoint}${filterString}`,
@@ -48,15 +59,8 @@ export class OrderService extends RestService<Order> {
                 headers: this.httpOptions.headers
             })
             .pipe(
-                map(o => (o as Order[]).sort((a, b) => {
-                        if (a.date > b.date) {
-                            return -1;
-                        }
-                        if (a.date < b.date) {
-                            return 1;
-                        }
-                        return 0;
-                    })
+                map(o =>
+                    _lodash.sortBy(o,item => (item as Order).time)
                 ),
                 take(this.queryTakeCount));
     }

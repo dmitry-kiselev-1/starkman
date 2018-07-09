@@ -108,19 +108,25 @@ export class InMemoryDataService implements InMemoryDbService {
 
         let orders: Order[] = [];
         let orderCount = this.randomBetween(5, 10);
-        let offerList: Offer[] = [];
         let offerCount = this.randomBetween(1, 10);
-        let offerProductCount = this.randomBetween(1, 10);
 
         for (let o = 1; o <= orderCount; o++) {
+            let day = this.randomBetween(10, 28);
+            let date = this.dateService.toDate(`2018-01-${day}T00.00.00.000`);
+            let time = this.dateService.toDate(`2018-01-${day}T${this.randomBetween(10, 23)}.${this.randomBetween(10, 59)}.${this.randomBetween(10, 59)}.000`);
+            let phone = this.randomBetween(9252668815, 9259999999);
             orders.push(
                 {
-                    id: `Order_${o}`,
-                    date: this.dateService.toDate(`2018-01-${this.randomBetween(10, 28)}T${this.randomBetween(10, 23)}.${this.randomBetween(10, 59)}.59.997`),
-                    customer: {id: `id_${o}`, email: `email_${o}`, phone: `phone_${o}`, name: `name_${o}`} as Customer,
+                    id: `order_${o}`,
+                    date: date,
+                    time: time,
+                    customer: {id: `customer_${o}`, email: `email_${o}`, phoneCountryCode: `+7`, phone: `${phone}`, name: `name_${o}`} as Customer,
                     comment: `note_${o}`,
                     status: this.randomBetween(0, 1), //OrderStatus.New,
-                    offerList: [] as Offer[]
+                    offerList: [] as Offer[],
+
+                    filterOrderDate: this.dateService.toString(date, true),
+                    filterCustomerPhone: phone.toString()
                 } as Order
             )
         }
@@ -129,7 +135,7 @@ export class InMemoryDataService implements InMemoryDbService {
             for (let f = 1; f <= offerCount; f++) {
                 order.offerList.push(
                     {
-                        id: f,
+                        id: `offer_${f}`,
                         product: products[this.randomBetween(0, products.length - 1)] as Product,
                         count: this.randomBetween(1, 10),
                         price: this.randomBetween(1000, 5000),
@@ -140,7 +146,7 @@ export class InMemoryDataService implements InMemoryDbService {
             }
         });
 
-        //debugger;
+        debugger;
         return {categories, orders};
     }
 

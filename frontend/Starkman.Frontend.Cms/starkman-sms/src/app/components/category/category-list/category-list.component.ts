@@ -7,6 +7,9 @@ import { MatSnackBar } from "@angular/material";
 import { finalize } from 'rxjs/operators';
 import { AppError } from '../../../models/app-error';
 import * as _ from "lodash";
+import { Order } from '../../../models/order/order';
+import * as _lodash from 'lodash';
+import { Product } from '../../../models/page/product';
 
 @Component({
   selector: 'app-category-list',
@@ -38,17 +41,12 @@ export class CategoryListComponent extends BaseComponent implements OnInit {
         .subscribe(
             data => {
                 //debugger;
-
                 if ((data as Category[]).length > 0) {
-                    this.entityList = (data as Category[]).sort((a, b) => {
-                        if (a.sortOrder > b.sortOrder) {
-                            return 1;
-                        }
-                        if (a.sortOrder < b.sortOrder) {
-                            return -1;
-                        }
-                        return 0;
-                    });
+                    this.entityList = _lodash.sortBy(data, item => (item as Category).sortOrder);
+
+                    this.entityList.forEach(item =>
+                        item.productList = _lodash.sortBy(item.productList, item => (item as Product).sortOrder) as Product[]);
+
                     this.selectedEntity = entity;
                 }
                 else

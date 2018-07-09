@@ -7,8 +7,8 @@ import { RestService } from './rest.service';
 import { Order } from '../models/order/order';
 import { Category } from '../models/page/category';
 import { OrderFilter } from '../models/order/order-filter';
-import * as _lodash from 'lodash';
 import { DateService } from './date.service';
+import * as _lodash from 'lodash';
 
 @Injectable()
 export class OrderService extends RestService<Order> {
@@ -28,7 +28,7 @@ export class OrderService extends RestService<Order> {
             })
             .pipe(
                 map(o =>
-                    _lodash.sortBy(o, item => -(item as Order).time)
+                    _lodash.sortBy(o, item => -(item as Order).id)
                 ),
                 take(this.queryTakeCount));
     }
@@ -53,7 +53,7 @@ export class OrderService extends RestService<Order> {
             })
             .pipe(
                 map(o =>
-                    _lodash.sortBy(o, item => -(item as Order).time)
+                    _lodash.sortBy(o, item => -(item as Order).id)
                 ),
                 take(this.queryTakeCount));
     }

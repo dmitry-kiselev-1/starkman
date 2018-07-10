@@ -38,8 +38,9 @@ import { ProductListComponent } from './components/product/product-list/product-
 import { ProductFormComponent } from './components/product/product-form/product-form.component';
 import { OrderService } from './services/order.service';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { OfferSearchComponent } from './components/offer/offer-search/offer-search.component';
-import { ConfirmationDialogData } from './models/dialog/confirmation-dialog-data';
+import { OfferSearchDialogComponent } from './components/dialog/offer-search-dialog/offer-search-dialog.component';
+import { OfferFormComponent } from './components/offer/offer-form/offer-form.component';
+import { FilterFormComponent } from './components/filter/filter-form/filter-form.component';
 
 @NgModule({
     declarations: [
@@ -57,7 +58,9 @@ import { ConfirmationDialogData } from './models/dialog/confirmation-dialog-data
         PhotoListComponent,
         PhotoFormComponent,
         PageNotFoundComponent,
-        OfferSearchComponent
+        OfferSearchDialogComponent,
+        OfferFormComponent,
+        FilterFormComponent
     ],
     entryComponents: [
         ConfirmationDialogComponent

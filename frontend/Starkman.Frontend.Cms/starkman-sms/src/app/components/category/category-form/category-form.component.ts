@@ -112,7 +112,7 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
                 httpResponse => {
                     this.notificationService.categoryChange.emit({url: this.category_id} as Category);
                     console.log(`${this.category_id} deleted`);
-                    this.router.navigateByUrl(`/category`);
+                    this.router.navigateByUrl(`/`);
                 },
                 error => this.handleError({
                     userMessage: 'Ошибка при удалении категории!',

@@ -28,6 +28,8 @@ export class InMemoryDataService implements InMemoryDbService {
     createDb() {
 
         let products: Product[] = [];
+        let offers: Offer[] = [];
+
         let categories: Category[] =
             [
                 { url: 'bryuki_casual', title: 'Брюки кажуал' },
@@ -90,7 +92,7 @@ export class InMemoryDataService implements InMemoryDbService {
                 }
 
                 for (let o = 1; o <= offerCount; o++) {
-                    offerList.push(
+                    let offer =
                         {
                             id: `offer_${o}`,
                             count: this.randomBetween(1, 10),
@@ -98,7 +100,9 @@ export class InMemoryDataService implements InMemoryDbService {
                             size: this.randomBetween(1, 10),
                             height: this.randomBetween(150, 200)
                         } as Offer
-                    );
+
+                    offerList.push(offer);
+                    offers.push(offer);
                 }
 
                 for (let f = 1; f <= filterCount; f++) {
@@ -113,7 +117,8 @@ export class InMemoryDataService implements InMemoryDbService {
 
                 let product =
                     {
-                        id:  (index * 10 + p).toString(),
+                        sku: (index * 10 + p),
+                        id:  `${category.url}_product_${p}`,
                         url: `${category.url}_product_${p}`,
                         urlParent: category.url,
                         title: `Product ${p} (${category.title})`,
@@ -140,11 +145,13 @@ export class InMemoryDataService implements InMemoryDbService {
 
         for (let o = 1; o <= orderCount; o++) {
 
-            let orderProductList = [];
-            let orderProductCount = this.randomBetween(1, 10);
+            let orderOfferList = [];
+            let orderOfferCount = this.randomBetween(1, 10);
 
-            for (let p = 1; p <= orderProductCount; p++) {
-                orderProductList.push(products[this.randomBetween(0, products.length - 1)]);
+            for (let p = 1; p <= orderOfferCount; p++) {
+                let offer = Object.assign({}, offers[this.randomBetween(0, offers.length - 1)]);
+                offer.product = Object.assign({}, products[this.randomBetween(0, products.length - 1)]);
+                orderOfferList.push(offer);
             }
 
             let day = this.randomBetween(10, 28);
@@ -159,7 +166,7 @@ export class InMemoryDataService implements InMemoryDbService {
                     customer: {id: `customer_${o}`, email: `email_${o}`, phoneCountryCode: `+7`, phone: `${phone}`, name: `name_${o}`} as Customer,
                     comment: `note_${o}`,
                     status: this.randomBetween(0, 1), //OrderStatus.New,
-                    productList: orderProductList as Product[],
+                    offerList: orderOfferList as Offer[],
 
                     filterOrderDate: this.dateService.toString(date, true),
                     filterCustomerPhone: phone.toString()

@@ -11,24 +11,24 @@ import { OrderService } from '../../../services/order.service';
 import { EnumPipe } from '../../../pipes/enum.pipe';
 import { OrderStatus } from '../../../models/order/order-status';
 import { SelectItem } from '../../../models/select-item';
+import { Offer } from '../../../models/order/offer';
+import {MatTableDataSource} from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { DateService } from '../../../services/date.service';
 import { Customer } from '../../../models/order/customer';
-import { Product } from '../../../models/page/product';
-import { Offer } from '../../../models/order/offer';
 import * as _moment from 'moment';
 import * as _lodash from 'lodash';
 
 @Component({
-  selector: 'app-order-form',
-  templateUrl: './order-form.component.html',
-  styleUrls: ['./order-form.component.scss']
+    selector: 'app-order-form',
+    templateUrl: './order-form.component.html',
+    styleUrls: ['./order-form.component.scss']
 })
 export class OrderFormComponent extends BaseComponent implements OnInit {
     order_id: string;
-    entity: Order = {id: "0", date: new Date() as Date, time: new Date() as Date, productList: [] as Product[], customer: {phoneCountryCode: "+7"} as Customer, status: OrderStatus.New} as Order;
+    entity: Order = {id: "0", date: new Date() as Date, time: new Date() as Date, offerList: [] as Offer[], customer: {phoneCountryCode: "+7"} as Customer, status: OrderStatus.New} as Order;
     orderStatusCol: SelectItem[];
-    productColumns: string[] = ['sku', 'title', 'size', 'height', 'price', 'count', 'select'];
+    offerColumns: string[] = ['sku', 'title', 'size', 'height', 'price', 'count', 'select'];
     selection: any;
 
     constructor(
@@ -42,35 +42,35 @@ export class OrderFormComponent extends BaseComponent implements OnInit {
         this.entityType = PageType.Order;
     }
 
-  ngOnInit() {
-      this.componentTitle = this.activatedRoute.snapshot.data['title'];
+    ngOnInit() {
+        this.componentTitle = this.activatedRoute.snapshot.data['title'];
 
-      this.activatedRoute.paramMap
-          .subscribe(
-              (params: ParamMap) => {
-                  if (params.keys.length == 0) {
-                      //debugger;
-                      this.setNewId();
-                  }
-                  else {
-                      //debugger;
-                      this.order_id = params.get('order_id');
-                      this.reload();
-                  }
-              },
-              error => this.handleError(error)
-          );
+        this.activatedRoute.paramMap
+            .subscribe(
+                (params: ParamMap) => {
+                    if (params.keys.length == 0) {
+                        //debugger;
+                        this.setNewId();
+                    }
+                    else {
+                        //debugger;
+                        this.order_id = params.get('order_id');
+                        this.reload();
+                    }
+                },
+                error => this.handleError(error)
+            );
 
-      (new EnumPipe()).transform(OrderStatus).subscribe(data => {
-              this.orderStatusCol = data.map((v, i) =>
-                  ({value: i, label: v} as SelectItem)) as SelectItem[];
-          }
-      );
+        (new EnumPipe()).transform(OrderStatus).subscribe(data => {
+                this.orderStatusCol = data.map((v, i) =>
+                    ({value: i, label: v} as SelectItem)) as SelectItem[];
+            }
+        );
 
-      const initialSelection = [];
-      const allowMultiSelect = true;
-      this.selection = new SelectionModel<Product>(allowMultiSelect, initialSelection);
-  }
+        const initialSelection = [];
+        const allowMultiSelect = true;
+        this.selection = new SelectionModel<Offer>(allowMultiSelect, initialSelection);
+    }
 
     setNewId() {
         this.notificationService.appLoading = true;
@@ -105,7 +105,7 @@ export class OrderFormComponent extends BaseComponent implements OnInit {
                 data => {
                     //debugger;
                     this.entity = (data || {} as Order);
-                    this.entity.productList = _lodash.sortBy(this.entity.productList, (e) => (e as Product).urlParent)
+                    this.entity.offerList = _lodash.sortBy(this.entity.offerList, (e) => (e as Offer).product.url)
                 },
                 error => this.handleError({
                     userMessage: 'Ошибка при запросе заказа!',
@@ -160,17 +160,17 @@ export class OrderFormComponent extends BaseComponent implements OnInit {
             );
     }
 
-    productAdd() {
+    offerAdd() {
 
     }
 
-    productEdit() {
+    offerEdit() {
 
     }
 
-    productDelete() {
-        this.entity.productList = _lodash.filter(this.entity.productList,
-            (product) => !this.selection.selected.includes(product)
+    offerDelete() {
+        this.entity.offerList = _lodash.filter(this.entity.offerList,
+            (offer) => !this.selection.selected.includes(offer)
         );
         this.selection.clear();
     }
@@ -178,18 +178,16 @@ export class OrderFormComponent extends BaseComponent implements OnInit {
     getTotal(): number
     {
         //debugger;
-        if (!this.entity || !this.entity.productList || (this.entity.productList.length == 0)) return 0;
+        if (!this.entity || !this.entity.offerList || (this.entity.offerList.length == 0)) return 0;
         let total: number = 0;
-        this.entity.productList.forEach(p =>
-             p.offerList.forEach(o => total += o.price * o.count));
-
+        this.entity.offerList.forEach(o => total += o.price * o.count);
         return total;
     }
 
     /** Whether the number of selected elements matches the total number of rows. */
     isAllSelected() {
         const numSelected = this.selection.selected.length;
-        const numRows = this.entity.productList.length;
+        const numRows = this.entity.offerList.length;
         return numSelected == numRows;
     }
 
@@ -197,7 +195,7 @@ export class OrderFormComponent extends BaseComponent implements OnInit {
     masterToggle() {
         this.isAllSelected() ?
             this.selection.clear() :
-            this.entity.productList.forEach(row => this.selection.select(row));
+            this.entity.offerList.forEach(row => this.selection.select(row));
     }
 
 }

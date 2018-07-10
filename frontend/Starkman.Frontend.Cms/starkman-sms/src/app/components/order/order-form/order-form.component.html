@@ -1,5 +1,5 @@
 <form #orderForm="ngForm">
-    <!--<form #orderForm="ngForm" *ngIf="this.entity && entity.customer && entity.productList">    -->
+    <!--<form #orderForm="ngForm" *ngIf="this.entity && entity.customer && entity.offerList">    -->
     <mat-card>
 
         <mat-card-header>
@@ -51,19 +51,19 @@
                         </mat-form-field>
                     </mat-grid-tile>
                 </mat-grid-list>
-           </div>
+            </div>
 
-           <div class="button-row">
+            <div class="button-row">
 
             <span matTooltip="Добавить позицию в заказ">
-              <button (click)="productAdd()" mat-mini-fab color="accent"
+              <button (click)="offerAdd()" mat-mini-fab color="accent"
                       [disabled]="this.notificationService.appLoading">
                 <mat-icon aria-label="Сохранить">add</mat-icon>
               </button>
             </span>
 
-            <span matTooltip="Удалить выбранные позиции из заказа">
-               <button (click)="productDelete()" mat-mini-fab color="accent"
+                <span matTooltip="Удалить выбранные позиции из заказа">
+               <button (click)="offerDelete()" mat-mini-fab color="accent"
                        [disabled]="this.notificationService.appLoading || (this.selection.selected.length == 0)">
                   <mat-icon aria-label="Удалить">delete</mat-icon>
                </button>
@@ -71,78 +71,78 @@
 
             </div>
 
-           <table mat-table
-                  [dataSource]="this.entity.productList"
-                  class="mat-elevation-z8">
+            <table mat-table
+                   [dataSource]="this.entity.offerList"
+                   class="mat-elevation-z8">
 
-               <ng-container matColumnDef="sku">
-                   <th mat-header-cell *matHeaderCellDef> Артикул </th>
-                   <td mat-cell *matCellDef="let product"> {{product.id}} </td>
-               </ng-container>
+                <ng-container matColumnDef="sku">
+                    <th mat-header-cell *matHeaderCellDef> Артикул </th>
+                    <td mat-cell *matCellDef="let offer"> {{offer.product.sku}} </td>
+                </ng-container>
 
-               <ng-container matColumnDef="title">
-                   <th mat-header-cell *matHeaderCellDef> Товар </th>
-                   <td mat-cell *matCellDef="let product">
-                       <a routerLink="/product/{{product.urlParent}}/{{product.url}}">{{product.title}}</a>
-                       </td>
-               </ng-container>
+                <ng-container matColumnDef="title">
+                    <th mat-header-cell *matHeaderCellDef> Товар </th>
+                    <td mat-cell *matCellDef="let offer">
+                        <a routerLink="/product/{{offer.product.urlParent}}/{{offer.product.url}}">{{offer.product.title}}</a>
+                    </td>
+                </ng-container>
 
-               <ng-container matColumnDef="size">
-                   <th mat-header-cell *matHeaderCellDef> Размер </th>
-                   <td mat-cell *matCellDef="let product">
-                       <!--{{product.size | number}}-->
-                        <input type="text" autocomplete="off" matInput [(ngModel)]="product.size" name="size_${{product.id}}"/>
-                   </td>
-               </ng-container>
+                <ng-container matColumnDef="size">
+                    <th mat-header-cell *matHeaderCellDef> Размер </th>
+                    <td mat-cell *matCellDef="let offer">
+                        <!--{{offer.size | number}}-->
+                        <input type="text" autocomplete="off" matInput [(ngModel)]="offer.size" name="size_${{offer.id}}"/>
+                    </td>
+                </ng-container>
 
-               <ng-container matColumnDef="height">
-                   <th mat-header-cell *matHeaderCellDef> Рост </th>
-                   <td mat-cell *matCellDef="let product">
-                       <!--{{product.height | number}} -->
-                       <input type="text" autocomplete="off" matInput [(ngModel)]="product.height" name="height_${{product.id}}"/>
-                   </td>
-               </ng-container>
+                <ng-container matColumnDef="height">
+                    <th mat-header-cell *matHeaderCellDef> Рост </th>
+                    <td mat-cell *matCellDef="let offer">
+                        <!--{{offer.height | number}} -->
+                        <input type="text" autocomplete="off" matInput [(ngModel)]="offer.height" name="height_${{offer.id}}"/>
+                    </td>
+                </ng-container>
 
-               <ng-container matColumnDef="price">
-                   <th mat-header-cell *matHeaderCellDef> Цена </th>
-                   <td mat-cell *matCellDef="let product">
-                       <!--{{(product.price || product.price) | number}} -->
-                       <input type="text" autocomplete="off" matInput [(ngModel)]="product.price" name="price_${{product.id}}"/>
-                   </td>
-               </ng-container>
+                <ng-container matColumnDef="price">
+                    <th mat-header-cell *matHeaderCellDef> Цена </th>
+                    <td mat-cell *matCellDef="let offer">
+                        <!--{{(offer.price || offer.product.price) | number}} -->
+                        <input type="text" autocomplete="off" matInput [(ngModel)]="offer.price" name="price_${{offer.id}}"/>
+                    </td>
+                </ng-container>
 
-               <ng-container matColumnDef="count">
-                   <th mat-header-cell *matHeaderCellDef> Количество </th>
-                   <td mat-cell *matCellDef="let product">
-                       <!--{{product.count}} -->
-                       <input type="text" autocomplete="off" matInput [(ngModel)]="product.count" name="count_${{product.id}}"/>
-                   </td>
-               </ng-container>
+                <ng-container matColumnDef="count">
+                    <th mat-header-cell *matHeaderCellDef> Количество </th>
+                    <td mat-cell *matCellDef="let offer">
+                        <!--{{offer.count}} -->
+                        <input type="text" autocomplete="off" matInput [(ngModel)]="offer.count" name="count_${{offer.id}}"/>
+                    </td>
+                </ng-container>
 
-               <!--
-               <ng-container matColumnDef="sum">
-                   <th mat-header-cell *matHeaderCellDef> sum </th>
-                   <td mat-cell *matCellDef="let product"> {{product.count * ((product.price != 0) ? product.price : product.price)}} </td>
-               </ng-container>
-               -->
+                <!--
+                <ng-container matColumnDef="sum">
+                    <th mat-header-cell *matHeaderCellDef> sum </th>
+                    <td mat-cell *matCellDef="let offer"> {{offer.count * ((offer.price != 0) ? offer.price : offer.product.price)}} </td>
+                </ng-container>
+                -->
 
-               <ng-container matColumnDef="select">
-                   <th mat-header-cell *matHeaderCellDef>
-                       <mat-checkbox (change)="$event ? masterToggle() : null"
-                                     [checked]="selection.hasValue() && isAllSelected()"
-                                     [indeterminate]="selection.hasValue() && !isAllSelected()">
-                       </mat-checkbox>
-                   </th>
-                   <td mat-cell *matCellDef="let row">
-                       <mat-checkbox (click)="$event.stopPropagation()"
-                                     (change)="$event ? selection.toggle(row) : null"
-                                     [checked]="selection.isSelected(row)">
-                       </mat-checkbox>
-                   </td>
-               </ng-container>
+                <ng-container matColumnDef="select">
+                    <th mat-header-cell *matHeaderCellDef>
+                        <mat-checkbox (change)="$event ? masterToggle() : null"
+                                      [checked]="selection.hasValue() && isAllSelected()"
+                                      [indeterminate]="selection.hasValue() && !isAllSelected()">
+                        </mat-checkbox>
+                    </th>
+                    <td mat-cell *matCellDef="let row">
+                        <mat-checkbox (click)="$event.stopPropagation()"
+                                      (change)="$event ? selection.toggle(row) : null"
+                                      [checked]="selection.isSelected(row)">
+                        </mat-checkbox>
+                    </td>
+                </ng-container>
 
-                <tr mat-header-row *matHeaderRowDef="productColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: productColumns;"></tr>
+                <tr mat-header-row *matHeaderRowDef="offerColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: offerColumns;"></tr>
             </table>
 
         </mat-card-content>

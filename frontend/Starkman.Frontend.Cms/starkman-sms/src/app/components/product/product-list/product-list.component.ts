@@ -5,33 +5,33 @@ import { MatSnackBar } from "@angular/material";
 import * as _lodash from "lodash";
 
 @Component({
-  selector: 'app-product-list',
-  templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.scss']
+    selector: 'app-product-list',
+    templateUrl: './product-list.component.html',
+    styleUrls: ['./product-list.component.scss']
 })
 export class ProductListComponent extends BaseComponent implements OnInit {
 
-  @Input() entityList: Product[] = [];
-  public entityListFiltered: Product[] = [];
+    @Input() entityList: Product[] = [];
+    public entityListFiltered: Product[] = [];
 
-  constructor(protected snackBar: MatSnackBar) {
-    super(snackBar);
-  }
-
-  ngOnInit() {
-    this.entityListFiltered = Object.assign([{}], this.entityList);
-  }
-
-  public searchProduct(filterValue: string)
-  {
-    if (!filterValue || filterValue.length === 0) {
-      this.entityListFiltered = this.entityList;
+    constructor(protected snackBar: MatSnackBar) {
+        super(snackBar);
     }
-    else {
-      this.entityListFiltered = _lodash.filter(this.entityList, (entity) =>
-          (entity.title.includes(filterValue) || entity.id.toString().includes(filterValue)));
+
+    ngOnInit() {
+        this.entityListFiltered = Object.assign([{}], this.entityList);
     }
-  }
+
+    public searchProduct(filterValue: string)
+    {
+        if (!filterValue || filterValue.length === 0) {
+            this.entityListFiltered = this.entityList;
+        }
+        else {
+            this.entityListFiltered = _lodash.filter(this.entityList, (entity) =>
+                (entity.title.includes(filterValue) || entity.sku.toString().includes(filterValue)));
+        }
+    }
 
 }
 

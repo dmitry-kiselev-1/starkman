@@ -11,9 +11,11 @@ import { Offer } from '../../../models/order/offer';
 })
 export class OfferSearchDialogComponent implements OnInit {
 
-    entityList: Offer[] = [];
-    entityListFiltered: Offer[] = [];
-    entityListSelected: Offer[] = [];
+    entityList: Offer[] = [] as Offer[];
+    entityListFiltered: Offer[] = [] as Offer[];
+
+    offerColumns: string[] = ['sku', 'title', 'size', 'height', 'price', 'count', 'select'];
+    selection: any;
 
     constructor(
         public dialogRef: MatDialogRef<OfferSearchDialogComponent>,
@@ -21,6 +23,21 @@ export class OfferSearchDialogComponent implements OnInit {
     }
 
     ngOnInit() {
+    }
+
+    /** Whether the number of selected elements matches the total number of rows. */
+    isAllSelected() {
+        debugger;
+        const numSelected = this.selection.selected.length;
+        const numRows = this.entityListFiltered.length;
+        return numSelected == numRows;
+    }
+
+    /** Selects all rows if they are not all selected; otherwise clear selection. */
+    masterToggle() {
+        this.isAllSelected() ?
+            this.selection.clear() :
+            this.entityListFiltered.forEach(row => this.selection.select(row));
     }
 
 }

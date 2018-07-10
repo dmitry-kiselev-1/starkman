@@ -1,3 +1,12 @@
-<p>
-  offer-search-dialog works!
-</p>
+<h2 mat-dialog-title>Форма поиска торгового предложения</h2>
+<mat-dialog-content>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+    <div class="button-row">
+        <button mat-button color="primary"
+                [mat-dialog-close]="{result: true, data: this.entityListSelected}">Выбрать</button>
+        <button mat-button color="primary"
+                [mat-dialog-close]="{result: false, data: []}">Отменить</button>
+    </div>
+</mat-dialog-actions>

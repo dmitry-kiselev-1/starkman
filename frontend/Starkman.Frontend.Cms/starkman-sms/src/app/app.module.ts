@@ -63,7 +63,8 @@ import { FilterFormComponent } from './components/filter/filter-form/filter-form
         FilterFormComponent
     ],
     entryComponents: [
-        ConfirmationDialogComponent
+        ConfirmationDialogComponent,
+        OfferSearchDialogComponent
     ],
     imports: [
         BrowserModule,

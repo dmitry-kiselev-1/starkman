@@ -16,10 +16,12 @@ import {MatTableDataSource} from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { DateService } from '../../../services/date.service';
 import { Customer } from '../../../models/order/customer';
-import * as _moment from 'moment';
-import * as _lodash from 'lodash';
 import { ConfirmationDialogData } from '../../../models/dialog/confirmation-dialog-data';
 import { ConfirmationDialogComponent } from '../../dialog/confirmation-dialog/confirmation-dialog.component';
+import { OfferSearchDialogComponent } from '../../dialog/offer-search-dialog/offer-search-dialog.component';
+import { OfferSearchDialogData } from '../../../models/dialog/offer-search-dialog-data';
+import * as _moment from 'moment';
+import * as _lodash from 'lodash';
 
 @Component({
     selector: 'app-order-form',
@@ -213,9 +215,19 @@ export class OrderFormComponent extends BaseComponent implements OnInit {
         });
     }
 
-    offerDialog()
-    {
+    offerSearchDialogData: OfferSearchDialogData = {result: false} as OfferSearchDialogData;
 
+    offerDialog() {
+        const dialogRef = this.dialog.open(OfferSearchDialogComponent, {
+            data: this.offerSearchDialogData,
+            disableClose: true
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log(`Dialog result: ${(result as OfferSearchDialogData).result} ${(result as OfferSearchDialogData).data.length}`);
+            //if ((result as OfferSearchDialogData).result == true)
+            //    this.entity.offerList.push(result.data as Offer[]);
+        });
     }
 
     /** Whether the number of selected elements matches the total number of rows. */

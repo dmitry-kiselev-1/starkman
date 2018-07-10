@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { OfferSearchDialogData } from '../../../models/dialog/offer-search-dialog-data';
+import { Product } from '../../../models/page/product';
+import { Offer } from '../../../models/order/offer';
 
 @Component({
   selector: 'app-offer-search-dialog',
@@ -7,9 +11,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OfferSearchDialogComponent implements OnInit {
 
-  constructor() { }
+    entityList: Offer[] = [];
+    entityListFiltered: Offer[] = [];
+    entityListSelected: Offer[] = [];
 
-  ngOnInit() {
-  }
+    constructor(
+        public dialogRef: MatDialogRef<OfferSearchDialogComponent>,
+        @Inject(MAT_DIALOG_DATA) public data: OfferSearchDialogData) {
+    }
+
+    ngOnInit() {
+    }
 
 }

@@ -38,6 +38,7 @@ import { ProductFormComponent } from './components/product/product-form/product-
 import { ConfirmationDialogComponent } from './components/dialog/confirmation-dialog/confirmation-dialog.component';
 import { OrderService } from './services/order.service';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { OfferSearchComponent } from './components/offer/offer-search/offer-search.component';
 
 @NgModule({
     declarations: [
@@ -54,7 +55,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
         OrderFormComponent,
         PhotoListComponent,
         PhotoFormComponent,
-        PageNotFoundComponent
+        PageNotFoundComponent,
+        OfferSearchComponent
     ],
     imports: [
         BrowserModule,

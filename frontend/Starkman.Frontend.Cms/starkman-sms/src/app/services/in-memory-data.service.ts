@@ -6,15 +6,17 @@ import { Product } from '../models/page/product';
 import { Photo } from '../models/page/photo';
 import { Order } from '../models/order/order';
 import { Offer } from '../models/order/offer';
-import * as moment from 'moment';
 import { Customer } from '../models/order/customer';
 import { OrderStatus } from '../models/order/order-status';
+import { Filter } from '../models/order/filter';
+import * as _moment from 'moment';
+import * as _lodash from 'lodash';
 
 /*
-  GET api/categories          // all categories
-  GET api/categories/42       // the category with id=42
-  GET api/categories?propertyName=^j  // 'j' is a regexPattern; returns heroes whose name starting with 'j' or 'J'
-  GET api/categories.json/42  // ignores the ".json"
+  GET api/categories                    // all categories
+  GET api/categories/42                 // the category with id=42
+  GET api/categories?propertyName=^j    // 'j' is a regexPattern; returns heroes whose name starting with 'j' or 'J'
+  GET api/categories.json/42            // ignores the ".json"
 */
 
 @Injectable()
@@ -54,63 +56,97 @@ export class InMemoryDataService implements InMemoryDbService {
                 size: 0,
                 binaryString: "binaryString",
                 base64String: "base64String",
-                sortOrder: 1,
+                sortOrder: 0,
                 isVisible: true
             } as Photo;
 
-            let photoList = [];
             let productList = [];
-
-            let photoCount = this.randomBetween(0, 5);
             let productCount = this.randomBetween(0, 5);
 
-            for (let i = 1; i <= productCount; i++)
+            for (let p = 1; p <= productCount; p++)
             {
-                for (let ii = 1; i <= photoCount; i++) {
+                let photoList = [];
+                let offerList = [];
+                let filterList = [];
+
+                let photoCount = this.randomBetween(0, 5);
+                let offerCount = this.randomBetween(0, 5);
+                let filterCount = this.randomBetween(0, 5);
+
+                for (let ph = 1; ph <= photoCount; ph++) {
                     photoList.push(
                         {
-                            id:  `${category.url}_product_${i}_photo_${ii}`,
-                            url: `${category.url}_product_${i}_photo_${ii}`,
-                            title: `${category.title} product ${i} photo ${ii}`,
+                            id:  `${category.url}_product_${p}_photo_${ph}`,
+                            url: `${category.url}_product_${p}_photo_${ph}`,
+                            title: `${category.title} product ${p} photo ${ph}`,
                             type: `type`,
                             size: 0,
                             binaryString: `binaryString`,
                             base64String: `base64String`,
-                            sortOrder: ii,
+                            sortOrder: ph,
                             isVisible: true
                         } as Photo
                     );
                 }
 
+                for (let o = 1; o <= offerCount; o++) {
+                    offerList.push(
+                        {
+                            id: `offer_${o}`,
+                            count: this.randomBetween(1, 10),
+                            price: this.randomBetween(1000, 5000),
+                            size: this.randomBetween(1, 10),
+                            height: this.randomBetween(150, 200)
+                        } as Offer
+                    );
+                }
+
+                for (let f = 1; f <= filterCount; f++) {
+                    filterList.push(
+                        {
+                            id: `filter_${f}`,
+                            name: `name_${f}`,
+                            value: `value_${f}`
+                        } as Filter
+                    );
+                }
+
                 let product =
                     {
-                        id:  `${category.url}_product_${i}`,
-                        url: `${category.url}_product_${i}`,
+                        id:  (index * 10 + p).toString(),
+                        url: `${category.url}_product_${p}`,
                         urlParent: category.url,
-                        title: `Product ${i} (${category.title})`,
-                        description: `Description ${i} (${category.title})`,
-                        metaKeywords: `MetaKeywords ${i} (${category.title})`,
-                        metaDescription: `MetaDescription ${i} (${category.title})`,
-                        sortOrder: i,
+                        title: `Product ${p} (${category.title})`,
+                        description: `Description ${p} (${category.title})`,
+                        metaKeywords: `MetaKeywords ${p} (${category.title})`,
+                        metaDescription: `MetaDescription ${p} (${category.title})`,
+                        sortOrder: p,
                         isVisible: true,
-                        sku: index * 10 + i,
                         price: this.randomBetween(500, 5000),
-                        photoList: photoList
+                        photoList: photoList,
+                        offerList: offerList,
+                        filterList: filterList
                     } as Product;
 
                 productList.push(product);
-
                 products.push(product);
-
-                category.productList = productList;
             }
+
+            category.productList = productList;
         });
 
         let orders: Order[] = [];
-        let orderCount = this.randomBetween(5, 10);
-        let offerCount = this.randomBetween(1, 10);
+        let orderCount = this.randomBetween(1, 10);
 
         for (let o = 1; o <= orderCount; o++) {
+
+            let orderProductList = [];
+            let orderProductCount = this.randomBetween(1, 10);
+
+            for (let p = 1; p <= orderProductCount; p++) {
+                orderProductList.push(products[this.randomBetween(0, products.length - 1)]);
+            }
+
             let day = this.randomBetween(10, 28);
             let date = this.dateService.toDate(`2018-01-${day}T00.00.00.000`);
             let time = this.dateService.toDate(`2018-01-${day}T${this.randomBetween(10, 23)}.${this.randomBetween(10, 59)}.${this.randomBetween(10, 59)}.000`);
@@ -123,28 +159,13 @@ export class InMemoryDataService implements InMemoryDbService {
                     customer: {id: `customer_${o}`, email: `email_${o}`, phoneCountryCode: `+7`, phone: `${phone}`, name: `name_${o}`} as Customer,
                     comment: `note_${o}`,
                     status: this.randomBetween(0, 1), //OrderStatus.New,
-                    offerList: [] as Offer[],
+                    productList: orderProductList as Product[],
 
                     filterOrderDate: this.dateService.toString(date, true),
                     filterCustomerPhone: phone.toString()
                 } as Order
             )
         }
-        //debugger;
-        orders.forEach((order, index) => {
-            for (let f = 1; f <= offerCount; f++) {
-                order.offerList.push(
-                    {
-                        id: `offer_${f}`,
-                        product: products[this.randomBetween(0, products.length - 1)] as Product,
-                        count: this.randomBetween(1, 10),
-                        price: this.randomBetween(1000, 5000),
-                        height: this.randomBetween(150, 200),
-                        size: this.randomBetween(1, 10)
-                    } as Offer
-                );
-            }
-        });
 
         //debugger;
         return {categories, orders};

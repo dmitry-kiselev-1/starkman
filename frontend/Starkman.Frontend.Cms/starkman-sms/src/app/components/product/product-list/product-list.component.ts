@@ -1,13 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { BaseComponent } from "../../base.component";
-import { Category } from "../../../models/page/category";
 import { Product } from "../../../models/page/product";
-import { Photo } from "../../../models/page/photo";
-import { PhotoListComponent } from "../../photo/photo-list/photo-list.component";
-import { forEach } from "@angular/router/src/utils/collection";
-
-import * as _lodash from "lodash";
 import { MatSnackBar } from "@angular/material";
+import * as _lodash from "lodash";
 
 @Component({
   selector: 'app-product-list',
@@ -34,7 +29,7 @@ export class ProductListComponent extends BaseComponent implements OnInit {
     }
     else {
       this.entityListFiltered = _lodash.filter(this.entityList, (entity) =>
-          (entity.title.includes(filterValue) || entity.sku.toString().includes(filterValue)));
+          (entity.title.includes(filterValue) || entity.id.toString().includes(filterValue)));
     }
   }
 

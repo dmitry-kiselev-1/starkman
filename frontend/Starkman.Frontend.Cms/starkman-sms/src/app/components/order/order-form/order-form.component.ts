@@ -18,6 +18,8 @@ import { DateService } from '../../../services/date.service';
 import { Customer } from '../../../models/order/customer';
 import * as _moment from 'moment';
 import * as _lodash from 'lodash';
+import { ConfirmationDialogData } from '../../../models/dialog/confirmation-dialog-data';
+import { ConfirmationDialogComponent } from '../../dialog/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
     selector: 'app-order-form',
@@ -183,6 +185,32 @@ export class OrderFormComponent extends BaseComponent implements OnInit {
         let total: number = 0;
         this.entity.offerList.forEach(o => total += o.price * o.count);
         return total;
+    }
+
+    deleteConfirmationDialog(): void {
+        const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+            data: this.confirmationDialogData,
+            disableClose: true
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            //console.log(`Dialog result: ${(result as ConfirmationDialogData).result}`);
+            if ((result as ConfirmationDialogData).result == true)
+                this.delete();
+        });
+    }
+
+    offerDeleteConfirmationDialog(): void {
+        const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+            data: this.confirmationDialogData,
+            disableClose: true
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            //console.log(`Dialog result: ${(result as ConfirmationDialogData).result}`);
+            if ((result as ConfirmationDialogData).result == true)
+                this.offerDelete();
+        });
     }
 
     /** Whether the number of selected elements matches the total number of rows. */

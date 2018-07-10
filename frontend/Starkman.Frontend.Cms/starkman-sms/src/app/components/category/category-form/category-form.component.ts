@@ -10,6 +10,7 @@ import { finalize } from 'rxjs/operators';
 import { HttpResponse } from '@angular/common/http';
 import { ConfirmationDialogComponent } from '../../dialog/confirmation-dialog/confirmation-dialog.component';
 import { PageType } from '../../../models/page/page-type';
+import { ConfirmationDialogData } from '../../../models/dialog/confirmation-dialog-data';
 
 @Component({
     selector: 'app-category-form',
@@ -111,4 +112,16 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
             );
     }
 
+    deleteConfirmationDialog(): void {
+        const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+            data: this.confirmationDialogData,
+            disableClose: true
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            //console.log(`Dialog result: ${(result as ConfirmationDialogData).result}`);
+            if ((result as ConfirmationDialogData).result == true)
+                this.delete();
+        });
+    }
 }

@@ -104,8 +104,8 @@
           </button>
         </span>
 
-                        <span matTooltip="Удалить категорию">
-          <button (click)="delete()" mat-mini-fab color="warn"
+                        <span matTooltip="Удалить {{(this.entityType == 0) ? 'категорию' : 'товар'}}">
+          <button (click)="deleteConfirmationDialog()" mat-mini-fab color="warn"
                   [disabled]="!this.category_id || this.notificationService.appLoading">
             <mat-icon aria-label="Удалить">delete</mat-icon>
           </button>

@@ -50,11 +50,9 @@ export abstract class BaseComponent {
     }
 
     public confirmationDialogData: ConfirmationDialogData = {result: false} as ConfirmationDialogData;
-
+    /*
     public confirmationDialog(): void {
         const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-            height: '200px',
-            width: '300px',
             data: this.confirmationDialogData,
             disableClose: true
         });
@@ -64,6 +62,5 @@ export abstract class BaseComponent {
             this.confirmationDialogData = result;
         });
     }
-
+    */
 }
-

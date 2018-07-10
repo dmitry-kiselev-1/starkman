@@ -1,18 +1,8 @@
-<h2 mat-dialog-title>Требуется подтверждение</h2>
+<h2 mat-dialog-title>Подтвердите, пожалуйста</h2>
 <mat-dialog-content>Вы уверены?</mat-dialog-content>
 <mat-dialog-actions>
-    <!--<button mat-button [mat-dialog-close]="{yes: false}">No</button>-->
-    <!--<button mat-button [mat-dialog-close]="{yes: true}">Yes</button>-->
-    <span matTooltip="OK">
-        <button mat-mini-fab color="warn"
-                mat-button [mat-dialog-close]="{result: true}">
-            <mat-icon aria-label="Удалить">delete</mat-icon>
-        </button>
-    </span>
-    <span matTooltip="Отменить">
-        <button mat-mini-fab color="accent"
-                mat-button [mat-dialog-close]="{result: false}">
-            <mat-icon aria-label="Отменить">cancel</mat-icon>
-        </button>
-    </span>
+    <div class="button-row">
+        <button mat-button color="primary" [mat-dialog-close]="{result: true}">Да</button>
+        <button mat-button color="primary" [mat-dialog-close]="{result: false}">Нет</button>
+    </div>
 </mat-dialog-actions>

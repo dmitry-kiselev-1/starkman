@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { BaseComponent } from "../../base.component";
 import { Product } from "../../../models/page/product";
-import { MatSnackBar } from "@angular/material";
+import { MatDialog, MatSnackBar } from '@angular/material';
 import * as _lodash from "lodash";
 
 @Component({
@@ -14,8 +14,10 @@ export class ProductListComponent extends BaseComponent implements OnInit {
     @Input() entityList: Product[] = [];
     public entityListFiltered: Product[] = [];
 
-    constructor(protected snackBar: MatSnackBar) {
-        super(snackBar);
+    constructor(
+        protected snackBar: MatSnackBar,
+        public dialog: MatDialog) {
+        super(snackBar, dialog);
     }
 
     ngOnInit() {

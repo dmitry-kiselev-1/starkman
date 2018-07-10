@@ -26,8 +26,9 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
         private activatedRoute: ActivatedRoute,
         private router: Router,
         private restService: CategoryService,
-        protected snackBar: MatSnackBar) {
-        super(snackBar);
+        protected snackBar: MatSnackBar,
+        public dialog: MatDialog) {
+        super(snackBar, dialog);
         this.entityType = PageType.Category;
     }
 
@@ -92,18 +93,6 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
             );
     }
 
-    /*
-      openDialog(): void {
-        let dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-          width: '250px',
-        });
-
-        dialogRef.afterClosed().subscribe(result => {
-          console.log('The dialog was closed');
-          //this.animal = result;
-        });
-      }
-    */
     delete() {
         if (!this.category_id) return;
         this.notificationService.appLoading = true;

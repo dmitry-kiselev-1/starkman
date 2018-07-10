@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../../base.component';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { PageType } from '../../../models/page/page-type';
 import { NotificationService } from '../../../services/notification.service';
 import { Order } from '../../../models/order/order';
@@ -37,8 +37,9 @@ export class OrderFormComponent extends BaseComponent implements OnInit {
         private activatedRoute: ActivatedRoute,
         private router: Router,
         private restService: OrderService,
-        protected snackBar: MatSnackBar) {
-        super(snackBar);
+        protected snackBar: MatSnackBar,
+        public dialog: MatDialog) {
+        super(snackBar, dialog);
         this.entityType = PageType.Order;
     }
 

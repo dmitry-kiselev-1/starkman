@@ -21,8 +21,9 @@ export class PhotoFormComponent extends BaseComponent implements OnInit {
     constructor(
         private notificationService: NotificationService,
         private photoService: PhotoService,
-        protected snackBar: MatSnackBar) {
-        super(snackBar);
+        protected snackBar: MatSnackBar,
+        public dialog: MatDialog) {
+        super(snackBar, dialog);
     }
 
     ngOnInit() {}

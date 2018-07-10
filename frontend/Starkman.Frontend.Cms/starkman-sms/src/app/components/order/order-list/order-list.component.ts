@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../../base.component';
-import { MatDatepickerInputEvent, MatSnackBar } from '@angular/material';
+import { MatDatepickerInputEvent, MatDialog, MatSnackBar } from '@angular/material';
 import { NotificationService } from '../../../services/notification.service';
 import { OrderService } from '../../../services/order.service';
 import { finalize } from 'rxjs/operators';
@@ -22,8 +22,9 @@ export class OrderListComponent extends BaseComponent implements OnInit {
     constructor(
         public notificationService: NotificationService,
         private orderService: OrderService,
-        protected snackBar: MatSnackBar) {
-        super(snackBar);
+        protected snackBar: MatSnackBar,
+        public dialog: MatDialog) {
+        super(snackBar, dialog);
     }
 
     entityList: Order[] = [];

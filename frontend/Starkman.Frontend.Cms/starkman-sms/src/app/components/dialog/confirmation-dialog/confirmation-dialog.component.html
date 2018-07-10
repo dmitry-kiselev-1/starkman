@@ -1,17 +1,18 @@
-<p>
-  confirmation-dialog works!
-</p>
-
-<!--
-<span matTooltip="Удалить">
-  <button (click)="delete(this.entity?.Url)" mat-mini-fab color="warn">
-    <mat-icon aria-label="Удалить">delete</mat-icon>
-  </button>
-</span>
-
-<span matTooltip="Отменить">
-  <button (click)="reload(this.product_id)" mat-mini-fab color="accent">
-      <mat-icon class="flipV" aria-label="Отменить">refresh</mat-icon>
-  </button>
-</span>
--->
+<h2 mat-dialog-title>Требуется подтверждение</h2>
+<mat-dialog-content>Вы уверены?</mat-dialog-content>
+<mat-dialog-actions>
+    <!--<button mat-button [mat-dialog-close]="{yes: false}">No</button>-->
+    <!--<button mat-button [mat-dialog-close]="{yes: true}">Yes</button>-->
+    <span matTooltip="OK">
+        <button mat-mini-fab color="warn"
+                mat-button [mat-dialog-close]="{result: true}">
+            <mat-icon aria-label="Удалить">delete</mat-icon>
+        </button>
+    </span>
+    <span matTooltip="Отменить">
+        <button mat-mini-fab color="accent"
+                mat-button [mat-dialog-close]="{result: false}">
+            <mat-icon aria-label="Отменить">cancel</mat-icon>
+        </button>
+    </span>
+</mat-dialog-actions>

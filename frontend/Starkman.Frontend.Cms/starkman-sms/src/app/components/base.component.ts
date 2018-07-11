@@ -4,6 +4,8 @@ import { AppError } from '../models/app-error';
 import { PageType } from '../models/page/page-type';
 import { ConfirmationDialogComponent } from './dialog/confirmation-dialog/confirmation-dialog.component';
 import { ConfirmationDialogData } from '../models/dialog/confirmation-dialog-data';
+import * as _moment from 'moment';
+import * as _lodash from 'lodash';
 
 export abstract class BaseComponent {
 

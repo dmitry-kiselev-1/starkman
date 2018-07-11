@@ -94,7 +94,7 @@ export class InMemoryDataService implements InMemoryDbService {
                 for (let o = 1; o <= offerCount; o++) {
                     let offer =
                         {
-                            id: `offer_${o}`,
+                            id: `offer_${category.id}_${p}_${o}`,
                             count: this.randomBetween(1, 10),
                             price: this.randomBetween(1000, 5000),
                             size: this.randomBetween(1, 10),

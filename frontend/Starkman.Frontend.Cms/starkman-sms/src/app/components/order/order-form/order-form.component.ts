@@ -222,7 +222,7 @@ export class OrderFormComponent extends BaseComponent implements OnInit {
     }
 
     offerAdd(data: Offer[]) {
-        debugger;
+        //debugger;
         this.entity.offerList = _lodash.concat(this.entity.offerList, data);
         this.selection.clear();
     }

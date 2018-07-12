@@ -222,8 +222,8 @@ export class OrderFormComponent extends BaseComponent implements OnInit {
     }
 
     offerAdd(data: Offer[]) {
-        debugger;
-        this.entity.offerList.push(data[0]);
+        //debugger;
+        this.entity.offerList.push(_lodash.flatMap(data, item => item));
     }
 
     /** Whether the number of selected elements matches the total number of rows. */

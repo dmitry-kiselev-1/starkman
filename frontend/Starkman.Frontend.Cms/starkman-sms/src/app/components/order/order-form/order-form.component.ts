@@ -204,7 +204,10 @@ export class OrderFormComponent extends BaseComponent implements OnInit {
     offerDeleteConfirmationDialog(): void {
         const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
             data: this.confirmationDialogData,
-            disableClose: true
+            disableClose: true,
+            height: "300px",
+            minHeight: "300px",
+            maxHeight: "300px"
         });
 
         dialogRef.afterClosed().subscribe(result => {

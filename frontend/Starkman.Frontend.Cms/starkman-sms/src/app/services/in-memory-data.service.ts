@@ -63,7 +63,7 @@ export class InMemoryDataService implements InMemoryDbService {
             } as Photo;
 
             let productList = [];
-            let productCount = this.randomBetween(0, 5);
+            let productCount = this.randomBetween(1, 5);
 
             for (let p = 1; p <= productCount; p++)
             {

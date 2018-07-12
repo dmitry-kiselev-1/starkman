@@ -30,7 +30,7 @@ export class OfferSearchDialogComponent extends BaseComponent implements OnInit 
         public dialogRef: MatDialogRef<OfferSearchDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: OfferSearchDialogData,
 
-        //public notificationService: NotificationService,
+        public notificationService: NotificationService,
         private restService: OrderService,
         protected snackBar: MatSnackBar,
         public dialog: MatDialog) {
@@ -38,14 +38,25 @@ export class OfferSearchDialogComponent extends BaseComponent implements OnInit 
     }
 
     ngOnInit() {
-        this.reload();
+        this.reload(false);
+    }
+
+    public searchOffer(filterValue: string)
+    {
+        if (!filterValue || filterValue.length === 0) {
+            this.entityListFiltered = this.entityList;
+        }
+        else {
+            this.entityListFiltered = _lodash.filter(this.entityList, (entity) =>
+                (entity.product.title.includes(filterValue) || entity.product.sku.toString().includes(filterValue)));
+        }
     }
 
     reload(notify: boolean = true) {
-        //if (notify) { this.notificationService.appLoading = true;  this.changeDetectorRef.detectChanges();}
+        if (notify) { this.notificationService.appLoading = true; }
         this.restService.getListOffer()
             .pipe(finalize(() => {
-                //if (notify) { this.notificationService.appLoading = false;  this.changeDetectorRef.detectChanges(); }
+                if (notify) { this.notificationService.appLoading = false; }
             }))
             .subscribe(
                 data => {

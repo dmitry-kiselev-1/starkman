@@ -1,6 +1,13 @@
 <h2 mat-dialog-title>Форма поиска торгового предложения</h2>
 <mat-dialog-content>
 
+    <mat-form-field>
+        <input type="text" #search matInput placeholder="Поиск по наименованию или артикулу"
+               style="color: grey; width: 100%;"
+               (keyup)="this.searchOffer(search.value)">
+        <mat-icon matSuffix style="color: grey; font-size: medium;">search</mat-icon>
+    </mat-form-field>
+
     <table mat-table
            [dataSource]="this.entityListFiltered"
            class="mat-elevation-z8">

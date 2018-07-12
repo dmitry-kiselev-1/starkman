@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
 import { OfferSearchDialogData } from '../../../models/dialog/offer-search-dialog-data';
 import { Product } from '../../../models/page/product';
@@ -11,6 +11,7 @@ import { Order } from '../../../models/order/order';
 import { BaseComponent } from '../../base.component';
 import { NotificationService } from '../../../services/notification.service';
 import { OrderService } from '../../../services/order.service';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-offer-search-dialog',
@@ -29,7 +30,7 @@ export class OfferSearchDialogComponent extends BaseComponent implements OnInit 
         public dialogRef: MatDialogRef<OfferSearchDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: OfferSearchDialogData,
 
-        public notificationService: NotificationService,
+        //public notificationService: NotificationService,
         private restService: OrderService,
         protected snackBar: MatSnackBar,
         public dialog: MatDialog) {
@@ -41,14 +42,14 @@ export class OfferSearchDialogComponent extends BaseComponent implements OnInit 
     }
 
     reload(notify: boolean = true) {
-        if (notify) { this.notificationService.appLoading = true; }
+        //if (notify) { this.notificationService.appLoading = true;  this.changeDetectorRef.detectChanges();}
         this.restService.getListOffer()
             .pipe(finalize(() => {
-                if (notify) { this.notificationService.appLoading = false; }
+                //if (notify) { this.notificationService.appLoading = false;  this.changeDetectorRef.detectChanges(); }
             }))
             .subscribe(
                 data => {
-                    debugger;
+                    //debugger;
                     this.entityList = data as Offer[];
                     this.entityListFiltered = data as Offer[];
                 },
@@ -58,21 +59,24 @@ export class OfferSearchDialogComponent extends BaseComponent implements OnInit 
                     error
                 } as AppError)
             );
+
+        const initialSelection = [];
+        const allowMultiSelect = true;
+        this.selection = new SelectionModel<Offer>(allowMultiSelect, initialSelection);
     }
 
     /** Whether the number of selected elements matches the total number of rows. */
-    /*isAllSelected() {
-        debugger;
+    isAllSelected() {
         const numSelected = this.selection.selected.length;
         const numRows = this.entityListFiltered.length;
         return numSelected == numRows;
-    }*/
+    }
 
     /** Selects all rows if they are not all selected; otherwise clear selection. */
-    /*masterToggle() {
+    masterToggle() {
         this.isAllSelected() ?
             this.selection.clear() :
             this.entityListFiltered.forEach(row => this.selection.select(row));
-    }*/
+    }
 
 }

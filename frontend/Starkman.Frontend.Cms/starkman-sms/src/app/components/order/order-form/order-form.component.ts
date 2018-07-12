@@ -164,21 +164,6 @@ export class OrderFormComponent extends BaseComponent implements OnInit {
             );
     }
 
-    offerAdd() {
-
-    }
-
-    offerEdit() {
-
-    }
-
-    offerDelete() {
-        this.entity.offerList = _lodash.filter(this.entity.offerList,
-            (offer) => !this.selection.selected.includes(offer)
-        );
-        this.selection.clear();
-    }
-
     getTotal(): number
     {
         //debugger;
@@ -201,13 +186,17 @@ export class OrderFormComponent extends BaseComponent implements OnInit {
         });
     }
 
+    offerDelete() {
+        this.entity.offerList = _lodash.filter(this.entity.offerList,
+            (offer) => !this.selection.selected.includes(offer)
+        );
+        this.selection.clear();
+    }
+
     offerDeleteConfirmationDialog(): void {
         const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
             data: this.confirmationDialogData,
-            disableClose: true,
-            height: "300px",
-            minHeight: "300px",
-            maxHeight: "300px"
+            disableClose: true
         });
 
         dialogRef.afterClosed().subscribe(result => {
@@ -219,7 +208,7 @@ export class OrderFormComponent extends BaseComponent implements OnInit {
 
     offerSearchDialogData: OfferSearchDialogData = {result: false} as OfferSearchDialogData;
 
-    offerDialog() {
+    offerAddDialog() {
         const dialogRef = this.dialog.open(OfferSearchDialogComponent, {
             data: this.offerSearchDialogData,
             disableClose: true
@@ -227,9 +216,14 @@ export class OrderFormComponent extends BaseComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             console.log(`Dialog result: ${(result as OfferSearchDialogData).result} ${(result as OfferSearchDialogData).data.length}`);
-            //if ((result as OfferSearchDialogData).result == true)
-            //    this.entity.offerList.push(result.data as Offer[]);
+            if ((result as OfferSearchDialogData).result == true && (result as OfferSearchDialogData).data.length > 0)
+                this.offerAdd((result as OfferSearchDialogData).data);
         });
+    }
+
+    offerAdd(data: Offer[]) {
+        debugger;
+        this.entity.offerList.push(data[0]);
     }
 
     /** Whether the number of selected elements matches the total number of rows. */

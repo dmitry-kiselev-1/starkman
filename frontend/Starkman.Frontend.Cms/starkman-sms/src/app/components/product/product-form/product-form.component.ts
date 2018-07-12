@@ -86,7 +86,7 @@ export class ProductFormComponent extends BaseComponent implements OnInit {
         this.notificationService.appLoading = true;
         this.entity.id = this.entity.url;
         this.entity.urlParent = this.category_id;
-        this.restService.post(this.entity.urlParent, this.entity.url, this.entity)
+        this.restService.post(this.entity.urlParent, this.product_id, this.entity)
             .pipe(finalize(() => this.notificationService.appLoading = false))
             .subscribe(
                 httpResponse => {

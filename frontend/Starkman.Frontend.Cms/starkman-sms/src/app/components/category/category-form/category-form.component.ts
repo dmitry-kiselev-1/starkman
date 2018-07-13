@@ -78,7 +78,7 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
         if (!this.entity.url) return;
         this.notificationService.appLoading = true;
         this.entity.id = this.entity.url;
-        this.restService.post(this.category_id, this.entity)
+        this.restService.post(null, this.entity)
             .pipe(finalize(() => this.notificationService.appLoading = false))
             .subscribe(
                 httpResponse => {

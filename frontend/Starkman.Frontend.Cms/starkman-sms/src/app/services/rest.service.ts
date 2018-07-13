@@ -30,7 +30,7 @@ export class RestService<T> extends BaseService {
 
     post(id: string, entity: T): Observable<HttpResponse<any>> {
         return concat(
-            this.delete(id),
+            (id ? this.delete(id) : null),
             this.httpClient.post(
                 `${this.apiDomain}${this.apiPoint}/${id ? id : ''}`,
                 entity,

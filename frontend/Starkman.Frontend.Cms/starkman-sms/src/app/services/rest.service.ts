@@ -32,7 +32,7 @@ export class RestService<T> extends BaseService {
         return concat(
             this.delete(id),
             this.httpClient.post(
-                `${this.apiDomain}${this.apiPoint}/${id}`,
+                `${this.apiDomain}${this.apiPoint}/${id ? id : ''}`,
                 entity,
                 {
                     headers: this.httpOptions.headers,

@@ -82,13 +82,13 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
             .pipe(finalize(() => this.notificationService.appLoading = false))
             .subscribe(
                 httpResponse => {
-                    debugger;
+                    //debugger;
                     this.notificationService.categoryChange.emit({url: this.entity.url} as Category);
                     console.log(`${this.entity.url} posted`);
                     this.router.navigateByUrl(`/category/${this.entity.url}`);
                 },
                 error => {
-                    debugger;
+                    //debugger;
                     this.handleError({
                         userMessage: 'Ошибка при добавлении категории!',
                         logMessage: `categoryService.post(${this.entity.url})`,

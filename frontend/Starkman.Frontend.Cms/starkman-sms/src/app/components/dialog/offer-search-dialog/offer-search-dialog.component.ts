@@ -48,7 +48,11 @@ export class OfferSearchDialogComponent extends BaseComponent implements OnInit 
         }
         else {
             this.entityListFiltered = _lodash.filter(this.entityList, (entity) =>
-                (entity.product.title.includes(filterValue) || entity.product.sku.toString().includes(filterValue)));
+                (
+                    entity.product.title.toLowerCase().includes(filterValue.toLowerCase())
+                    ||
+                    entity.product.sku.toString().toLowerCase().includes(filterValue.toLowerCase()))
+                );
         }
     }
 

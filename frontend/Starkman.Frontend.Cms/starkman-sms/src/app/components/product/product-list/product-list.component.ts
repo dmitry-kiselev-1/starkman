@@ -31,7 +31,11 @@ export class ProductListComponent extends BaseComponent implements OnInit {
         }
         else {
             this.entityListFiltered = _lodash.filter(this.entityList, (entity) =>
-                (entity.title.includes(filterValue) || entity.sku.toString().includes(filterValue)));
+                (
+                    entity.title.toLowerCase().includes(filterValue.toLowerCase())
+                    ||
+                    entity.sku.toString().toLowerCase().includes(filterValue.toLowerCase()))
+                );
         }
     }
 

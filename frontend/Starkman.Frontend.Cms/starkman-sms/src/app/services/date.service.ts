@@ -9,6 +9,7 @@ export class DateService {
 
   public inputDateFormat = 'YYYY-MM-DDTHH.mm.ss.SSS';
   public outputShortDateFormat = 'YYYY-MM-DD';
+  public outputShortTimeFormat = 'HH:mm';
 
   constructor() { }
 
@@ -36,7 +37,7 @@ export class DateService {
   toString(dateOject: Date, withoutTime: boolean = false): string {
 
     // debugger;
-    const inputDate = moment(dateOject, this.inputDateFormat, true);
+    const inputDate = moment(dateOject);
 
     // проверка, что значение может быть интерпретировано, как дата:
     const isValid = inputDate.isValid();
@@ -53,5 +54,24 @@ export class DateService {
           return null;
       }
   }
+
+    // Преобразует дату в строку со временем, в случае некорректной даты возвращает null
+    toTimeString(dateOject: Date): string {
+
+        // debugger;
+        const inputDate = moment(dateOject);
+
+        // проверка, что значение может быть интерпретировано, как дата:
+        const isValid = inputDate.isValid();
+
+        // проверка, что введённое значение находится в допустимом интервале:
+        const isInRange = inputDate.isBetween('1901-01-01', '2050-31-12', 'day', '[]');
+
+        if (isValid && isInRange ) {
+            return inputDate.local().format(this.outputShortTimeFormat);
+        } else {
+            return null;
+        }
+    }
 
 }

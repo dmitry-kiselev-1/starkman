@@ -21,8 +21,6 @@ import { OfferSearchDialogComponent } from '../../dialog/offer-search-dialog/off
 import { OfferSearchDialogData } from '../../../models/dialog/offer-search-dialog-data';
 import * as _moment from 'moment';
 import * as _lodash from 'lodash';
-import { toUnicode } from 'punycode';
-import { CurrencyPipe, DatePipe } from '@angular/common';
 
 @Component({
     selector: 'app-order-form',
@@ -231,8 +229,11 @@ export class OrderFormComponent extends BaseComponent implements OnInit {
         let separator = ',';
 
         let csv = '\ufeff';
+        debugger;
+        let date = this.dateService.toString(this.entity.date, true);
+        let time = this.dateService.toTimeString(this.entity.time);
 
-        csv += `"Заказ № ${this.entity.id} от ${this.entity.date.substring(0, 10)} в ${this.entity.time.substring(12, 5)} на сумму ${this.getTotal()}"`;
+        csv += `"Заказ № ${this.entity.id} от ${date} в ${time} на сумму ${this.getTotal()}"`;
         csv += '\n\n';
 
         csv += `"Артикул"${separator}"Товар"${separator}"Размер"${separator}"Рост"${separator}"Цена"${separator}"Количество"${separator}"Сумма"`
@@ -259,7 +260,8 @@ export class OrderFormComponent extends BaseComponent implements OnInit {
             link.style.display = 'none';
             document.body.appendChild(link);
             if(link.download !== undefined) {
-                link.setAttribute('href', window.URL.createObjectURL(blob));
+                //let URL: window;
+                link.setAttribute('href', URL.createObjectURL(blob));
                 link.setAttribute('download', `${this.entity.id}` + format);
                 link.click();
             }

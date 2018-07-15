@@ -21,6 +21,8 @@ import { OfferSearchDialogComponent } from '../../dialog/offer-search-dialog/off
 import { OfferSearchDialogData } from '../../../models/dialog/offer-search-dialog-data';
 import * as _moment from 'moment';
 import * as _lodash from 'lodash';
+import { toUnicode } from 'punycode';
+import { CurrencyPipe, DatePipe } from '@angular/common';
 
 @Component({
     selector: 'app-order-form',
@@ -219,6 +221,57 @@ export class OrderFormComponent extends BaseComponent implements OnInit {
             if ((result as OfferSearchDialogData).result == true && (result as OfferSearchDialogData).data.length > 0)
                 this.offerAdd((result as OfferSearchDialogData).data);
         });
+    }
+
+    orderExport() {
+
+        if (!this.entity || !this.entity.id) return;
+
+        let format = ".csv";
+        let separator = ',';
+
+        let csv = '\ufeff';
+
+        csv += `"Заказ № ${this.entity.id} от ${this.entity.date.substring(0, 10)} в ${this.entity.time.substring(12, 5)} на сумму ${this.getTotal()}"`;
+        csv += '\n\n';
+
+        csv += `"Артикул"${separator}"Товар"${separator}"Размер"${separator}"Рост"${separator}"Цена"${separator}"Количество"${separator}"Сумма"`
+        csv += '\n';
+
+        this.entity.offerList.forEach<Offer>(offer =>
+        {
+            let o = offer as Offer;
+            csv += `${o.product.sku}${separator}${o.product.title}${separator}${o.size}${separator}${o.height}${separator}${o.price}${separator}${o.count}${separator}${(o.price * o.count)}`;
+            csv += '\n';
+        });
+
+        let blob = new Blob([csv],{
+            type: 'text/csv;charset=utf-8;'
+        });
+
+        if(window.navigator.msSaveOrOpenBlob) {
+            //debugger;
+            navigator.msSaveOrOpenBlob(blob, `${this.entity.id}` + format);
+        }
+        else {
+            //debugger;
+            let link = document.createElement("a");
+            link.style.display = 'none';
+            document.body.appendChild(link);
+            if(link.download !== undefined) {
+                link.setAttribute('href', window.URL.createObjectURL(blob));
+                link.setAttribute('download', `${this.entity.id}` + format);
+                link.click();
+            }
+            else {
+                //debugger;
+                csv = 'data:text/csv;charset=utf-8,' + csv;
+                window.open(encodeURI(csv));
+            }
+            //debugger;
+            document.body.removeChild(link);
+        }
+
     }
 
     offerAdd(data: Offer[]) {

@@ -14,7 +14,7 @@ import { ConfirmationDialogData } from '../../../models/dialog/confirmation-dial
 
 @Component({
     selector: 'app-category-form',
-    templateUrl: "../../page/page-form/page-form.component.html",
+    templateUrl: '../../page/page-form/page-form.component.html',
     styleUrls: ['../../page/page-form/page-form.component.scss']
 })
 export class CategoryFormComponent extends BaseComponent implements OnInit {
@@ -56,10 +56,14 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
 
     reload(notify: boolean = true) {
         if (!this.category_id) return;
-        if (notify) { this.notificationService.appLoading = true; }
+        if (notify) {
+            this.notificationService.appLoading = true;
+        }
         this.restService.get(this.category_id)
             .pipe(finalize(() => {
-                if (notify) { this.notificationService.appLoading = false; }
+                if (notify) {
+                    this.notificationService.appLoading = false;
+                }
             }))
             .subscribe(
                 data => {
@@ -78,23 +82,20 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
         if (!this.entity.url) return;
         this.notificationService.appLoading = true;
         this.entity.id = this.entity.url;
-        this.restService.post(null, this.entity)
+        this.restService.postPage(this.category_id, this.entity)
             .pipe(finalize(() => this.notificationService.appLoading = false))
             .subscribe(
                 httpResponse => {
                     //debugger;
                     this.notificationService.categoryChange.emit({url: this.entity.url} as Category);
-                    console.log(`${this.entity.url} posted`);
+                    console.log(`"${this.category_id}" deleted and "${this.entity.url}" posted`);
                     this.router.navigateByUrl(`/category/${this.entity.url}`);
                 },
-                error => {
-                    //debugger;
-                    this.handleError({
-                        userMessage: 'Ошибка при добавлении категории!',
-                        logMessage: `categoryService.post(${this.entity.url})`,
-                        error
-                    } as AppError)
-                }
+                error => this.handleError({
+                    userMessage: 'Ошибка при добавлении категории!',
+                    logMessage: `categoryService.post(${this.category_id}, ${JSON.stringify(this.entity)})`,
+                    error
+                } as AppError)
             );
     }
 
@@ -110,7 +111,7 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
                 },
                 error => this.handleError({
                     userMessage: 'Ошибка при удалении категории!',
-                    logMessage: `${PageType[this.entityType]}Service.delete(${this.category_id})`,
+                    logMessage: `categoryService.delete(${this.category_id})`,
                     error
                 } as AppError)
             );

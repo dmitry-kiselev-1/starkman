@@ -28,16 +28,14 @@ export class RestService<T> extends BaseService {
             });
     }
 
-    post(id: string, entity: T): Observable<HttpResponse<any>> {
-        return concat(
-            (id ? this.delete(id) : null),
-            this.httpClient.post(
-                `${this.apiDomain}${this.apiPoint}/${id ? id : ''}`,
-                entity,
-                {
-                    headers: this.httpOptions.headers,
-                    observe: 'response'
-                }));
+    post(entity: T): Observable<HttpResponse<any>> {
+        return this.httpClient.post(
+            `${this.apiDomain}${this.apiPoint}`,
+            entity,
+            {
+                headers: this.httpOptions.headers,
+                observe: 'response'
+            });
     }
 
     delete(id: string): Observable<HttpResponse<any>> {

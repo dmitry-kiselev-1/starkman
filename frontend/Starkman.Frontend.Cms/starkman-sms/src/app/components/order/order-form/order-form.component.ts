@@ -130,7 +130,7 @@ export class OrderFormComponent extends BaseComponent implements OnInit {
         this.entity.filterCustomerPhone = this.entity.customer.phone;
 
         this.notificationService.appLoading = true;
-        this.restService.post(this.entity.id, this.entity)
+        this.restService.post(this.entity)
             .pipe(finalize(() => this.notificationService.appLoading = false))
             .subscribe(
                 httpResponse => {

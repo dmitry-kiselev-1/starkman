@@ -62,7 +62,7 @@ export class ProductFormComponent extends BaseComponent implements OnInit {
         if (notify) {
             this.notificationService.appLoading = true;
         }
-        this.restService.get(this.category_id, this.product_id)
+        this.restService.getProduct(this.category_id, this.product_id)
             .pipe(finalize(() => {
                 if (notify) {
                     this.notificationService.appLoading = false;
@@ -86,17 +86,18 @@ export class ProductFormComponent extends BaseComponent implements OnInit {
         this.notificationService.appLoading = true;
         this.entity.id = this.entity.url;
         this.entity.urlParent = this.category_id;
-        this.restService.post(this.entity.urlParent, this.product_id, this.entity)
+        this.restService.postProduct(this.category_id, this.product_id, this.entity)
             .pipe(finalize(() => this.notificationService.appLoading = false))
             .subscribe(
                 httpResponse => {
+                    //debugger;
                     this.notificationService.categoryChange.emit({url: this.entity.urlParent} as Category);
-                    console.log(`${this.entity.urlParent}/${this.entity.url} posted`);
+                    console.log(`"${this.product_id}" deleted and "${this.entity.url}" posted`);
                     this.router.navigateByUrl(`/product/${this.entity.urlParent}/${this.entity.url}`);
                 },
                 error => this.handleError({
                     userMessage: 'Ошибка при добавлении товара!',
-                    logMessage: `productService.post(${this.entity.urlParent}/${this.entity.url})`,
+                    logMessage: `productService.post(${this.category_id}, ${this.product_id}, ${JSON.stringify(this.entity)})`,
                     error
                 } as AppError)
             );
@@ -105,7 +106,7 @@ export class ProductFormComponent extends BaseComponent implements OnInit {
     delete() {
         if (!this.product_id) return;
         this.notificationService.appLoading = true;
-        this.restService.delete(this.category_id, this.product_id)
+        this.restService.deleteProduct(this.category_id, this.product_id)
             .subscribe(
                 httpResponse => {
                     this.notificationService.categoryChange.emit({url: this.category_id} as Category);
@@ -114,7 +115,7 @@ export class ProductFormComponent extends BaseComponent implements OnInit {
                 },
                 error => this.handleError({
                     userMessage: `Ошибка при удалении ${PageType[this.entityType]}!`,
-                    logMessage: `${PageType[this.entityType]}Service.delete(${this.category_id}/${this.product_id})`,
+                    logMessage: `${PageType[this.entityType]}Service.delete(${this.category_id}, ${this.product_id})`,
                     error
                 } as AppError)
             );

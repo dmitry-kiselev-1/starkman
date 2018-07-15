@@ -19,7 +19,7 @@ export abstract class BaseComponent {
         const defaultMessage = 'При выполнении операции произошла ошибка.';
         const repeatMessage = 'Пожалуйста, повторите операцию позже.';
 
-        console.error(error);
+        console.error(error.logMessage);
         this.snackBar.open((error.userMessage || defaultMessage) + ' ' + repeatMessage, 'ОК');
     }
 

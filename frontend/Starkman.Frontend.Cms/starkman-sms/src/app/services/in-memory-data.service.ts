@@ -51,7 +51,7 @@ export class InMemoryDataService implements InMemoryDbService {
             category.metaKeywords = `MetaKeywords (${category.title})`;
             category.metaDescription = `MetaDescription (${category.title})`;
             category.isVisible = true;
-            category.photo = {
+            category.photoList = [{
                 url: `${category.url}_photo`,
                 title: `${category.title} photo`,
                 type: "type",
@@ -60,7 +60,7 @@ export class InMemoryDataService implements InMemoryDbService {
                 base64String: "base64String",
                 sortOrder: 0,
                 isVisible: true
-            } as Photo;
+            }] as Photo[];
 
             let productList = [];
             let productCount = this.randomBetween(1, 5);

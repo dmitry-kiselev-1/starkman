@@ -1,4 +1,5 @@
 ﻿import { Storageable } from '../storageable';
+import { Photo } from './photo';
 
 export interface Page extends Storageable{
   url: string;
@@ -9,4 +10,5 @@ export interface Page extends Storageable{
   metaDescription?: string;
   sortOrder?: number;
   isVisible?: boolean;
+  photoList?: Photo[];
 }

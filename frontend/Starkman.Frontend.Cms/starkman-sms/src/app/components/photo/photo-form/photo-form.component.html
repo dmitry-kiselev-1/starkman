@@ -1,41 +1,48 @@
-<!--
-<mat-card>
+<mat-card *ngIf="this.entity">
 
-  <mat-card-title>{{this.entity?.title}}</mat-card-title>
-
-  <mat-card-subtitle>
-    {{this.entity?.url}}{{this.entity?.photo?.type ? ("." + this.entity?.photo?.type + " = " + ((this.entity?.photo?.size / 1024) | number) + " Kb") : "" }}
-  </mat-card-subtitle>
+    <mat-card-header>
+        <mat-card-title>{{this.entity.title}}</mat-card-title>
+        <mat-card-subtitle *ngIf="this.entity.urlParent">из категории: {{this.entity.urlParent}}
+            <!--    {{this.entity?.url}}{{this.entity?.photoList?.type ? ("." + this.entity?.photoList?.type + " = " + ((this.entity?.photoList?.size / 1024) | number) + " Kb") : "" }}-->
+        </mat-card-subtitle>
+    </mat-card-header>
 
     <mat-card-content>
-
-      <img mat-card-image width="100px"
-        src="{{this.entity?.photo?.base64String}}"
-        alt="{{this.entity?.photo?.title}}">
+<!--
+      <img mat-card-image width="100px" *ngFor="let photo of this.entity.photoList"
+        [src]="photo.base64String"
+        [alt]="photo.title"/>
+-->
     </mat-card-content>
 
     <mat-card-actions>
       <div class="button-row">
+<!--
         <span matTooltip="Загрузить фото на сайт">
           <button (click)="openFile.click()" mat-mini-fab color="accent" [disabled]="!this.entity.url">
             <mat-icon aria-label="Загрузить">add_a_photo</mat-icon>
           </button>
         </span>
-
-        <span matTooltip="Скачать фото с сайта" *ngIf="this.entity?.photo?.base64String">
-          <a href="{{this.photoService?.apiDomain + this.photoService?.apiDomainPhotoPath + this.entity?.photo?.url + '.' + this.entity?.photo?.type}}"
-             download="{{this.entity?.url}}.{{this.entity?.photo?.type}}">
-            <button mat-mini-fab color="accent" [disabled]="!this.entity?.photo?.base64String">
+-->
+<!--
+        <span matTooltip="Скачать фото с сайта" *ngIf="this.entity.photoList[0].base64String">
+          <a href="{{this.photoService?.apiDomain + this.photoService?.apiDomainPhotoPath + this.entity.photoList[0].url + '.' + this.entity?.photoList[0].type}}"
+             download="{{this.entity?.url}}.{{this.entity.photoList[0].type}}">
+            <button mat-mini-fab color="accent" [disabled]="!this.entity.photoList[0].base64String">
               <mat-icon class="flipV" aria-label="Скачать">file_download</mat-icon>
             </button>
           </a>
         </span>
+-->
 
+<!--
         <span matTooltip="Удалить фото с сайта">
-          <button (click)="deletePhoto()" mat-mini-fab color="warn" [disabled]="!this.entity?.photo?.base64String">
+          <button (click)="deletePhoto()" mat-mini-fab color="warn" [disabled]="!this.entity.photoList?[0].base64String">
             <mat-icon aria-label="Удалить">delete</mat-icon>
           </button>
         </span>
+-->
+
       </div>
     </mat-card-actions>
   </mat-card>
@@ -46,4 +53,3 @@
   #openFile
   (change)="previewPhoto(openFile.files)" />
 <div id="preview"></div>
--->

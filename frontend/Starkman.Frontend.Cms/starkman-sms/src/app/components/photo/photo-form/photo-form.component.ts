@@ -6,6 +6,8 @@ import {BaseComponent} from '../../base.component';
 import {NotificationService} from '../../../services/notification.service';
 import {MatDialog, MatSnackBar} from '@angular/material';
 import {Category} from '../../../models/page/category';
+import { Page } from '../../../models/page/page';
+import { PageType } from '../../../models/page/page-type';
 
 @Component({
   selector: 'app-photo-form',
@@ -15,8 +17,7 @@ import {Category} from '../../../models/page/category';
 export class PhotoFormComponent extends BaseComponent implements OnInit {
 
     private query_url: string;
-    @Input() entity: Category;
-    @Input() isSinglePhoto: boolean = true;
+    @Input() entity: Page;
 
     constructor(
         private notificationService: NotificationService,
@@ -24,6 +25,7 @@ export class PhotoFormComponent extends BaseComponent implements OnInit {
         protected snackBar: MatSnackBar,
         public dialog: MatDialog) {
         super(snackBar, dialog);
+        this.entityType = PageType.Photo;
     }
 
     ngOnInit() {}

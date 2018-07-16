@@ -4,7 +4,7 @@ import { Offer } from '../order/offer';
 import { Filter } from '../order/filter';
 
 export interface Product extends Page {
-    sku?: number;
+    sku?: string;
     price?: number;
     offerList?: Offer[];
     filterList?: Filter[];

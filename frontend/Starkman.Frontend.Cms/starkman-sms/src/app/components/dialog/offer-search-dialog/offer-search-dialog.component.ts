@@ -51,7 +51,7 @@ export class OfferSearchDialogComponent extends BaseComponent implements OnInit 
                 (
                     entity.product.title.toLowerCase().includes(filterValue.toLowerCase())
                     ||
-                    entity.product.sku.toString().toLowerCase().includes(filterValue.toLowerCase()))
+                    entity.product.sku.toLowerCase().includes(filterValue.toLowerCase()))
                 );
         }
     }

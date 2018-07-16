@@ -117,7 +117,7 @@ export class InMemoryDataService implements InMemoryDbService {
 
                 let product =
                     {
-                        sku: (index * 10 + p),
+                        sku: (index * 10 + p).toString(),
                         id:  `${category.url}_product_${p}`,
                         url: `${category.url}_product_${p}`,
                         urlParent: category.url,

@@ -34,7 +34,7 @@ export class ProductListComponent extends BaseComponent implements OnInit {
                 (
                     entity.title.toLowerCase().includes(filterValue.toLowerCase())
                     ||
-                    entity.sku.toString().toLowerCase().includes(filterValue.toLowerCase()))
+                    entity.sku.toLowerCase().includes(filterValue.toLowerCase()))
                 );
         }
     }

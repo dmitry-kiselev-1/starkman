@@ -50,7 +50,7 @@
                                             matTooltip="Число 1 означает, что в общем списке элемент будет на первом месте, число 2 - на втором, и так далее">
                                         <input autocomplete="off" [(ngModel)]="this.entity.sortOrder" name="sortOrder"
                                                #sortOrder="ngModel" matInput
-                                               [type]="'number'"
+                                               type="number"
                                                placeholder="Порядковый номер"/>
                                       </span>
                                 </mat-form-field>
@@ -73,7 +73,7 @@
                                 <mat-form-field *ngIf="this.entityType != 0">
                                     <input autocomplete="off" [(ngModel)]="this.entity.sku" name="sku" matInput required
                                            placeholder="Артикул"
-                                           type="number"/>
+                                           type="text"/>
                                 </mat-form-field>
                             </mat-grid-tile>
                         </mat-grid-list>

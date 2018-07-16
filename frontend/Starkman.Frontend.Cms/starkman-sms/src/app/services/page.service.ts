@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BaseService } from './base.service';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { concat, Observable } from 'rxjs';
+import { concat, Observable, of } from 'rxjs';
 import { concatMap, retryWhen, delay, take, timeout } from 'rxjs/operators';
 import { Page } from '../models/page/page';
 import { RestService } from './rest.service';
@@ -15,9 +15,22 @@ export class PageService<T> extends RestService<T> {
 
     postPage(oldUrl: string, entity: T): Observable<HttpResponse<any>> {
         return this.delete(oldUrl).pipe(
-            concatMap( () =>
-            this.post(entity)
+            concatMap(() =>
+                this.post(entity)
             )
         );
     }
+
+    pageExist(id: string): Observable<boolean> {
+        return this.httpClient.get(
+            `${this.apiDomain}${this.apiPoint}/?id=${id}`,
+            {
+                headers: this.httpOptions.headers
+            }).pipe(
+            concatMap((data) =>
+                of(((data as Array<T>).length > 0) ? true : false)
+            )
+        );
+    }
+
 }

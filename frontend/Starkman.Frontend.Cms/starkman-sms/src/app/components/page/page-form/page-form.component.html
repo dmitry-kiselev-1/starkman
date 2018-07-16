@@ -5,6 +5,7 @@
             <mat-card>
                 <mat-card-header>
                     <mat-card-title>{{this.componentTitle}}</mat-card-title>
+                    <mat-card-subtitle *ngIf="this.entityType != 0">из категории: {{this.category_id || ""}}</mat-card-subtitle>
                 </mat-card-header>
                 <mat-card-content>
 

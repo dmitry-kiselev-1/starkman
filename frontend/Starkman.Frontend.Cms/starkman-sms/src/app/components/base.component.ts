@@ -16,8 +16,8 @@ export abstract class BaseComponent {
     }
 
     protected handleError(error: AppError) {
-        const defaultMessage = 'При выполнении операции произошла ошибка.';
-        const repeatMessage = 'Пожалуйста, повторите операцию позже.';
+        const defaultMessage = 'При выполнении операции произошла ошибка!';
+        const repeatMessage = ''; //'Пожалуйста, повторите операцию позже.';
 
         console.error(error.logMessage);
         this.snackBar.open((error.userMessage || defaultMessage) + ' ' + repeatMessage, 'ОК');
@@ -51,7 +51,7 @@ export abstract class BaseComponent {
             : '';
     }
 
-    public confirmationDialogData: ConfirmationDialogData = {result: false} as ConfirmationDialogData;
+    public confirmationDialogData: ConfirmationDialogData = {result: false, text: null} as ConfirmationDialogData;
     /*
     public confirmationDialog(): void {
         const dialogRef = this.dialog.open(ConfirmationDialogComponent, {

@@ -84,20 +84,37 @@ export class ProductFormComponent extends BaseComponent implements OnInit {
     save() {
         if (!this.category_id || !this.entity.url) return;
         this.notificationService.appLoading = true;
-        this.entity.id = this.entity.url;
-        this.entity.urlParent = this.category_id;
-        this.restService.postProduct(this.category_id, this.product_id, this.entity)
+        this.restService.productExist(this.category_id, this.entity.url)
             .pipe(finalize(() => this.notificationService.appLoading = false))
             .subscribe(
-                httpResponse => {
-                    //debugger;
-                    this.notificationService.categoryChange.emit({url: this.entity.urlParent} as Category);
-                    console.log(`"${this.product_id}" deleted and "${this.entity.url}" posted`);
-                    this.router.navigateByUrl(`/product/${this.entity.urlParent}/${this.entity.url}`);
+                exist => {
+                    if (exist && !this.product_id) {
+                        this.showInfo(`Продукт "${this.entity.url}" уже имеется в категории "${this.category_id}"!`);
+                    }
+                    else
+                    {
+                        this.entity.id = this.entity.url;
+                        this.entity.urlParent = this.category_id;
+                        this.restService.postProduct(this.category_id, this.product_id, this.entity)
+                            .pipe(finalize(() => this.notificationService.appLoading = false))
+                            .subscribe(
+                                httpResponse => {
+                                    //debugger;
+                                    this.notificationService.categoryChange.emit({url: this.entity.urlParent} as Category);
+                                    console.log(`"${this.product_id}" deleted and "${this.entity.url}" posted`);
+                                    this.router.navigateByUrl(`/product/${this.entity.urlParent}/${this.entity.url}`);
+                                },
+                                error => this.handleError({
+                                    userMessage: 'Ошибка при добавлении товара!',
+                                    logMessage: `productService.post(${this.category_id}, ${this.product_id}, ${JSON.stringify(this.entity)})`,
+                                    error
+                                } as AppError)
+                            );
+                    }
                 },
                 error => this.handleError({
-                    userMessage: 'Ошибка при добавлении товара!',
-                    logMessage: `productService.post(${this.category_id}, ${this.product_id}, ${JSON.stringify(this.entity)})`,
+                    userMessage: 'Ошибка при запросе товара!',
+                    logMessage: `productService.get(${this.category_id}/${this.product_id})`,
                     error
                 } as AppError)
             );

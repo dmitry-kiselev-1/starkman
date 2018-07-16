@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../models/page/product';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { from, Observable } from 'rxjs';
+import { from, Observable, of } from 'rxjs';
 import { concat, single, concatMap, retryWhen, delay, take, timeout } from 'rxjs/operators';
 import { CategoryService } from './category.service';
 import { Category } from '../models/page/category';
@@ -46,6 +46,17 @@ export class ProductService extends CategoryService {
 
                 // update category:
                 return this.postPage(category_id, category);
+            })
+        )
+    }
+
+    productExist(category_id: string, product_id: string): Observable<boolean> {
+        return this.categoryService.get(category_id).pipe(
+            concatMap((category: Category) => {
+                if (!category || !category.productList || (category.productList.length == 0))
+                    return of(false);
+                else
+                    return of(!!category.productList.find(p => p.id == product_id));
             })
         )
     }

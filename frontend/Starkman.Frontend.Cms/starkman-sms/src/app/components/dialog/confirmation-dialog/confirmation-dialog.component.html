@@ -1,5 +1,5 @@
 <h2 mat-dialog-title>Подтвердите, пожалуйста</h2>
-<mat-dialog-content>Вы уверены?</mat-dialog-content>
+<mat-dialog-content>{{this.data.text || 'Вы уверены?'}}</mat-dialog-content>
 <mat-dialog-actions>
     <div class="button-row">
         <button mat-button color="primary" [mat-dialog-close]="{result: true}">Да</button>

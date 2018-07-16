@@ -81,19 +81,36 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
     save() {
         if (!this.entity.url) return;
         this.notificationService.appLoading = true;
-        this.entity.id = this.entity.url;
-        this.restService.postPage(this.category_id, this.entity)
+        this.restService.pageExist(this.entity.url)
             .pipe(finalize(() => this.notificationService.appLoading = false))
             .subscribe(
-                httpResponse => {
-                    //debugger;
-                    this.notificationService.categoryChange.emit({url: this.entity.url} as Category);
-                    console.log(`"${this.category_id}" deleted and "${this.entity.url}" posted`);
-                    this.router.navigateByUrl(`/category/${this.entity.url}`);
+                exist => {
+                    if (exist && !this.category_id) {
+                        this.showInfo(`Категория "${this.entity.url}" уже имеется!`);
+                    }
+                    else
+                    {
+                        this.entity.id = this.entity.url;
+                        this.restService.postPage(this.category_id, this.entity)
+                            .pipe(finalize(() => this.notificationService.appLoading = false))
+                            .subscribe(
+                                httpResponse => {
+                                    //debugger;
+                                    this.notificationService.categoryChange.emit({url: this.entity.url} as Category);
+                                    console.log(`"${this.category_id}" deleted and "${this.entity.url}" posted`);
+                                    this.router.navigateByUrl(`/category/${this.entity.url}`);
+                                },
+                                error => this.handleError({
+                                    userMessage: 'Ошибка при добавлении категории!',
+                                    logMessage: `categoryService.post(${this.category_id}, ${JSON.stringify(this.entity)})`,
+                                    error
+                                } as AppError)
+                            );
+                    }
                 },
                 error => this.handleError({
-                    userMessage: 'Ошибка при добавлении категории!',
-                    logMessage: `categoryService.post(${this.category_id}, ${JSON.stringify(this.entity)})`,
+                    userMessage: 'Ошибка при запросе категории!',
+                    logMessage: `categoryService.get(${this.category_id})`,
                     error
                 } as AppError)
             );

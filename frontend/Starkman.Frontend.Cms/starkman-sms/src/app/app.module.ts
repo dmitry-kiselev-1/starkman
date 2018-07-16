@@ -75,7 +75,7 @@ import { FilterFormComponent } from './components/filter/filter-form/filter-form
         HttpClientModule,
         environment.production ?
             [] : HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
-                delay: 500, passThruUnknownUrl: true, apiBase: 'api/', caseSensitiveSearch: false
+                delay: 250, passThruUnknownUrl: true, apiBase: 'api/', caseSensitiveSearch: false
             } as InMemoryBackendConfigArgs),
 
         AppRoutingModule,

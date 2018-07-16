@@ -20,6 +20,14 @@
     </mat-progress-bar>
   </div>
 
+<!--
+    <div>
+        <mat-progress-bar
+            [mode]="this.appLoading ? 'buffer' : 'determinate'" [color]="'primary'" [value]="0" [bufferValue]="0">
+        </mat-progress-bar>
+    </div>
+-->
+
   <mat-sidenav-container class="starkman-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
 
     <mat-sidenav #snav [disableClose]="true"
@@ -32,6 +40,7 @@
 
     <mat-sidenav-content>
         <router-outlet></router-outlet>
+        <!--<app-content></app-content>-->
     </mat-sidenav-content>
 
   </mat-sidenav-container>

@@ -41,6 +41,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { OfferSearchDialogComponent } from './components/dialog/offer-search-dialog/offer-search-dialog.component';
 import { OfferFormComponent } from './components/offer/offer-form/offer-form.component';
 import { FilterFormComponent } from './components/filter/filter-form/filter-form.component';
+import { ContentComponent } from './components/layout/content/content.component';
 
 @NgModule({
     declarations: [
@@ -60,7 +61,8 @@ import { FilterFormComponent } from './components/filter/filter-form/filter-form
         PageNotFoundComponent,
         OfferSearchDialogComponent,
         OfferFormComponent,
-        FilterFormComponent
+        FilterFormComponent,
+        ContentComponent
     ],
     entryComponents: [
         ConfirmationDialogComponent,

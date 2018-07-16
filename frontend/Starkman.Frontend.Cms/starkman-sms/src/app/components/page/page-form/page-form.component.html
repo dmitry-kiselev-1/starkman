@@ -1,6 +1,5 @@
 <mat-tab-group>
     <mat-tab label="Текст">
-
         <form #categoryForm="ngForm" *ngIf="this.entity">
             <mat-card>
                 <mat-card-header>
@@ -117,15 +116,15 @@
                 </mat-card-actions>
             </mat-card>
         </form>
-
     </mat-tab>
 
     <mat-tab label="Фото">
-
         <!--<app-photo-form [entity]="this.entity" [isSinglePhoto]="true"></app-photo-form>-->
-
     </mat-tab>
 
-    <!-- <mat-tab label="Цены"></mat-tab> -->
-</mat-tab-group>
+    <mat-tab label="Цены">
+    </mat-tab>
 
+    <mat-tab label="Фильтры">
+    </mat-tab>
+</mat-tab-group>

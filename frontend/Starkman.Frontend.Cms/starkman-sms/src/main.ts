@@ -9,6 +9,10 @@ import 'hammerjs';
 if (environment.production) {
   enableProdMode();
 }
+else {
+    //https://stackoverflow.com/questions/43375532/expressionchangedafterithasbeencheckederror-explained
+    //enableProdMode();
+}
 
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.log(err));

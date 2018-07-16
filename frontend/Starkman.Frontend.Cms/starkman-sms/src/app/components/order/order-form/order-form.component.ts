@@ -236,6 +236,9 @@ export class OrderFormComponent extends BaseComponent implements OnInit {
         csv += `"Заказ № ${this.entity.id} от ${date} в ${time} на сумму ${this.getTotal()}"`;
         csv += '\n\n';
 
+        csv += `"Клиент: ${this.entity.customer.name}, телефон: ${this.entity.customer.phoneCountryCode} ${this.entity.customer.phone}, почта: ${this.entity.customer.email}"`;
+        csv += '\n\n';
+
         csv += `"Артикул"${separator}"Товар"${separator}"Размер"${separator}"Рост"${separator}"Цена"${separator}"Количество"${separator}"Сумма"`
         csv += '\n';
 

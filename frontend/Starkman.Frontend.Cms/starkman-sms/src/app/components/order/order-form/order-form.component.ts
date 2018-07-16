@@ -222,14 +222,14 @@ export class OrderFormComponent extends BaseComponent implements OnInit {
     }
 
     orderExport() {
-
         if (!this.entity || !this.entity.id) return;
 
         let format = ".csv";
         let separator = ',';
 
+        // unicode marker:
         let csv = '\ufeff';
-        debugger;
+
         let date = this.dateService.toString(this.entity.date, true);
         let time = this.dateService.toTimeString(this.entity.time);
 
@@ -239,7 +239,7 @@ export class OrderFormComponent extends BaseComponent implements OnInit {
         csv += `"Артикул"${separator}"Товар"${separator}"Размер"${separator}"Рост"${separator}"Цена"${separator}"Количество"${separator}"Сумма"`
         csv += '\n';
 
-        this.entity.offerList.forEach<Offer>(offer =>
+        this.entity.offerList.forEach(offer =>
         {
             let o = offer as Offer;
             csv += `${o.product.sku}${separator}${o.product.title}${separator}${o.size}${separator}${o.height}${separator}${o.price}${separator}${o.count}${separator}${(o.price * o.count)}`;
@@ -260,8 +260,9 @@ export class OrderFormComponent extends BaseComponent implements OnInit {
             link.style.display = 'none';
             document.body.appendChild(link);
             if(link.download !== undefined) {
-                //let URL: window;
-                link.setAttribute('href', URL.createObjectURL(blob));
+                //debugger;
+                let data = (URL as any).createObjectURL(blob);
+                link.setAttribute('href', data);
                 link.setAttribute('download', `${this.entity.id}` + format);
                 link.click();
             }
@@ -273,7 +274,6 @@ export class OrderFormComponent extends BaseComponent implements OnInit {
             //debugger;
             document.body.removeChild(link);
         }
-
     }
 
     offerAdd(data: Offer[]) {

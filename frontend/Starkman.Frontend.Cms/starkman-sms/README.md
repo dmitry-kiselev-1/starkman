@@ -21,7 +21,7 @@ npm update -g
 npm install -g @angular/cli
 npm update -g typescript@latest
 
-ng generate component components/order/order-form --module app
+ng generate component components/login --module app
 
 ng generate component components/page/page-form --module app
 ng generate component components/product/product-list --module app

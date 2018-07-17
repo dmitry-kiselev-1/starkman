@@ -41,7 +41,9 @@ import { OfferSearchDialogComponent } from './components/dialog/offer-search-dia
 import { OfferFormComponent } from './components/offer/offer-form/offer-form.component';
 import { FilterFormComponent } from './components/filter/filter-form/filter-form.component';
 import { ContentComponent } from './components/layout/content/content.component';
-import { AuthGuardService } from './services/auth-guard.service';
+import { AuthGuardService } from './services/auth/auth-guard.service';
+import { AuthService } from './services/auth/auth.service';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
     declarations: [
@@ -61,7 +63,8 @@ import { AuthGuardService } from './services/auth-guard.service';
         OfferSearchDialogComponent,
         OfferFormComponent,
         FilterFormComponent,
-        ContentComponent
+        ContentComponent,
+        LoginComponent
     ],
     entryComponents: [
         ConfirmationDialogComponent,
@@ -86,7 +89,8 @@ import { AuthGuardService } from './services/auth-guard.service';
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},
-        ConfigService, NotificationService, AuthGuardService, DateService, CategoryService, PhotoService, ProductService, OrderService
+        ConfigService, NotificationService, AuthGuardService, AuthService,
+        DateService, CategoryService, PhotoService, ProductService, OrderService
     ],
     bootstrap: [AppRootComponent]
 })

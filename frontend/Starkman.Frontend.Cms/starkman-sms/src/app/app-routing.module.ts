@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuardService } from './services/auth/auth-guard.service';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { CategoryFormComponent } from './components/category/category-form/category-form.component';
 import { ProductFormComponent } from './components/product/product-form/product-form.component';
 import { OrderFormComponent } from './components/order/order-form/order-form.component';
-import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { AuthGuardService } from './services/auth-guard.service';
+import { LoginComponent } from './components/login/login.component';
 
 const routes: Routes = [
+    { path: 'login', component: LoginComponent },
     {
         path: '', canActivateChild: [AuthGuardService], children: [
             {
@@ -27,7 +29,7 @@ const routes: Routes = [
                     {path: ':category_id/:product_id', component: ProductFormComponent, data: {title: 'Форма товара'}}
                 ]
             },
-            {path: '**', component: PageNotFoundComponent}
+            { path: '**', component: PageNotFoundComponent }
         ]
     }
 ];

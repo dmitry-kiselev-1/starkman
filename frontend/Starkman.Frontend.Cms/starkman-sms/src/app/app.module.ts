@@ -41,6 +41,7 @@ import { OfferSearchDialogComponent } from './components/dialog/offer-search-dia
 import { OfferFormComponent } from './components/offer/offer-form/offer-form.component';
 import { FilterFormComponent } from './components/filter/filter-form/filter-form.component';
 import { ContentComponent } from './components/layout/content/content.component';
+import { AuthGuardService } from './services/auth-guard.service';
 
 @NgModule({
     declarations: [
@@ -85,7 +86,7 @@ import { ContentComponent } from './components/layout/content/content.component'
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},
-        ConfigService, NotificationService, DateService, CategoryService, PhotoService, ProductService, OrderService
+        ConfigService, NotificationService, AuthGuardService, DateService, CategoryService, PhotoService, ProductService, OrderService
     ],
     bootstrap: [AppRootComponent]
 })

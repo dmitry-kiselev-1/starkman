@@ -34,6 +34,8 @@ ng generate component components/order/order-list --module app
 
 ng generate component components/layout/sidenav --module app
 
+ng generate service services/authentication --module app  
+
 ng generate service services/product
 ng generate service services/category
 ng generate component components/category  --module app

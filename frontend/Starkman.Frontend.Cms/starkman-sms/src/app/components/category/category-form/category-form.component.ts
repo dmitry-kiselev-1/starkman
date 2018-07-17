@@ -81,6 +81,15 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
     save() {
         if (!this.entity.url) return;
         this.notificationService.appLoading = true;
+        // ToDo:
+        // обратиться к photoService и перенести в него base64String
+        /*
+        this.entity.photoList.forEach(photo => {
+            this.photoService.postPage(this.category_id, this.entity);
+            (photo as Photo).base64String = null;
+            (photo as Photo).binaryString = null;
+        });
+        */
         this.restService.pageExist(this.entity.url)
             .pipe(finalize(() => this.notificationService.appLoading = false))
             .subscribe(

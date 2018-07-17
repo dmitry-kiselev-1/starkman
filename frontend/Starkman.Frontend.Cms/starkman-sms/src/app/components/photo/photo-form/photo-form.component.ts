@@ -31,6 +31,8 @@ export class PhotoFormComponent extends BaseComponent implements OnInit {
     }
 
     ngOnInit() {
+        // ToDo:
+        // обратиться к photoService. и заполнить entity.photoList[...].base64String
     }
 
     onTitleInputEnter(value: string) {

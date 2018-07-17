@@ -12,6 +12,8 @@ import { ConfirmationDialogComponent } from '../../dialog/confirmation-dialog/co
 import { PageType } from '../../../models/page/page-type';
 import { Category } from '../../../models/page/category';
 import { ConfirmationDialogData } from '../../../models/dialog/confirmation-dialog-data';
+import { PhotoService } from '../../../services/photo.service';
+import { Photo } from '../../../models/page/photo';
 
 @Component({
     selector: 'app-product-form',
@@ -29,6 +31,7 @@ export class ProductFormComponent extends BaseComponent implements OnInit {
         private activatedRoute: ActivatedRoute,
         private router: Router,
         private restService: ProductService,
+        private photoService: PhotoService,
         protected snackBar: MatSnackBar,
         public dialog: MatDialog) {
         super(snackBar, dialog);
@@ -84,6 +87,15 @@ export class ProductFormComponent extends BaseComponent implements OnInit {
     save() {
         if (!this.category_id || !this.entity.url) return;
         this.notificationService.appLoading = true;
+        // ToDo:
+        // обратиться к photoService и перенести в него base64String
+        /*
+        this.entity.photoList.forEach(photo => {
+            this.photoService.postPage(this.category_id, this.entity);
+            (photo as Photo).base64String = null;
+            (photo as Photo).binaryString = null;
+        });
+        */
         this.restService.productExist(this.category_id, this.entity.url)
             .pipe(finalize(() => this.notificationService.appLoading = false))
             .subscribe(

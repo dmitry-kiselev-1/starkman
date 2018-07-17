@@ -29,6 +29,7 @@ export class InMemoryDataService implements InMemoryDbService {
 
         let products: Product[] = [];
         let offers: Offer[] = [];
+        let photos: Photo[] = [];
 
         let categories: Category[] =
             [
@@ -75,7 +76,7 @@ export class InMemoryDataService implements InMemoryDbService {
                 let filterCount = this.randomBetween(1, 5);
 
                 for (let ph = 1; ph <= photoCount; ph++) {
-                    photoList.push(
+                    let photo =
                         {
                             id: `${category.url}_product_${p}_${ph}`,
                             url: `${category.url}_product_${p}_${ph}`,
@@ -86,8 +87,10 @@ export class InMemoryDataService implements InMemoryDbService {
                             base64String: this.getImage(),
                             sortOrder: ph,
                             isVisible: true,
-                        } as Photo
-                    );
+                        } as Photo;
+
+                    photoList.push(photo);
+                    photos.push(photo);
                 }
 
                 for (let o = 1; o <= offerCount; o++) {
@@ -180,7 +183,7 @@ export class InMemoryDataService implements InMemoryDbService {
         }
 
         //debugger;
-        return {categories, orders};
+        return {categories, orders, photos};
     }
 
     // Id generator

@@ -7,13 +7,13 @@ import { Page } from '../models/page/page';
 import { RestService } from './rest.service';
 
 @Injectable()
-export class PageService<T> extends RestService<T> {
+export class PageService<Page> extends RestService<Page> {
 
     constructor(protected httpClient: HttpClient) {
         super(httpClient);
     }
 
-    postPage(oldUrl: string, entity: T): Observable<HttpResponse<any>> {
+    postPage(oldUrl: string, entity: Page): Observable<HttpResponse<any>> {
         return this.delete(oldUrl).pipe(
             concatMap(() =>
                 this.post(entity)
@@ -28,7 +28,7 @@ export class PageService<T> extends RestService<T> {
                 headers: this.httpOptions.headers
             }).pipe(
             concatMap((data) =>
-                of(((data as Array<T>).length > 0) ? true : false)
+                of(((data as Array<Page>).length > 0) ? true : false)
             )
         );
     }

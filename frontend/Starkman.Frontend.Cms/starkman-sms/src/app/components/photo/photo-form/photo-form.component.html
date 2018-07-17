@@ -53,8 +53,8 @@
         <content *ngFor="let photo of this.entity.photoList">
               <span [matTooltip]="photo.title" (click)="photoSelect(photo)">
               <img mat-card-image class="photo-link"
-                   [src]="photo.base64String"
-                   [alt]="photo.title"/>
+                   [src]="photo.base64String || ''"
+                   [alt]="photo.title || ''"/>
                   </span>
         </content>
     </mat-card-actions>

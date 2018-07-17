@@ -32,7 +32,6 @@ import { CategoryListComponent } from './components/category/category-list/categ
 import { CategoryFormComponent } from './components/category/category-form/category-form.component';
 import { OrderListComponent } from './components/order/order-list/order-list.component';
 import { OrderFormComponent } from './components/order/order-form/order-form.component';
-import { PhotoListComponent } from './components/photo/photo-list/photo-list.component';
 import { PhotoFormComponent } from './components/photo/photo-form/photo-form.component';
 import { ProductListComponent } from './components/product/product-list/product-list.component';
 import { ProductFormComponent } from './components/product/product-form/product-form.component';
@@ -56,7 +55,6 @@ import { ContentComponent } from './components/layout/content/content.component'
         ProductFormComponent,
         OrderListComponent,
         OrderFormComponent,
-        PhotoListComponent,
         PhotoFormComponent,
         PageNotFoundComponent,
         OfferSearchDialogComponent,

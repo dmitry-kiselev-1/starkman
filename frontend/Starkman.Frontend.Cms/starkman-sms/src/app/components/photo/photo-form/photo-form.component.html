@@ -2,56 +2,80 @@
 
     <mat-card-header>
         <mat-card-title>{{this.entity.title}}</mat-card-title>
-        <mat-card-subtitle *ngIf="this.entity.urlParent">из категории: {{this.entity.urlParent}}
-            <!--    {{this.entity?.url}}{{this.entity?.photoList?.type ? ("." + this.entity?.photoList?.type + " = " + ((this.entity?.photoList?.size / 1024) | number) + " Kb") : "" }}-->
-        </mat-card-subtitle>
+        <mat-card-subtitle *ngIf="this.entity.urlParent">из категории: {{this.entity.urlParent}}</mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>
-<!--
-      <img mat-card-image width="100px" *ngFor="let photo of this.entity.photoList"
-        [src]="photo.base64String"
-        [alt]="photo.title"/>
--->
+        <div class="edit-form-container" *ngIf="this.selectedPhoto">
+            <mat-form-field>
+                <input autocomplete="off" [(ngModel)]="this.selectedPhoto.url" name="url" [disabled]="true"
+                       matInput placeholder="url"
+                       required/>
+            </mat-form-field>
+
+            <mat-form-field>
+                <input autocomplete="off"
+                       (keyup.enter)="onTitleInputEnter(titleInput.value)"
+                       (blur)="onTitleInputEnter(titleInput.value)"
+                       [(ngModel)]="this.selectedPhoto.title" name="Title" #titleInput="ngModel" matInput
+                       placeholder="Title (название)" required minlength="1"/>
+            </mat-form-field>
+
+            <mat-grid-list cols="2" rowHeight="5em">
+                <mat-grid-tile>
+                    <mat-form-field>
+                <span matTooltipPosition="right"
+                      matTooltip="Число 1 означает, что в общем списке элемент будет на первом месте, число 2 - на втором, и так далее">
+                                        <input autocomplete="off" [(ngModel)]="this.selectedPhoto.sortOrder" name="sortOrder"
+                                               #sortOrder="ngModel" matInput
+                                               type="number"
+                                               placeholder="Порядковый номер"/>
+                                      </span>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-checkbox [(ngModel)]="this.selectedPhoto.isVisible"
+                                  #isVisible="ngModel"
+                                  name="isVisible"
+                                  color="primary">Показывать на сайте
+                    </mat-checkbox>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </div>
+
+        <img mat-card-image class="photo"
+             [src]="this.selectedPhoto?.base64String || ''"
+             [alt]="this.selectedPhoto?.title || ''"/>
+
     </mat-card-content>
 
     <mat-card-actions>
-      <div class="button-row">
-<!--
-        <span matTooltip="Загрузить фото на сайт">
-          <button (click)="openFile.click()" mat-mini-fab color="accent" [disabled]="!this.entity.url">
+        <content *ngFor="let photo of this.entity.photoList">
+              <span [matTooltip]="photo.title" (click)="photoSelect(photo)">
+              <img mat-card-image class="photo-link"
+                   [src]="photo.base64String"
+                   [alt]="photo.title"/>
+                  </span>
+        </content>
+    </mat-card-actions>
+
+    <span matTooltip="Загрузить фото">
+          <button (click)="openFile.click()" mat-mini-fab color="accent" [disabled]="!this.entity.url || this.notificationService.appLoading">
             <mat-icon aria-label="Загрузить">add_a_photo</mat-icon>
           </button>
         </span>
--->
-<!--
-        <span matTooltip="Скачать фото с сайта" *ngIf="this.entity.photoList[0].base64String">
-          <a href="{{this.photoService?.apiDomain + this.photoService?.apiDomainPhotoPath + this.entity.photoList[0].url + '.' + this.entity?.photoList[0].type}}"
-             download="{{this.entity?.url}}.{{this.entity.photoList[0].type}}">
-            <button mat-mini-fab color="accent" [disabled]="!this.entity.photoList[0].base64String">
-              <mat-icon class="flipV" aria-label="Скачать">file_download</mat-icon>
-            </button>
-          </a>
-        </span>
--->
 
-<!--
-        <span matTooltip="Удалить фото с сайта">
-          <button (click)="deletePhoto()" mat-mini-fab color="warn" [disabled]="!this.entity.photoList?[0].base64String">
-            <mat-icon aria-label="Удалить">delete</mat-icon>
-          </button>
-        </span>
--->
+    <span matTooltip="Удалить фото">
+              <button (click)="deleteConfirmationDialog()" mat-mini-fab color="warn" [disabled]="!this.selectedPhoto || this.notificationService.appLoading">
+                <mat-icon aria-label="Удалить">delete</mat-icon>
+              </button>
+            </span>
 
-      </div>
-    </mat-card-actions>
-  </mat-card>
+</mat-card>
 
-<!--
 <input type="file" required style="display: none" hidden="hidden"
-  accept="image/jpeg,image/png"
-  style="opacity: 0"
-  #openFile
-  (change)="previewPhoto(openFile.files)" />
+       accept="image/jpeg,image/png"
+       style="opacity: 0"
+       #openFile
+       (change)="previewPhoto(openFile.files)"/>
 <div id="preview"></div>
--->

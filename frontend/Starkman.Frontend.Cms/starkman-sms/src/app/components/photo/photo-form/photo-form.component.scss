@@ -1,24 +1,64 @@
 .mat-card {
-  margin: 20px;
+    margin: 20px;
 }
-/*
+
 .edit-form-container {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
-*/
 /*
 .edit-form-container > * {
   width: 100%;
 }
 */
 
-.mat-card-image {
-  width: calc(50% + 48px);
-  /*width: calc(500px + 48px);*/
-  margin: 0 -24px 16px -24px;
+.fr-view {
+    font-family: "Times New Roman", Georgia, Serif;
+    font-size: 18px;
+    color: #444444;
 }
 
 a:-webkit-any-link {
   text-decoration: transparent;
 }
+
+.photo
+{
+    padding: 10px;
+    display: inline;
+    max-width:600px;
+    max-height:300px;
+    width: auto;
+    height: auto;
+}
+
+.photo-link
+{
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 20px;
+    padding-bottom: 0px;
+    display: inline;
+    max-width:50px;
+    max-height:50px;
+    width: auto;
+    height: auto;
+    cursor: pointer;
+}
+
+.photo-link:hover {
+    max-width:60px;
+    max-height:60px;
+}
+
+.mat-card-actions {
+    max-height:60px;
+    min-height:60px;
+}
+
+.mat-card-content
+{
+    min-height: 500px;
+    max-height: 500px;
+}
+

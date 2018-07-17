@@ -4,6 +4,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { concat, Observable } from 'rxjs';
 import { concatMap, retryWhen, delay, take, timeout } from 'rxjs/operators';
 import { Page } from '../models/page/page';
+import * as _lodash from 'lodash';
 
 @Injectable()
 export class RestService<T> extends BaseService {

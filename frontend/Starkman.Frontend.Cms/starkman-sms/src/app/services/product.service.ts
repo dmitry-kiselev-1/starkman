@@ -5,6 +5,8 @@ import { from, Observable, of } from 'rxjs';
 import { concat, single, concatMap, retryWhen, delay, take, timeout } from 'rxjs/operators';
 import { CategoryService } from './category.service';
 import { Category } from '../models/page/category';
+import * as _lodash from 'lodash';
+import { Filter } from '../models/order/filter';
 
 @Injectable()
 export class ProductService extends CategoryService {
@@ -21,6 +23,8 @@ export class ProductService extends CategoryService {
     }
 
     postProduct(category_id: string, product_id: string, product: Product): Observable<HttpResponse<any>> {
+        product.photoList = _lodash.sortBy(product.photoList, (photo) => photo.sortOrder);
+        product.filterList = _lodash.sortBy(product.filterList, (filter) => filter.sortOrder);
         return this.categoryService.get(category_id).pipe(
             concatMap((category: Category) => {
                 if (!category.productList) { category.productList = []; }

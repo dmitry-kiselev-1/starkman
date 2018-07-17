@@ -21,7 +21,7 @@
                                    (keyup.enter)="onTitleInputEnter(titleInput.value)"
                                    (blur)="onTitleInputEnter(titleInput.value)"
                                    [(ngModel)]="this.entity.title" name="Title" #titleInput="ngModel" matInput
-                                   placeholder="Title (название)" required minlength="1">
+                                   placeholder="Title (название)" required minlength="1"/>
                         </mat-form-field>
 
                         <mat-form-field>
@@ -119,7 +119,7 @@
     </mat-tab>
 
     <mat-tab label="Фото">
-        <app-photo-form [entity]="this.entity"></app-photo-form>
+        <app-photo-form [entity]="this.entity" [selectedPhoto]="(this.entity.photoList && this.entity.photoList.length > 0) ? this.entity.photoList[0] : null"></app-photo-form>
     </mat-tab>
 
     <mat-tab label="Цены" *ngIf="this.entityType == 1">

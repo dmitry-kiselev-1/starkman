@@ -2,5 +2,10 @@
     margin: 20px;
 }
  table {
-     width: 50%;
+     width: 150%;
  }
+
+.table-container {
+    height: 500px;
+    overflow: auto;
+}

@@ -164,8 +164,7 @@ export class OrderFormComponent extends BaseComponent implements OnInit {
             );
     }
 
-    getTotal(): number
-    {
+    getTotal(): number {
         //debugger;
         if (!this.entity || !this.entity.offerList || (this.entity.offerList.length == 0)) return 0;
         let total: number = 0;

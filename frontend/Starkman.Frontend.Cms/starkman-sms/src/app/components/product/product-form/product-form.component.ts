@@ -14,6 +14,7 @@ import { Category } from '../../../models/page/category';
 import { ConfirmationDialogData } from '../../../models/dialog/confirmation-dialog-data';
 import { PhotoService } from '../../../services/photo.service';
 import { Photo } from '../../../models/page/photo';
+import { MatTabChangeEvent } from '@angular/material/tabs/typings/tab-group';
 
 @Component({
     selector: 'app-product-form',
@@ -162,4 +163,13 @@ export class ProductFormComponent extends BaseComponent implements OnInit {
                 this.delete();
         });
     }
+
+    filterTabActive: boolean = false;
+    selectedTabChange(tab: MatTabChangeEvent)
+    {
+        //debugger;
+        if (tab.index == 3)
+            this.filterTabActive = true;
+    }
+
 }

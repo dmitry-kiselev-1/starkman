@@ -27,32 +27,32 @@
         <ng-container matColumnDef="size">
             <th mat-header-cell *matHeaderCellDef> Размер </th>
             <td mat-cell *matCellDef="let offer">
-                <!--{{offer.size | number}}-->
-                <input type="text" autocomplete="off" matInput [(ngModel)]="offer.size" name="size_${{offer.id}}"/>
+                {{offer.size | number}}
+                <!--<input type="text" autocomplete="off" matInput [(ngModel)]="offer.size" name="size_${{offer.id}}"/>-->
             </td>
         </ng-container>
 
         <ng-container matColumnDef="height">
             <th mat-header-cell *matHeaderCellDef> Рост </th>
             <td mat-cell *matCellDef="let offer">
-                <!--{{offer.height | number}} -->
-                <input type="text" autocomplete="off" matInput [(ngModel)]="offer.height" name="height_${{offer.id}}"/>
+                {{offer.height | number}}
+                <!--<input type="text" autocomplete="off" matInput [(ngModel)]="offer.height" name="height_${{offer.id}}"/>-->
             </td>
         </ng-container>
 
         <ng-container matColumnDef="price">
             <th mat-header-cell *matHeaderCellDef> Цена </th>
             <td mat-cell *matCellDef="let offer">
-                <!--{{(offer.price || offer.product.price) | number}} -->
-                <input type="text" autocomplete="off" matInput [(ngModel)]="offer.price" name="price_${{offer.id}}"/>
+                {{(offer.price || offer.product.price) | number}}
+                <!--<input type="text" autocomplete="off" matInput [(ngModel)]="offer.price" name="price_${{offer.id}}"/>-->
             </td>
         </ng-container>
 
         <ng-container matColumnDef="count">
             <th mat-header-cell *matHeaderCellDef> Количество </th>
             <td mat-cell *matCellDef="let offer">
-                <!--{{offer.count}} -->
-                <input type="text" autocomplete="off" matInput [(ngModel)]="offer.count" name="count_${{offer.id}}"/>
+                {{offer.count}}
+                <!--<input type="text" autocomplete="off" matInput [(ngModel)]="offer.count" name="count_${{offer.id}}"/>-->
             </td>
         </ng-container>
 

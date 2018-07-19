@@ -41,3 +41,7 @@ html, body, app-component-container, starkman-sidenav-container {
   margin: 0;
 }
 
+.table-editable-sell-hover-hilight:hover
+{
+    background-color: yellow;
+}

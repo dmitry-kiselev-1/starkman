@@ -44,6 +44,7 @@ import { ContentComponent } from './components/layout/content/content.component'
 import { AuthGuardService } from './services/auth/auth-guard.service';
 import { AuthService } from './services/auth/auth.service';
 import { LoginComponent } from './components/login/login.component';
+import { FilterService } from './services/filter.service';
 
 @NgModule({
     declarations: [
@@ -90,7 +91,7 @@ import { LoginComponent } from './components/login/login.component';
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},
         ConfigService, NotificationService, AuthGuardService, AuthService,
-        DateService, CategoryService, PhotoService, ProductService, OrderService
+        DateService, CategoryService, PhotoService, ProductService, OrderService, FilterService
     ],
     bootstrap: [AppRootComponent]
 })

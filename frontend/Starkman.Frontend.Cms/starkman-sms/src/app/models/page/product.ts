@@ -1,7 +1,7 @@
 import { Page } from './page';
 import { Photo } from './photo';
 import { Offer } from '../order/offer';
-import { Filter } from '../order/filter';
+import { Filter } from './filter';
 
 export interface Product extends Page {
     sku?: string;

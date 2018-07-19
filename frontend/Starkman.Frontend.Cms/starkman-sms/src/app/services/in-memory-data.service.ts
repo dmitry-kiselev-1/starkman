@@ -8,7 +8,7 @@ import { Order } from '../models/order/order';
 import { Offer } from '../models/order/offer';
 import { Customer } from '../models/order/customer';
 import { OrderStatus } from '../models/order/order-status';
-import { Filter } from '../models/order/filter';
+import { Filter } from '../models/page/filter';
 import * as _moment from 'moment';
 import * as _lodash from 'lodash';
 
@@ -30,6 +30,12 @@ export class InMemoryDataService implements InMemoryDbService {
         let products: Product[] = [];
         let offers: Offer[] = [];
         let photos: Photo[] = [];
+
+        let filters: Filter[] = [];
+        let filtersCount = this.randomBetween(10, 20);
+        for (let fl = 1; fl <= filtersCount; fl++) {
+            filters.push({id: fl.toString(), sortOrder: fl, name: `filter_name_${fl}`, value: `filter_value_${fl}` } as Filter)
+        }
 
         let categories: Category[] =
             [
@@ -109,11 +115,7 @@ export class InMemoryDataService implements InMemoryDbService {
 
                 for (let f = 1; f <= filterCount; f++) {
                     filterList.push(
-                        {
-                            id: `filter_${f}`,
-                            name: `name_${f}`,
-                            value: `value_${f}`
-                        } as Filter
+                        filters[this.randomBetween(0, filters.length - 1)]
                     );
                 }
 
@@ -183,7 +185,7 @@ export class InMemoryDataService implements InMemoryDbService {
         }
 
         //debugger;
-        return {categories, orders, photos};
+        return {categories, orders, photos, filters};
     }
 
     // Id generator

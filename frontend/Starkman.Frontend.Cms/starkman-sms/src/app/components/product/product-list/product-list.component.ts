@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { BaseComponent } from "../../base.component";
 import { Product } from "../../../models/page/product";
-import { MatDialog, MatSnackBar } from '@angular/material';
+import { MatDialog, MatSnackBar, MatTab } from '@angular/material';
 import * as _lodash from "lodash";
+import { MatTabChangeEvent } from '@angular/material/tabs/typings/tab-group';
 
 @Component({
     selector: 'app-product-list',
@@ -12,7 +13,7 @@ import * as _lodash from "lodash";
 export class ProductListComponent extends BaseComponent implements OnInit {
 
     @Input() entityList: Product[] = [];
-    public entityListFiltered: Product[] = [];
+    entityListFiltered: Product[] = [];
 
     constructor(
         protected snackBar: MatSnackBar,
@@ -24,7 +25,7 @@ export class ProductListComponent extends BaseComponent implements OnInit {
         this.entityListFiltered = Object.assign([{}], this.entityList);
     }
 
-    public searchProduct(filterValue: string)
+    searchProduct(filterValue: string)
     {
         if (!filterValue || filterValue.length === 0) {
             this.entityListFiltered = this.entityList;
@@ -38,6 +39,5 @@ export class ProductListComponent extends BaseComponent implements OnInit {
                 );
         }
     }
-
 }
 

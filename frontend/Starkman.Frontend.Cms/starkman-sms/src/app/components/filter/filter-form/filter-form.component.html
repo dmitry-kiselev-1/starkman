@@ -6,6 +6,82 @@
     </mat-card-header>
 
     <mat-card-content>
+
+        <mat-grid-list cols="2" rowHeight="2:1">
+            <mat-grid-tile>
+
+            </mat-grid-tile>
+            <mat-grid-tile>
+
+            </mat-grid-tile>
+        </mat-grid-list>
+
+        <div style="display: inline;">
+            <mat-form-field style="width: 300px;">
+                <input type="text" #search matInput placeholder="Поиск по всем фильтрам"
+                       style="color: grey;"
+                       (keyup)="this.applyFilter(search.value)">
+                <mat-icon matSuffix style="color: grey; font-size: medium;">search</mat-icon>
+            </mat-form-field>
+            <table mat-table matSort
+               [dataSource]="allFiltersDataSource"
+               class="mat-elevation-z8">
+
+            <ng-container matColumnDef="sortOrder">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Номер </th>
+                <td mat-cell *matCellDef="let filter" width="20px;">
+                    <!--{{filter.sortOrder | number}}-->
+                    <input matInput type="number" autocomplete="off" [(ngModel)]="filter.sortOrder" name="sortOrder_{{filter.id}}" placeholder="Номер" class="table-editable-sell-hover-hilight" required/>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header> Название </th>
+                <td mat-cell *matCellDef="let filter">
+                    <!--{{filter.name}}-->
+                    <input matInput type="text" autocomplete="off" [(ngModel)]="filter.name" name="name_{{filter.id}}" placeholder="Название"  class="table-editable-sell-hover-hilight" required/>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="allFiltersColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: allFiltersColumns;"></tr>
+        </table>
+        </div>
+
+        <div style="display: inline;">
+            <table mat-table
+               [dataSource]="this.entity.filterList"
+               class="mat-elevation-z8">
+
+                <ng-container matColumnDef="sortOrder">
+                    <th mat-header-cell *matHeaderCellDef> Номер </th>
+                    <td mat-cell *matCellDef="let filter" width="20px;">
+                        {{filter.sortOrder | number}}
+                        <!--<input matInput type="number" autocomplete="off" [(ngModel)]="filter.sortOrder" name="sortOrder_{{filter.id}}" placeholder="Номер" class="table-editable-sell-hover-hilight" required/>-->
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef> Название </th>
+                    <td mat-cell *matCellDef="let filter">
+                        {{filter.name}}
+                        <!--<input matInput type="text" autocomplete="off" [(ngModel)]="filter.name" name="name_{{filter.id}}" placeholder="Название"  class="table-editable-sell-hover-hilight" required/>-->
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="value">
+                    <th mat-header-cell *matHeaderCellDef> Значение </th>
+                    <td mat-cell *matCellDef="let filter">
+                        <!--{{filter.value}}-->
+                        <input matInput type="text" autocomplete="off" [(ngModel)]="filter.value" name="value_{{filter.id}}" placeholder="Значение"  class="table-editable-sell-hover-hilight" required/>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="selectedFiltersColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: selectedFiltersColumns;"></tr>
+            </table>
+        </div>
+
     </mat-card-content>
 
     <mat-card-actions>
@@ -14,3 +90,5 @@
     </mat-card-actions>
 
 </mat-card>
+
+

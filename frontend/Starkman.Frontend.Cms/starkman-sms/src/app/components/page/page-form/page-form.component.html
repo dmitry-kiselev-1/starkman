@@ -1,4 +1,4 @@
-<mat-tab-group>
+<mat-tab-group (selectedTabChange)="selectedTabChange($event)">
     <mat-tab label="Текст">
         <form #categoryForm="ngForm" *ngIf="this.entity">
             <mat-card>
@@ -127,6 +127,6 @@
     </mat-tab>
 
     <mat-tab label="Фильтры" *ngIf="this.entityType == 1">
-        <app-filter-form [entity]="this.entity"></app-filter-form>
+        <app-filter-form [entity]="this.entity" [active]="this.filterTabActive"></app-filter-form>
     </mat-tab>
 </mat-tab-group>

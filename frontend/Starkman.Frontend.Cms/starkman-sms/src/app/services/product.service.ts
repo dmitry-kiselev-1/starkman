@@ -6,7 +6,7 @@ import { concat, single, concatMap, retryWhen, delay, take, timeout } from 'rxjs
 import { CategoryService } from './category.service';
 import { Category } from '../models/page/category';
 import * as _lodash from 'lodash';
-import { Filter } from '../models/order/filter';
+import { Filter } from '../models/page/filter';
 
 @Injectable()
 export class ProductService extends CategoryService {

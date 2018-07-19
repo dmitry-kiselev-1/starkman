@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, ViewChild } from '@angular/core';
-import { Page } from '../../../models/page/page';
 import { MatDialog, MatSnackBar, MatSort, MatTableDataSource } from '@angular/material';
 import { PageType } from '../../../models/page/page-type';
 import { BaseComponent } from '../../base.component';
@@ -8,11 +7,11 @@ import { Filter } from '../../../models/page/filter';
 import { FilterService } from '../../../services/filter.service';
 import { finalize } from 'rxjs/operators';
 import { AppError } from '../../../models/app-error';
-import * as _lodash from 'lodash';
 import { ConfirmationDialogComponent } from '../../dialog/confirmation-dialog/confirmation-dialog.component';
 import { ConfirmationDialogData } from '../../../models/dialog/confirmation-dialog-data';
 import { Product } from '../../../models/page/product';
 import { SelectionModel } from '@angular/cdk/collections';
+import * as _lodash from 'lodash';
 
 @Component({
   selector: 'app-filter-form',
@@ -78,29 +77,24 @@ export class FilterFormComponent extends BaseComponent implements OnInit {
             );
     }
 
-    applyFilter(filterValue: string)
-    {
+    applyFilter(filterValue: string) {
         this.allFiltersDataSource.filter = filterValue.trim().toLowerCase();
     }
 
-    deleteSelectedFilters()
-    {
+    deleteSelectedFilters() {
 
     }
 
-    addFiltersCol()
-    {
+    addFiltersCol() {
         this.allFiltersDataSource.data.push({id: this.guid(), sortOrder: 0, name: 'Новый фильтр', value: ''} as Filter)
         this.allFiltersDataSource.data = _lodash.sortBy(this.allFiltersDataSource.data, (f) => (f as Filter).sortOrder);
     }
 
-    saveFiltersCol()
-    {
+    saveFiltersCol() {
 
     }
 
-    deleteFiltersCol()
-    {
+    deleteFiltersCol() {
 
     }
 
@@ -119,7 +113,7 @@ export class FilterFormComponent extends BaseComponent implements OnInit {
 
     /** Whether the number of selected elements matches the total number of rows. */
     allFiltersIsAllSelected() {
-        const numSelected = this.selectedFiltersSelection.selected.length;
+        const numSelected = this.allFiltersSelection.selected.length;
         const numRows = this.allFiltersDataSource.data.length;
         return numSelected == numRows;
     }
@@ -127,8 +121,8 @@ export class FilterFormComponent extends BaseComponent implements OnInit {
     /** Selects all rows if they are not all selected; otherwise clear selection. */
     allFiltersMasterToggle() {
         this.allFiltersIsAllSelected() ?
-            this.selectedFiltersSelection.clear() :
-            this.entity.filterList.forEach(row => this.selectedFiltersSelection.select(row));
+            this.allFiltersSelection.clear() :
+            this.allFiltersDataSource.data.forEach(row => this.allFiltersSelection.select(row));
     }
 
     // /** Whether the number of selected elements matches the total number of rows. */

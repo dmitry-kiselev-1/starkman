@@ -22,7 +22,7 @@
                            class="mat-elevation-z8">
 
                         <ng-container matColumnDef="sortOrder">
-                            <mat-header-cell *matHeaderCellDef mat-sort-header> Порядковый номер </mat-header-cell>
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> Номер </mat-header-cell>
                             <mat-cell *matCellDef="let filter">
                                 <!--{{filter.sortOrder | number}}-->
                                 <input matInput type="number" autocomplete="off" [(ngModel)]="filter.sortOrder" name="sortOrder_{{filter.id}}" placeholder="Номер" class="table-editable-sell-hover-hilight" required/>

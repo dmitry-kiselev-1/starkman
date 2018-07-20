@@ -11,6 +11,7 @@ import { HttpResponse } from '@angular/common/http';
 import { ConfirmationDialogComponent } from '../../dialog/confirmation-dialog/confirmation-dialog.component';
 import { PageType } from '../../../models/page/page-type';
 import { ConfirmationDialogData } from '../../../models/dialog/confirmation-dialog-data';
+import { MatTabChangeEvent } from '@angular/material/tabs/typings/tab-group';
 
 @Component({
     selector: 'app-category-form',
@@ -154,5 +155,13 @@ export class CategoryFormComponent extends BaseComponent implements OnInit {
             if ((result as ConfirmationDialogData).result == true)
                 this.delete();
         });
+    }
+
+    filterTabActive: boolean = false;
+    selectedTabChange(tab: MatTabChangeEvent)
+    {
+        //debugger;
+        //if (tab.index == 3)
+        //    this.filterTabActive = true;
     }
 }

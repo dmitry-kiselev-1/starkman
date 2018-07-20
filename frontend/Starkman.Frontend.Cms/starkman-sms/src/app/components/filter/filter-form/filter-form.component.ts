@@ -66,7 +66,7 @@ export class FilterFormComponent extends BaseComponent implements OnInit {
                         this.allFiltersDataSource.data = data;
 
                         // join for update names:
-                        this.entity.filterList = _.map(this.entity.filterList, (filter) =>
+                        this.entity.filterList = _lodash.map(this.entity.filterList, (filter) =>
                         {
                             let findFilter = _lodash.find(data, (f) => (f as Filter).id == filter.id);
                             if (findFilter)

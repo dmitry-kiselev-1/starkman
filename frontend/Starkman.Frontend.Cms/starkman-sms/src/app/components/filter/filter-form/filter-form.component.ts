@@ -80,9 +80,6 @@ export class FilterFormComponent extends BaseComponent implements OnInit {
         this.allFiltersDataSource.filter = filterValue.trim().toLowerCase();
     }
 
-    deleteSelectedFilters() {
-    }
-
     addFiltersCol(notify: boolean = true) {
         if (notify) {this.notificationService.appLoading = true};
         this.allFiltersDataSource.data.push({id: this.guid(), sortOrder: 0, name: 'Новый фильтр', value: ''} as Filter);
@@ -155,4 +152,11 @@ export class FilterFormComponent extends BaseComponent implements OnInit {
     //         this.entity.filterList.forEach(row => this.allFiltersSelection.select(row));
     // }
 
+    takeFilter() {
+
+    }
+
+    dropFilter() {
+
+    }
 }

@@ -9,31 +9,35 @@
 
         <div style="display: flex; padding-top: 20px;">
             <div>
-                    <mat-form-field>
-                        <input type="text" #search matInput placeholder="Поиск по всем фильтрам"
-                               style="color: grey;"
-                               (keyup)="this.applyFilter(search.value)">
-                        <mat-icon matSuffix style="color: grey; font-size: medium;">search</mat-icon>
-                    </mat-form-field>
+                <mat-form-field>
+                    <input type="text" #search matInput placeholder="Поиск по всем фильтрам"
+                           style="color: grey;"
+                           (keyup)="this.applyFilter(search.value)">
+                    <mat-icon matSuffix style="color: grey; font-size: medium;">search</mat-icon>
+                </mat-form-field>
 
                 <div class="table-container">
                     <mat-table matSort
-                           [dataSource]="allFiltersDataSource"
-                           class="mat-elevation-z8">
+                               [dataSource]="allFiltersDataSource"
+                               class="mat-elevation-z8">
 
                         <ng-container matColumnDef="sortOrder">
-                            <mat-header-cell *matHeaderCellDef mat-sort-header> Номер </mat-header-cell>
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> Номер</mat-header-cell>
                             <mat-cell *matCellDef="let filter">
                                 <!--{{filter.sortOrder | number}}-->
-                                <input matInput type="number" autocomplete="off" [(ngModel)]="filter.sortOrder" name="sortOrder_{{filter.id}}" placeholder="Номер" class="table-editable-sell-hover-hilight" required/>
+                                <input matInput type="number" autocomplete="off" [(ngModel)]="filter.sortOrder"
+                                       name="sortOrder_{{filter.id}}" placeholder="Номер"
+                                       class="table-editable-sell-hover-hilight" required/>
                             </mat-cell>
                         </ng-container>
 
                         <ng-container matColumnDef="name">
-                            <mat-header-cell *matHeaderCellDef  mat-sort-header> Название </mat-header-cell>
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> Название</mat-header-cell>
                             <mat-cell *matCellDef="let filter">
                                 <!--{{filter.name}}-->
-                                <input matInput type="text" autocomplete="off" [(ngModel)]="filter.name" name="name_{{filter.id}}" placeholder="Название"  class="table-editable-sell-hover-hilight" required/>
+                                <input matInput type="text" autocomplete="off" [(ngModel)]="filter.name"
+                                       name="name_{{filter.id}}" placeholder="Название"
+                                       class="table-editable-sell-hover-hilight" required/>
                             </mat-cell>
                         </ng-container>
 
@@ -59,62 +63,70 @@
             </div>
             <div style="margin-left: 20px; margin-top: 0em;">
                 <h4>Выбранные фильтры</h4>
-                    <mat-table
-                           [dataSource]="this.entity.filterList"
-                           class="mat-elevation-z8">
+                <mat-table
+                    [dataSource]="this.entity.filterList"
+                    class="mat-elevation-z8">
 
-                        <ng-container matColumnDef="name">
-                            <mat-header-cell *matHeaderCellDef> Название </mat-header-cell>
-                            <mat-cell *matCellDef="let filter">
-                                {{filter.name}}
-                                <!--<input matInput type="text" autocomplete="off" [(ngModel)]="filter.name" name="name_{{filter.id}}" placeholder="Название"  class="table-editable-sell-hover-hilight" required/>-->
-                            </mat-cell>
-                        </ng-container>
+                    <ng-container matColumnDef="name">
+                        <mat-header-cell *matHeaderCellDef> Название</mat-header-cell>
+                        <mat-cell *matCellDef="let filter">
+                            {{filter.name}}
+                            <!--<input matInput type="text" autocomplete="off" [(ngModel)]="filter.name" name="name_{{filter.id}}" placeholder="Название"  class="table-editable-sell-hover-hilight" required/>-->
+                        </mat-cell>
+                    </ng-container>
 
-                        <ng-container matColumnDef="value">
-                            <mat-header-cell *matHeaderCellDef> Значение </mat-header-cell>
-                            <mat-cell *matCellDef="let filter">
-                                <!--{{filter.value}}-->
-                                <input matInput type="text" autocomplete="off" [(ngModel)]="filter.value" name="value_{{filter.id}}" placeholder="Значение"  class="table-editable-sell-hover-hilight" required/>
-                            </mat-cell>
-                        </ng-container>
+                    <ng-container matColumnDef="value">
+                        <mat-header-cell *matHeaderCellDef> Значение</mat-header-cell>
+                        <mat-cell *matCellDef="let filter">
+                            <!--{{filter.value}}-->
+                            <input matInput type="text" autocomplete="off" [(ngModel)]="filter.value"
+                                   name="value_{{filter.id}}" placeholder="Значение"
+                                   class="table-editable-sell-hover-hilight" required/>
+                        </mat-cell>
+                    </ng-container>
 
-                            <!--
-                            <ng-container matColumnDef="select">
-                            <th mat-header-cell *matHeaderCellDef>
-                                <mat-checkbox (change)="$event ? selectedFiltersColumnsMasterToggle() : null"
-                                              [checked]="selectedFiltersColumns.hasValue() && selectedFiltersColumnsIsAllSelected()"
-                                              [indeterminate]="selectedFiltersColumns.hasValue() && !selectedFiltersColumnsIsAllSelected()">
-                                </mat-checkbox>
-                            </th>
-                            <td mat-cell *matCellDef="let row">
-                                <mat-checkbox (click)="$event.stopPropagation()"
-                                              (change)="$event ? selectedFiltersColumns.toggle(row) : null"
-                                              [checked]="selectedFiltersColumns.isSelected(row)">
-                                </mat-checkbox>
-                            </td>
-                        </ng-container>
-                        -->
+                    <!--
+                    <ng-container matColumnDef="select">
+                    <th mat-header-cell *matHeaderCellDef>
+                        <mat-checkbox (change)="$event ? selectedFiltersColumnsMasterToggle() : null"
+                                      [checked]="selectedFiltersColumns.hasValue() && selectedFiltersColumnsIsAllSelected()"
+                                      [indeterminate]="selectedFiltersColumns.hasValue() && !selectedFiltersColumnsIsAllSelected()">
+                        </mat-checkbox>
+                    </th>
+                    <td mat-cell *matCellDef="let row">
+                        <mat-checkbox (click)="$event.stopPropagation()"
+                                      (change)="$event ? selectedFiltersColumns.toggle(row) : null"
+                                      [checked]="selectedFiltersColumns.isSelected(row)">
+                        </mat-checkbox>
+                    </td>
+                </ng-container>
+                -->
 
-                        <mat-header-row *matHeaderRowDef="selectedFiltersColumns; sticky: true"></mat-header-row>
-                        <mat-row *matRowDef="let row; columns: selectedFiltersColumns;"></mat-row>
-                    </mat-table>
+                    <mat-header-row *matHeaderRowDef="selectedFiltersColumns; sticky: true"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: selectedFiltersColumns;"></mat-row>
+                </mat-table>
 
-                            <span matTooltip="Добавить фильтр в выбранные фильтры">
-                      <button (click)="addFiltersCol()" mat-mini-fab color="accent"
-                              [disabled]="this.notificationService.appLoading">
-                        <mat-icon aria-label="Добавить фильтр">add</mat-icon>
-                      </button>
-                    </span>
+                <div class="flex-container">
+                    <div class="flex-item">
+                        <span matTooltip="Выбрать фильтр">
+                          <button (click)="takeFilter()" mat-mini-fab color="accent"
+                                  [disabled]="this.notificationService.appLoading">
+                            <mat-icon aria-label="Выбрать фильтр">arrow_forward</mat-icon>
+                          </button>
+                        </span>
+                    </div>
 
-                            <span matTooltip="Удалить фильтр из выбранных фильтров">
-                      <button (click)="filtersColDeleteConfirmationDialog()" mat-mini-fab color="warn"
-                              [disabled]="this.notificationService.appLoading">
-                        <mat-icon aria-label="Удалить">delete</mat-icon>
-                      </button>
-                    </span>
-
+                    <div class="flex-item">
+                        <span matTooltip="Отменить выбор">
+                          <button (click)="dropFilter()" mat-mini-fab color="accent"
+                                  [disabled]="this.notificationService.appLoading">
+                            <mat-icon aria-label="Отменить выбор">arrow_back</mat-icon>
+                          </button>
+                        </span>
+                    </div>
                 </div>
+
+            </div>
         </div>
 
     </mat-card-content>
@@ -122,30 +134,30 @@
     <mat-card-actions>
         <div class="button-row">
 
-            <span matTooltip="Сохранить изменения коллекции всех фильтров" style="margin-left: 20px;">
+            <span matTooltip="Сохранить изменения" style="margin-left: 20px;">
               <button (click)="saveFiltersCol()" mat-fab color="primary"
                       [disabled]="this.notificationService.appLoading">
                 <mat-icon aria-label="Сохранить">done</mat-icon>
               </button>
             </span>
 
-            <span matTooltip="Отменить внесённые изменения в коллекцию всех фильтров">
+            <span matTooltip="Отменить изменения">
           <button (click)="reload()" mat-mini-fab color="accent"
                   [disabled]="this.notificationService.appLoading">
             <mat-icon class="flipV" aria-label="Отменить">refresh</mat-icon>
           </button>
         </span>
 
-            <span matTooltip="Добавить фильтр в коллекцию всех фильтров">
+            <span matTooltip="Добавить фильтр">
           <button (click)="addFiltersCol()" mat-mini-fab color="accent"
                   [disabled]="this.notificationService.appLoading">
-            <mat-icon aria-label="Добавить фильтр">add</mat-icon>
+            <mat-icon aria-label="Добавить">add</mat-icon>
           </button>
         </span>
 
-            <span matTooltip="Удалить фильтр из коллекции всех фильтров">
+            <span matTooltip="Удалить фильтр">
           <button (click)="filtersColDeleteConfirmationDialog()" mat-mini-fab color="warn"
-                  [disabled]="this.notificationService.appLoading">
+                  [disabled]="this.notificationService.appLoading || (this.allFiltersSelection.selected.length == 0)">
             <mat-icon aria-label="Удалить">delete</mat-icon>
           </button>
         </span>

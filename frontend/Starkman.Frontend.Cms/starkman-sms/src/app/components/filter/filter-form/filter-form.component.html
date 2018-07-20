@@ -64,7 +64,7 @@
             <div style="margin-left: 20px; margin-top: 0em;">
                 <h4>Выбранные фильтры</h4>
                 <mat-table
-                    [dataSource]="this.entity.filterList"
+                    [dataSource]="this.takenFiltersDataSource"
                     class="mat-elevation-z8">
 
                     <ng-container matColumnDef="name">
@@ -85,32 +85,33 @@
                         </mat-cell>
                     </ng-container>
 
-                    <!--
                     <ng-container matColumnDef="select">
-                    <th mat-header-cell *matHeaderCellDef>
-                        <mat-checkbox (change)="$event ? selectedFiltersColumnsMasterToggle() : null"
-                                      [checked]="selectedFiltersColumns.hasValue() && selectedFiltersColumnsIsAllSelected()"
-                                      [indeterminate]="selectedFiltersColumns.hasValue() && !selectedFiltersColumnsIsAllSelected()">
-                        </mat-checkbox>
-                    </th>
-                    <td mat-cell *matCellDef="let row">
-                        <mat-checkbox (click)="$event.stopPropagation()"
-                                      (change)="$event ? selectedFiltersColumns.toggle(row) : null"
-                                      [checked]="selectedFiltersColumns.isSelected(row)">
-                        </mat-checkbox>
-                    </td>
-                </ng-container>
-                -->
+                        <th mat-header-cell *matHeaderCellDef>
+                            <mat-checkbox (change)="$event ? takenFiltersMasterToggle() : null"
+                                          [checked]="takenFiltersSelection.hasValue() && takenFiltersIsAllSelected()"
+                                          [indeterminate]="takenFiltersSelection.hasValue() && !takenFiltersIsAllSelected()">
+                            </mat-checkbox>
+                        </th>
+                        <td mat-cell *matCellDef="let row">
+                            <mat-checkbox (click)="$event.stopPropagation()"
+                                          (change)="$event ? takenFiltersSelection.toggle(row) : null"
+                                          [checked]="takenFiltersSelection.isSelected(row)">
+                            </mat-checkbox>
+                        </td>
+                    </ng-container>
 
-                    <mat-header-row *matHeaderRowDef="selectedFiltersColumns; sticky: true"></mat-header-row>
-                    <mat-row *matRowDef="let row; columns: selectedFiltersColumns;"></mat-row>
+                    <mat-header-row *matHeaderRowDef="takenFiltersColumns; sticky: true"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: takenFiltersColumns;"></mat-row>
                 </mat-table>
 
                 <div class="flex-container">
                     <div class="flex-item">
+                        <br/>
+                    </div>
+                    <div class="flex-item">
                         <span matTooltip="Выбрать фильтр">
                           <button (click)="takeFilter()" mat-mini-fab color="accent"
-                                  [disabled]="this.notificationService.appLoading">
+                                  [disabled]="this.notificationService.appLoading || (this.allFiltersSelection.selected.length == 0)">
                             <mat-icon aria-label="Выбрать фильтр">arrow_forward</mat-icon>
                           </button>
                         </span>
@@ -119,7 +120,7 @@
                     <div class="flex-item">
                         <span matTooltip="Отменить выбор">
                           <button (click)="dropFilter()" mat-mini-fab color="accent"
-                                  [disabled]="this.notificationService.appLoading">
+                                  [disabled]="this.notificationService.appLoading || (this.takenFiltersSelection.selected.length == 0)">
                             <mat-icon aria-label="Отменить выбор">arrow_back</mat-icon>
                           </button>
                         </span>

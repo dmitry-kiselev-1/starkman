@@ -22,12 +22,14 @@ export class FilterFormComponent extends BaseComponent implements OnInit {
 
     @Input() entity: Product;
     allFiltersColumns: string[] = ['sortOrder', 'name', 'select'];
-    selectedFiltersColumns: string[] = ['name', 'value'];
+    takenFiltersColumns: string[] = ['name', 'value', 'select'];
 
     allFiltersSelection: any;
-    selectedFiltersSelection: any;
+    takenFiltersSelection: any;
 
     allFiltersDataSource = new MatTableDataSource<Filter>([]);
+    takenFiltersDataSource = new MatTableDataSource<Filter>([]);
+
     @ViewChild(MatSort) sort: MatSort;
 
     constructor(
@@ -49,7 +51,7 @@ export class FilterFormComponent extends BaseComponent implements OnInit {
         const initialSelection = [];
         const allowMultiSelect = true;
         this.allFiltersSelection = new SelectionModel<Filter>(allowMultiSelect, initialSelection);
-        this.selectedFiltersSelection = new SelectionModel<Filter>(allowMultiSelect, initialSelection);
+        this.takenFiltersSelection = new SelectionModel<Filter>(allowMultiSelect, initialSelection);
     }
 
     reload(notify: boolean = false) {
@@ -62,9 +64,28 @@ export class FilterFormComponent extends BaseComponent implements OnInit {
                     if (data) {
                         data = _lodash.sortBy(data, (f) => (f as Filter).sortOrder);
                         this.allFiltersDataSource.data = data;
+
+                        // join for update names:
+                        this.entity.filterList = _.map(this.entity.filterList, (filter) =>
+                        {
+                            let findFilter = _lodash.find(data, (f) => (f as Filter).id == filter.id);
+                            if (findFilter)
+                            return {
+                                id: filter.id,
+                                name: _lodash.find(data, (f) => (f as Filter).id == filter.id).name,
+                                value: filter.value,
+                                sortOrder: filter.sortOrder
+                            }
+                            else return {id: "-1"};
+                        }) as Filter[];
+
+                        this.entity.filterList = _lodash.filter(this.entity.filterList, (filter) => filter.id != "-1");
+
+                        this.takenFiltersDataSource.data = this.entity.filterList;
                     }
                     else {
                         this.allFiltersDataSource.data = [] as Filter[];
+                        this.entity.filterList = [] as Filter[];
                     }
                     this.allFiltersDataSource.sort = this.sort;
                 },
@@ -89,12 +110,14 @@ export class FilterFormComponent extends BaseComponent implements OnInit {
 
     saveFiltersCol(notify: boolean = true) {
         if (notify) {this.notificationService.appLoading = true};
+        this.allFiltersSelection.clear();
         this.allFiltersDataSource.filter = null;
         this.filterService.replace(this.allFiltersDataSource.data)
             .pipe(finalize(() => { if (notify) { this.notificationService.appLoading = false; }}))
             .subscribe(
                 data => {
-                    console.log(`${this.allFiltersDataSource.data.length} filters replaced`);
+                    // console.log(`${this.allFiltersDataSource.data.length} filters replaced`);
+                    this.reload();
                 },
                 error => this.handleError({
                     userMessage: 'Ошибка при добавлении фильтра в коллекцию!',
@@ -138,25 +161,32 @@ export class FilterFormComponent extends BaseComponent implements OnInit {
             this.allFiltersDataSource.data.forEach(row => this.allFiltersSelection.select(row));
     }
 
-    // /** Whether the number of selected elements matches the total number of rows. */
-    // selectedFiltersColumnsIsAllSelected() {
-    //     const numSelected = this.allFiltersSelection.selected.length;
-    //     const numRows = this.entity.filterList.length;
-    //     return numSelected == numRows;
-    // }
-    //
-    // /** Selects all rows if they are not all selected; otherwise clear selection. */
-    // selectedFiltersColumnsMasterToggle() {
-    //     this.selectedFiltersColumnsIsAllSelected() ?
-    //         this.allFiltersSelection.clear() :
-    //         this.entity.filterList.forEach(row => this.allFiltersSelection.select(row));
-    // }
+    /** Whether the number of selected elements matches the total number of rows. */
+    takenFiltersIsAllSelected() {
+        const numSelected = this.takenFiltersSelection.selected.length;
+        const numRows = this.takenFiltersDataSource.data.length;
+        return numSelected == numRows;
+    }
+
+    /** Selects all rows if they are not all selected; otherwise clear selection. */
+    takenFiltersMasterToggle() {
+        this.takenFiltersIsAllSelected() ?
+            this.takenFiltersSelection.clear() :
+            this.takenFiltersDataSource.data.forEach(row => this.takenFiltersSelection.select(row));
+    }
 
     takeFilter() {
+        this.takenFiltersDataSource.data = _lodash.concat(this.takenFiltersDataSource.data, this.allFiltersSelection.selected);
 
+        this.entity.filterList = this.takenFiltersDataSource.data;
     }
 
     dropFilter() {
+        this.takenFiltersDataSource.data = _lodash.filter(this.takenFiltersDataSource.data,
+            (filter) => !this.takenFiltersSelection.selected.includes(filter)
+        );
+        this.takenFiltersSelection.clear();
 
+        this.entity.filterList = this.takenFiltersDataSource.data;
     }
 }

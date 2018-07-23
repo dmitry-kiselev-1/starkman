@@ -27,7 +27,10 @@ import { ProductService } from './services/product.service';
 
 import { SidenavComponent } from './components/layout/sidenav/sidenav.component';
 
+import { LoginDialogComponent } from './components/dialog/login-dialog/login-dialog.component';
 import { ConfirmationDialogComponent } from './components/dialog/confirmation-dialog/confirmation-dialog.component';
+import { OfferSearchDialogComponent } from './components/dialog/offer-search-dialog/offer-search-dialog.component';
+
 import { CategoryListComponent } from './components/category/category-list/category-list.component';
 import { CategoryFormComponent } from './components/category/category-form/category-form.component';
 import { OrderListComponent } from './components/order/order-list/order-list.component';
@@ -37,22 +40,25 @@ import { ProductListComponent } from './components/product/product-list/product-
 import { ProductFormComponent } from './components/product/product-form/product-form.component';
 import { OrderService } from './services/order.service';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { OfferSearchDialogComponent } from './components/dialog/offer-search-dialog/offer-search-dialog.component';
 import { OfferFormComponent } from './components/offer/offer-form/offer-form.component';
 import { FilterFormComponent } from './components/filter/filter-form/filter-form.component';
 import { ContentComponent } from './components/layout/content/content.component';
-import { AuthGuardService } from './services/auth/auth-guard.service';
+import { FilterService } from './services/filter.service';
+import { Router } from '@angular/router';
+import { AuthGuard } from './services/auth/auth-guard.service';
 import { AuthService } from './services/auth/auth.service';
 import { LoginComponent } from './components/login/login.component';
-import { FilterService } from './services/filter.service';
 
 @NgModule({
     declarations: [
         EnumPipe,
         BoolPipe,
+        LoginComponent,
         AppRootComponent,
         SidenavComponent,
+        LoginDialogComponent,
         ConfirmationDialogComponent,
+        OfferSearchDialogComponent,
         CategoryListComponent,
         CategoryFormComponent,
         ProductListComponent,
@@ -61,15 +67,14 @@ import { FilterService } from './services/filter.service';
         OrderFormComponent,
         PhotoFormComponent,
         PageNotFoundComponent,
-        OfferSearchDialogComponent,
         OfferFormComponent,
         FilterFormComponent,
-        ContentComponent,
-        LoginComponent
+        ContentComponent
     ],
     entryComponents: [
         ConfirmationDialogComponent,
-        OfferSearchDialogComponent
+        OfferSearchDialogComponent,
+        LoginDialogComponent
     ],
     imports: [
         BrowserModule,
@@ -83,17 +88,24 @@ import { FilterService } from './services/filter.service';
                 delay: 250, passThruUnknownUrl: true, apiBase: 'api/', caseSensitiveSearch: false
             } as InMemoryBackendConfigArgs),
 
-        AppRoutingModule,
         MaterialDesignModule,
         PrimeNgModule,
-        NgBootstrapModule
+        NgBootstrapModule,
+
+        AppRoutingModule,
+
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},
-        ConfigService, NotificationService, AuthGuardService, AuthService,
-        DateService, CategoryService, PhotoService, ProductService, OrderService, FilterService
+        AuthGuard, AuthService,
+        ConfigService, NotificationService, DateService,
+        CategoryService, PhotoService, ProductService, OrderService, FilterService
     ],
     bootstrap: [AppRootComponent]
 })
 export class AppModule {
+    // Diagnostic only: inspect router configuration
+    //constructor(router: Router) {
+    //    console.log('Routes: ', JSON.stringify(router.config, undefined, 2));
+    //}
 }

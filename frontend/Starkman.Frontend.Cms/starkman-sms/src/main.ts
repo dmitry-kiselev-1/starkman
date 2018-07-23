@@ -11,7 +11,7 @@ if (environment.production) {
 }
 else {
     //https://stackoverflow.com/questions/43375532/expressionchangedafterithasbeencheckederror-explained
-    //enableProdMode();
+    enableProdMode();
 }
 
 platformBrowserDynamic().bootstrapModule(AppModule)

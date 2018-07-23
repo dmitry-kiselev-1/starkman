@@ -7,15 +7,15 @@ import {
 import { AuthService } from './auth.service';
 
 @Injectable()
-export class AuthGuardService implements CanActivateChild {
+export class AuthGuard implements CanActivateChild {
     constructor(private authService: AuthService, private router: Router) {
     }
 
     canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
         let url: string = state.url;
 
-        return true;
-        //return this.checkLogin(url);
+        //return true;
+        return this.checkLogin(url);
     }
 
     checkLogin(url: string): boolean {

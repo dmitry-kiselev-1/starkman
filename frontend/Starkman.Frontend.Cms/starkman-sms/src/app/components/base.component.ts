@@ -65,7 +65,7 @@ export abstract class BaseComponent {
     }
 
     public confirmationDialogData: ConfirmationDialogData = {result: false, text: null} as ConfirmationDialogData;
-    public loginDialogData: LoginDialogData = {result: false, user: {login: "", password: ""} as User} as LoginDialogData;
+    public loginDialogData: LoginDialogData = {result: false, data: {login: "", password: ""} as User} as LoginDialogData;
     /*
     public confirmationDialog(): void {
         const dialogRef = this.dialog.open(ConfirmationDialogComponent, {

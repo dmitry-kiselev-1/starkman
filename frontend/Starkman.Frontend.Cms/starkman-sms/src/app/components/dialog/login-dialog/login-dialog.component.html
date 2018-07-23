@@ -15,12 +15,12 @@
                     <mat-grid-list cols="1" rowHeight="5em">
                         <mat-grid-tile>
                             <mat-form-field>
-                                <input matInput type="text" autocomplete="off" [(ngModel)]="this.data.login" name="login" placeholder="Логин" required/>
+                                <input matInput type="text" autocomplete="off" #loginInput name="login" placeholder="Логин" required/>
                             </mat-form-field>
                         </mat-grid-tile>
                         <mat-grid-tile>
                             <mat-form-field>
-                                <input matInput type="password" autocomplete="off" [(ngModel)]="this.data.password" name="password" placeholder="Пароль" required/>
+                                <input matInput type="password" autocomplete="off" #passwordInput name="password" placeholder="Пароль" required/>
                             </mat-form-field>
                         </mat-grid-tile>
                     </mat-grid-list>
@@ -37,8 +37,8 @@
 <mat-dialog-actions>
     <div class="button-row">
         <button mat-button color="primary"
-                [mat-dialog-close]="{result: true, data: {login: this.data.login, password: this.data.password}}"
-                [disabled]="!this.data || !this.data.login || !this.data.password">ОК</button>
+                [mat-dialog-close]="{result: true, data: {login: loginInput.value, password: passwordInput.value}}"
+                [disabled]="!loginInput.value || !passwordInput.value">ОК</button>
 
         <!--<button mat-button color="primary" [mat-dialog-close]="{result: true, data: {}}">Отменить</button>-->
     </div>

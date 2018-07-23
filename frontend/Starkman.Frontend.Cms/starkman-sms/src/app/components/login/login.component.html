@@ -6,3 +6,8 @@
     <button (click)="logout()" *ngIf="authService.isLoggedIn">Logout</button>
 </p>
 -->
+
+<p *ngIf="this.isSuccess">
+  <span style="padding: 5em; color: grey; font-size: small; font-style: italic;"> Welcome! </span>
+</p>
+

@@ -16,6 +16,8 @@ import { User } from '../../models/user';
 export class LoginComponent extends BaseComponent implements OnInit {
     message: string;
 
+    isSuccess: boolean = false;
+
     constructor(
         public authService: AuthService,
         public router: Router,
@@ -24,7 +26,6 @@ export class LoginComponent extends BaseComponent implements OnInit {
         super(snackBar, dialog);
         this.entityType = PageType.Product;
     }
-
 
     ngOnInit(): void {
         this.loginDialog();
@@ -37,6 +38,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
             //this.setMessage();
             if (this.authService.isLoggedIn) {
                 console.log(`Login success!`);
+                this.isSuccess = true;
 
                 // Get the redirect URL from our auth service
                 // If no redirect has been set, use the default
@@ -48,6 +50,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
             else
             {
                 console.log(`Login falure!`);
+                this.isSuccess = false;
                 this.loginDialog();
             }
         });
@@ -60,7 +63,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
 
     loginDialog(): void {
         const dialogRef = this.dialog.open(LoginDialogComponent, {
-            data: this.confirmationDialogData,
+            data: this.loginDialogData,
             disableClose: true
         });
 

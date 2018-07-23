@@ -2,8 +2,9 @@
 import { MatSnackBar, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AppError } from '../models/app-error';
 import { PageType } from '../models/page/page-type';
-import { ConfirmationDialogComponent } from './dialog/confirmation-dialog/confirmation-dialog.component';
 import { ConfirmationDialogData } from '../models/dialog/confirmation-dialog-data';
+import { LoginDialogData } from '../models/dialog/login-dialog-data';
+import { User } from '../models/user';
 import * as _moment from 'moment';
 import * as _lodash from 'lodash';
 
@@ -64,6 +65,7 @@ export abstract class BaseComponent {
     }
 
     public confirmationDialogData: ConfirmationDialogData = {result: false, text: null} as ConfirmationDialogData;
+    public loginDialogData: LoginDialogData = {result: false, user: {login: "", password: ""} as User} as LoginDialogData;
     /*
     public confirmationDialog(): void {
         const dialogRef = this.dialog.open(ConfirmationDialogComponent, {

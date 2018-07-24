@@ -1,3 +1,27 @@
 .mat-card {
     margin: 20px;
 }
+
+.flex-container-row {
+    display: inline-flex;
+    justify-content: flex-start;
+}
+
+.flex-container-col {
+    display: inline-flex;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+mat-form-field {
+    padding-left: 20px;
+    width: 100px;
+}
+
+offerGridCell {
+    width: 50px;
+    border: solid;
+    border-width: 1px;
+    height: 50px;
+    border-color: red;
+}

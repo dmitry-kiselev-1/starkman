@@ -1,4 +1,4 @@
-<form #offerGridForm="ngForm" *ngIf="this.entity && this.entity.offerGrid">
+<form #offerGridForm="ngForm" *ngIf="this.entity && this.entity.offerGrid && this.category_id && !this.product_id">
 
     <mat-card>
 
@@ -8,39 +8,45 @@
         </mat-card-header>
 
         <mat-card-content>
+            <br/>
+            <h4>Сетка по-умолчанию для каждого товара в категории:</h4>
+            <br/>
 
-            <div class="flex-container">
-                <div class="flex-item">
+            <div class="flex-container-row">
+                <div class="flex-item" style="width: 100px;">
                     <span>Размер</span>
                 </div>
                 <div class="flex-item">
-                    <mat-form-field>
+                    <mat-form-field class="mat-form-field">
                         <input autocomplete="off" [(ngModel)]="this.entity.offerGrid.height.min"
                                name="heightMin"
                                matInput placeholder="старт" type="number"
+                               (keyup.enter)="onGridChange()" (blur)="onGridChange()"
                                required/>
                     </mat-form-field>
                 </div>
                 <div class="flex-item">
-                    <mat-form-field>
+                    <mat-form-field class="mat-form-field">
                         <input autocomplete="off" [(ngModel)]="this.entity.offerGrid.height.step"
                                name="heightStep"
                                matInput placeholder="шаг" type="number"
+                               (keyup.enter)="onGridChange()" (blur)="onGridChange()"
                                required/>
                     </mat-form-field>
                 </div>
                 <div class="flex-item">
-                    <mat-form-field>
+                    <mat-form-field class="mat-form-field">
                         <input autocomplete="off" [(ngModel)]="this.entity.offerGrid.height.count"
                                name="heightСount"
                                matInput placeholder="количество" type="number"
+                               (keyup.enter)="onGridChange()" (blur)="onGridChange()"
                                required/>
                     </mat-form-field>
                 </div>
             </div>
 
-            <div class="flex-container">
-                <div class="flex-item">
+            <div class="flex-container-row">
+                <div class="flex-item" style="width: 100px;">
                     <span>Рост</span>
                 </div>
                 <div class="flex-item">
@@ -48,6 +54,7 @@
                         <input autocomplete="off" [(ngModel)]="this.entity.offerGrid.size.min"
                                name="sizeMin"
                                matInput placeholder="старт" type="number"
+                               (keyup.enter)="onGridChange()" (blur)="onGridChange()"
                                required/>
                     </mat-form-field>
                 </div>
@@ -56,6 +63,7 @@
                         <input autocomplete="off" [(ngModel)]="this.entity.offerGrid.size.step"
                                name="sizeStep"
                                matInput placeholder="шаг" type="number"
+                               (keyup.enter)="onGridChange()" (blur)="onGridChange()"
                                required/>
                     </mat-form-field>
                 </div>
@@ -64,23 +72,48 @@
                         <input autocomplete="off" [(ngModel)]="this.entity.offerGrid.size.count"
                                name="sizeСount"
                                matInput placeholder="количество" type="number"
+                               (keyup.enter)="onGridChange()" (blur)="onGridChange()"
                                required/>
                     </mat-form-field>
                 </div>
             </div>
+
         </mat-card-content>
 
         <mat-card-actions>
             <div class="button-row">
-            <span matTooltip="Генерировать сетку">
+            <span matTooltip="Показать сетку">
               <button (click)="create()" mat-mini-fab color="accent"
                       [disabled]="!offerGridForm.form.valid || this.notificationService.appLoading">
-                <mat-icon aria-label="Генерировать сетку">done</mat-icon>
+                <mat-icon aria-label="Показать сетку">done</mat-icon>
               </button>
             </span>
             </div>
         </mat-card-actions>
 
+        <div class="flex-container-row">
+            <div class="flex-item" style="width: 20px;"></div>
+            <div *ngFor="let height of this.heightCol" class="flex-item" style="width: 20px;">
+                <span style="font-size: small">{{height}}</span>
+            </div>
+        </div>
+        <br/>
+        <div class="flex-container-col">
+            <div *ngFor="let size of this.sizeCol" class="flex-item" style="height: 20px;">
+                <span style="font-size: small">{{size}}</span>
+            </div>
+        </div>
+
+        <!--
+        <table>
+            <th *ngFor="let height of this.heightCol">{{height}}</th>
+            <tr *ngFor="let size of this.sizeCol">
+                <td *ngFor="let height of this.heightCol">
+                    <div class="offerGridCell">{{height}}:{{size}}</div>
+                </td>
+            </tr>
+        </table>
+        -->
     </mat-card>
 
 </form>

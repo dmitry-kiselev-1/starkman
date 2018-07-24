@@ -11,6 +11,7 @@ import { OrderStatus } from '../models/order/order-status';
 import { Filter } from '../models/page/filter';
 import * as _moment from 'moment';
 import * as _lodash from 'lodash';
+import { OfferGrid } from '../models/order/offer-grid';
 
 /*
   GET api/categories                    // all categories
@@ -137,11 +138,13 @@ export class InMemoryDataService implements InMemoryDbService {
                         filterList: filterList
                     } as Product;
 
+                product.offerGrid = {height: {min:0, step:0, count:0}, size: {min:0, step:0, count:0}} as OfferGrid;
                 productList.push(product);
                 products.push(product);
             }
 
             category.productList = productList;
+            category.offerGrid = {height: {min:0, step:0, count:0}, size: {min:0, step:0, count:0}} as OfferGrid;
         });
 
         let orders: Order[] = [];

@@ -122,7 +122,7 @@
         <app-photo-form [entity]="this.entity" [selectedPhoto]="(this.entity.photoList && this.entity.photoList.length > 0) ? this.entity.photoList[0] : null"></app-photo-form>
     </mat-tab>
 
-    <mat-tab label="Цены" *ngIf="this.entityType == 1">
+    <mat-tab label="Цены">
         <app-offer-form [entity]="this.entity"></app-offer-form>
     </mat-tab>
 

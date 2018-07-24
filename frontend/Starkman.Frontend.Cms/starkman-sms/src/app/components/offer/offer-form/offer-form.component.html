@@ -1,16 +1,86 @@
-<mat-card *ngIf="this.entity">
+<form #offerGridForm="ngForm" *ngIf="this.entity && this.entity.offerGrid">
 
-    <mat-card-header>
-        <mat-card-title>{{this.entity.title}}</mat-card-title>
-        <mat-card-subtitle *ngIf="this.entity.urlParent">из категории: {{this.entity.urlParent}}</mat-card-subtitle>
-    </mat-card-header>
+    <mat-card>
 
-    <mat-card-content>
-    </mat-card-content>
+        <mat-card-header>
+            <mat-card-title>{{this.entity.title}}</mat-card-title>
+            <mat-card-subtitle *ngIf="this.entity.urlParent">из категории: {{this.entity.urlParent}}</mat-card-subtitle>
+        </mat-card-header>
 
-    <mat-card-actions>
-        <div class="button-row">
-        </div>
-    </mat-card-actions>
+        <mat-card-content>
 
-</mat-card>
+            <div class="flex-container">
+                <div class="flex-item">
+                    <span>Размер</span>
+                </div>
+                <div class="flex-item">
+                    <mat-form-field>
+                        <input autocomplete="off" [(ngModel)]="this.entity.offerGrid.height.min"
+                               name="heightMin"
+                               matInput placeholder="старт" type="number"
+                               required/>
+                    </mat-form-field>
+                </div>
+                <div class="flex-item">
+                    <mat-form-field>
+                        <input autocomplete="off" [(ngModel)]="this.entity.offerGrid.height.step"
+                               name="heightStep"
+                               matInput placeholder="шаг" type="number"
+                               required/>
+                    </mat-form-field>
+                </div>
+                <div class="flex-item">
+                    <mat-form-field>
+                        <input autocomplete="off" [(ngModel)]="this.entity.offerGrid.height.count"
+                               name="heightСount"
+                               matInput placeholder="количество" type="number"
+                               required/>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="flex-container">
+                <div class="flex-item">
+                    <span>Рост</span>
+                </div>
+                <div class="flex-item">
+                    <mat-form-field>
+                        <input autocomplete="off" [(ngModel)]="this.entity.offerGrid.size.min"
+                               name="sizeMin"
+                               matInput placeholder="старт" type="number"
+                               required/>
+                    </mat-form-field>
+                </div>
+                <div class="flex-item">
+                    <mat-form-field>
+                        <input autocomplete="off" [(ngModel)]="this.entity.offerGrid.size.step"
+                               name="sizeStep"
+                               matInput placeholder="шаг" type="number"
+                               required/>
+                    </mat-form-field>
+                </div>
+                <div class="flex-item">
+                    <mat-form-field>
+                        <input autocomplete="off" [(ngModel)]="this.entity.offerGrid.size.count"
+                               name="sizeСount"
+                               matInput placeholder="количество" type="number"
+                               required/>
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-card-content>
+
+        <mat-card-actions>
+            <div class="button-row">
+            <span matTooltip="Генерировать сетку">
+              <button (click)="create()" mat-mini-fab color="accent"
+                      [disabled]="!offerGridForm.form.valid || this.notificationService.appLoading">
+                <mat-icon aria-label="Генерировать сетку">done</mat-icon>
+              </button>
+            </span>
+            </div>
+        </mat-card-actions>
+
+    </mat-card>
+
+</form>

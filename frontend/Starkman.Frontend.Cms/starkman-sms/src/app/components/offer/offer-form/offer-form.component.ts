@@ -4,6 +4,7 @@ import { MatDialog, MatSnackBar } from '@angular/material';
 import { PageType } from '../../../models/page/page-type';
 import { BaseComponent } from '../../base.component';
 import { NotificationService } from '../../../services/notification.service';
+import { OfferGrid } from '../../../models/order/offer-grid';
 
 @Component({
   selector: 'app-offer-form',
@@ -22,5 +23,24 @@ export class OfferFormComponent extends BaseComponent implements OnInit {
         this.entityType = PageType.Offer;
     }
 
-    ngOnInit() {}
+    offerGridArray: Array<number> = new Array<number>();
+
+    ngOnInit() {
+        this.create();
+    }
+
+    create() {
+        if(!(this.entity as any).offerGrid) return;
+
+        for (let i = 0;
+            i < (this.entity as any).offerGrid.height.count;
+            i++)
+        {
+            let height = i * (this.entity as any).offerGrid.height.step +
+                (this.entity as any).offerGrid.height.min;
+
+            console.log(height);
+        }
+    }
+
 }

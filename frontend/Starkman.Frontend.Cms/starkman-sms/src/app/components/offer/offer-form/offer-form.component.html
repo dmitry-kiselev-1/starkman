@@ -91,6 +91,7 @@
             </div>
         </mat-card-actions>
 
+        <!--
         <div class="flex-container-row">
             <div class="flex-item" style="width: 20px;"></div>
             <div *ngFor="let height of this.heightCol" class="flex-item" style="width: 20px;">
@@ -103,17 +104,21 @@
                 <span style="font-size: small">{{size}}</span>
             </div>
         </div>
+        <br/><br/>
+        -->
 
-        <!--
         <table>
+            <th style="width: 50px;"></th>
             <th *ngFor="let height of this.heightCol">{{height}}</th>
             <tr *ngFor="let size of this.sizeCol">
+                <td style="font-weight: bold">{{size}}</td>
                 <td *ngFor="let height of this.heightCol">
-                    <div class="offerGridCell">{{height}}:{{size}}</div>
+                    <!--<div class="offerGridCell">{{height}}:{{size}}</div>-->
+                    <input autocomplete="off" matInput class="table-editable-sell-hover-hilight table-editable-sell" />
                 </td>
             </tr>
         </table>
-        -->
+
     </mat-card>
 
 </form>

@@ -138,13 +138,13 @@ export class InMemoryDataService implements InMemoryDbService {
                         filterList: filterList
                     } as Product;
 
-                product.offerGrid = {height: {min:0, step:0, count:0}, size: {min:0, step:0, count:0}} as OfferGrid;
+                product.offerGrid = {height: {min:null, step:null, count:null}, size: {min:null, step:null, count:null}} as OfferGrid;
                 productList.push(product);
                 products.push(product);
             }
 
             category.productList = productList;
-            category.offerGrid = {height: {min:0, step:0, count:0}, size: {min:0, step:0, count:0}} as OfferGrid;
+            category.offerGrid = {height: {min:null, step:null, count:null}, size: {min:null, step:null, count:null}} as OfferGrid;
         });
 
         let orders: Order[] = [];

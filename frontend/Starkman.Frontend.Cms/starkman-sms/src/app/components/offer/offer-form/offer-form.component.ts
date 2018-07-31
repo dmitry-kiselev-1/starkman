@@ -40,6 +40,7 @@ export class OfferFormComponent extends BaseComponent implements OnInit {
                 (params: ParamMap) => {
                     this.product_id = params.get('product_id');
                     this.category_id = params.get('category_id');
+                    this.fillByParent();
                     this.create();
                 },
                 error => this.handleError(error)
@@ -86,5 +87,16 @@ export class OfferFormComponent extends BaseComponent implements OnInit {
     onGridChange()
     {
         this.create();
+    }
+
+    fillByParent() {
+        debugger;
+        if(!(this.entity as any).urlParent) return;
+        let parentOfferGrid = (this.entity as any).parent.offerGrid || null;
+
+        if(this.entity.offerGrid == {height: {min:null, step:null, count:null}, size: {min:null, step:null, count:null}} as OfferGrid) {
+            debugger;
+            this.entity.offerGrid = Object.assign(this.entity.offerGrid, this.entity.parent.offerGrid);
+        }
     }
 }

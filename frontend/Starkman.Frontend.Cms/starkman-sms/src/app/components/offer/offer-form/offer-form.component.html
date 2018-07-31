@@ -1,4 +1,4 @@
-<form #offerGridForm="ngForm" *ngIf="this.entity && this.entity.offerGrid && this.category_id && !this.product_id">
+<form #offerGridForm="ngForm" *ngIf="this.entity && this.entity.offerGrid">
 
     <mat-card>
 
@@ -9,7 +9,8 @@
 
         <mat-card-content>
             <br/>
-            <h4>Сетка по-умолчанию для каждого товара в категории:</h4>
+            <h4 *ngIf="!this.product_id">Размерная сетка категории:</h4>
+            <h4 *ngIf="this.product_id">Размерная сетка товара:</h4>
             <br/>
 
             <div class="flex-container-row">
@@ -91,6 +92,20 @@
             </div>
         </mat-card-actions>
 
+        <table>
+            <th style="width: 50px; padding-bottom: 50px;"></th>
+            <th *ngFor="let height of this.heightCol">{{height}}</th>
+            <tr *ngFor="let size of this.sizeCol">
+                <td style="font-weight: bold">{{size}}</td>
+                <td *ngFor="let height of this.heightCol">
+                    <!--<div class="offerGridCell">{{height}}:{{size}}</div>-->
+                    <input autocomplete="off" matInput type="number"
+                           [disabled]="!this.product_id"
+                           class="table-editable-sell-hover-hilight table-editable-sell" />
+                </td>
+            </tr>
+        </table>
+
         <!--
         <div class="flex-container-row">
             <div class="flex-item" style="width: 20px;"></div>
@@ -106,18 +121,6 @@
         </div>
         <br/><br/>
         -->
-
-        <table>
-            <th style="width: 50px;"></th>
-            <th *ngFor="let height of this.heightCol">{{height}}</th>
-            <tr *ngFor="let size of this.sizeCol">
-                <td style="font-weight: bold">{{size}}</td>
-                <td *ngFor="let height of this.heightCol">
-                    <!--<div class="offerGridCell">{{height}}:{{size}}</div>-->
-                    <input autocomplete="off" matInput class="table-editable-sell-hover-hilight table-editable-sell" />
-                </td>
-            </tr>
-        </table>
 
     </mat-card>
 

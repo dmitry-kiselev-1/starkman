@@ -21,6 +21,8 @@ npm update -g
 npm install -g @angular/cli
 npm update -g typescript@latest
 
+ng generate component src/app/modules/feedback/components/feedback-form --skip-import
+
 ng generate component components/login --module app
 
 ng generate component components/page/page-form --module app

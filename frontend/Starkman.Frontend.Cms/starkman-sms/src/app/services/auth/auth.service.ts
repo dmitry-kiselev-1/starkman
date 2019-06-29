@@ -7,7 +7,7 @@ import { User } from '../../models/user';
 @Injectable()
 export class AuthService {
 
-    loginProtection: boolean = true;
+    loginProtection: boolean = false;
     isLoggedIn: boolean = !this.loginProtection;
 
     // store the URL so we can redirect after logging in

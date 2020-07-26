@@ -7,7 +7,7 @@ import { User } from '../../models/user';
 @Injectable()
 export class AuthService {
 
-    loginProtection: boolean = false;
+    loginProtection: boolean = true;
     isLoggedIn: boolean = !this.loginProtection;
 
     // store the URL so we can redirect after logging in
@@ -16,7 +16,7 @@ export class AuthService {
     login(user: User): Observable<boolean> {
         //debugger;
         //ToDo: login storage request:
-        let loginDataIsCorrect: boolean = ((user.login == "0") && (user.password == "0"));
+        let loginDataIsCorrect: boolean = ((user.login == "admin") && (user.password == "0"));
         this.isLoggedIn = loginDataIsCorrect;
 
         return of((this.isLoggedIn)).pipe(

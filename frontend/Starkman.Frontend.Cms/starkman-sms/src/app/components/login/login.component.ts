@@ -28,7 +28,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        if (this.authService.loginProtection)
+        if (this.authService.loginProtection && !this.authService.isLoggedIn)
             this.loginDialog();
     }
 

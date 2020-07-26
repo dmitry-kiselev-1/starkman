@@ -1,3 +1,28 @@
+
+## The site is published at
+
+https://lemon-ground-0057cf203.azurestaticapps.net
+https://dmitry-kiselev-1.github.io/starkman
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 npm install --save lodash
 npm install --save @types/lodash
 

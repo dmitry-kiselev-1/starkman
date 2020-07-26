@@ -7,7 +7,7 @@
         "start": "ng serve",
         "ng serve --port 4200": "ng serve --port 4200",
         "build": "ng build --prod --aot",
-        "build for GitHub pages": "ng build --prod --output-path docs --base-href /starkman/",
+        "build GitHub pages": "ng build --prod --output-path docs --base-href /starkman/",
         "build:ssr": "npm run build -- --app=ssr --output-hashing=media",
         "test": "ng test",
         "lint": "ng lint",
